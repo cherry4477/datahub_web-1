@@ -90,6 +90,7 @@ function gonextpage(nextpages){
             type: "GET",
             cache: false,
             async: false,
+            headers:headerToken,
             dataType: 'json',
             success: function (json) {
                 if (json.code == 0) {
@@ -388,14 +389,19 @@ function about_item(){
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     $("#client_down p:nth-child(2)").text(repoName);
+    var headerToken={};
 
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url: ngUrl+"/repositories/"+repoName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        //headers:{Authorization:"Token "+$.cookie("token")},
+        headers:{Authorization:"Token "+$.cookie("token")},
         success:function(json){
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
@@ -422,13 +428,19 @@ function about_item(){
 function company(){
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
+    var headerToken={};
+
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url: ngUrl+"/repositories/"+repoName+"/"+itemName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        //headers:{Authorization:"Token "+$.cookie("token")},
+        headers:{Authorization:"Token "+$.cookie("token")},
         success:function(json) {
             //company
             var create_user=json.data.create_user;
@@ -788,13 +800,19 @@ function hurry_buy(){
             //创建价格列表
             var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
             chargeBody.html("");
+            var headerToken={};
+
+            //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
                 $.ajax({
                     url: ngUrl+"/repositories/"+repoName+"/"+itemName,
                     type: "GET",
                     cache:false,
                     async:false,
                     dataType:'json',
-                    //headers:{Authorization:"Token "+$.cookie("token")},
+                    headers:{Authorization:"Token "+$.cookie("token")},
                     success:function(json) {
                         var pricestate = json.data.pricestate;//获取付费状态
                             var price = json.data.price;//计费方式
@@ -882,13 +900,19 @@ function hurry_buy(){
         Array.prototype.max = function(){   //最大值
             return Math.max.apply({},this)
         }
+        var headerToken={};
+
+        //登陆后
+        if($.cookie("token")!=null&&$.cookie("token")!="null"){
+            headerToken={Authorization:"Token "+$.cookie("token")};
+        }
         $.ajax({
             url: ngUrl+"/repositories/"+repoName+"/"+itemName,
             type: "GET",
             cache:false,
             async:false,
             dataType:'json',
-            //headers:{Authorization:"Token "+$.cookie("token")},
+            headers:{Authorization:"Token "+$.cookie("token")},
             success:function(json) {
                 var pricestate = json.data.pricestate;//获取付费状态
                 var price = json.data.price;//计费方式
@@ -1095,13 +1119,19 @@ function apply_buy(){
             //创建价格列表
             var chargeBody = $("#subscriptDialog .modal-body .sub3 .sbody .charge-body");
             chargeBody.html("");
+            var headerToken={};
+
+            //登陆后
+            if($.cookie("token")!=null&&$.cookie("token")!="null"){
+                headerToken={Authorization:"Token "+$.cookie("token")};
+            }
             $.ajax({
                 url: ngUrl+"/repositories/"+repoName+"/"+itemName,
                 type: "GET",
                 cache:false,
                 async:false,
                 dataType:'json',
-                //headers:{Authorization:"Token "+$.cookie("token")},
+                headers:{Authorization:"Token "+$.cookie("token")},
                 success:function(json) {
                     var pricestate = json.data.pricestate;//获取付费状态
                     var price = json.data.price;//计费方式
