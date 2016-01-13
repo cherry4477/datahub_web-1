@@ -396,11 +396,20 @@ function addhtml(){
                     vvclass="flot-data";
                     labelV="流式数据";
                 }
+                var create_user=json.data.create_user;
+
+                getAjax(ngUrl + "/users/" + create_user,function (msg) {
+                    window.company_name=msg.data.userName;
+                });
                 $repo_left_subline_lable.append($("<span></span>").text(labelV));
 
                 $repo_left.append("" +
                     "<div class='supplier'>"+
-                "<p> 本数据由 <a>中国移动 </a>提供</p></div>");
+                "<p> 本数据由 <a> "+company_name+"</a> 提供</p></div>");
+
+                var url="dataOfDetails.html?username="+create_user;
+                $(".supplier p a").attr("href",url);
+
 
                 //右边部分
                 var price_style="";

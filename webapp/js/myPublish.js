@@ -811,7 +811,8 @@ $(document).ready(function(){
                  $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("清空成功").fadeIn();
                  $(".successMess").fadeOut(3000);
                  $("#modalRep_list div").remove();
-                 uuuuuuu();
+                 $("#modalRep_list").empty();
+                 //uuuuuuu();
              }
 
          },
