@@ -528,6 +528,7 @@
     overflow: hidden;
     border-bottom: 1px solid #c5c5c5;
     padding-bottom: 5px;
+    height:24px;
 }
 #editItem .itemtag .key .tagname {
     float: left;
@@ -814,6 +815,13 @@
         font-size: 14px;
         color: #ff0000;
         width:300px;
+    }
+    .errorMesslabels{
+        text-align:center;
+        background-color: #ffd1d1;
+        font-size: 14px;
+        color: #ff0000;
+        width:80%;
     }
 
 .filletspan span.personaltag{

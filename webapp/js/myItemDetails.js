@@ -408,7 +408,7 @@ function getpagesF(){
     });
 }
 function getpermissions(pages){
-    $('.namelist').empty();
+
     $.ajax({
         type: "get",
         url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page='+pages,
@@ -416,6 +416,7 @@ function getpermissions(pages){
         async:false,
         headers:{Authorization: "Token "+account},
         success: function(msg){
+            $('.namelist').empty();
             var fornum = msg.data.permissions.length;
             totals =  msg.data.total;
             for(var i = 0;i<fornum;i++)
@@ -538,7 +539,6 @@ var namejson = {}
 var lilist = $('.namelist li');
     for(var i = 0;i<lilist.length;i++){
         if($('.namelist li').eq(i).children('.ischeck').is(':checked')==true){
-
               var thisval = $(lilist[i]).children('.thisusername').html();
                namejson[$('.namelist li').eq(i).index()] = thisval;
               thisusername.push(thisval);
@@ -553,6 +553,7 @@ var lilist = $('.namelist li');
                    headers:{Authorization: "Token "+account},
                    success: function(deluser){
                          if(deluser.code == 0){
+                             $('.namelist').empty();
                              getpagesF();
                          }
                    }
@@ -706,9 +707,7 @@ $('.gobackbtnwrop').click(function(){
             success:function(json){
                 var labelstr = '';
                 if(json.code == 0){
-                    //修改label
                     var priceobj = {};
-
                     for(var i=0; i<labels.length; i++) {
                         var label = $(labels[i]);
                         var labelkey = $.trim(label.children(".tagkey:first").val());
@@ -717,8 +716,13 @@ $('.gobackbtnwrop').click(function(){
                             alert("标签名和标签值不能为空！");
                             return;
                         }
+                        var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+                        if(reg.test(labelkey)){
+                            $('#errlabels').html('key值不能为中文').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                            return
+                        }
                         datalabel["owner."+labelkey] = labelvalue;
-                        labelstr+='<span class="personaltag">'+labelkey+'</span>';
+                        labelstr+='<span class="personaltag">'+labelvalue+'</span>';
                     }
                     $(".filletspan .personaltag").remove();
                     $(".filletspan").append(labelstr);
@@ -748,6 +752,13 @@ $('.gobackbtnwrop').click(function(){
         });
 
     });
+    $(document).on('blur','.tagkey',function(){
+        var tagval = $(this).val();
+        var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+        if(reg.test(tagval)){
+            $('#errlabels').html('key值不能为中文').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+        }
+    })
     function createItemTag(tagkey, tagvalue,newlabel,isdisabled) {
         tagkey = tagkey == undefined ? "": tagkey;
         tagvalue = tagvalue == undefined ? "": tagvalue;
