@@ -13,6 +13,7 @@ $(function(){
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     var commentthisname = '';
+    var loginitemname = $.cookie("tname");
     var thistname = '';
     var headerToken={};
 
@@ -277,14 +278,15 @@ $(function(){
                 }
 
             });
-            if(issubscription == false){
-                alert('您还没有订购该item');
-                return
-            }else{
+            if(issubscription == true || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
                 $(thisobj).val('');
                 $('.surplusnum').html('210');
                 $('.exceednum').html('0');
+
+            }else{
+                alert('您还没有订购该item');
+                return
             }
         }
     }
