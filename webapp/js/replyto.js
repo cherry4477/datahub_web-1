@@ -39,7 +39,7 @@ $(function(){
         }
     });
     $.ajax({
-        url: ngUrl+"/users/"+thistname,
+        url: ngUrl+"/users/"+loginitemname,
         type: "GET",
         cache:false,
         async:false,
@@ -77,19 +77,21 @@ $(function(){
     };
     ///////////////////////展示评论列表
     function addreplyhtml(listcon){
+        //alert('listcon.username-----'+listcon.username);
+        //alert('thistname-----'+thistname);
         var replytostr = '';
         var replythisname = '';
         var myitemcolor = '';
         var replyttohisname = '';
-        if(thistname == listcon.username){
+        if(loginitemname == listcon.username){
             replythisname = commentthisname;
             myitemcolor = 'myitemcolor';
         }else{
-            replythisname = listcon.username
+            replythisname = listcon.nickname
         }
         var delstr = '';
         var replytousername = ''
-        if(thistname == listcon.username){
+        if(loginitemname == listcon.username){
             delstr = '<span class="delcommentbtn">删除</span>';
         }
         if(listcon.replyto){
@@ -99,7 +101,7 @@ $(function(){
         var aplystr = '<div class="comListconwrop" datacomid="'+listcon.commentid+'">'+
             '<div class="replytousername">'+replytousername+'</div>'+
             '<div class="comnews '+myitemcolor+'">'+listcon.content+'</div>'+
-            '<span class="commenname towho" datanickname="'+ listcon.username +'">'+replythisname+'</span>'+
+            '<span class="commenname towho" datanickname="'+ listcon.nickname +'">'+replythisname+'</span>'+
             '<div class="commentdate">'+createtime+'</div>'+
             '<div class="reply_wrop"><span class="reply_btn">回复</span>'+ delstr +'</div>'+
             '<div class="replytobox">'+replytostr+'</div>'+
