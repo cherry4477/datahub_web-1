@@ -1,8 +1,6 @@
 /**
  * Created by Administrator on 2015/12/4.
  */
-
-
 var rtext='';
 var itemid = /\?.*rtext=([^&]*).*$/;
 if (itemid.test(decodeURIComponent(window.location.href))) {
@@ -24,7 +22,11 @@ var totals=0;
 $(window).load(function(){
     $(".be-loader").fadeOut("slow");
 });
-
+var headerToken={};
+//登陆后
+if($.cookie("token")!=null&&$.cookie("token")!="null"){
+    headerToken={Authorization:"Token "+$.cookie("token")};
+}
 $(document).ready(function(){
 
     getrepname(1);
@@ -46,9 +48,9 @@ $(document).ready(function(){
 function rel(str){
     var s="";
     if(str.toLowerCase().indexOf(rtext.toLowerCase())!=-1){
-    	var start=str.toLowerCase().indexOf(rtext.toLowerCase());
-    	var end=start+rtext.length;
-    	var strtext=str.substring(start,end);
+        var start=str.toLowerCase().indexOf(rtext.toLowerCase());
+        var end=start+rtext.length;
+        var strtext=str.substring(start,end);
         s=str.replace(strtext, "<span style=background-color:#fffe8f;>"+strtext+"</span>");
     }else{
         s=str;
@@ -63,6 +65,7 @@ function getrepname(pages) {
         cache:false,
         data:data,
         async:false,
+        headers:headerToken,
         dataType:'json',
         success:function(json){
             if(json.data.length!=0){
@@ -108,6 +111,7 @@ function ajaxRe(){
             url: ngUrl + "/subscription_stat/" +repos[i][0],
             cache: false,
             async: false,
+            headers:headerToken,
             success: function (msg) {
                 dataitemd.push(msg.data.numsubs);
             }
@@ -120,6 +124,7 @@ function ajaxRe(){
             url: ngUrl + "/transaction_stat/" +repos[i][0]+repos[i][1],
             cache: false,
             async: false,
+            headers:headerToken,
             success: function (msg) {
                 dataitemdpullNum.push(msg.data.numpulls);
             }
@@ -132,6 +137,7 @@ function ajaxRe(){
         $.ajax({
             url: ngUrl + "/star_stat/" +repos[i][0]+repos[i][1],
             cache: false,
+            headers:headerToken,
             async: false,
             success: function (msg) {
                 dataitemdstarNum.push(msg.data.numstars);
@@ -140,11 +146,7 @@ function ajaxRe(){
     }
 
     if(repos.length!=0){
-        var headerToken={};
-        //登陆后
-        if($.cookie("token")!=null&&$.cookie("token")!="null"){
-            headerToken={Authorization:"Token "+$.cookie("token")};
-        }
+
         for(var i=0;i<repos.length;i++){
             $.ajax({
                 url: ngUrl+"/repositories/"+repos[i][0]+"/"+repos[i][1]+"?abstract=1",
@@ -174,7 +176,7 @@ function ajaxRe(){
                     }
 
                     var times=json.data.optime;
-                    var jdTime=times.substring(0, times.indexOf("."));
+                    var jdTime=times.substring(10, times.indexOf("|"));
                     var xdTime="";
                     var showTime="";
                     var nums=times.indexOf("|");
@@ -212,38 +214,39 @@ function ajaxRe(){
                             labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
                         }
                     }
+                    var thispricestate = '';
+                    if(json.data.pricestate != ''){
+                        thispricestate = '<p>'+json.data.pricestate+'</p>';
+                    }
                     $("#terminal-content-body").append(""+
-                        "<div class='selectBody' style='background:#fff;float:left;margin-bottom:30px;'>"+
-                        "<div class='repo-head'>"+
-                        "<div class='tab-head-div'><a style='color:#0077aa' target='_blank' href='itemDetails.html?repname="+repos[i][0]+"&itemname="+repos[i][1]+"'>"+rel(repos[i][0])+"&nbsp;&nbsp;<span style='color:#000;'>/</span>&nbsp;&nbsp;"+rel(repos[i][1])+"</a></div>"+
-                            //	"<div class='tab-head-icon'></div>"+
-                        "<div class='repo-head-right'>数据拥有方：<a href='dataOfDetails.html?username="+json.data.create_user+"'>"+realname+"</a></div>"+
-                        "</div>"+
-                        "<div class='repo-body'>"+
-                        "<div id='repo-text'>"+rel(json.data.comment)+"</div>"+
-                        "<div class='repo-body-tail'>"+
-                        "<div class='repo-body-tail-left'>"+
-                        "<div class='updatetime-icon' title='更新时间'></div>"+
-                        "<div class='updatetime-value' title="+jdTime+">"+showTime+"</div>"+
-                        "<div class='tag-icon' title='tag数量'></div>"+
-                        "<div class='tag-value'>"+json.data.tags+"</div>"+
-                        "</div>"+
-                        "<div class='repo-body-tail-mid'>"+
-                        "<div class="+vvclass+">"+labelV+"</div>"+labelstr+
-                        "</div>"+
-                        "<div class='repo-body-tail-right'>"+
-                        "<div class='shwr'>"+
-                        "<div class='star-icon' title='star量'></div>"+
-                        "<div class='star-value'>"+dataitemdstarNum[i]+"</div>"+
-                        "<div class='subscript-icon' title='订阅量'></div>"+
-                        "<div class='subscript-value'>"+dataitemd[i]+"</div>"+
-                        "<div class='downloaded-icon' title='pull量'></div>"+
-                        "<div class='downloaded-value'>"+dataitemdpullNum[i]+"</div>"+
-                        "</div>"+
-                        "</div>"+
-                        "</div>"+
-                        "</div>"+
-                        "</div>"
+                        '<div class="repo">'+
+                        '<div class="left">'+
+                        '<div class="subtitle">'+
+                        '<a target="_blank" href="itemDetails.html?repname='+repos[i][0]+'&itemname='+repos[i][1]+'">'+rel(repos[i][0])+'/'+rel(repos[i][1])+'</a>'+
+                        '</div>'+
+                        '<div class="description"><p>'+rel(json.data.comment)+'</p></div>'+
+                        '<div class="subline">'+
+                        '<div class="lable"><p class="'+vvclass+'">'+labelV+'</p>'+labelstr+'</div>'+
+                        '<div class="icon">'+
+                        '<img  datapalecement="top" data-toggle="tooltip" src="images/newpic004.png" class="iconiamg1" data-original-title="更新时间">'+
+                        '<span  datapalecement="top" data-toggle="tooltip" data-original-title="'+jdTime+'">'+showTime+'</span>'+
+                        '<img  datapalecement="top" data-toggle="tooltip" src="images/newpic005.png" class="iconiamg1" data-original-title="tag量">'+
+                        '<span>'+json.data.tags+'</span>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div class="supplier"><p> 本数据由 <a href="dataOfDetails.html?username='+json.data.create_user+'">'+realname+'</a> 提供</p></div>'+
+                        '</div>'+
+                        '<div class="right">'+
+                        '<div class="price">'+thispricestate+'</div>'+
+                        '<div class="iconGroup">'+
+                        '<div class="like">'+
+                        '<img title="" datapalecement="top" data-toggle="tooltip" src="images/newpic001.png" style="" data-original-title="点赞量"><span>'+dataitemdstarNum[i]+'</span>'+
+                        '</div>'+
+                        '<div class="cart"><img title="" datapalecement="top" data-toggle="tooltip" src="images/newpic002.png" style="" data-original-title="订购量"><span>'+dataitemd[i]+'</span></div>'+
+                        '<div class="download"><img title="" datapalecement="top" data-toggle="tooltip" src="images/newpic003.png" style="" data-original-title="下载量"><span>'+dataitemdpullNum[i]+'</span></div>'+
+                        '</div>'+
+                        '</div>'+
+                        '</div>'
                     );
                 },
                 error:function(json){

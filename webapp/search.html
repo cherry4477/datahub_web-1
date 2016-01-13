@@ -1,19 +1,19 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>dataHub-搜索</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dataHub-搜索</title>
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
 	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
 	<title>dataHub-搜索_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/command.css">
-<link rel="stylesheet" href="css/loader.css">
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/search.css">
-<link rel="stylesheet" href="css/pagination.css"/>
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/newrepDetails.css">
+	<link rel="stylesheet" href="css/pagination.css"/>
 </head>
 
 <style>
@@ -21,7 +21,7 @@
 		background-color:rgba(31,154,218,0.7);
 	}
 	.navbar-toggle .icon-bar {
-	    background-color: #fff;
+		background-color: #fff;
 	}
 	.navbar-nav > li > a:focus{
 		background:none;
@@ -47,62 +47,64 @@
 	}
 </style>
 
-<body style="background-color: #f5f5f5;">
+<body>
 
 
-	<!-- loading -->
-	<div class="be-loader" style="display: block;">
-	   	<div class="spinner">
-			<div class="spinner-container container1">
-				<div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			</div>
-		  	<div class="spinner-container container2">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-		  	</div>
-		  	<div class="spinner-container container3">
-			    <div class="circle1"></div>
-			    <div class="circle2"></div>
-			    <div class="circle3"></div>
-			    <div class="circle4"></div>
-			</div>
+<!-- loading -->
+<div class="be-loader" style="display: block;">
+	<div class="spinner">
+		<div class="spinner-container container1">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container2">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
+		</div>
+		<div class="spinner-container container3">
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+			<div class="circle3"></div>
+			<div class="circle4"></div>
 		</div>
 	</div>
-	
-	
-	<!-- 头部导航 -->
-	<header></header>
-	
-	<!-- 内容页 -->
-	<div class="container" style='padding:0px;margin-top:50px;'>
-	
-			<div class="col-md-12 col-sm-12" id="lComs" style="padding: 20px 0px">
-							
-				<div id="terminal-content-head"><b>为您找到相关结果</b><b id="ttnum" style="color: #0077aa;"></b>个</div>
-	
-				<div id="terminal-content-body"></div>
-				
-				<div class="pages"></div>	
-				
-			</div>
-						
+</div>
+
+
+<!-- 头部导航 -->
+<header></header>
+
+<!-- 内容页 -->
+<div class="container" style='padding:0px;margin-top:50px;'>
+
+	<div class="col-md-12 col-sm-12" id="lComs" style="padding: 20px 0px">
+
+		<div id="terminal-content-head"><b>为您找到相关结果</b>&nbsp;<b id="ttnum" style="color: #333;"></b>&nbsp;个</div>
+
+		<div id="terminal-content-body">
+
+		</div>
+
+		<div class="pages"></div>
+
 	</div>
 
-	<!-- 尾部 -->
-	<footer></footer>
+</div>
 
-	<div id="loginTem"></div>
+<!-- 尾部 -->
+<footer></footer>
+
+<div id="loginTem"></div>
 
 </body>
 <!-- 
 <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
  -->
- <script src="js/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.cookie.js"></script>
 <script src="js/ngUrl.js"></script>
@@ -111,7 +113,7 @@
 <script src="js/md5.js"></script>
 <script src="js/jquery.pagination.js"></script>
 <script src='js/errorDialog.js'></script>
-<script src="js/search.js"></script>
+<script src="js/newrepDetails.js"></script>
 <script>
 
 	$("a").focus(function(){this.blur()});
@@ -119,7 +121,9 @@
 	$("footer").load("common/footer.html");
 	$("#loginTem").load("common/login.html");
 
-
+	$(function(){
+		$('[data-toggle="tooltip"]').tooltip();
+	})
 </script>
 
 
