@@ -649,103 +649,111 @@ function uuuuuuu(){
                     $("#mess").removeClass("successMess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
                     $(".errorMess").fadeOut(3000);
                     uuuuuuu();
-
                 }
                 else {
-                var b=true;
+                    var b=false;
                     //判断名称是否注册
-                $.ajax({
-                    url: ngUrl + "/users/"+username ,
-                    type: "get",
-                    cache: false,
-                    async: false,
-                    headers: {Authorization: "Token " + $.cookie("token")},
-                    datatype: 'json',
-                    success:function(json){
-                        if(json.code!=0){
-                            b=false;
-                        }
-                    }
-                });
-                if(b){
-                    //说明已经注册了，判断是否重复
-                    //var username=$("#emailTest").val();
-                    //var indexof=totalPer.indexOf(username);
-                    //alert(indexof);
-                    //if(indexof<0){
-                        //$(".modal-body").empty();
-                        //$(".modal-body").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                    var username = $("#emailTest").val();
-                    var repname=$("#repnameInput").val();
                     $.ajax({
-                        url: ngUrl + "/permission/" + repname+"?username="+username,
-                        type: "GET",
+                        url: ngUrl + "/users/" + username,
+                        type: "get",
                         cache: false,
                         async: false,
-                        dataType: 'json',
                         headers: {Authorization: "Token " + $.cookie("token")},
+                        datatype: 'json',
                         success: function (json) {
-                            //判断加的是不是自己
-                            if($.cookie("tname")==username){
-                                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("不能添加您自己").fadeIn();
-                                $(".errorMess").fadeOut(3000);
-                            }else{
-
-
-                            //判断是否重复
-                            if((json.data.total==0)&&($.cookie("tname")!=username))
-                            {
-                                $.ajax({
-                                    url: ngUrl + "/permission/"+repname,//加入白名单
-                                    type: "PUT",
-                                    cache: false,
-                                    //  data:{username:emailTest},
-                                    data: JSON.stringify({"username": username}),
-                                    async: false,
-                                    dataType: 'json',
-                                    headers: {Authorization: "Token " + $.cookie("token")},
-                                    success: function (json) {
-                                        if (json.code == 0) {
-                                            $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='funcusers'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                                            $("#emailTest").val("");
-                                            $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("添加白名单成功").fadeIn();
-                                            $(".successMess").fadeOut(3000);
-
-                                        }
-                                    },
-                                    error: function (json) {
-                                        errorDialog($.parseJSON(json.responseText).code);
-                                        $('#errorDM').modal('show');
-                                    }
-                                });
-
+                            if (json.code== 0) {
+                                b = true;
                             }
-                            else{
-                                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("白名单已有此用户").fadeIn();
-                                $(".errorMess").fadeOut(3000);
-
-                            }
-                            }
-                        },
-                        error:function(){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
-
                     });
-            } else {
+                    if (b) {
+                        //说明已经注册了，判断是否重复
+                        //var username=$("#emailTest").val();
+                        //var indexof=totalPer.indexOf(username);
+                        //alert(indexof);
+                        //if(indexof<0){
+                        //$(".modal-body").empty();
+                        //$(".modal-body").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                        var username = $("#emailTest").val();
+                        var repname = $("#repnameInput").val();
+                        $.ajax({
+                            url: ngUrl + "/permission/" + repname + "?username=" + username,
+                            type: "GET",
+                            cache: false,
+                            async: false,
+                            dataType: 'json',
+                            headers: {Authorization: "Token " + $.cookie("token")},
+                            success: function (json) {
+                                //判断加的是不是自己
+                                if ($.cookie("tname") == username) {
+                                    $("#mess").addClass("errorMess").css({
+                                        "visibility": "visible",
+                                        "background-color": "#ffd1d1",
+                                        "color": "#ff0000"
+                                    }).text("不能添加您自己").fadeIn();
+                                    $(".errorMess").fadeOut(3000);
+                                } else {
+                                    //判断是否重复
+                                    if ((json.data.total == 0) && ($.cookie("tname") != username)) {
+                                        $.ajax({
+                                            url: ngUrl + "/permission/" + repname,//加入白名单
+                                            type: "PUT",
+                                            cache: false,
+                                            //  data:{username:emailTest},
+                                            data: JSON.stringify({"username": username}),
+                                            async: false,
+                                            dataType: 'json',
+                                            headers: {Authorization: "Token " + $.cookie("token")},
+                                            success: function (json) {
+                                                if (json.code == 0) {
+                                                    $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='funcusers'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                                                    $("#emailTest").val("");
+                                                    $("#mess").addClass("successMess").css({
+                                                        "visibility": "visible",
+                                                        "background-color": "#e8f7e6",
+                                                        "color": "#1bd506"
+                                                    }).text("添加白名单成功").fadeIn();
+                                                    $(".successMess").fadeOut(3000);
 
-                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("名称未注册").fadeIn();
-                    $(".errorMess").fadeOut(3000);
-            }
-        }
+                                                }
+                                            },
+                                            error: function (json) {
+                                                errorDialog($.parseJSON(json.responseText).code);
+                                                $('#errorDM').modal('show');
+                                            }
+                                        });
+
+                                    }
+                                    else {
+                                        $("#mess").addClass("errorMess").css({
+                                            "visibility": "visible",
+                                            "background-color": "#ffd1d1",
+                                            "color": "#ff0000"
+                                        }).text("白名单已有此用户").fadeIn();
+                                        $(".errorMess").fadeOut(3000);
+                                    }
+                                }
+                            },
+                            error: function () {
+                                errorDialog($.parseJSON(json.responseText).code);
+                                $('#errorDM').modal('show');
+                            }
+                        });
+                    }
+                    else {
+
+                        $("#mess").addClass("errorMess").css({
+                            "visibility": "visible",
+                            "background-color": "#ffd1d1",
+                            "color": "#ff0000"
+                        }).text("名称未注册").fadeIn();
+                        $(".errorMess").fadeOut(3000);
+                    }
+                }
             }
             else{
                 $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("名称不能为空").fadeIn();
                 $(".errorMess").fadeOut(3000);
-
-
-
         }
         });
     //返回键
@@ -804,8 +812,8 @@ $(document).ready(function(){
                  $(".successMess").fadeOut(3000);
                  $("#modalRep_list div").remove();
                  uuuuuuu();
-
              }
+
          },
          error: function (json) {
          errorDialog($.parseJSON(json.responseText).code);
