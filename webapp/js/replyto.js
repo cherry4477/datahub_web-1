@@ -14,12 +14,19 @@ $(function(){
     var itemName=getParam("itemname");
     var commentthisname = '';
     var thistname = '';
+    var headerToken={};
+
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url:ngUrl+"/repositories/"+repoName+"/"+itemName+"?abstract=1",
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
+        headers:headerToken,
         success:function(json) {
             if(json.code==0){
                 thistname= json.data.create_user;
@@ -35,6 +42,7 @@ $(function(){
         type: "GET",
         cache:false,
         async:false,
+        headers:headerToken,
         dataType:'json',
         success:function(json) {
             if(json.code==0){
