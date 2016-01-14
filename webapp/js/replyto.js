@@ -259,7 +259,8 @@ $(function(){
         var issubscription = false;
 
         if($.cookie("token") == null || $.cookie("token") == 'null'){
-            alert('请先登录');
+            $('.commenterr').html('您还没有登录')
+            $('#commemtalert').modal('toggle');
             return;
         }else{
             $.ajax({
@@ -287,7 +288,8 @@ $(function(){
                 $('.exceednum').html('0');
 
             }else{
-                alert('您还没有订购该item');
+                $('.commenterr').html('您还没有订购该item')
+                $('#commemtalert').modal('toggle');
                 return
             }
         }
