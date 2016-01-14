@@ -58,9 +58,9 @@
 				<label for="exampleEmail">邮箱地址</label>
     			<input type="text" class="form-control" id="email" placeholder="请填写正确的邮箱，以便接收账号">
     			<label for="examplePs">输入密码</label>
-   				<input type="text" class="form-control" id="ps" placeholder="最少8个字符">
+   				<input type="password" class="form-control" id="ps" placeholder="最少8个字符">
    				<label for="examplePs2">确认密码</label>
-   				<input type="text" class="form-control" ID="psr" placeholder="再次输入密码">
+   				<input type="password" class="form-control" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
 				<div ID="accept">
@@ -185,7 +185,7 @@
 					$("#label_one").css("display","none");
 					$("#label_two").css("display","none");
 					$("#label_three").css("display","none");
-					$("#label_four").show();
+					alert("您还没有接受《DataHub服务协议》");
 				}
 					$(".infoBox").hide();
 					$("#checkEmail").show();
