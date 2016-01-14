@@ -178,7 +178,6 @@
 				$("#label_four").css("display","none");
 				b=false;
 			}
-		if(b){
 			$("#registration").click(function(){
 			//判断checkbox是否选中
 				if ($("#item").prop("checked")==false){
@@ -187,6 +186,7 @@
 					$("#label_three").css("display","none");
 					alert("您还没有接受《DataHub服务协议》");
 				}
+			if(b){
 					$(".infoBox").hide();
 					$("#checkEmail").show();
 
@@ -206,11 +206,13 @@
     					var end=start+ss.length;
     					var strtext="http://mail."+ss.substring(start,end);
 				 		$("#info a").text(strtext).attr("href",strtext);
-
             		}
             	});
+            }
+            else{
+				alert("请再次确认输入信息");
+			}
 			});
-		}
 		});
 	</script>
 
