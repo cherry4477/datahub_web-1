@@ -397,13 +397,14 @@ function about_item(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
+    
     $.ajax({
         url: ngUrl+"/repositories/"+repoName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        headers:{Authorization:"Token "+$.cookie("token")},
+        headers:headerToken,
         success:function(json){
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
@@ -442,7 +443,7 @@ function company(){
         cache:false,
         async:false,
         dataType:'json',
-        headers:{Authorization:"Token "+$.cookie("token")},
+        headers:headerToken,
         success:function(json) {
             //company
             var create_user=json.data.create_user;
@@ -736,7 +737,7 @@ function hurry_buy(){
                 cache:false,
                 data:{},
                 async:false,
-                headers:{Authorization:"Token "+$.cookie("token")},
+                headers:headerToken,
                 dataType:'json',
                 success:function(json){
                     if(json.code == 0){
@@ -815,7 +816,7 @@ function hurry_buy(){
                     cache:false,
                     async:false,
                     dataType:'json',
-                    headers:{Authorization:"Token "+$.cookie("token")},
+                    headers:headerToken,
                     success:function(json) {
                         var pricestate = json.data.pricestate;//获取付费状态
                             var price = json.data.price;//计费方式
@@ -915,7 +916,7 @@ function hurry_buy(){
             cache:false,
             async:false,
             dataType:'json',
-            headers:{Authorization:"Token "+$.cookie("token")},
+            headers:headerToken,
             success:function(json) {
                 var pricestate = json.data.pricestate;//获取付费状态
                 var price = json.data.price;//计费方式
@@ -1063,7 +1064,7 @@ function apply_buy(){
                 cache:false,
                 data:{},
                 async:false,
-                headers:{Authorization:"Token "+$.cookie("token")},
+                headers:header,
                 dataType:'json',
                 success:function(json){
                     if(json.code == 0){
@@ -1134,7 +1135,7 @@ function apply_buy(){
                 cache:false,
                 async:false,
                 dataType:'json',
-                headers:{Authorization:"Token "+$.cookie("token")},
+                headers:headerToken,
                 success:function(json) {
                     var pricestate = json.data.pricestate;//获取付费状态
                     var price = json.data.price;//计费方式
