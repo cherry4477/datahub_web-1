@@ -44,7 +44,7 @@ $(function(){
         switch(phase)
         {
             case 1:
-                thisstate="正在消费中";
+                thisstate="正在生效中";
                 break;
             case 2:
                 thisstate="订单已完成";

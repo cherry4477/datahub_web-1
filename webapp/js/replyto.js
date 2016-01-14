@@ -38,23 +38,26 @@ $(function(){
             $('#errorDM').modal('show');
         }
     });
-    $.ajax({
-        url: ngUrl+"/users/"+loginitemname,
-        type: "GET",
-        cache:false,
-        async:false,
-        headers:headerToken,
-        dataType:'json',
-        success:function(json) {
-            if(json.code==0){
-                commentthisname= json.data.userName;
-            }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
-        }
-    });
+   if(loginitemname != 'null' && loginitemname != null){
+       $.ajax({
+           url: ngUrl+"/users/"+loginitemname,
+           type: "GET",
+           cache:false,
+           async:false,
+           headers:headerToken,
+           dataType:'json',
+           success:function(json) {
+               if(json.code==0){
+                   commentthisname= json.data.userName;
+               }
+           },
+           error:function(json){
+               errorDialog($.parseJSON(json.responseText).code);
+               $('#errorDM').modal('show');
+           }
+       });
+   }
+
 
     function addcommenthtml(towho){
         var thisstr = '<div class="commentwrop replycboxbg" id="replyCommnet">'+
@@ -225,10 +228,9 @@ $(function(){
         var parten = /^\s*$/ ;
         var commentcon = $(thisobj).val();
         if(parten.test(commentcon)){
-            alert('评论不能为空');
+            $('.commenterr').html('评论不能为空')
             return false;
         }else if(commentcon.length > 210){
-            alert('评论字数过长');
             return false;
         }else{
             var thisdatas = {
@@ -257,7 +259,6 @@ $(function(){
     ///////////////////发表评论///////////////////////
     function getissub(thisobj,orreply){
         var issubscription = false;
-
         if($.cookie("token") == null || $.cookie("token") == 'null'){
             $('.commenterr').html('您还没有登录')
             $('#commemtalert').modal('toggle');
