@@ -825,23 +825,28 @@ $(document).ready(function(){
          });
     });
     //删除部分
-    $("#delCurrent").click(function () {
+    $(document).on('click', '#delCurrent', function () {
             var surl="";
             var x;
-            var user_zu=[];
-        var repname=$("#repnameInput").val();
+            //var user_zu=[];
+            var repname=$("#repnameInput").val();
             $('input:checkbox[name=users]:checked').each(function (i) {
                 var users = $(this).parent().text();
+                alert(users);
                 if(i==0){
                     surl="?username="+users;
+                    alert(users+"1");
                     x=0
                 }else{
                     surl+="&username="+users;
+                    alert(users+"2");
                     x++;
                 }
-                n = $(this).parents().index();  // 获取checkbox所在行的顺序
-                $("#modalRep_list").find("modalRep_list div:eq("+n+")").remove();
+                //if($('#modalRep_list div').eq(i).children('.users').is(':checked')==true){
+                //    user_zu[i] = $('#modalRep_list div').eq(i).index();
+                //}
             });
+
         $.ajax({
             url: ngUrl + "/permission/"+repname+surl,
             type: "DELETE",
@@ -855,10 +860,10 @@ $(document).ready(function(){
                     var total=$("#icon_list").text();
                     total=total-x-1;
                     $("#icon_list").text(total);
-
-
+                 /*   for(var x=0;x<user_zu.length;x++){
+                       $("#modalRep_list").find("#modalRep_list div:eq("+x+")").remove();
+                    }*/
                     //uuuuuuu();
-
             },
             error: function (json) {
                 errorDialog($.parseJSON(json.responseText).code);
