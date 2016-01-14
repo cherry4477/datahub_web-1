@@ -44,6 +44,24 @@
 	#nLogosHeader{
 		display: none;
 	}
+	
+	.badgeHeader{
+		background-color: red;
+	    border-radius: 5px;
+	    color: #fff;
+	    font-size: 5px;
+	    font-weight: 700;
+	    line-height: 1;
+	    margin-left: -3px;
+	    margin-top: 0;
+	    min-width: 0;
+	    padding: 2px 4px;
+	    position: absolute;
+	    text-align: left;
+	    vertical-align: middle;
+	    white-space: nowrap;
+	    display: none;
+	}
 
 	 @media (max-width: 768px) {
 	 
@@ -232,7 +250,7 @@
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
                   		<img src="images/fl3.png" />
-                  		-->个人中心
+                  		-->个人中心<span class="badgeHeader">&nbsp;</span>
                   	</a>
 					  <ul class="dropdown-menu">
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
@@ -398,6 +416,12 @@
 
 
 	daovoice('update');
+
+	if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
+		$(".badgeHeader").show();
+	}else{
+		$(".badgeHeader").hide();
+	}
 	
 	
 	

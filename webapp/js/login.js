@@ -55,7 +55,32 @@ $(function(){
     		success:function(json){ 
     			$.cookie("tname",exampleInputEmail1,{ expires: 1},{path:"/"});
     			$.cookie("token",json.data.token,{ expires: 1},{path:"/"});
-    			location.href=window.location.href;
+    			//获取消息提示
+    			$.ajax({
+					url: ngUrl+"/notification_stat",
+			        type: "get",
+			        cache:false,
+			        async:false,
+			        headers:{Authorization:"Token "+$.cookie("token")},
+			        dataType:'json',
+			        success:function(json){
+			        	//没有新消息
+			        	if(json.data==null){
+			        		
+			        	}else{
+			        		$.cookie("badgeHeader","badgeHeader");
+			        	}
+			        },
+			        error:function(json){
+			        	if(json.status==400){
+			        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
+			        	}else{
+			        		errorDialog(json.status,"","");            
+			        	}
+			            $('#errorDM').modal('show');
+			        }
+    			});
+    			location.href=window.location.href;	
     		},
     		error:function (XMLHttpRequest, textStatus, errorThrown){
     			if(XMLHttpRequest.status==500){
@@ -98,6 +123,8 @@ $(function(){
 		 $.cookie("tuserid",null,{path:"/"}); // 必填: 该用户在您系统上的唯一ID
 		 $.cookie("tnickname",null,{path:"/"}); // 选填: 用户名
 		 $.cookie("tregtime",null,{path:"/"}); // 选填: 用户的注册时间，用Unix时间戳表示
+		 
+		 $.cookie("badgeHeader",null,{path:"/"}); //新消息提示
 		
 		var href=location.href;
 		var htmlnum=href.indexOf(".html");
