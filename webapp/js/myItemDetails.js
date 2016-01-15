@@ -419,6 +419,7 @@ function getpermissions(pages){
             $('.namelist').empty();
             var fornum = msg.data.permissions.length;
             totals =  msg.data.total;
+            $('.baimingdannum').html('('+totals+')');
             for(var i = 0;i<fornum;i++)
             {
                 var lis = '<li class="lis">'+ '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data.permissions[i].username+'</span><span class="namelistdel">[删除]</span>'+
@@ -437,7 +438,7 @@ function Fens(new_page_index){
  $('.xiugainame').click(function(){
      $('.namelist').empty();
      getpagesF();
-     $('#editItem').modal('toggle');
+     //$('#editItem').modal('toggle');
      $('#editBox').modal('toggle');
 
  })
