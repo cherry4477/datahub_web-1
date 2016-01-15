@@ -26,7 +26,7 @@ var errorDialog=function(num,code,msg){
 		case 505:
 			str="HTTP版本不受支持";
 		break;
-		case 888888:
+		case 99:
 			str="请求超时";
 		break;
 		default:
