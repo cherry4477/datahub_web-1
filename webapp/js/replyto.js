@@ -229,7 +229,8 @@ $(function(){
         var parten = /^\s*$/ ;
         var commentcon = $(thisobj).val();
         if(parten.test(commentcon)){
-            $('.commenterr').html('评论不能为空')
+            $('.commenterr').html('评论不能为空');
+            $('#commemtalert').modal('toggle');
             return false;
         }else if(commentcon.length > 210){
             return false;
