@@ -78,10 +78,6 @@ function getrepname(pages) {
             }else{
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -201,10 +197,6 @@ function ajaxRe(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
                     if(json.data.label != null && json.data.label != ''){
@@ -248,10 +240,6 @@ function ajaxRe(){
                         '</div>'+
                         '</div>'
                     );
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
         }

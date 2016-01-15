@@ -157,10 +157,6 @@ $(function() {
                 if(json.code == 0){
                     location.reload();
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
         $('#addRep').modal('toggle');
@@ -178,10 +174,6 @@ $(function() {
             if(json.code == 0){
                 allrepnums = json.data.length;
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -202,10 +194,6 @@ $(function() {
                 if(json.code == 0){
                     reps = json.data;
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     }
@@ -242,10 +230,6 @@ $(function() {
                            rep[j] = json.data[j];
                        }
                    }
-               },
-               error:function(json){
-                   errorDialog($.parseJSON(json.responseText).code);
-                   $('#errorDM').modal('show');
                }
            });
            //获取star量
@@ -260,10 +244,6 @@ $(function() {
                    if(json.code == 0){
                        rep["numstars"] = json.data.numstars;
                    }
-               },
-               error:function(json){
-                   errorDialog($.parseJSON(json.responseText).code);
-                   $('#errorDM').modal('show');
                }
            });
            //获取订阅量
@@ -278,10 +258,6 @@ $(function() {
                    if(json.code == 0){
                        rep["numsubs"] = json.data.numsubs;
                    }
-               },
-               error:function(json){
-                   errorDialog($.parseJSON(json.responseText).code);
-                   $('#errorDM').modal('show');
                }
            });
            //获取下载量
@@ -296,10 +272,6 @@ $(function() {
                    if(json.code == 0){
                        rep["numpulls"] = json.data.numpulls;
                    }
-               },
-               error:function(json){
-                   errorDialog($.parseJSON(json.responseText).code);
-                   $('#errorDM').modal('show');
                }
            });
        }
@@ -346,10 +318,6 @@ $(function() {
                             if (json.code == 0) {
                                 rep.dataitems[j] = json.data;
                             }
-                        },
-                        error: function (json) {
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
                     rep.dataitems[j]["name"] = item;
@@ -512,10 +480,6 @@ $(function() {
 
                 });
 
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
         $('#addRep').modal('toggle');
@@ -562,10 +526,6 @@ function uuuuuuu(){
                     $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
                 }
             }
-        },
-        error: function (json) {
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
     //分页
@@ -606,10 +566,6 @@ function uuuuuuu(){
                     for (var i = 0; i < len; i++) {
                         $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
                     }}
-            },
-            error: function (json) {
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
 
@@ -695,10 +651,6 @@ function uuuuuuu(){
                                                     total++;
                                                     $("#icon_list").text(total);
                                                 }
-                                            },
-                                            error: function (json) {
-                                                errorDialog($.parseJSON(json.responseText).code);
-                                                $('#errorDM').modal('show');
                                             }
                                         });
 
@@ -712,10 +664,6 @@ function uuuuuuu(){
                                         $(".errorMess").fadeOut(3000);
                                     }
                                 }
-                            },
-                            error: function () {
-                                errorDialog($.parseJSON(json.responseText).code);
-                                $('#errorDM').modal('show');
                             }
                         });
                     }
@@ -775,10 +723,6 @@ function uuuuuuu(){
                     $(".errorMess").fadeOut(3000);
 
                 }
-            },
-            error: function (json) {
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     });
@@ -814,10 +758,6 @@ $(document).ready(function(){
                  });*/
              }
 
-         },
-         error: function (json) {
-         errorDialog($.parseJSON(json.responseText).code);
-         $('#errorDM').modal('show');
          }
          });
     });
@@ -860,10 +800,6 @@ $(document).ready(function(){
                     if(json.code==0){
                         uuuuuuu();
                     }
-                },
-                error: function (json) {
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
         }else{
@@ -885,17 +821,12 @@ $(document).ready(function(){
             headers: {Authorization: "Token " + $.cookie("token")},
             success: function (json) {
                 var total = json.data.total;
-                if (total != 0) {
-                    $("#modalRep_list").empty();
-                    $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                    $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' class='back_icon_a' style='color:#0077aa;'>[返回]</a></p></div>");
-                    $(".pagesPer").empty();
-                }
-
-            },
-            error:function(){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
+                    if (total != 0) {
+                        $("#modalRep_list").empty();
+                        $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                        $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' class='back_icon_a' style='color:#0077aa;'>[返回]</a></p></div>");
+                        $(".pagesPer").empty();
+                    }
             }
         });
         }

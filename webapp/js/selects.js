@@ -180,8 +180,6 @@ function nav(){
                 //$navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_03.png'/><span>"+labelname+"</span></li>");
 
             }
-        },
-        error:function(){
         }
     });
 
@@ -236,10 +234,6 @@ function hanvelables(pages){
             }else{
                 window.paegeitems2=0;
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -284,10 +278,6 @@ function ajaxRe(pages){
             }else{
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -450,8 +440,6 @@ function addhtml(){
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
                     "</div>"+
                     "</div>");
-            },
-            error: function () {
             }
         });
     }

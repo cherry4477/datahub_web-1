@@ -41,10 +41,6 @@ $(function(){
             for(var i = 0;i<msglenth;i++){
                 addreplyhtml(msg.data[i]);
             }
-        },
-        error:function(msg){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
 
     });
@@ -102,12 +98,7 @@ $(function(){
                 headers: {Authorization: "Token " + $.cookie("token")},
                 success: function (msg) {
                     addreplyhtml();
-                },
-                error:function(msg){
-                    errorDialog($.parseJSON(msg.responseText).code);
-                    $('#errorDM').modal('show');
                 }
-
             });
         }
     }
@@ -278,18 +269,10 @@ function gonextpage(nextpages){
                                 $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
                                 $(".content .content1_download>p").text(json.data.numpulls);
                             }
-                        },
-                        error: function () {
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
                 }
             }
-        },
-        error: function () {
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -309,9 +292,6 @@ function star(){
         success: function (json) {
             numstars = json.data.numstars;
             $("#icon_heart_number").text(numstars);
-
-        },
-        error: function () {
 
         }
     });
@@ -356,15 +336,9 @@ function star(){
                                         success: function (json) {
                                             numstars = json.data.numstars;
                                             $("#icon_heart_number").text(numstars);
-                                        },
-                                        error: function () {
-
                                         }
                                     });
                                 }
-
-                            },
-                            error: function () {
 
                             }
                         });
@@ -399,15 +373,9 @@ function star(){
                                         success: function (json) {
                                             numstars = json.data.numstars;
                                             $("#icon_heart_number").text(numstars);
-                                        },
-                                        error: function () {
-
                                         }
                                     });
                                 }
-
-                            },
-                            error: function () {
 
                             }
                         });
@@ -479,10 +447,6 @@ function itemName_pull(){
             if(json.code == 0){
                 $("#icon_download+p").text(json.data.numpulls);
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -502,10 +466,6 @@ function numsubs(){
                 //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
                 $("#icon_buy+p").text(json.data.numsubs);
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -534,10 +494,6 @@ function about_item(){
                     $(".span_label").append($("<span></span>").text(json.data.label));
                 }
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -600,14 +556,8 @@ function company(){
                         $("#client_down p span").text(company_name);
                     }
 
-                },
-                error:function(){
-
                 }
             });
-        },
-        error:function(){
-
         }
     });
 
@@ -747,10 +697,6 @@ function closewrap(){
                             $("#subscriptDialog .subafterprocess .successed").hide();
                             $("#subscriptDialog .subafterprocess .failed").show();
                         }
-                    },
-                    error:function(json){
-                        errorDialog($.parseJSON(json.responseText).code);
-                        $('#errorDM').modal('show');
                     }
                 });
             }

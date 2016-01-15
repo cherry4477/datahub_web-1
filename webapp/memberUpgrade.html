@@ -269,13 +269,7 @@
 					$(".btn1").hide();
 				}
 
-			},
-			error: function (json) {
-				errorDialog($.parseJSON(json.responseText).code);
-				$('#errorDM').modal('show');
-
 			}
-
 		});
 
 		$(".btn1").on("click", function () {
@@ -296,11 +290,7 @@
 				datatype: 'json',
 				success: function (json) {
 					$("#member_price").val(json.data.cost);
-				},
-				error: function () {
-
 				}
-
 			});
 		});
 
@@ -324,9 +314,6 @@
 				datatype: 'json',
 				success: function (json) {
 					$("#member_price").val(json.data.cost);
-				},
-				error: function () {
-
 				}
 			});
 			//
@@ -341,8 +328,6 @@
 					console.log(json);
 					var usertype = json.data.userType;
 
-				},
-				error: function () {
 				}
 			});
 
@@ -368,10 +353,6 @@
 				datatype: 'json',
 				success: function (json) {
 					$("#member_price").val(json.data.cost);
-				},
-				error: function () {
-
-
 				}
 
 			});

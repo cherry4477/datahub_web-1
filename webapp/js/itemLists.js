@@ -66,10 +66,6 @@ function ajaxFunHtml(type,size,page){
 	            }else{
 	                console.log("报错");
 	            }
-	        },
-	        error:function(json){
-	            errorDialog($.parseJSON(json.responseText).code);
-	            $('#errorDM').modal('show');
 	        }
 	    });				
 		forList(list,4);			
@@ -232,7 +228,7 @@ function ajaxFunHtml(type,size,page){
 		                 ); 
 		        	}
 		    	    
-		        },
+		        }/*,
 		        error:function(json){
 		        	if(json.status==400){
 		        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -240,7 +236,7 @@ function ajaxFunHtml(type,size,page){
 		        		errorDialog(json.status,"","");            
 		        	}
 		            $('#errorDM').modal('show');
-		        }
+		        }*/
 		    });
 			//forList(null,5);
 		}
@@ -295,10 +291,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 
@@ -316,10 +308,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 
@@ -337,10 +325,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 	                
@@ -399,7 +383,7 @@ function forList(list,type){
 	                         ); 
 	            	}
 	          
-	            },
+	            }/*,
 	            error:function(json){
 		        	if(json.status==400){
 		        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -407,7 +391,7 @@ function forList(list,type){
 		        		errorDialog(json.status,"","");            
 		        	}
 		            $('#errorDM').modal('show');
-		        }
+		        }*/
 	        });
 	    }
 	}else{
@@ -453,7 +437,7 @@ function ajaxTotal(type,size){
 	            }else{
 	                console.log("报错");
 	            }
-	        },
+	        }/*,
 	        error:function(json){
 	        	if(json.status==400){
 	        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -461,7 +445,7 @@ function ajaxTotal(type,size){
 	        		errorDialog(json.status,"","");            
 	        	}
 	            $('#errorDM').modal('show');
-	        }
+	        }*/
 	    });
 	}
 	if(type=="5"){
@@ -622,7 +606,7 @@ function ajaxTotal(type,size){
 	                 ); 
 	        	}
 	    	        	      	
-	        },
+	        }/*,
 	        error:function(json){
 	        	if(json.status==400){
 	        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -630,7 +614,7 @@ function ajaxTotal(type,size){
 	        		errorDialog(json.status,"","");            
 	        	}
 	            $('#errorDM').modal('show');
-	        }
+	        }*/
 	    });
 	}
        
@@ -667,10 +651,6 @@ function ajaxReUser(){
             }else {
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
