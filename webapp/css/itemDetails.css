@@ -303,6 +303,7 @@
 #left_content{
     float: left;
     width: 876px;
+    display: block;
 }
 #left_exam{
     float: left;
