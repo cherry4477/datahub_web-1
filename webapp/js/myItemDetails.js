@@ -524,6 +524,7 @@ var _this = $(this);
                success: function(deluser){
                     if(deluser.code == 0){
                        _this.parent().remove();
+                        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF();
                     }
                }
@@ -535,6 +536,7 @@ var _this = $(this);
 ////////////////////////////////////////////////////////////////批量删除白名单
 $('.dellist').click(function(){
 var thisusername = [];
+var isdele = false;
 var namejson = {}
 var lilist = $('.namelist li');
     for(var i = 0;i<lilist.length;i++){
@@ -554,11 +556,16 @@ var lilist = $('.namelist li');
                    success: function(deluser){
                          if(deluser.code == 0){
                              $('.namelist').empty();
+                             isdele = true;
                              getpagesF();
                          }
                    }
         })
     };
+    if(isdele = true){
+        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+    }
+
 
 })
 //////////////////搜索白名单
