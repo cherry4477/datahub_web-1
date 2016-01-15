@@ -169,15 +169,17 @@
 }
 
 #commemtalert .modal-dialog{
-    width: 420px;
-    height: 210px;
+    width: 260px;
+    height: 80px;
+    margin-top:150px;
 }
 .commenterr{
     width: 100%;
-    height: 200px;
-    line-height: 200px;
+    height: 80px;
+    line-height: 80px;
     text-align: center;
-    font-size: 30px;
+    font-size: 16px;
+    color: #666;
 }
 
 

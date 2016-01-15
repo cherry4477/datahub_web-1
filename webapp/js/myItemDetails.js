@@ -394,7 +394,7 @@ function getpagesF(){
     getpermissions(1);
     $(".baipages").pagination(totals, {
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries:3,
         num_edge_entries: 5 ,
         prev_text:"上一页",
         next_text:"下一页",
@@ -416,6 +416,7 @@ function getpermissions(pages){
             $('.namelist').empty();
             var fornum = msg.data.permissions.length;
             totals =  msg.data.total;
+            $('.baimingdannum').html('('+totals+')');
             for(var i = 0;i<fornum;i++)
             {
                 var lis = '<li class="lis">'+ '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data.permissions[i].username+'</span><span class="namelistdel">[删除]</span>'+
@@ -434,7 +435,7 @@ function Fens(new_page_index){
  $('.xiugainame').click(function(){
      $('.namelist').empty();
      getpagesF();
-     $('#editItem').modal('toggle');
+     //$('#editItem').modal('toggle');
      $('#editBox').modal('toggle');
 
  })
@@ -543,27 +544,27 @@ var lilist = $('.namelist li');
               thisusername.push(thisval);
         }
     }
-    for(var j in namejson){
-         $.ajax({
-                   type:"DELETE",
-                   url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
-                   cache:false,
-                   dataType:'json',
-                   headers:{Authorization: "Token "+account},
-                   success: function(deluser){
-                         if(deluser.code == 0){
-                             $('.namelist').empty();
-                             isdele = true;
-                             getpagesF();
-                         }
-                   }
-        })
-    };
-    if(isdele = true){
-        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+    if(thisusername.length>0){
+        for(var j in namejson){
+            $.ajax({
+                type:"DELETE",
+                url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
+                cache:false,
+                dataType:'json',
+                headers:{Authorization: "Token "+account},
+                success: function(deluser){
+                    if(deluser.code == 0){
+                        $('.namelist').empty();
+                        isdele = true;
+                        getpagesF();
+                    }
+                }
+            })
+        };
+        if(isdele = true){
+            $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+        }
     }
-
-
 })
 //////////////////搜索白名单
     $('.selectbtn').click(function(){
@@ -578,22 +579,27 @@ var lilist = $('.namelist li');
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function (datas) {
                    if(datas.code == 0){
-                       var lis = '<li class="lis">'+
-                           '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
-                           '</li>';
-                       $('.namelist').empty().append(lis);
-                       $('.gobackbtnwrop').show();
-                       $(".baipages").pagination(0, {
-                           items_per_page:6,
-                           num_display_entries: 1,
-                           num_edge_entries: 5 ,
-                           prev_text:"上一页",
-                           next_text:"下一页",
-                           ellipse_text:"...",
-                           link_to:"javascript:void(0)",
-                           callback:Fens,
-                           load_first_page:false
-                       });
+                       if(datas.data.permissions.length > 0){
+                           var lis = '<li class="lis">'+
+                               '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
+                               '</li>';
+                           $('.namelist').empty().append(lis);
+                           $('.gobackbtnwrop').show();
+                           $(".baipages").pagination(0, {
+                               items_per_page:6,
+                               num_display_entries: 1,
+                               num_edge_entries: 5 ,
+                               prev_text:"上一页",
+                               next_text:"下一页",
+                               ellipse_text:"...",
+                               link_to:"javascript:void(0)",
+                               callback:Fens,
+                               load_first_page:false
+                           });
+                       }else{
+                           $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                       }
+
                    }
             }
         });
