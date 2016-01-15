@@ -86,8 +86,7 @@ $(function(){
         var replytostr = '';
         var replythisname = '';
         var myitemcolor = '';
-        var replyttohisname = '';
-        if(loginitemname == listcon.username){
+        if(thistname == listcon.username){
             replythisname = commentthisname;
             myitemcolor = 'myitemcolor';
         }else{
