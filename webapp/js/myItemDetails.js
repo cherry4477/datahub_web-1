@@ -397,7 +397,7 @@ function getpagesF(){
     getpermissions(1);
     $(".baipages").pagination(totals, {
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries:3,
         num_edge_entries: 5 ,
         prev_text:"上一页",
         next_text:"下一页",
