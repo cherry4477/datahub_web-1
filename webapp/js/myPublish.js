@@ -857,16 +857,16 @@ $(document).ready(function(){
                     var total=$("#icon_list").text();
                     total=total-x-1;
                     $("#icon_list").text(total);
-                if(json.code==0){
-
-                    uuuuuuu();
-                }
+                    if(json.code==0){
+                        uuuuuuu();
+                    }
             },
             error: function (json) {
                 errorDialog($.parseJSON(json.responseText).code);
                 $('#errorDM').modal('show');
             }
         });
+
 
     });
     //查询

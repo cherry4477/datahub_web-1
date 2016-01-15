@@ -81,6 +81,7 @@ function gonextpage(nextpages){
         yes_no_login();
         var headerToken={};
 
+
         //登陆后
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
@@ -95,6 +96,7 @@ function gonextpage(nextpages){
             headers:headerToken,
             dataType: 'json',
             success: function (json) {
+
                 if (json.code == 0) {
                     tagNum = json.data.tags;
                     $("#nav1 > sup > span").text(tagNum);
