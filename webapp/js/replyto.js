@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/1/9.
  */
 $(function(){
+    $('#commentcon').val('');
     function getParam(key) {
         var value='';
         var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
@@ -247,6 +248,9 @@ $(function(){
                 headers: {Authorization: "Token " + $.cookie("token")},
                 success: function (msg) {
                     getcommentlist();
+                    $(thisobj).val('');
+                    $('.surplusnum').html('210');
+                    $('.exceednum').html('0');
                 },
                 error:function(msg){
                     errorDialog($.parseJSON(msg.responseText).code);
@@ -284,9 +288,9 @@ $(function(){
             });
             if(issubscription == true || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
-                $(thisobj).val('');
-                $('.surplusnum').html('210');
-                $('.exceednum').html('0');
+                //$(thisobj).val('');
+                //$('.surplusnum').html('210');
+                //$('.exceednum').html('0');
 
             }else{
                 $('.commenterr').html('您还没有订购该item')
