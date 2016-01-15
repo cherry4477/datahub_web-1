@@ -265,10 +265,6 @@ $(document).ready(function(){
 						$("#update_icon").css("display","none");
 
                     }
-				},
-				error:function(){
-					errorDialog($.parseJSON(json.responseText).code);
-					$('#errorDM').modal('show');
 				}
 		});
 		$("#update_icon").click(function(){
@@ -277,8 +273,6 @@ $(document).ready(function(){
             $("#textComment").attr("disabled",false);
 			$("#exampleInputName2").attr("disabled",false);
 			$("#update_icon").css("display","none");
-
-
         });
 
 		$.ajax({
@@ -307,11 +301,6 @@ $(document).ready(function(){
 					{
 						$("#exampleInputMember").val("钻石会员");
 					}	
-				},
-				error:function(json){
-					errorDialog($.parseJSON(json.responseText).code);
-					$('#errorDM').modal('show');
-
 				}
 		});
 });
@@ -436,10 +425,6 @@ $(document).ready(function(){
 				var pullNumB=(pullNumA/2000).toFixed(4);
 				var pullNumC=pullNumB.slice(2,4)+"."+pullNumB.slice(4,6)+"%";
 				$("#pullNum").css("width","pullNumC");
-			},
-			error:function(){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
 			}
 		})
 
@@ -511,8 +496,6 @@ $(document).ready(function(){
                         $(".right1").css("transform", "rotate(-" + rightNum2 + "deg)");
                     }
                 }
-			},
-			error:function(){
 			}
 		})
 //托管空间
@@ -545,14 +528,7 @@ $(document).ready(function(){
                     $(".left2").css("transform", "rotate(-180deg)");
                     $(".right2").css("transform", "rotate(-" + rightNum + "deg)");
                 }
-            },
-				error:function(){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
-
-				}
-
-
+            }
 	    });
 
     });

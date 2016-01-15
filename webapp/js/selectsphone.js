@@ -90,9 +90,6 @@ $(document).ready(function(){
                     $dragBln = true;
                 })
             }
-        },
-        error:function(json){
-            alert("程序出错，请稍后重试");
         }
     });
     var typevalue = getParam("type");
@@ -138,9 +135,6 @@ $(document).ready(function(){
                 }else{
                     console.log("报错");
                 }
-            },
-            error:function(json){
-                alert("程序出错，请稍后重试");
             }
         });
     }
@@ -173,9 +167,6 @@ $(document).ready(function(){
                 }else{
                     console.log("报错");
                 }
-            },
-            error:function(json){
-                alert("程序出错了，请稍后重试");
             }
         });
     }
@@ -229,9 +220,6 @@ $(document).ready(function(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            alert("程序出错，请稍后重试");
                         }
                     });
                     var str =   '<li class="replist">'+
@@ -243,9 +231,6 @@ $(document).ready(function(){
                     '</div>'+
                     '</li>'
                     $(".repinfoList").append(str);
-                },
-                error:function(json){
-                    alert("程序出错，请稍后重试");
                 }
             });
 

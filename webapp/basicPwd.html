@@ -192,8 +192,6 @@
 					{
 						oldsure=true;
 					}
-				},
-				error:function(data){
 				}
 			});
 			//验证密码是否正确结束
@@ -243,13 +241,13 @@
 						$("#label_fail").fadeOut(3000);
 					}
 
-				},
+				}/*,
 				error:function(data){
 					if(data.code!=0){
 						$("#alert-fail").css("display","inline");
 						$("#alert-fail").append();
 					}			
-				}
+				}*/
 			});
 			}
 		});

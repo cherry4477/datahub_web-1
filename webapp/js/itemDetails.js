@@ -155,20 +155,12 @@ function gonextpage(nextpages){
 
                                         $(".content .content1_download>p").text(json.data.numpulls);
                                     }
-                                },
-                                error: function () {
-                                    errorDialog($.parseJSON(json.responseText).code);
-                                    $('#errorDM').modal('show');
                                 }
                             });
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
 
                 }
-            },
-            error: function () {
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
 }
@@ -188,9 +180,6 @@ function star(){
             success: function (json) {
                 numstars = json.data.numstars;
                 $("#icon_heart_number").text(numstars);
-
-            },
-            error: function () {
 
             }
         });
@@ -235,15 +224,9 @@ function star(){
                                             success: function (json) {
                                                 numstars = json.data.numstars;
                                                 $("#icon_heart_number").text(numstars);
-                                            },
-                                            error: function () {
-
                                             }
                                         });
                                     }
-
-                                },
-                                error: function () {
 
                                 }
                             });
@@ -278,15 +261,9 @@ function star(){
                                             success: function (json) {
                                                 numstars = json.data.numstars;
                                                 $("#icon_heart_number").text(numstars);
-                                            },
-                                            error: function () {
-
                                             }
                                         });
                                     }
-
-                                },
-                                error: function () {
 
                                 }
                             });
@@ -358,10 +335,6 @@ function itemName_pull(){
             if(json.code == 0){
                 $("#icon_download+p").text(json.data.numpulls);
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -381,10 +354,6 @@ function numsubs(){
                 //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
                 $("#icon_buy+p").text(json.data.numsubs);
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -420,10 +389,6 @@ function about_item(){
                     console.log(json.data.label);
                 }*/
             }
-        },
-        error:function(){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -536,22 +501,12 @@ function company(){
                                         $("#LT_left_title .line").css({"border":"1px solid #53be64", "color":"#53be64","position":"absolute","":""});
                                     }
 
-                                },
-                                error: function (json) {
-                                    errorDialog($.parseJSON(json.responseText).code);
-                                    $('#errorDM').modal('show');
                                 }
                             });
                         }
                     }
-                },
-                error:function(){
-
                 }
             });
-        },
-        error:function(){
-
         }
     });
 
@@ -663,9 +618,6 @@ function closewrap(){
                                                     cancel_buy();
                                                 }
                                             }
-                                        },
-                                        error:function(){
-
                                         }
                                     });
                                 }
@@ -675,16 +627,11 @@ function closewrap(){
                                     $("#apply_buy").hide();
                                     hurry_buy();
                                 }
-                            },
-                            error:function(){
-
                             }
                         });
 
 
                     }
-                },
-                error: function () {
                 }
             });
         }
@@ -725,10 +672,6 @@ function hurry_buy(){
                         prices = json.data.price;
                         supplyStyle = json.data.label.supply_style;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             //获取subscriptionid+time
@@ -748,9 +691,6 @@ function hurry_buy(){
                         subcreateTimes=json.data.signtime.substring(0,10);
                         $(".dvalue").text(subcreateTimes);
                     }
-                },
-                error:function(json){
-                    subType=false;
                 }
             });
             //if(prices == undefined || prices == 0||subType==false)
@@ -778,10 +718,6 @@ function hurry_buy(){
                     if(json.code == 0){
                         usera = json.data.userName;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             $.ajax({
@@ -795,10 +731,6 @@ function hurry_buy(){
                     if(json.code == 0){
                         userb = json.data.userName;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             $("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
@@ -850,9 +782,6 @@ function hurry_buy(){
                             //append($("<span class='vexpire'></span>").text(1)).
                             //append($("<span class='uexpire'></span>").text(" 天")));
                         }
-                    },
-                    error:function(){
-
                     }
                 });
             //TODO 设置订购合同日期，目前写死
@@ -973,10 +902,6 @@ function hurry_buy(){
                                         $("#subscriptDialog .subafterprocess .successed").hide();
                                         $("#subscriptDialog .subafterprocess .failed").show();
                                     }
-                                },
-                                error:function(json){
-                                    errorDialog($.parseJSON(json.responseText).code);
-                                    $('#errorDM').modal('show');
                                 }
                             });
                         }
@@ -986,14 +911,10 @@ function hurry_buy(){
                             $("#subscriptDialog .subafterprocess .successed").hide();
                             $("#subscriptDialog .subafterprocess .failed").show();
                         }
-                    },
-                    error: function () {
                     }
                 });
 
 
-            },
-            error:function(){
             }
         });
 
@@ -1053,10 +974,6 @@ function apply_buy(){
                         prices = json.data.price;
                         supplyStyle = json.data.label.supply_style;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             //获取subscriptionid+time
@@ -1076,9 +993,6 @@ function apply_buy(){
                         $(".dvalue").text(subcreateTimes);
 
                     }
-                },
-                error:function(json){
-                    subType=false;
                 }
             });
 
@@ -1097,10 +1011,6 @@ function apply_buy(){
                     if(json.code == 0){
                         usera = json.data.userName;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             $.ajax({
@@ -1114,10 +1024,6 @@ function apply_buy(){
                     if(json.code == 0){
                         userb = json.data.userName;
                     }
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
             $("#subscriptDialog .modal-body .sub0 .requirera .itext").val(usera);
@@ -1170,9 +1076,6 @@ function apply_buy(){
                         //append($("<span class='vexpire'></span>").text(1)).
                         //append($("<span class='uexpire'></span>").text(" 天")));
                     }
-                },
-                error:function(){
-
                 }
             });
             //TODO 设置订购合同日期，目前写死
@@ -1250,10 +1153,6 @@ function apply_buy(){
                     $("#subscriptDialog .subafterprocess .successed").hide();
                     $("#subscriptDialog .subafterprocess .failed").show();
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     });
@@ -1291,14 +1190,8 @@ function cancel_buy(){
                             alert("取消成功！");
                             location.reload();
                         }
-                    },
-                    error: function (json) {
-                        errorDialog($.parseJSON(json.responseText).code);
-                        $('#errorDM').modal('show');
                     }
                 });
-            },
-            error: function () {
             }
         });
     });

@@ -36,10 +36,6 @@ $(document).ready(function(){
                     $('#thisvip').hide();
                 }
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
     $.ajax({
@@ -55,10 +51,6 @@ $(document).ready(function(){
             }else{
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 
@@ -86,10 +78,6 @@ $(document).ready(function(){
                 }else{
                     console.log("报错");
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
         addhtml(repos);
@@ -151,10 +139,6 @@ $(document).ready(function(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
 
@@ -172,10 +156,6 @@ $(document).ready(function(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
 
@@ -193,10 +173,6 @@ $(document).ready(function(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
 
@@ -232,10 +208,6 @@ $(document).ready(function(){
                         "</div>"+
                         "</div>"
                     );
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
         }
@@ -262,10 +234,6 @@ function ajaxRe(){
             }else {
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }

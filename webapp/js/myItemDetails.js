@@ -384,9 +384,6 @@ $(function(){
                                     }
 
                                 }
-                        },
-                        error:function(json){
-                                alert(json.msg);
                         }
                 });
                 $('#editItem').modal('toggle');
@@ -752,15 +749,9 @@ $('.gobackbtnwrop').click(function(){
                             if(json.code == 0){
                                 $('#editItem').modal('toggle');
                             }
-                        },
-                        error:function(json){
-                            alert(json.msg);
                         }
                     });
                 }
-            },
-            error:function(json){
-                alert(json.msg);
             }
         });
 

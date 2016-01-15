@@ -21,10 +21,6 @@ $(function(){
                     odertotal = json.data.total;
                     addOrderhtml(json);
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     }
@@ -93,10 +89,6 @@ $(function(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 _this.parents('.thisoder').html('申请订购被拒绝');
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     })
@@ -136,10 +128,6 @@ $(function(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 _this.parents('.thisoder').html('订单生效');
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     })

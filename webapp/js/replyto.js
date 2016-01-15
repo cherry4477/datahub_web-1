@@ -33,10 +33,6 @@ $(function(){
             if(json.code==0){
                 thistname= json.data.create_user;
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
    if(loginitemname != 'null' && loginitemname != null){
@@ -51,10 +47,6 @@ $(function(){
                if(json.code==0){
                    commentthisname= json.data.userName;
                }
-           },
-           error:function(json){
-               errorDialog($.parseJSON(json.responseText).code);
-               $('#errorDM').modal('show');
            }
        });
    }
@@ -128,12 +120,7 @@ $(function(){
                 for(var i = 0;i<msglenth;i++){
                     addreplyhtml(msg.data.results[i]);
                 }
-            },
-            error:function(msg){
-                errorDialog($.parseJSON(msg.responseText).code);
-                $('#errorDM').modal('show');
             }
-
         });
 
     }
@@ -181,12 +168,7 @@ $(function(){
             success: function (msg) {
                 alert('删除成功');
                 getcommentlist();
-            },
-            error:function(msg){
-                errorDialog($.parseJSON(msg.responseText).code);
-                $('#errorDM').modal('show');
             }
-
         });
     }
     $(document).on('click','.delcommentbtn',function(){
@@ -251,12 +233,7 @@ $(function(){
                     $(thisobj).val('');
                     $('.surplusnum').html('210');
                     $('.exceednum').html('0');
-                },
-                error:function(msg){
-                    errorDialog($.parseJSON(msg.responseText).code);
-                    $('#errorDM').modal('show');
                 }
-
             });
         }
     }
@@ -279,12 +256,7 @@ $(function(){
                     if(msg.code == 0){
                         issubscription = msg.data;
                     }
-                },
-                error:function(msg){
-                    errorDialog($.parseJSON(msg.responseText).code);
-                    $('#errorDM').modal('show');
                 }
-
             });
             if(issubscription == true || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
