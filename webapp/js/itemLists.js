@@ -89,7 +89,12 @@ function ajaxFunHtml(type,size,page){
 		        success:function(json){
 		        	var len=json.data.results.length;
 		        	for(var i=0;i<len;i++){
-		        		var oderdate =json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+		        		var oderdate="";
+		        		if(json.data.results[i].signtime!=undefined){
+		        			oderdate=json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+		        		}else{
+		        			oderdate=json.data.results[i].applytime.substr(0,10)+"&nbsp;"+json.data.results[i].applytime.substr(11,8);      		
+		        		}
 		        		var expiretimeOrder=json.data.results[i].expiretime.substr(0,10)+"&nbsp;"+json.data.results[i].expiretime.substr(11,8);
 		        		//详情内容
 		        		var comment="";
@@ -473,7 +478,13 @@ function ajaxTotal(type,size){
 	        	$("#itemnum").text(allrepnum);
 	        	var len=json.data.results.length;
 	        	for(var i=0;i<len;i++){
-	        		var oderdate =json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+        			//alert(json.data.results[i].repname+"/"+json.data.results[i].itemname+"---"+json.data.results[i].phase+"---"+json.data.results[i].signtime+"---"+json.data.results[i].applytime);
+	        		var oderdate="";
+	        		if(json.data.results[i].signtime!=undefined){
+	        			oderdate=json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+	        		}else{
+	        			oderdate=json.data.results[i].applytime.substr(0,10)+"&nbsp;"+json.data.results[i].applytime.substr(11,8);      		
+	        		}
 	        		var expiretimeOrder=json.data.results[i].expiretime.substr(0,10)+"&nbsp;"+json.data.results[i].expiretime.substr(11,8);
 	        		//详情内容
 	        		var comment="";
