@@ -556,12 +556,9 @@ function uuuuuuu(){
         headers: {Authorization: "Token " + $.cookie("token")},
         success: function (json) {
             total=json.data.total;
-            console.log("total="+total);
             if (json.code == 0) {
                 var len = json.data.permissions.length;
-                console.log("len="+len);
                 for (var i = 0; i < len; i++) {
-                    console.log(json.data.permissions[i].username);
                     $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
                 }
             }
@@ -830,8 +827,10 @@ $(document).ready(function(){
             var x;
             //var user_zu=[];
             var repname=$("#repnameInput").val();
+
             $('input:checkbox[name=users]:checked').each(function (i) {
                 var users = $(this).parent().text();
+
                 if(i==0){
                     surl="?username="+users;
                     x=0
@@ -843,15 +842,16 @@ $(document).ready(function(){
                 //    user_zu[i] = $('#modalRep_list div').eq(i).index();
                 //}
             });
-
-        $.ajax({
-            url: ngUrl + "/permission/"+repname+surl,
-            type: "DELETE",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (json) {
+        var checkbox_length=$("input[type=checkbox][name=users][checked]").length;
+        if(checkbox_length!=0){
+            $.ajax({
+                url: ngUrl + "/permission/"+repname+surl,
+                type: "DELETE",
+                cache: false,
+                async: false,
+                dataType: 'json',
+                headers: {Authorization: "Token " + $.cookie("token")},
+                success: function (json) {
                     $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("删除成功").fadeIn();
                     $(".successMess").fadeOut(3000);
                     var total=$("#icon_list").text();
@@ -860,20 +860,22 @@ $(document).ready(function(){
                     if(json.code==0){
                         uuuuuuu();
                     }
-            },
-            error: function (json) {
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
-            }
-        });
-
-
+                },
+                error: function (json) {
+                    errorDialog($.parseJSON(json.responseText).code);
+                    $('#errorDM').modal('show');
+                }
+            });
+        }else{
+            alert("请选择要删除的用户");
+        }
     });
     //查询
     $("#seList").click(function () {
        // var username = $(this).parent().siblings().text();
         var username=$("#emailTest").val();
         var repname=$("#repnameInput").val();
+        if(username.length>0){
         $.ajax({
             url: ngUrl + "/permission/" + repname+"?username="+username,
             type: "GET",
@@ -896,6 +898,10 @@ $(document).ready(function(){
                 $('#errorDM').modal('show');
             }
         });
+        }
+        else{
+            $("#modalRep_list").empty();
+        }
     });
 
 
