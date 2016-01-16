@@ -596,13 +596,17 @@ var lilist = $('.namelist li');
                                callback:Fens,
                                load_first_page:false
                            });
-                       }else{
-                           $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
                        }
-
                    }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
-        });
+    });
 
     })
 //////////////////////////返回按钮
