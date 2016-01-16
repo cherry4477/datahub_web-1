@@ -78,6 +78,10 @@ a{
 	color: #333;
 	padding-bottom: 20px;
 }
+.repo:hover{
+	background: #f4fbfe;
+	border-color: #f4fbfe ;
+}
 #navigator-ul li{
 	width: 100%;
 	height: 38px;
