@@ -11,6 +11,23 @@ $(function(){
         }
         return value;
     }
+    $(document).bind("click", function (e) {
+        if ((e.target.className.indexOf("promptbox")<0&& e.target.id != "replycon_btn"&& e.target.id != "pushcon_btn"&&e.target.className.indexOf("publish_btn")<0)) {
+            $(".promptbox").css("display","none");
+        }
+    });
+    $(document).on('click','.gotologin',function(){
+        $(".modal-open").css("padding-right","15px");
+        $('#myModal').modal('toggle');
+    })
+    function addprompt(thisobj,thiscon){
+        $('.promptbox').remove();
+        var promptbox = '<div class="promptbox" style="display: block; left: 706px;">'+
+            thiscon
+            '</div>';
+        $(thisobj).siblings('.conmentbt').append(promptbox);
+    }
+
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     var commentthisname = '';
@@ -166,7 +183,6 @@ $(function(){
             dataType:'json',
             headers: {Authorization: "Token " + $.cookie("token")},
             success: function (msg) {
-                alert('删除成功');
                 getcommentlist();
             }
         });
@@ -210,8 +226,9 @@ $(function(){
         var parten = /^\s*$/ ;
         var commentcon = $(thisobj).val();
         if(parten.test(commentcon)){
-            $('.commenterr').html('评论不能为空');
-            $('#commemtalert').modal('toggle');
+            //$('.commenterr').html('评论不能为空');
+            //$('#commemtalert').modal('toggle');
+            addprompt(thisobj,'评论不能为空');
             return false;
         }else if(commentcon.length > 210){
             return false;
@@ -241,8 +258,11 @@ $(function(){
     function getissub(thisobj,orreply){
         var issubscription = false;
         if($.cookie("token") == null || $.cookie("token") == 'null'){
-            $('.commenterr').html('您还没有登录')
-            $('#commemtalert').modal('toggle');
+            //$('.commenterr').html('您还没有登录')
+            //$('#commemtalert').modal('toggle');
+            //$('.promptbox').remove();
+            //$(thisobj).siblings('.conmentbt').append(promptbox);
+            addprompt(thisobj,'您还没有登录，请<span class="gotologin">登录</span>');
             return;
         }else{
             $.ajax({
@@ -265,8 +285,9 @@ $(function(){
                 //$('.exceednum').html('0');
 
             }else{
-                $('.commenterr').html('您还没有订购该item')
-                $('#commemtalert').modal('toggle');
+                //$('.commenterr').html('您还没有订购该item')
+                //$('#commemtalert').modal('toggle');
+                addprompt(thisobj,'您还没有订购该item');
                 return
             }
         }

@@ -1,6 +1,6 @@
 .commentwrop{
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     padding:20px;
     background: #ebeef5;
 }
@@ -20,8 +20,9 @@
 }
 #left_comment{
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     float: left;
+    height: auto;
 }
 .commentreplyname{
     color:#000;
@@ -49,7 +50,7 @@
 .reply_exceednum,.exceednum{
     color:#fa5e61;
 }
-.comListconwrop div{
+.comListconwrop textarea {
     border: none;
 }
 .replytobox{
@@ -71,11 +72,14 @@
 }
 .commentList{
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    height: auto;
 }
+
 .comListconwrop{
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    height: auto;
     border-bottom: 1px solid #c8c8c8;
     position: relative;
     padding-top:20px;
@@ -182,7 +186,25 @@
     color: #666;
 }
 
-
+.promptbox{
+    position: absolute;
+    display:none;
+    background-color: #fff;
+    border: 5px solid #e5e5e5;
+    color: #666;
+    font-size: 14px;
+    height: 86px;
+    line-height: 86px;
+    width: 180px;
+    text-align: center;
+    left:420px;
+    bottom: -80px;
+    z-index: 100;
+}
+.gotologin{
+    color:#29abe2;
+    cursor: pointer;
+}
 
 
 
