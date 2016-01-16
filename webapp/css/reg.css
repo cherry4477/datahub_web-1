@@ -161,3 +161,34 @@
 #info a:hover{
 	color: #faaa68;
 }
+.modal-body {
+    padding: 0;
+}
+#subscriptDialog .modal-dialog {
+    width: 758px;
+
+}
+#subscriptDialog .modal-dialog .modal-content{
+    background-color: #f6f9fd;
+}
+
+
+.shead{
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 0px 20px;
+	font:16px bold;
+	margin-top: 15px;
+}
+.sbody{
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 0px 20px;
+}
+.note{
+	margin-top: 20px;
+	padding: 0px 20px;
+}
+.sub9{
+	margin-bottom: 20px;
+}
