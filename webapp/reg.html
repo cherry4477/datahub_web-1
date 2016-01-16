@@ -52,6 +52,7 @@
 				<p id="label_two" style="display: none"><span class="span_icon"></span>密码不能少于8个字符</p>
 				<p id="label_three" style="display: none"><span class="span_icon"></span>两次密码输入不一致</p>
 				<p id="label_four" style="display: none"><span class="span_icon"></span>您还没有接受《DataHub服务协议》</p>
+				<p id="label_five" style="display: none"><span class="span_icon"></span>邮箱不能为空</p>
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
@@ -87,7 +88,6 @@
 			</div>
 		</div>
 	</div>
-	
 
 	<div id="loginTem"></div>
 
@@ -123,41 +123,42 @@
 	</script>
 	<script>
 		$(document).ready(function(){
-			var b=true;
+			
 			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			$("#email").blur(function(){
             	if (!reg.test($("#email").val())){
-            		$("#label_one").css("display","block");
-					b=false;
+            		$("#label_one").css("display","block");	
+				}
+				if (($("#email").val())==""){
+					$("#label_five").css("display","block");
 				}
 			});
 			$("#ps").blur(function(){
             	if (($("#ps").val())==""){
 					$("#label_two").css("display","block");
-					b=false;
-				} 
+				}
 
 				if(($("#ps").val()).length<8){
 					$("#label_two").css("display","block");
-					b=false;
+					
 				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
 					$("#label_two").css("display","block");
-					b=false;
+					
 				} 
 
 				if(($("#psr").val()).length<8){
 					$("#label_two").css("display","block");
-					b=false;
+					
 				}
 			});
 
 			//判断密码是否相同
 			if (($("#ps").val())!=($("#psr").val())){
 				$("#label_three").css("display","block");
-				b=false;
+				
 			}
 			$("#registration").click(function(){
 
@@ -165,12 +166,14 @@
             		$("#label_one").css("display","block");
             		$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
             	}
 				if( $("#email").val() == ''){
 					$("#email").focus();
 					$("#label_one").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
 
 				if( $("#ps").val() == ''){
@@ -178,11 +181,13 @@
 					$("#label_two").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
 				if(($("#ps").val()).length<8){
 					$("#label_two").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
 
 				if( $("#psr").val() == ''){
@@ -190,24 +195,32 @@
 					$("#label_two").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
 
 				if(($("#psr").val()).length<8){
 					$("#label_two").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
 			//判断checkbox是否选中
-				if ($("#item").attr("checked",false)){
+			// alert($("#item").is(":checked"))
+				if ($("#item").is(":checked")==false){
 					b=false;
 					$("#label_four").css("display","block");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
+					return;
 				}
-
-			if(b){
+				else{
 					$(".infoBox").hide();
 					$("#checkEmail").show();
+				}
+			
+					$(".infoBox").hide();
+					$("#checkEmail").show();
+					
 
 				var loginname=$("#email").val();
 				var	myps=$.md5($("#ps").val());
@@ -227,12 +240,7 @@
 				 		$("#info a").text(strtext).attr("href",strtext);
             		}
             	});
-            }
-            else{
-				$(".infoBox").show();
-				$("#checkEmail").hide();
-
-			}
+            
 			});
 		});
 	</script>

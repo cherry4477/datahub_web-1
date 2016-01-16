@@ -10,7 +10,6 @@
 #successed{
 	float: left;
 	margin-top: 40px;
-	margin-bottom: 40px;
 	margin-left: 50px;
 	font-size:27px;
 	color: #333333;
@@ -20,7 +19,7 @@
 }
 #info p{
 	margin-left: -35px;
-	margin-top: 140px;
+	margin-top: 70px;
 	margin-bottom: 70px;
 	font:16px;
 	text-align: center;
