@@ -534,9 +534,9 @@ a{
 	width: 180px;
 }
 .price p {
-	border: 2px solid #f49f12;
+
 	border-radius: 3px;
-	color: #f49f12;
+
 	display: inline;
 	font-size: 16px;
 	padding: 0 10px;
@@ -583,9 +583,19 @@ a{
 .lable p.flot-data {
 	border: 1px solid #fc9b00;
 }
+.freetype{
+	border: 2px solid #f49f12;
+	color: #f49f12;
+}
 
-
-
+.chargetype{
+	border: 2px solid #e5004f;
+	color: #e5004f;
+}
+.limitedfreetype{
+	border: 2px solid #e60012;
+	color: #e60012;
+}
 
 
 
