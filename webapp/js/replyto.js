@@ -52,21 +52,23 @@ $(function(){
             }
         }
     });
-   if(loginitemname != 'null' && loginitemname != null){
-       $.ajax({
-           url: ngUrl+"/users/"+loginitemname,
-           type: "GET",
-           cache:false,
-           async:false,
-           headers:headerToken,
-           dataType:'json',
-           success:function(json) {
-               if(json.code==0){
-                   commentthisname= json.data.userName;
-               }
-           }
-       });
-   }
+
+    /////////////登录用户的真实姓名
+   //if(loginitemname != 'null' && loginitemname != null){
+   //    $.ajax({
+   //        url: ngUrl+"/users/"+loginitemname,
+   //        type: "GET",
+   //        cache:false,
+   //        async:false,
+   //        headers:headerToken,
+   //        dataType:'json',
+   //        success:function(json) {
+   //            if(json.code==0){
+   //                commentthisname= json.data.userName;
+   //            }
+   //        }
+   //    });
+   //}
 
 
     function addcommenthtml(towho){
@@ -96,6 +98,20 @@ $(function(){
         var replythisname = '';
         var myitemcolor = '';
         if(thistname == listcon.username){
+            $.ajax({
+                url: ngUrl+"/users/"+thistname,
+                type: "GET",
+                cache:false,
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json) {
+                    if(json.code==0){
+                        commentthisname= json.data.userName;
+
+                    }
+                }
+            });
             replythisname = commentthisname;
             myitemcolor = 'myitemcolor';
         }else{
