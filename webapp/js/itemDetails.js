@@ -9,8 +9,11 @@ $(function(){
     var itemName=getParam("itemname");
     //item标题
     var url ="repDetails.html?repname="+repoName;
-    var titleName=(repoName+"/"+itemName);
-    $("#titleName").text(titleName).parent().attr("href",url);
+    //var titleName=(repoName+"/"+itemName);
+    $("#titleName .reponame").text(repoName);
+    $("#titleName .itemname").text(itemName);
+
+    $("#titleName .reponame").parent().attr("href",url);
 
     $(".slideTxtBox").slide({trigger:"click"});
     yes_no_login();//判断是否登录
@@ -30,10 +33,13 @@ $(function(){
     tablesheet();//表格样式
 
     closewrap();//关闭弹窗s
+
+
     $("#LT_left_icon .alert_login p a").click(function() {
         $(".modal-open").css("padding-right","15px");
         $('#myModal').modal('toggle');
     });
+
 });
 //获取reponame,itemname
 function getParam(key) {
@@ -361,7 +367,8 @@ function numsubs(){
 function about_item(){
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
-    $("#client_down p:nth-child(2)").text(repoName);
+    var urlrepo="repDetails.html?repname="+repoName;
+    $("#client_down .repo2").append($("<a></a>").text(repoName).attr("href",urlrepo));
     var headerToken={};
 
     //登陆后
@@ -380,7 +387,10 @@ function about_item(){
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
-                $(".span_time span:nth-child(2)").text(json.data.optime);
+                var optime=json.data.optime;
+                var arr=new Array();
+                arr=optime.split("|");
+                $(".span_time span:nth-child(2)").text(arr[1]);
           /*      var label=json.data.label;
                 if(label==null||label=="null"){
                 }
@@ -418,9 +428,9 @@ function company(){
             var label=json.data.label.sys.supply_style;
             var label_owner=json.data.label.owner;
             if(label_owner!= "undefined"||label_owner!=undefined||label_owner!=null||label_owner!="null"){
-                for( var lab in label_owner){
-                    $(".span_label").append($("<span></span>").text(label_owner[lab].value));
-                }
+                //for( var lab in label_owner){
+                    $(".span_label").append($("<span></span>").text(label_owner.starwars));
+                //}
             }
 
              if(label==null||label=="null"){
@@ -477,7 +487,7 @@ function company(){
                     if(j.code==0){
                         company_name= j.data.userName;
                         var url="dataOfDetails.html?username="+create_user;
-                        $("#client_down p a").text(company_name).attr("href",url);
+                        $("#client_down .company_name a").text(company_name).attr("href",url);
                         //GET /heartbeat/status/:user 获取user的daemon status。
                         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
                         if(login=="true"){
@@ -511,37 +521,28 @@ function company(){
     });
 
 }
+var nav_index = 0;
 function switchover(){
     $("#left_exam").hide();
     $("#left_unit").hide();
     $("#left_comment").hide();
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
+        nav_index = $(this).index();
+        $(this).addClass('borderBt');
+        $(this).siblings().removeClass('borderBt');
+        //下面这行复合样式不生效
+        //$("#left_nav>p:eq("+index+")" ).css({" border-bottom":"4px solid #8c97cb"," font-weight":"bold"});
         $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-
-
-    });
-    $("#left_nav>p").on("click",function(){
-        var index=$(this).index();
-        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-
-    });
-    $("#left_nav>p").on("click",function(){
-        var index=$(this).index();
-        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-
-    });
-    $("#left_nav>p").on("click",function(){
-        var index=$(this).index();
-        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-
-    });
-    $("#left_nav>p").on("click",function(){
-        var index=$(this).index();
-        $("#left_contentALL>div:eq("+index+")").show().siblings().hide();
-
     });
 }
+$("#left_nav>p").on("mouseover",function(){
+    $(this).addClass('borderBt');
+    $(this).siblings().removeClass('borderBt');
+})
+$("#left_nav>p").on("mouseout",function(){
+    $("#left_nav>p").eq(nav_index).addClass('borderBt').siblings().removeClass('borderBt');
+})
 function tablesheet(){
     $("#left_unit table tbody tr:odd").css({"background-color":"#f3f3f3","height":"35px","width":"60px"});
     $("#left_unit table tbody tr:even").css({"background-color":"#f1f6fa","height":"35px","width":"60px"});
@@ -652,6 +653,7 @@ function hurry_buy(){
         var prices;
         var subType=true;
             var headerToken={};
+        $("#myModalLabel").text("数据订购合约");
             //登陆后
             if($.cookie("token")!=null&&$.cookie("token")!="null"){
                 headerToken={Authorization:"Token "+$.cookie("token")};
@@ -686,7 +688,6 @@ function hurry_buy(){
                 dataType:'json',
                 success:function(json){
                     if(json.code == 0){
-
                         subscriptionid=json.data.subscriptionid;
                         subcreateTimes=json.data.signtime.substring(0,10);
                         $(".dvalue").text(subcreateTimes);
@@ -885,6 +886,7 @@ function hurry_buy(){
                                             clearInterval(timer);
                                             $("#subscriptDialog .modal-header").show();
                                             $("#subscriptDialog .subprocess").hide();
+                                            $("#myModalLabel").text("签约结果");
                                             $("#subscriptDialog .subafterprocess .successed").show();
                                             $("#subscriptDialog .subafterprocess .failed").hide();
                                             var stars = parseInt($("#dataitem-head-right .subscript .value").text());
@@ -895,12 +897,14 @@ function hurry_buy(){
                                         $("#subscriptDialog .subprocess").hide();
                                         $("#subscriptDialog .subafterprocess .successed").hide();
                                         $("#subscriptDialog .subafterprocess .failed").show();
+                                        $("#myModalLabel").text("签约结果");
                                     }else{
                                         clearInterval(timer);
                                         $("#subscriptDialog .modal-header").show();
                                         $("#subscriptDialog .subprocess").hide();
                                         $("#subscriptDialog .subafterprocess .successed").hide();
                                         $("#subscriptDialog .subafterprocess .failed").show();
+                                        $("#myModalLabel").text("签约结果");
                                     }
                                 }
                             });
@@ -1137,6 +1141,7 @@ function apply_buy(){
                         clearInterval(timer);
                         $("#subscriptDialog .modal-header").show();
                         $("#subscriptDialog .subprocess").hide();
+                        $("#myModalLabel").text("签约结果");
                         $("#subscriptDialog .subafterprocess .successed").show();
                         $("#subscriptDialog .subafterprocess .failed").hide();
                         var stars = parseInt($("#dataitem-head-right .subscript .value").text());
@@ -1152,6 +1157,7 @@ function apply_buy(){
                     $("#subscriptDialog .subprocess").hide();
                     $("#subscriptDialog .subafterprocess .successed").hide();
                     $("#subscriptDialog .subafterprocess .failed").show();
+                    $("#myModalLabel").text("签约结果");
                 }
             }
         });

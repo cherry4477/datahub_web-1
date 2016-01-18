@@ -16,115 +16,17 @@ $(document).ready(function(){
     nav();
     appendList(0);
     pages();
+    var labels_len=0;
+    var mouseoverindex=0;
+    var mouseoutindex=0;
     $("#navigator_ul li").on("mouseover mouseout",function(event){
-        var itemname=$(this).text();
-        if(itemname=="全部精选"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_05.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_03.png");
-            }
+        if(event.type=="mouseover"){
+            mouseoverindex=$(this).index();
+            changebg(mouseoverindex);
         }
-
-        if (itemname=="终端专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_30.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_29.png");
-            }
-        }
-        if (itemname=="互联网专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_54.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_53.png");
-            }
-        }
-
-        if (itemname=="征信专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_110.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_109.png");
-            }
-        }
-
-        if (itemname=="运营商专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_122.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_121.png");
-            }
-        }
-
-        if (itemname=="工商专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_114.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_113.png");
-            }
-        }
-
-        if (itemname=="银联专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_92.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_91.png");
-            }
-        }
-
-        if (itemname=="地图专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_96.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_95.png");
-            }
-        }
-
-        if (itemname=="位置专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_118.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_117.png");
-            }
-        }
-
-        if (itemname=="北京公共专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_125.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_126.png");
-            }
-        }
-
-        if (itemname=="上海公共专题"){
-            if(event.type == "mouseover"){
-                $(this).css("color","#43609f");
-                $(this).children().attr("src","images/selects/images_129.png");
-            }else if(event.type == "mouseout"){
-                $(this).css("color","#29abe2");
-                $(this).children().attr("src","images/selects/images_130.png");
-            }
+        if(event.type=="mouseout"){
+             mouseoutindex=clickindex;
+            changebg(mouseoutindex);
         }
     });
 });
@@ -139,58 +41,39 @@ function nav(){
         dataType:'json',
         success:function(json){
            var labels_length=json.data.length;
+            labels_len=labels_length;
             for(var i=0; i<labels_length;i++){
                 var labelname=json.data[i].labelname;
                 //判断label的名称
                 var $navigator_ul=$("#navigator_ul");
-                if(labelname=="终端专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_29.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="全部精选"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_03.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="互联网专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_53.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="征信专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_109.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="运营商专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_121.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="工商专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_53.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="银联专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_91.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="地图专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_95.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="位置专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_117.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="北京公共专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_126.png'/><span>"+labelname+"</span></li>");
-                }
-                if(labelname=="上海公共专题"){
-                    $navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_130.png'/><span>"+labelname+"</span></li>");
-                }
-
-                //$navigator_ul.append("<li id='li"+(i+1)+"'><img style='margin-left:24px;margin-right:20px;margin-top:20px;margin-bottom:20px;' src='images/selects/images_03.png'/><span>"+labelname+"</span></li>");
-
+                //if(labelname=="终端专题"){
+                $navigator_ul.append('<li class="li1'+i+'">'+labelname+'</li>');
             }
         }
     });
 
 }
+function changebg(index){
+    for(var i=0;i<labels_len;i++){
+        var add_class1="li1"+i;
+        var add_class2="li0"+i;
+
+        $('#navigator_ul li').eq(i).addClass(add_class1).removeClass(add_class2);
+    }
+
+    $('#navigator_ul li').eq(index).addClass('li0'+index).removeClass('li1'+index);
+}
 var lablename={};
+
 $("body").on("click","#navigator_ul li",function(){
+    window.clickindex = $(this).index();
     $(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
     lablename=$(this).text();
     $(".container .title p").text(lablename);
+    changebg(clickindex);
     appendList2(0);
     pages2();
+
 });
 //  加载全部数据
 function appendList(pages){
@@ -403,28 +286,33 @@ function addhtml(){
 
                 //右边部分
                 var price_style="";
+                var price_sheet = '';
                 var pricestate=json.data.pricestate;//获取付费状态
                 if(pricestate=="免费")
                 {
                     price_style="免费";
+                    price_sheet ="mianfei_sheet";
                 }
                 else if(pricestate=="限量免费")
                 {
                     price_style="限量免费";
+                    price_sheet ="xianliang_sheet";
                 }
                 else if(pricestate=="付费")
                 {
                     price_style="付费";
+                    price_sheet ="fufei_sheet";
                 }
-                else{
-                    price_style="暂无"
+                else  {
+                    price_style="暂无";
+                    price_sheet="wu_sheet";
                 }
 
 
 
                 $repo_right.append(""+
                 "<div class='price' style='width:180px;margin-top:30px;margin-left:90px;margin-bottom: 29px;float: left;'>"+
-                "<p>"+price_style+"</p>"+
+                "<p class='"+price_sheet+"'>"+price_style+"</p>"+
                "</div>"+
                 "<div class='iconGroup'>"+
                     "<div class='like'>"+

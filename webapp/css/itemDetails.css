@@ -1,9 +1,11 @@
+#wrap{
+    float: left;
+    margin-bottom: 100px;
+}
 #main{
     margin-top: 95px;
     float: left;
     margin-bottom: 100px;
-
-
 }
 #main-left {
     float: left;
@@ -28,13 +30,16 @@
 #LT_left_title  p{
     font-size:20px;
     width:575px;
-    color: #43609f;
+    color: #43609f ;
     line-height: 30px;
     display: inline;
     font-weight: bold;
     word-wrap: break-word;
 }
-#LT_left_title  p:hover{
+#titleName .reponame{
+    color: #43609f ;
+}
+#titleName.reponame:hover{
     color: #395289;
 }
 #LT_left_title div>span{
@@ -193,7 +198,7 @@
     display: none;
 }
 #apply_buy:hover{
-    background-image: linear-gradient(to bottom, #50cd83 0%, #68e696 100%) !important;
+    background-image: linear-gradient(to bottom, #50cd83 0%, #50cd83 100%) !important;
     background-color:#50cd83 ;
 }
 #apply_buy:focus{
@@ -211,7 +216,7 @@
     display: none;
 }
 #cancel_buy:hover{
-    background-image: linear-gradient(to bottom, #666666 0%, #e8e8e8 100%) !important;
+    background-image: linear-gradient(to bottom, #666666 0%, #666666 100%) !important;
     background-color:#666666 ;
 }
 #cancel_buy:focus{
@@ -256,9 +261,13 @@
     width: 219px;
     float: left;
 }
-#nav1:hover{
+/*#nav1:hover{*/
+    /*border-bottom:4px solid #8c97cb;*/
+    /*font-weight: bold;*/
+/*}*/
+.borderBt{
     border-bottom:4px solid #8c97cb;
-    font-weight: bold;
+    font-weight:bold;
 }
 #nav1>sup>span{
     font-size: 10px;
@@ -275,28 +284,28 @@
     width:219px;
     float: left;
 }
-#nav2:hover{
-    border-bottom:4px solid #8c97cb;
-    font-weight: bold;
-}
+/*#nav2:hover{*/
+    /*border-bottom:4px solid #8c97cb;*/
+    /*font-weight: bold;*/
+/*}*/
 #nav3{
     line-height: 50px;
     width: 219px;
     float: left;;
 }
-#nav3:hover{
-    border-bottom:4px solid #8c97cb;
-    font-weight: bold;
-}
+/*#nav3:hover{*/
+    /*border-bottom:4px solid #8c97cb;*/
+    /*font-weight: bold;*/
+/*}*/
 #nav4{
     line-height: 50px;
     width: 219px;
     float: left;;
 }
-#nav4:hover{
-    border-bottom:4px solid #8c97cb;
-    font-weight: bold;
-}
+/*#nav4:hover{*/
+    /*border-bottom:4px solid #8c97cb;*/
+    /*font-weight: bold;*/
+/*}*/
 
 
 /*内容开始*/
@@ -518,6 +527,7 @@
 }
 #about .span_label span{
     padding: 1px 10px;
+    border-radius: 3px;
 }
 #about .span_label>span:nth-child(1){
     border: 1px solid red;
@@ -541,9 +551,9 @@
     color:#333;
     margin-bottom: 15px;
 }
-#client_down p:nth-child(2){
+#client_down .repo2>a{
     font-size: 14px;
-    color: #43609f;
+    color: #43609f !important;
     font-weight:bold;
 }
 #client_down p:nth-child(2):hover{
@@ -723,6 +733,7 @@
     background-position: -44px 0px;
     width: 26px;
     height: 26px;
+    margin-left: 180px; margin-right: -180px; margin-top: 0px;
 }
 #subscriptDialog .subafterprocess .failed .head .icon {
     background-image: url("../images/buy_icon.png");
@@ -730,4 +741,5 @@
     background-position: 0px 0px;
     width: 26px;
     height: 26px;
+    margin-left: 135px; margin-right: -135px; margin-top: 0px;
 }
