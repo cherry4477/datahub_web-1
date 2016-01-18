@@ -458,7 +458,7 @@ $('.addnamebtn').click(function(event) {
           $('#mess').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkloginusers(username) == 1){
-        $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+        //$('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -727,7 +727,8 @@ $('.gobackbtnwrop').click(function(){
                         var labelkey = $.trim(label.children(".tagkey:first").val());
                         var labelvalue = $.trim(label.children(".tagvalue:first").val());
                         if(labelkey == "" || labelvalue == "") {
-                            alert("标签名和标签值不能为空！");
+                            //alert("标签名和标签值不能为空！");
+                            $('#errlabels').html('标签名和标签值不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                             return;
                         }
                         var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
@@ -838,6 +839,13 @@ $('.gobackbtnwrop').click(function(){
                 if(json.code == 0){
                     isloginusers = 2;
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
         });
         return isloginusers;
