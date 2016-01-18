@@ -202,7 +202,7 @@ function ajaxFunHtml(type,size,page){
 		    	        			"<div style='width:1130px;' class='repo'>"+
 		    							"<div class='left'>"+
 		    								"<div class='repoName'>"+ 
-		    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+		    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 		    								"</div>"+
 		    								"<div class='description'>"+	
 		    									"<p>"+comment+"</p>"+
@@ -580,7 +580,7 @@ function ajaxTotal(type,size){
 	    	        			"<div style='width:1130px;' class='repo'>"+
 	    							"<div class='left'>"+
 	    								"<div class='repoName'>"+ 
-	    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+	    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 	    								"</div>"+
 	    								"<div class='description'>"+	
 	    									"<p>"+comment+"</p>"+
