@@ -322,22 +322,23 @@ $(function(){
     });
         $(".itemListName-icon").click(function() {
             if(itemaccesstype == 'private'){
+                $.ajax({
+                    type: "get",
+                    url:ngUrl+"/permission/"+repname+"/"+itemname,
+                    cache:false,
+                    headers:{Authorization: "Token "+account},
+                    success: function(msg){
+                        var fornum = msg.data.total;
+                        $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
+                    }
+                });
                 $('.xiugaiwrop').show();
             }else{
                 $('.xiugaiwrop').hide();
             }
             $('.valuemoney').empty();
             $('.itemtag .value').empty();
-            $.ajax({
-                type: "get",
-                url:ngUrl+"/permission/"+repname+"/"+itemname,
-                cache:false,
-                headers:{Authorization: "Token "+account},
-                success: function(msg){
-                    var fornum = msg.data.total;
-                    $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
-                }
-            });
+
                 $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname,
                         type: "GET",
@@ -462,12 +463,11 @@ $('.addnamebtn').click(function(event) {
         return false;
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
-            return false;
+         return false;
     }else if($.cookie("tname") == username){
         $('#mess').html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else{
-         
           $.ajax({
                 type:"put",
                 url:ngUrl+"/permission/"+repname+"/"+itemname,
@@ -556,6 +556,7 @@ var lilist = $('.namelist li');
                     if(deluser.code == 0){
                         $('.namelist').empty();
                         isdele = true;
+                        $('.gobackbtnwrop').hide();
                         getpagesF();
                     }
                 }
@@ -821,6 +822,13 @@ $('.gobackbtnwrop').click(function(){
                         iscurname = 2;
                     }
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    iscurname = 1;
+                }
+
             }
         });
         return iscurname;
