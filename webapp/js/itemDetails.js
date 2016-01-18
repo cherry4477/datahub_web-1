@@ -130,7 +130,7 @@ function gonextpage(nextpages){
                         }
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
-                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i));
+                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i).attr("readonly","readonly"));
                         var clipbtn = $("<button>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i);
                         //复制功能
                         var clipboard = new Clipboard(clipbtn.get(0));
@@ -172,7 +172,6 @@ function gonextpage(nextpages){
 }
 //点赞功能
 function star(){
-
         var repoName = getParam("repname");
         var itemName = getParam("itemname");
         var numstars = "";
@@ -270,7 +269,6 @@ function star(){
                                             }
                                         });
                                     }
-
                                 }
                             });
                         }
@@ -315,8 +313,6 @@ function starred2(){
                     "width":"25px",
                     "height":"25px"});
             }
-
-
         }
     });
     }
