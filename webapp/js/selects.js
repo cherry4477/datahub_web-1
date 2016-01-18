@@ -16,6 +16,8 @@ $(document).ready(function(){
     nav();
     appendList(0);
     pages();
+
+    get_type();
     var labels_len=0;
     var mouseoverindex=0;
     var mouseoutindex=0;
@@ -75,6 +77,56 @@ $("body").on("click","#navigator_ul li",function(){
     pages2();
 
 });
+//接收type
+function get_type(){
+    var lablename2="";
+    var type=getParam("type");
+    if(type=="全部精选"){
+        changebg(0);
+        lablename2=$("#navigator_ul li:eq(0)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="终端专题"){
+        changebg(1);
+        lablename2=$("#navigator_ul li:eq(1)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="互联网专题"){
+        changebg(2);
+        lablename2=$("#navigator_ul li:eq(2)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="征信专题"){
+        changebg(3);
+        lablename2=$("#navigator_ul li:eq(3)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="运营商专题"){
+        changebg(4);
+        lablename2=$("#navigator_ul li:eq(4)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="位置专题"){
+        changebg(5);
+        lablename2=$("#navigator_ul li:eq(5)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="北京公共专题"){
+        changebg(6);
+        lablename2=$("#navigator_ul li:eq(6)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="上海公共专题"){
+        changebg(7);
+        lablename2=$("#navigator_ul li:eq(7)").text();
+        $(".container .title p").text(lablename2);
+    }
+    if(type=="空气质量专题"){
+        changebg(8);
+        lablename2=$("#navigator_ul li:eq(8)").text();
+        $(".container .title p").text(lablename2);
+    }
+}
 //  加载全部数据
 function appendList(pages){
     $(".repoAll").empty();

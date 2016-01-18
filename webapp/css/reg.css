@@ -2,9 +2,9 @@
 	float: left;
 	margin-top: 40px;
 	border-top:5px solid #c8c8c8;
-	border-bottom: 1px solid #395289;
-	border-left: 1px solid #395289;
-	border-right: 1px solid #395289;
+	border-bottom: 1px solid #c8c8c8;
+	border-left: 1px solid #c8c8c8;
+	border-right: 1px solid #c8c8c8;
 	width:740px;
 }
 #title{
@@ -18,7 +18,7 @@
 
 .labelBox{
 	float: left;
-	margin-left: 45px;
+	margin-left: -174px;
 	margin-top: 100px;
 	text-align: left;
 	color: #FF0000;
@@ -39,9 +39,18 @@
 	float: left;
 	font-size:20px;
 	color:#333333;
-	margin-top: 50px;
+	margin-top: 40px;
 	margin-right: 20px;
 	width:85px;
+}
+#label1{
+	padding-top: 5px;
+}
+#label2{
+	padding-top: 14px;
+}
+#label3{
+	padding-top: 14px;
 }
 .input-group input{
 	margin-top: 35px;
@@ -115,14 +124,16 @@
 	height:70px;
 	padding-top: 25px;
 	padding-bottom: 25px;
-	border-top:1px solid #395289;
+	border-top:1px solid #c8c8c8;
 	width:100%;
 }
-#login p{
+#login{
 	font:14px #333333;
 }
+
 #login a{
-	font:14px bold #666666;
+	font:14px #666666;
+	font-weight: bold;
 }
 #checkEmail{
 	float: left;
@@ -156,10 +167,14 @@
 }
 #info a{
 	color: #0000FF;
-	font:18px bold;
+	font-size:18px;
+	font-weight: bold;
 }
 #info a:hover{
 	color: #faaa68;
+}
+#protocol{
+	font-weight: bold;
 }
 .modal-body {
     padding: 0;
@@ -171,7 +186,6 @@
 #subscriptDialog .modal-dialog .modal-content{
     background-color: #f6f9fd;
 }
-
 
 .shead{
 	margin-right: 10px;

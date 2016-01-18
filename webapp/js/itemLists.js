@@ -202,7 +202,7 @@ function ajaxFunHtml(type,size,page){
 		    	        			"<div style='width:1130px;' class='repo'>"+
 		    							"<div class='left'>"+
 		    								"<div class='repoName'>"+ 
-		    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+		    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 		    								"</div>"+
 		    								"<div class='description'>"+	
 		    									"<p>"+comment+"</p>"+
@@ -221,7 +221,7 @@ function ajaxFunHtml(type,size,page){
 		    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 		    						"</div>"+
 		    						"<div class='button'>"+
-		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
+		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
 		    						"</div>"+
 		    					"</div>"+
 		    				"</div>"
@@ -580,7 +580,7 @@ function ajaxTotal(type,size){
 	    	        			"<div style='width:1130px;' class='repo'>"+
 	    							"<div class='left'>"+
 	    								"<div class='repoName'>"+ 
-	    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+	    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 	    								"</div>"+
 	    								"<div class='description'>"+	
 	    									"<p>"+comment+"</p>"+
@@ -599,7 +599,7 @@ function ajaxTotal(type,size){
 	    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 	    						"</div>"+
 	    						"<div class='button'>"+
-	    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
+	    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
 	    						"</div>"+
 	    					"</div>"+
 	    				"</div>"

@@ -182,7 +182,7 @@
 	<link rel="stylesheet" href="css/command.css">
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="./css/pagination.css"/>
-	<link rel="stylesheet" href="css/dataInfo.css" />
+	<link rel="stylesheet" href="css/dataofDetails.css" />
 </head>
 <style>
 	.name{
@@ -192,6 +192,7 @@
 		border-bottom:1px solid #c8c8c8;
 		padding-top: 20px;
 		padding-bottom: 20px;
+		margin-top: 0px !important;
 	}
 	.name span{
 		font:16px;
@@ -297,8 +298,10 @@
 			init(4,10);
 			//type类型，size分页数
 			//会员判断
+
 	$.ajax({
-			url: ngUrl + "/users/" + getParam("username"),
+			url:ngUrl+"/users/"+$.cookie("tname"),
+			//url: ngUrl + "/users/" + getParam("username"),
 			type: "get",
 			cache: false,
 			async: false,
@@ -309,6 +312,7 @@
 				$("#dataName").text(d.data.userName);
 				$("#dataNamer").text(d.data.userName);
 				$("#dataComment").text(d.data.comment);
+				console.log(d.username);
 
 				if (UT == 1) {
 
@@ -327,9 +331,7 @@
 					$("#gold").hide();
 					
 				}
-
 			}
-
 		});
 
 

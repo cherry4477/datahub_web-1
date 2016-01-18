@@ -56,11 +56,11 @@
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
-				<label for="exampleEmail">邮箱地址</label>
+				<label for="exampleEmail" ID="label1">邮箱地址</label>
     			<input type="text" class="form-control" id="email" placeholder="请填写正确的邮箱，以便接收账号">
-    			<label for="examplePs">输入密码</label>
+    			<label for="examplePs" ID="label2">输入密码</label>
    				<input type="password" class="form-control" id="ps" placeholder="最少8个字符">
-   				<label for="examplePs2">确认密码</label>
+   				<label for="examplePs2" ID="label3">确认密码</label>
    				<input type="password" class="form-control" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
@@ -255,65 +255,74 @@
 			
 			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			$("#email").blur(function(){
-            	if (!reg.test($("#email").val())){
-            		$("#label_one").css("display","block");	
-				}
+
 				if (($("#email").val())==""){
 					$("#label_five").css("display","block");
+					$("#label_five").fadeOut(4000);
 				}
+            	if (($("#email").val())!==""){
+            	 	if (!reg.test($("#email").val())){
+            			$("#label_one").css("display","block");	
+            			$("#label_one").fadeOut(4000);
+					}	
+				}	
 			});
 			$("#ps").blur(function(){
             	if (($("#ps").val())==""){
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
 				}
 
 				if(($("#ps").val()).length<8){
-					$("#label_two").css("display","block");
-					
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);	
 				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
-					$("#label_two").css("display","block");
-					
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
 				} 
 
 				if(($("#psr").val()).length<8){
-					$("#label_two").css("display","block");
-					
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
 				}
 			});
 
 			//判断密码是否相同
 			if (($("#ps").val())!=($("#psr").val())){
-				$("#label_three").css("display","block");
-				
+				$("#label_three").css("display","block");	
+				$("#label_three").fadeOut(4000);
 			}
 			$("#registration").click(function(){
-
-				if (!reg.test($("#email").val())){
-            		$("#label_one").css("display","block");
-            		$(".infoBox").show();
-					$("#checkEmail").hide();
-					return;
-            	}
-				if( $("#email").val() == ''){
+				if( $("#email").val() !== ''){
 					$("#email").focus();
-					$("#label_one").css("display","block");
-					$(".infoBox").show();
-					$("#checkEmail").hide();
+					
+						if (!reg.test($("#email").val())){
+            				$("#label_one").css("display","block");
+            				$("#label_one").fadeOut(4000);
+            				$(".infoBox").show();
+							$("#checkEmail").hide();
+							return;
+            			}		
+				}
+				else{$("#label_five").css("display","block");
+					$("#label_five").fadeOut(4000);
 					return;
 				}
-
+					
 				if( $("#ps").val() == ''){
 					$("#ps").focus();
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
 				}
 				if(($("#ps").val()).length<8){
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -322,6 +331,7 @@
 				if( $("#psr").val() == ''){
 					$("#psr").focus();
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -329,6 +339,7 @@
 
 				if(($("#psr").val()).length<8){
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -338,6 +349,7 @@
 				if ($("#item").is(":checked")==false){
 					b=false;
 					$("#label_four").css("display","block");
+					$("#label_four").fadeOut(4000);
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -346,7 +358,6 @@
 					$(".infoBox").hide();
 					$("#checkEmail").show();
 				}
-			
 					$(".infoBox").hide();
 					$("#checkEmail").show();
 					

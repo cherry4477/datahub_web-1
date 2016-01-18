@@ -130,7 +130,7 @@ function gonextpage(nextpages){
                         }
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
-                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i));
+                        $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i).attr("readonly","readonly"));
                         var clipbtn = $("<button>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i);
                         //复制功能
                         var clipboard = new Clipboard(clipbtn.get(0));
@@ -172,7 +172,6 @@ function gonextpage(nextpages){
 }
 //点赞功能
 function star(){
-
         var repoName = getParam("repname");
         var itemName = getParam("itemname");
         var numstars = "";
@@ -270,7 +269,6 @@ function star(){
                                             }
                                         });
                                     }
-
                                 }
                             });
                         }
@@ -315,8 +313,6 @@ function starred2(){
                     "width":"25px",
                     "height":"25px"});
             }
-
-
         }
     });
     }
@@ -426,11 +422,14 @@ function company(){
             var create_user=json.data.create_user;
             //显示标签
             var label=json.data.label.sys.supply_style;
+            if(label_owner==undefined){
+            }else{
             var label_owner=json.data.label.owner;
-            if(label_owner!= "undefined"||label_owner!=undefined||label_owner!=null||label_owner!="null"){
+            if(label_owner!=undefined||label_owner!=null||label_owner!="null"){
                 //for( var lab in label_owner){
                     $(".span_label").append($("<span></span>").text(label_owner.starwars));
                 //}
+            }
             }
 
              if(label==null||label=="null"){
@@ -523,9 +522,20 @@ function company(){
 }
 var nav_index = 0;
 function switchover(){
-    $("#left_exam").hide();
-    $("#left_unit").hide();
-    $("#left_comment").hide();
+    var discuss=getParam("discuss");
+    if(discuss=="discuss"){
+        $("#left_content").hide();
+        $("#left_exam").hide();
+        $("#left_unit").hide();
+        $("#left_comment").show();
+        $("#nav4").addClass('borderBt');
+        $("#nav4").siblings().removeClass('borderBt');
+    }else{
+        $("#left_exam").hide();
+        $("#left_unit").hide();
+        $("#left_comment").hide();
+    }
+
     $("#left_nav>p").on("click",function(){
         var index=$(this).index();
         nav_index = $(this).index();
