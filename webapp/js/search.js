@@ -207,8 +207,16 @@ function ajaxRe(){
                         }
                     }
                     var thispricestate = '';
+                    var pricestype = '';
                     if(json.data.pricestate != ''){
-                        thispricestate = '<p>'+json.data.pricestate+'</p>';
+                        if(json.data.pricestate == '免费'){
+                            pricestype = 'freetype';
+                        }else if(json.data.pricestate == '付费'){
+                            pricestype = 'chargetype';
+                        }else{
+                            pricestype = 'limitedfreetype';
+                        }
+                        thispricestate = '<p class="'+pricestype+'">'+json.data.pricestate+'</p>';
                     }
                     $("#terminal-content-body").append(""+
                         '<div class="repo">'+

@@ -199,14 +199,14 @@
     height: 25px;
 }
 .price p{
-    border:2px solid #f49f12;
+    /*border:2px solid #f49f12;*/
     border-radius: 3px;
     display: inline;
     padding-left:10px;
     padding-right: 10px;
     padding-top: 0px;
     padding-bottom: 0px;
-    color: #f49f12;
+    /*color: #f49f12;*/
     font-size: 16px;
 }
 .iconGroup {
@@ -318,4 +318,17 @@
 }
 .gotop:hover{
     background:url("../images/image_117.png") no-repeat;
+}
+.freetype{
+    border: 2px solid #f49f12;
+    color: #f49f12;
+}
+
+.chargetype{
+    border: 2px solid #e5004f;
+    color: #e5004f;
+}
+.limitedfreetype{
+    border: 2px solid #e60012;
+    color: #e60012;
 }
