@@ -344,6 +344,13 @@
 					$("#checkEmail").hide();
 					return;
 				}
+
+				if (($("#ps").val())!=($("#psr").val())){
+				$("#label_three").css("display","block");	
+				$("#label_three").fadeOut(4000);
+				return;
+				}
+
 			//判断checkbox是否选中
 			// alert($("#item").is(":checked"))
 				if ($("#item").is(":checked")==false){
