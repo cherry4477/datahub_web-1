@@ -48,11 +48,13 @@
 				<p>注册DataHub账号</p>
 			</div>
 			<div class="labelBox">
-				<p id="label_one" style="display: none"><span class="span_icon"></span>邮箱格式不正确</p>
-				<p id="label_two" style="display: none"><span class="span_icon"></span>密码不能少于8个字符</p>
-				<p id="label_three" style="display: none"><span class="span_icon"></span>两次密码输入不一致</p>
-				<p id="label_four" style="display: none"><span class="span_icon"></span>您还没有接受《DataHub服务协议》</p>
-				<p id="label_five" style="display: none"><span class="span_icon"></span>邮箱不能为空</p>
+
+				<p id="label_one" style="display:none;"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱格式不正确</p>
+				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符</p>
+				<p id="label_three" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">两次密码输入不一致</p>
+				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">您还没有接受《DataHub服务协议》</p>
+				<p id="label_five" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱不能为空</p>
+				<p id="label_six" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱密码不能为空</p>
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
@@ -259,11 +261,21 @@
 				if (($("#email").val())==""){
 					$("#label_five").css("display","block");
 					$("#label_five").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
             	if (($("#email").val())!==""){
             	 	if (!reg.test($("#email").val())){
             			$("#label_one").css("display","block");	
             			$("#label_one").fadeOut(4000);
+            			$("#label_five").css("display","none");
+						$("#label_two").css("display","none");
+						$("#label_three").css("display","none");
+						$("#label_four").css("display","none");
+						$("#label_six").css("display","none");
 					}	
 				}	
 			});
@@ -271,22 +283,42 @@
             	if (($("#ps").val())==""){
 					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 
 				if(($("#ps").val()).length<8){
 					$("#label_two").css("display","block");	
-					$("#label_two").fadeOut(4000);	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
 					$("#label_two").css("display","block");	
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				} 
 
 				if(($("#psr").val()).length<8){
 					$("#label_two").css("display","block");	
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 			});
 
@@ -294,6 +326,11 @@
 			if (($("#ps").val())!=($("#psr").val())){
 				$("#label_three").css("display","block");	
 				$("#label_three").fadeOut(4000);
+				$("#label_one").css("display","none");
+				$("#label_two").css("display","none");
+				$("#label_five").css("display","none");
+				$("#label_four").css("display","none");
+				$("#label_six").css("display","none");
 			}
 			$("#registration").click(function(){
 				if( $("#email").val() !== ''){
@@ -302,6 +339,11 @@
 						if (!reg.test($("#email").val())){
             				$("#label_one").css("display","block");
             				$("#label_one").fadeOut(4000);
+            				$("#label_five").css("display","none");
+							$("#label_two").css("display","none");
+							$("#label_three").css("display","none");
+							$("#label_four").css("display","none");
+							$("#label_six").css("display","none");
             				$(".infoBox").show();
 							$("#checkEmail").hide();
 							return;
@@ -309,6 +351,11 @@
 				}
 				else{$("#label_five").css("display","block");
 					$("#label_five").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 					return;
 				}
 					
@@ -316,6 +363,11 @@
 					$("#ps").focus();
 					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -323,6 +375,11 @@
 				if(($("#ps").val()).length<8){
 					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -332,6 +389,11 @@
 					$("#psr").focus();
 					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -340,14 +402,24 @@
 				if(($("#psr").val()).length<8){
 					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
 				}
 
 				if (($("#ps").val())!=($("#psr").val())){
-				$("#label_three").css("display","block");	
-				$("#label_three").fadeOut(4000);
+					$("#label_three").css("display","block");	
+					$("#label_three").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				return;
 				}
 
@@ -357,6 +429,11 @@
 					b=false;
 					$("#label_four").css("display","block");
 					$("#label_four").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
