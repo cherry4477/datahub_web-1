@@ -27,7 +27,7 @@ $(document).ready(function(){
             changebg(mouseoverindex);
         }
         if(event.type=="mouseout"){
-             mouseoutindex=clickindex;
+             mouseoutindex=window.clickindex;
             changebg(mouseoutindex);
         }
     });
