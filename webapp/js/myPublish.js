@@ -511,35 +511,46 @@ function uuuuuuu(){
     $("#emailTest").val("");
     $("#modalRep_list").empty();
     //定义数组存储所有的白名单记录
-    $.ajax({
-        url: ngUrl + "/permission/"+repname,
-        type: "get",
-        cache: false,
-        async: false,
-        dataType: 'json',
-        headers: {Authorization: "Token " + $.cookie("token")},
-        success: function (json) {
-            total=json.data.total;
-            if (json.code == 0) {
-                var len = json.data.permissions.length;
-                for (var i = 0; i < len; i++) {
-                    $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+/*    var i = 10;
+    timer = setInterval(function() {
+        i--;
+        if(i == 0){
+            clearInterval(timer);
+        }
+    },1000);*/
+    setTimeout(function (){
+        //something you want delayed
+        $.ajax({
+            url: ngUrl + "/permission/"+repname,
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                total=json.data.total;
+                if (json.code == 0) {
+                    var len = json.data.permissions.length;
+                    for (var i = 0; i < len; i++) {
+                        $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                    }
                 }
             }
-        }
-    });
-    //分页
-    $(".pagesPer").pagination(total, {
-        items_per_page: 6,
-        num_display_entries: 1,
-        num_edge_entries: 5,
-        prev_text: "上一页",
-        next_text: "下一页",
-        ellipse_text: "...",
-        link_to: "javascript:void(0)",
-        callback: nextpageadd,
-        load_first_page: false
-    });
+        });
+        //分页
+        $(".pagesPer").pagination(total, {
+            items_per_page: 6,
+            num_display_entries: 1,
+            num_edge_entries: 5,
+            prev_text: "上一页",
+            next_text: "下一页",
+            ellipse_text: "...",
+            link_to: "javascript:void(0)",
+            callback: nextpageadd,
+            load_first_page: false
+        });
+    }, 200);
+
 }
     var totalPer = [];
 
@@ -581,7 +592,6 @@ function uuuuuuu(){
                 if (!reg.test(username) ){
                     $("#mess").removeClass("successMess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
                     $(".errorMess").fadeOut(3000);
-                    uuuuuuu();
                 }
                 else {
                     var b=false;
@@ -618,42 +628,15 @@ function uuuuuuu(){
                             headers: {Authorization: "Token " + $.cookie("token")},
                             success: function (json) {
                                 //判断加的是不是自己
-                                if ($.cookie("tname") == username) {
+                                console.log("success"+json.code);
                                     $("#mess").addClass("errorMess").css({
                                         "visibility": "visible",
                                         "background-color": "#ffd1d1",
                                         "color": "#ff0000"
                                     }).text("不能添加您自己").fadeIn();
                                     $(".errorMess").fadeOut(3000);
-                                } else {
-                                    //判断是否重复
-                                    if ((json.data.total == 0) && ($.cookie("tname") != username)) {
-                                        $.ajax({
-                                            url: ngUrl + "/permission/" + repname,//加入白名单
-                                            type: "PUT",
-                                            cache: false,
-                                            //  data:{username:emailTest},
-                                            data: JSON.stringify({"username": username}),
-                                            async: false,
-                                            dataType: 'json',
-                                            headers: {Authorization: "Token " + $.cookie("token")},
-                                            success: function (json) {
-                                                if (json.code == 0) {
-                                                    $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                                                    $("#emailTest").val("");
-                                                    $("#mess").addClass("successMess").css({
-                                                        "visibility": "visible",
-                                                        "background-color": "#e8f7e6",
-                                                        "color": "#1bd506"
-                                                    }).text("添加白名单成功").fadeIn();
-                                                    $(".successMess").fadeOut(3000);
-                                                    var total=$("#icon_list").text();
-                                                    total++;
-                                                    $("#icon_list").text(total);
-                                                }
-                                            }
-                                        });
 
+                              /*   if ((json.data.total == 0) && ($.cookie("tname") != username)) {
                                     }
                                     else {
                                         $("#mess").addClass("errorMess").css({
@@ -662,7 +645,37 @@ function uuuuuuu(){
                                             "color": "#ff0000"
                                         }).text("白名单已有此用户").fadeIn();
                                         $(".errorMess").fadeOut(3000);
-                                    }
+                                    }*/
+                            },
+                            error:function(json){
+                                if($.parseJSON(json.responseText).code==1009){
+                                    $.ajax({
+                                        url: ngUrl + "/permission/" + repname,//加入白名单
+                                        type: "PUT",
+                                        cache: false,
+                                        //  data:{username:emailTest},
+                                        data: JSON.stringify({"username": username}),
+                                        async: false,
+                                        dataType: 'json',
+                                        headers: {Authorization: "Token " + $.cookie("token")},
+                                        success: function (json) {
+                                            if (json.code == 0) {
+                                                $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                                                $("#emailTest").val("");
+                                                $("#mess").addClass("successMess").css({
+                                                    "visibility": "visible",
+                                                    "background-color": "#e8f7e6",
+                                                    "color": "#1bd506"
+                                                }).text("添加白名单成功").fadeIn();
+                                                uuuuuuu();
+                                                $(".successMess").fadeOut(3000);
+                                                var total=$("#icon_list").text();
+                                                total++;
+                                                $("#icon_list").text(total);
+                                            }
+                                        }
+                                    });
+
                                 }
                             }
                         });
@@ -782,7 +795,7 @@ $(document).ready(function(){
                 //    user_zu[i] = $('#modalRep_list div').eq(i).index();
                 //}
             });
-        var checkbox_length=$("input[type=checkbox][name=users][checked]").length;
+        var checkbox_length=$("input:checkbox[name=users]:checked").length;
         if(checkbox_length!=0){
             $.ajax({
                 url: ngUrl + "/permission/"+repname+surl,
@@ -803,7 +816,13 @@ $(document).ready(function(){
                 }
             });
         }else{
-            alert("请选择要删除的用户");
+            //alert("请选择要删除的用户");
+            $("#mess").addClass("errorMess").css({
+                "visibility": "visible",
+                "background-color": "#ffd1d1",
+                "color": "#ff0000"
+            }).text("请选择要删除的用户").fadeIn();
+            $(".errorMess").fadeOut(3000);
         }
     });
     //查询
@@ -827,11 +846,29 @@ $(document).ready(function(){
                         $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' class='back_icon_a' style='color:#0077aa;'>[返回]</a></p></div>");
                         $(".pagesPer").empty();
                     }
+            },
+            error:function(json) {
+                if ($.parseJSON(json.responseText).code == 1009) {
+                    //alert("查不到此用户！");
+                    $("#mess").addClass("errorMess").css({
+                        "visibility": "visible",
+                        "background-color": "#ffd1d1",
+                        "color": "#ff0000"
+                    }).text("查不到此用户").fadeIn();
+                    $(".errorMess").fadeOut(3000);
+
+                }
             }
         });
         }
         else{
-            $("#modalRep_list").empty();
+            //alert("您的输入为空！");
+            $("#mess").addClass("errorMess").css({
+                "visibility": "visible",
+                "background-color": "#ffd1d1",
+                "color": "#ff0000"
+            }).text("您的输入为空").fadeIn();
+            $(".errorMess").fadeOut(3000);
         }
     });
 
