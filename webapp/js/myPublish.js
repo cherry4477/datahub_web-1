@@ -540,7 +540,7 @@ function uuuuuuu(){
         //分页
         $(".pagesPer").pagination(total, {
             items_per_page: 6,
-            num_display_entries: 1,
+            num_display_entries: 3,
             num_edge_entries: 5,
             prev_text: "上一页",
             next_text: "下一页",
@@ -637,50 +637,51 @@ function uuuuuuu(){
                                         "visibility": "visible",
                                         "background-color": "#ffd1d1",
                                         "color": "#ff0000"
-                                    }).text("不能添加您自己").fadeIn();
+                                    }).text("白名单已有此用户").fadeIn();
                                     $(".errorMess").fadeOut(3000);
 
-                              /*   if ((json.data.total == 0) && ($.cookie("tname") != username)) {
+                              /*
+                                    }*/
+                            },
+                            error:function(json){
+                                if($.parseJSON(json.responseText).code==1009){
+                                    if ($.cookie("tname") != username) {
+                                        $.ajax({
+                                            url: ngUrl + "/permission/" + repname,//加入白名单
+                                            type: "PUT",
+                                            cache: false,
+                                            //  data:{username:emailTest},
+                                            data: JSON.stringify({"username": username}),
+                                            async: false,
+                                            dataType: 'json',
+                                            headers: {Authorization: "Token " + $.cookie("token")},
+                                            success: function (json) {
+                                                if (json.code == 0) {
+                                                    $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
+                                                    $("#emailTest").val("");
+                                                    $("#mess").addClass("successMess").css({
+                                                        "visibility": "visible",
+                                                        "background-color": "#e8f7e6",
+                                                        "color": "#1bd506"
+                                                    }).text("添加白名单成功").fadeIn();
+                                                    uuuuuuu();
+                                                    $(".successMess").fadeOut(3000);
+                                                    var total=$("#icon_list").text();
+                                                    total++;
+                                                    $("#icon_list").text(total);
+                                                }
+                                            }
+                                        });
                                     }
                                     else {
                                         $("#mess").addClass("errorMess").css({
                                             "visibility": "visible",
                                             "background-color": "#ffd1d1",
                                             "color": "#ff0000"
-                                        }).text("白名单已有此用户").fadeIn();
+                                        }).text("不能添加您自己").fadeIn();
                                         $(".errorMess").fadeOut(3000);
-                                    }*/
-                            },
-                            error:function(json){
-                                if($.parseJSON(json.responseText).code==1009){
-                                    $.ajax({
-                                        url: ngUrl + "/permission/" + repname,//加入白名单
-                                        type: "PUT",
-                                        cache: false,
-                                        //  data:{username:emailTest},
-                                        data: JSON.stringify({"username": username}),
-                                        async: false,
-                                        dataType: 'json',
-                                        headers: {Authorization: "Token " + $.cookie("token")},
-                                        success: function (json) {
-                                            if (json.code == 0) {
-                                                $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                                                $("#emailTest").val("");
-                                                $("#mess").addClass("successMess").css({
-                                                    "visibility": "visible",
-                                                    "background-color": "#e8f7e6",
-                                                    "color": "#1bd506"
-                                                }).text("添加白名单成功").fadeIn();
-                                                uuuuuuu();
-                                                $(".successMess").fadeOut(3000);
-                                                var total=$("#icon_list").text();
-                                                total++;
-                                                $("#icon_list").text(total);
-                                            }
-                                        }
-                                    });
-
                                 }
+                            }
                             }
                         });
                     }
