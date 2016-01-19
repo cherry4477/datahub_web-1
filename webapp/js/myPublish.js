@@ -557,6 +557,10 @@ function uuuuuuu(){
     //新增白名单按钮
     $("#insert").click(function () {
         uuuuuuu();
+        $('#myModalTest').on('hidden.bs.modal', function (e) {
+        	$("body").addClass("modal-open");
+        });
+        
         $('#myModalTest').modal('toggle');
         window.repoName=$("#repnameInput").val();
     });
