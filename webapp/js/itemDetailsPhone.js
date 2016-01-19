@@ -147,10 +147,6 @@ $(function(){
                 tophtml(repname,itemname,itemdatatype,datastyle,itemcomment,labelV,vvclass,labelstr,showtime,tags,curstarnum,cursubnum,curpullnum,cur_user,createuser)
 
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 })

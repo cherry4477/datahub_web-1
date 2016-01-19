@@ -322,22 +322,30 @@ $(function(){
     });
         $(".itemListName-icon").click(function() {
             if(itemaccesstype == 'private'){
+                $.ajax({
+                    type: "get",
+                    url:ngUrl+"/permission/"+repname+"/"+itemname,
+                    cache:false,
+                    headers:{Authorization: "Token "+account},
+                    success: function(msg){
+                        var fornum = msg.data.total;
+                        $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        if(XMLHttpRequest.status == 400){
+                            $('.baimingdannum').html('(0)');
+                        }
+
+                    }
+                });
                 $('.xiugaiwrop').show();
             }else{
                 $('.xiugaiwrop').hide();
             }
             $('.valuemoney').empty();
             $('.itemtag .value').empty();
-            $.ajax({
-                type: "get",
-                url:ngUrl+"/permission/"+repname+"/"+itemname,
-                cache:false,
-                headers:{Authorization: "Token "+account},
-                success: function(msg){
-                    var fornum = msg.data.total;
-                    $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
-                }
-            });
+
                 $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname,
                         type: "GET",
@@ -384,9 +392,6 @@ $(function(){
                                     }
 
                                 }
-                        },
-                        error:function(json){
-                                alert(json.msg);
                         }
                 });
                 $('#editItem').modal('toggle');
@@ -397,8 +402,8 @@ function getpagesF(){
     getpermissions(1);
     $(".baipages").pagination(totals, {
         items_per_page: 6,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_edge_entries:3,
+        num_display_entries:3,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -419,13 +424,19 @@ function getpermissions(pages){
             $('.namelist').empty();
             var fornum = msg.data.permissions.length;
             totals =  msg.data.total;
+            $('.baimingdannum').html('('+totals+')');
             for(var i = 0;i<fornum;i++)
             {
                 var lis = '<li class="lis">'+ '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data.permissions[i].username+'</span><span class="namelistdel">[删除]</span>'+
                 '</li>';
               $('.namelist').append(lis);
             }
-
+        },
+        error:function (XMLHttpRequest, textStatus, errorThrown)
+        {
+            if(XMLHttpRequest.status == 400){
+                $('.baimingdannum').html('(0)');
+            }
 
         }
     });
@@ -437,8 +448,13 @@ function Fens(new_page_index){
  $('.xiugainame').click(function(){
      $('.namelist').empty();
      getpagesF();
-     $('#editItem').modal('toggle');
+     //$('#editItem').modal('toggle');
+     $('#editBox').on('hidden.bs.modal', function (e) {
+         $("body").addClass("modal-open");
+     })
+
      $('#editBox').modal('toggle');
+
 
  })
 
@@ -460,16 +476,15 @@ $('.addnamebtn').click(function(event) {
           $('#mess').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkloginusers(username) == 1){
-        $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+        //$('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
-            return false;
+         return false;
     }else if($.cookie("tname") == username){
         $('#mess').html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else{
-         
           $.ajax({
                 type:"put",
                 url:ngUrl+"/permission/"+repname+"/"+itemname,
@@ -524,6 +539,8 @@ var _this = $(this);
                success: function(deluser){
                     if(deluser.code == 0){
                        _this.parent().remove();
+                        $('.gobackbtnwrop').hide();
+                        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF();
                     }
                }
@@ -535,6 +552,7 @@ var _this = $(this);
 ////////////////////////////////////////////////////////////////批量删除白名单
 $('.dellist').click(function(){
 var thisusername = [];
+var isdele = false;
 var namejson = {}
 var lilist = $('.namelist li');
     for(var i = 0;i<lilist.length;i++){
@@ -544,22 +562,28 @@ var lilist = $('.namelist li');
               thisusername.push(thisval);
         }
     }
-    for(var j in namejson){
-         $.ajax({
-                   type:"DELETE",
-                   url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
-                   cache:false,
-                   dataType:'json',
-                   headers:{Authorization: "Token "+account},
-                   success: function(deluser){
-                         if(deluser.code == 0){
-                             $('.namelist').empty();
-                             getpagesF();
-                         }
-                   }
-        })
-    };
-
+    if(thisusername.length>0){
+        for(var j in namejson){
+            $.ajax({
+                type:"DELETE",
+                url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
+                cache:false,
+                dataType:'json',
+                headers:{Authorization: "Token "+account},
+                success: function(deluser){
+                    if(deluser.code == 0){
+                        $('.namelist').empty();
+                        isdele = true;
+                        $('.gobackbtnwrop').hide();
+                        getpagesF();
+                    }
+                }
+            })
+        };
+        if(isdele = true){
+            $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+        }
+    }
 })
 //////////////////搜索白名单
     $('.selectbtn').click(function(){
@@ -574,25 +598,34 @@ var lilist = $('.namelist li');
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function (datas) {
                    if(datas.code == 0){
-                       var lis = '<li class="lis">'+
-                           '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
-                           '</li>';
-                       $('.namelist').empty().append(lis);
-                       $('.gobackbtnwrop').show();
-                       $(".baipages").pagination(0, {
-                           items_per_page:6,
-                           num_display_entries: 1,
-                           num_edge_entries: 5 ,
-                           prev_text:"上一页",
-                           next_text:"下一页",
-                           ellipse_text:"...",
-                           link_to:"javascript:void(0)",
-                           callback:Fens,
-                           load_first_page:false
-                       });
+                       if(datas.data.permissions.length > 0){
+                           var lis = '<li class="lis">'+
+                               '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
+                               '</li>';
+                           $('.namelist').empty().append(lis);
+                           $('.gobackbtnwrop').show();
+                           $(".baipages").pagination(0, {
+                               items_per_page:6,
+                               num_display_entries: 1,
+                               num_edge_entries: 5 ,
+                               prev_text:"上一页",
+                               next_text:"下一页",
+                               ellipse_text:"...",
+                               link_to:"javascript:void(0)",
+                               callback:Fens,
+                               load_first_page:false
+                           });
+                       }
                    }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
-        });
+    });
 
     })
 //////////////////////////返回按钮
@@ -713,7 +746,8 @@ $('.gobackbtnwrop').click(function(){
                         var labelkey = $.trim(label.children(".tagkey:first").val());
                         var labelvalue = $.trim(label.children(".tagvalue:first").val());
                         if(labelkey == "" || labelvalue == "") {
-                            alert("标签名和标签值不能为空！");
+                            //alert("标签名和标签值不能为空！");
+                            $('#errlabels').html('标签名和标签值不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                             return;
                         }
                         var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
@@ -739,15 +773,9 @@ $('.gobackbtnwrop').click(function(){
                             if(json.code == 0){
                                 $('#editItem').modal('toggle');
                             }
-                        },
-                        error:function(json){
-                            alert(json.msg);
                         }
                     });
                 }
-            },
-            error:function(json){
-                alert(json.msg);
             }
         });
 
@@ -812,6 +840,13 @@ $('.gobackbtnwrop').click(function(){
                         iscurname = 2;
                     }
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    iscurname = 1;
+                }
+
             }
         });
         return iscurname;
@@ -830,6 +865,13 @@ $('.gobackbtnwrop').click(function(){
                 if(json.code == 0){
                     isloginusers = 2;
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
         });
         return isloginusers;

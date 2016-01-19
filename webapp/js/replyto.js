@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/1/9.
  */
 $(function(){
+    $('#commentcon').val('');
     function getParam(key) {
         var value='';
         var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
@@ -10,6 +11,23 @@ $(function(){
         }
         return value;
     }
+    $(document).bind("click", function (e) {
+        if ((e.target.className.indexOf("promptbox")<0&& e.target.id != "replycon_btn"&& e.target.id != "pushcon_btn"&&e.target.className.indexOf("publish_btn")<0)) {
+            $(".promptbox").css("display","none");
+        }
+    });
+    $(document).on('click','.gotologin',function(){
+        $(".modal-open").css("padding-right","15px");
+        $('#myModal').modal('toggle');
+    })
+    function addprompt(thisobj,thiscon){
+        $('.promptbox').remove();
+        var promptbox = '<div class="promptbox" style="display: block; left: 706px;">'+
+            thiscon
+            '</div>';
+        $(thisobj).siblings('.conmentbt').append(promptbox);
+    }
+
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     var commentthisname = '';
@@ -32,29 +50,26 @@ $(function(){
             if(json.code==0){
                 thistname= json.data.create_user;
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
-    $.ajax({
-        url: ngUrl+"/users/"+loginitemname,
-        type: "GET",
-        cache:false,
-        async:false,
-        headers:headerToken,
-        dataType:'json',
-        success:function(json) {
-            if(json.code==0){
-                commentthisname= json.data.userName;
-            }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
-        }
-    });
+
+    /////////////登录用户的真实姓名
+   //if(loginitemname != 'null' && loginitemname != null){
+   //    $.ajax({
+   //        url: ngUrl+"/users/"+loginitemname,
+   //        type: "GET",
+   //        cache:false,
+   //        async:false,
+   //        headers:headerToken,
+   //        dataType:'json',
+   //        success:function(json) {
+   //            if(json.code==0){
+   //                commentthisname= json.data.userName;
+   //            }
+   //        }
+   //    });
+   //}
+
 
     function addcommenthtml(towho){
         var thisstr = '<div class="commentwrop replycboxbg" id="replyCommnet">'+
@@ -82,8 +97,21 @@ $(function(){
         var replytostr = '';
         var replythisname = '';
         var myitemcolor = '';
-        var replyttohisname = '';
-        if(loginitemname == listcon.username){
+        if(thistname == listcon.username){
+            $.ajax({
+                url: ngUrl+"/users/"+thistname,
+                type: "GET",
+                cache:false,
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json) {
+                    if(json.code==0){
+                        commentthisname= json.data.userName;
+
+                    }
+                }
+            });
             replythisname = commentthisname;
             myitemcolor = 'myitemcolor';
         }else{
@@ -125,12 +153,7 @@ $(function(){
                 for(var i = 0;i<msglenth;i++){
                     addreplyhtml(msg.data.results[i]);
                 }
-            },
-            error:function(msg){
-                errorDialog($.parseJSON(msg.responseText).code);
-                $('#errorDM').modal('show');
             }
-
         });
 
     }
@@ -176,14 +199,8 @@ $(function(){
             dataType:'json',
             headers: {Authorization: "Token " + $.cookie("token")},
             success: function (msg) {
-                alert('删除成功');
                 getcommentlist();
-            },
-            error:function(msg){
-                errorDialog($.parseJSON(msg.responseText).code);
-                $('#errorDM').modal('show');
             }
-
         });
     }
     $(document).on('click','.delcommentbtn',function(){
@@ -225,10 +242,11 @@ $(function(){
         var parten = /^\s*$/ ;
         var commentcon = $(thisobj).val();
         if(parten.test(commentcon)){
-            alert('评论不能为空');
+            //$('.commenterr').html('评论不能为空');
+            //$('#commemtalert').modal('toggle');
+            addprompt(thisobj,'评论不能为空');
             return false;
         }else if(commentcon.length > 210){
-            alert('评论字数过长');
             return false;
         }else{
             var thisdatas = {
@@ -245,22 +263,22 @@ $(function(){
                 headers: {Authorization: "Token " + $.cookie("token")},
                 success: function (msg) {
                     getcommentlist();
-                },
-                error:function(msg){
-                    errorDialog($.parseJSON(msg.responseText).code);
-                    $('#errorDM').modal('show');
+                    $(thisobj).val('');
+                    $('.surplusnum').html('210');
+                    $('.exceednum').html('0');
                 }
-
             });
         }
     }
     ///////////////////发表评论///////////////////////
     function getissub(thisobj,orreply){
         var issubscription = false;
-
         if($.cookie("token") == null || $.cookie("token") == 'null'){
-            $('.commenterr').html('您还没有登录')
-            $('#commemtalert').modal('toggle');
+            //$('.commenterr').html('您还没有登录')
+            //$('#commemtalert').modal('toggle');
+            //$('.promptbox').remove();
+            //$(thisobj).siblings('.conmentbt').append(promptbox);
+            addprompt(thisobj,'您还没有登录，请<span class="gotologin">登录</span>');
             return;
         }else{
             $.ajax({
@@ -274,22 +292,18 @@ $(function(){
                     if(msg.code == 0){
                         issubscription = msg.data;
                     }
-                },
-                error:function(msg){
-                    errorDialog($.parseJSON(msg.responseText).code);
-                    $('#errorDM').modal('show');
                 }
-
             });
             if(issubscription == true || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
-                $(thisobj).val('');
-                $('.surplusnum').html('210');
-                $('.exceednum').html('0');
+                //$(thisobj).val('');
+                //$('.surplusnum').html('210');
+                //$('.exceednum').html('0');
 
             }else{
-                $('.commenterr').html('您还没有订购该item')
-                $('#commemtalert').modal('toggle');
+                //$('.commenterr').html('您还没有订购该item')
+                //$('#commemtalert').modal('toggle');
+                addprompt(thisobj,'您还没有订购该item');
                 return
             }
         }

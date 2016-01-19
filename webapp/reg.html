@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
-	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。"/>
 	<title>注册Datahub账号_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 
 	<!--css-->
@@ -48,24 +48,27 @@
 				<p>注册DataHub账号</p>
 			</div>
 			<div class="labelBox">
-				<p id="label_one" style="display: none"><span class="span_icon"></span>邮箱格式不正确</p>
-				<p id="label_two" style="display: none"><span class="span_icon"></span>密码格式不正确</p>
-				<p id="label_three" style="display: none"><span class="span_icon"></span>两次密码输入不一致</p>
-				<p id="label_four"><span class="span_icon"></span>您还没有接受《DataHub服务协议》</p>
+
+				<p id="label_one" style="display:none;"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱格式不正确</p>
+				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符</p>
+				<p id="label_three" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">两次密码输入不一致</p>
+				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">您还没有接受《DataHub服务协议》</p>
+				<p id="label_five" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱不能为空</p>
+				<p id="label_six" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱密码不能为空</p>
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
-				<label for="exampleEmail">邮箱地址</label>
+				<label for="exampleEmail" ID="label1">邮箱地址</label>
     			<input type="text" class="form-control" id="email" placeholder="请填写正确的邮箱，以便接收账号">
-    			<label for="examplePs">输入密码</label>
-   				<input type="text" class="form-control" id="ps" placeholder="最少8个字符">
-   				<label for="examplePs2">确认密码</label>
-   				<input type="text" class="form-control" ID="psr" placeholder="再次输入密码">
+    			<label for="examplePs" ID="label2">输入密码</label>
+   				<input type="password" class="form-control" id="ps" placeholder="最少8个字符">
+   				<label for="examplePs2" ID="label3">确认密码</label>
+   				<input type="password" class="form-control" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
 				<div ID="accept">
    					<input ID="item" type="checkbox" name="accept"/>
-					<span>我已阅读并接受《DataHub服务协议》</span>
+					<span>我已阅读并接受<a id="protocol" href="#">《DataHub服务协议》</a></span>
 				</div>
   			<button class="btn btn-primary btn-lg" ID="registration" role="button" HREF="javaScript:void(0);">
 				注册
@@ -87,7 +90,132 @@
 			</div>
 		</div>
 	</div>
-	
+
+	 <!--服务条约-->
+    <div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modaltitle" id="myModalLabel">DataHub 服务协议
+</h4>
+                </div>
+                <div class="subcontent" >
+                    <div class="modal-body">
+                    	<div class="des">
+                                <p class="note">欢迎使用DataHub平台（http://hub.dataos.io，以下简称DataHub），本协议是您与DataHub之间就服务等相关内容所订立的契约，请您仔细阅读本注册协议，当您按照注册页面提示填写信息、同意并接受本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与DataHub达成一致，成为DataHub平台的用户。
+								</p>
+                        </div>
+                    	<div class="sub1">
+                            <div class="shead">1 定义</div>
+                            <div class="sbody">
+                                <div>1.1 DataHub术语介绍与解释:</div>
+                                <div>（1）Repository：以下简称Repo，一个数据集合，下面能建具体数据项；</div>
+                                <div>（2）Item：数据项，一个数据产品，可以是批量数据、接口数据、流数据，有明确的数据定义、数据元数据；
+								</div>
+								<div>（3）Tag：数据粒，数据产品的具体内容，一个数据项下至少有一个Tag、可以有多个Tag。Tag是Item更细颗粒度的数据。
+								</div>
+                            </div>
+                        </div>
+                        <div class="sub2">
+                        	<div class="shead">2 服务对象</div>
+                            <div class="sbody">
+                            	<div>2.1 DataHub的用户类型：</div>
+                            	<div>（1）企业用户；</div>
+                            	<div>（2）个人用户。</div>
+                            	<div>2.2 DataHub用户的实名认证：</div>
+                            	<div>（1）企业用户实名认证需提交营业执照、组织机构、税务信息、银行对公账户、法人等相关信息；</div>
+                            	<div>（2）个人用户实名认证需提交身份证正反面照片及相关信息。</div>
+                            	<div> 2.3 DataHub的用户级别：</div>
+                            	<div>（1）注册用户</div>
+                            	<div>（2）认证用户</div>
+                            	<div>（3）金牌用户</div>
+                            	<div>（4）钻石用户</div>
+                            	<div>不同级别的用户拥有不同的权限及资源配额，详情请参见“个人中心”-“会员升级”页面的介绍。</div>
+                            </div>
+                        </div>
+                        <div class="sub3">
+                        	<div class="shead">3 账户注册与使用</div>
+                            <div class="sbody">
+                            	<div>3.1 用户应自行诚信向DataHub提供注册资料，用户同意其提供的注册资料真实、准确、完整、合法有效，用户注册资料如有变动，应及时更新其注册资料。如果用户提供的注册资料不合法、不真实、不准确，用户需承担因此引起的相应责任及后果，DataHub保留终止用户使用DataHub各项服务的权利。</div>
+                            	<div>3.2 用户在DataHub进行浏览、订购等活动时，涉及用户真实姓名/名称、通信地址、联系电话、电子邮箱等隐私信息的，DataHub将予以严格保密，除非得到用户明确授权或根据有关法律法规要求，DataHub不会向外界披露用户隐私信息。</div>
+                            	<div>3.3 用户注册成功后，将产生用户名和密码等账户信息，您可以根据DataHub规定改变您的密码。用户应谨慎合理的保存、使用其用户名和密码。用户若发现任何非法使用用户账号或存在安全漏洞的情况，请立即通知DataHub并向公安机关报案。</div>
+                            	<div>3.4 用户同意，DataHub拥有通过邮件、短信电话等形式，向在DataHub注册、订购用户发送订单信息、促销活动等告知信息的权利。</div>
+                            	<div>3.5 用户不得将其在DataHub注册获得的账户借给他人使用，否则用户应承担由此产生的全部责任，并与实际使用人承担连带责任。</div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="sub4">
+                        	<div class="shead">4 用户依法言行义务</div>
+                            <div class="sbody">
+                            <div>4.1 本协议依据国家相关法律法规规章制定，用户同意严格遵守以下义务：</div>
+                            <div>（1）不得传输或发表：煽动抗拒、破坏宪法和法律、行政法规实施的言论，煽动颠覆国家政权，推翻社会主义制度的言论，煽动分裂国家、破坏国家统一的言论，煽动民族仇恨、民族歧视、破坏民族团结的言论；</div>
+                            <div>（2）从中国大陆向境外传输资料信息时必须符合中国有关法规；</div>
+                            <div>（3）不得利用DataHub从事洗钱、窃取商业秘密、窃取个人信息等违法犯罪活动；
+							</div>
+							<div>（4）不得干扰DataHub的正常运转，不得侵入DataHub及国家计算机信息系统；
+							</div>
+							<div>（5）不得传输或发表任何违法犯罪的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的，淫秽的、不文明的等信息资料；</div>
+							<div>（6）不得传输或发表损害国家社会公共利益和涉及国家安全的信息资料或言论；
+							</div>
+							<div>（7）不得教唆他人从事本条所禁止的行为；</div>
+							<div>（8）不得发布任何侵犯他人著作权、商标权等知识产权或合法权利的内容；</div>
+							<div>4.2 用户应不时关注并遵守DataHub不时公布或修改的各类合法规则规定。DataHub保有删除站内各类不符合法律政策或不真实的信息内容而无须通知用户的权利。</div>
+							<div>4.3 若用户未遵守以上规定的，DataHub有权作出独立判断并采取暂停或关闭用户帐号等措施。用户须对自己在网上的言论和行为承担法律责任。</div>
+                            </div>
+                        </div>
+                        <div class="sub5">
+                        	<div class="shead">5 服务内容</div>
+                            <div class="sbody">
+                            <div>5.1 DataHub的用户可以使用DataHub提供的Client端、API及SDK，用于数据产品的开发。另外由于数据类型的不同，不同数据具有不同的资费标准及限量试用次数。详细如下：</div>
+                            <div>（1）数据商品的Repo、Item、Tag、元数据、样例数据、价格属性均由数据提供方设定；</div>
+                            <div>（2）数据提供方可对数据设置公开范围，对于限定范围外的用户订购数据需要向数据提供方申请订购，数据提供方同意后，订购合同自动生效；</div>
+                            <div>（3）用户成功订购，即可在有效期内获得资费标准约定的相应Pull次数；</div>
+                            <div>（4）数据Item和Tags的发布和Pull均需通过Client端，用户可使用DataHub提供的Client端或基于DataHub开放的API自行开发实现。</div>
+                            <div>5.2 在您订购数据时，请您仔细确认所购数据的Repo、Item、Tag名称、价格、有效期、元数据等信息。在订单生效后，用户可对订购的数据进行评论。</div>
+                            <div>5.3 您在DataHub进行数据交易过程中与其他用户发生争议的，您或其他用户中任何一方均有权选择以下途径解决：</div>
+                            <div>（1）与争议相对方自主协商；</div>
+                            <div>（2）使用DataHub平台提供的申诉调处服务；</div>
+                            <div>（3）向有关行政部门投诉；</div>
+                            <div>（4）向人民法院提起诉讼。</div>
+                            <div>如您选择使用DataHub的申诉调处服务，则表示您认可DataHub的客服作为独立的第三方根据其所了解到的争议事实并依据DataHub规则所作出的调处决定（包括调整相关订单的交易状态、判定将争议款项的全部或部分支付给交易一方或双方等）。在DataHub调处决定作出前，您可选择其他途径解决争议以中止DataHub的申诉调处服务。</div>
+                            <div>5.4 DataHub为向您提供的服务付出了大量的成本，DataHub向您提供的服务目前是免费的。如未来DataHub向您收取合理费用，DataHub会采取合理途径并以足够合理的期限提前通过法定程序和方式通知您，确保您有充分选择的权利。</div>
+                            <div>5.5 DataHub依法律规定承担基础保障义务，但无法对由于不可抗力（包括但不限于信息网络设备维护、连接故障，电脑、通讯或其他系统的故障，电力故障、罢工、暴乱、火灾、洪水、风暴、爆炸、战争、政府行为、司法行政机关的命令或因第三方原因）而给您造成的损害结果承担责任。</div>
+                            </div>
+                        </div>
+                         <div class="sub6">
+                        	<div class="shead">6 违约处理</div>
+                            <div class="sbody">
+                            <div>6.1 如因DataHub违反有关法律、法规或本协议项下的任何条款而给用户造成损失，DataHub同意承担由此造成的损害赔偿责任。</div>
+                            <div>6.2 用户同意保障和维护DataHu及其他用户的利益，如因用户违反有关法律、法规或本《协议》项下的任何条款而给DataHub或任何其他第三者造成损失，用户同意承担由此造成的损害赔偿责任。</div>
+                            </div>
+                        </div>
+                        <div class="sub7">
+                        	<div class="shead">7 协议更新及用户关注义务</div>
+                            <div class="sbody">
+                            	<div>7.1 根据国家法律法规变化及平台运营需要，DataHub有权对本协议条款不时地进行修改，修改后的协议一旦被张贴在本平台上即生效，并代替原来的协议。</div>
+                            	<div>7.2 用户可随时登录查阅最新协议；用户有义务不时关注并阅读最新版的协议及平台公告。如用户不同意更新后的协议，可以且应立即停止接受DataHub平台依据本协议提供的服务；如用户继续使用本平台提供的服务的，即视为同意更新后的协议。DataHub建议您在使用本平台之前阅读本协议及本平台的公告。</div>
+                            	<div>7.3 如果本协议中任何一条被视为废止、无效或因任何理由不可执行，该条应视为可分的且并不影响任何其余条款的有效性和可执行性。</div>
+                            </div>
+                        </div>
+                        <div class="sub8">
+                        	<div class="shead">8 法律管辖和适用</div>
+                            <div class="sbody">
+                            	<div>8.1 本协议的订立、执行和解释及争议的解决均应适用在中华人民共和国大陆地区适用之有效法律（但不包括其冲突法规则）。</div>
+                            	<div>8.2 如发生本协议与适用之法律相抵触时，则这些条款将完全按法律规定重新解释，而其它有效条款继续有效。如缔约方就本协议内容或其执行发生任何争议，双方应尽力友好协商解决；协商不成时，任何一方均可向有管辖权的中华人民共和国大陆地区法院提起诉讼。</div>
+                            </div>
+                        </div>
+                        <div class="sub9">
+                        	<div class="shead">9 其他</div>
+                            <div class="sbody">
+                            	<div>9.1 您在注册时勾选“我已阅读并接受《DataHub服务协议》”即视为您完全接受本协议，在勾选之前请您再次确认已知悉并完全理解本协议的全部内容。</div>
+                            	<div>9.2 DataHub尊重用户和消费者的合法权利，本协议及本平台上发布的各类规则、声明等其他内容，均是为了更好的、更加便利的为用户和提供服务。欢迎用户和社会各界提出意见和建议，用户可通过官方微信公众号（datahub-dataos）或电子邮件（datahub@asiainfo.com）与DataHub联系，DataHub将虚心接受并适时修改本协议及本平台上的各类规则。</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 
 	<div id="loginTem"></div>
 
@@ -97,6 +225,7 @@
 	<script src="js/login.js"></script>
 	<script src="js/base64.js"></script>
 	<script src="js/md5.js"></script>
+	<script src="js/ajaxSetup.js"></script>
 	<script src='js/errorDialog.js'></script>
 	<script src="js/jquery.pagination.js"></script>
 	<script src='js/clipboard.min.js'></script>
@@ -123,72 +252,200 @@
 	</script>
 	<script>
 		$(document).ready(function(){
-			var b=true;
+			$('#protocol').click(function(){
+				$('#subscriptDialog').modal('toggle');
+			})
+			
 			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			$("#email").blur(function(){
-            	if (!reg.test($("#email").val())){
-            		$("#label_one").css("display","block");
+
+				if (($("#email").val())==""){
+					$("#label_five").css("display","block");
+					$("#label_five").fadeOut(4000);
+					$("#label_one").css("display","none");
 					$("#label_two").css("display","none");
 					$("#label_three").css("display","none");
 					$("#label_four").css("display","none");
-					b=false;
+					$("#label_six").css("display","none");
 				}
-				else {
-					$("#label_one").css("display","none");
-				}
+            	if (($("#email").val())!==""){
+            	 	if (!reg.test($("#email").val())){
+            			$("#label_one").css("display","block");	
+            			$("#label_one").fadeOut(4000);
+            			$("#label_five").css("display","none");
+						$("#label_two").css("display","none");
+						$("#label_three").css("display","none");
+						$("#label_four").css("display","none");
+						$("#label_six").css("display","none");
+					}	
+				}	
 			});
 			$("#ps").blur(function(){
             	if (($("#ps").val())==""){
-            		$("#label_one").css("display","none");
 					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
 					$("#label_three").css("display","none");
 					$("#label_four").css("display","none");
-					b=false;
-				} 
-				else { 
-					$("#label_two").css("display","none");	
-				} 
+					$("#label_six").css("display","none");
+				}
+
 				if(($("#ps").val()).length<8){
-					$("#label_two").css("display","block");
-					b=false;
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
-            		$("#label_one").css("display","none");
-					$("#label_two").css("display","block");
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
 					$("#label_three").css("display","none");
 					$("#label_four").css("display","none");
-					b=false;
+					$("#label_six").css("display","none");
 				} 
-				else { 
-					$("#label_two").css("display","none");	
-				} 
+
 				if(($("#psr").val()).length<8){
-					$("#label_two").css("display","block");
-					b=false;
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 			});
 
 			//判断密码是否相同
 			if (($("#ps").val())!=($("#psr").val())){
+				$("#label_three").css("display","block");	
+				$("#label_three").fadeOut(4000);
 				$("#label_one").css("display","none");
 				$("#label_two").css("display","none");
-				$("#label_three").css("display","block");
+				$("#label_five").css("display","none");
 				$("#label_four").css("display","none");
-				b=false;
+				$("#label_six").css("display","none");
 			}
-		if(b){
 			$("#registration").click(function(){
-			//判断checkbox是否选中
-				if ($("#item").prop("checked")==false){
+				if( $("#email").val() !== ''){
+					$("#email").focus();
+					
+						if (!reg.test($("#email").val())){
+            				$("#label_one").css("display","block");
+            				$("#label_one").fadeOut(4000);
+            				$("#label_five").css("display","none");
+							$("#label_two").css("display","none");
+							$("#label_three").css("display","none");
+							$("#label_four").css("display","none");
+							$("#label_six").css("display","none");
+            				$(".infoBox").show();
+							$("#checkEmail").hide();
+							return;
+            			}		
+				}
+				else{$("#label_five").css("display","block");
+					$("#label_five").fadeOut(4000);
 					$("#label_one").css("display","none");
 					$("#label_two").css("display","none");
 					$("#label_three").css("display","none");
-					$("#label_four").show();
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+					return;
+				}
+					
+				if( $("#ps").val() == ''){
+					$("#ps").focus();
+					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+					$(".infoBox").show();
+					$("#checkEmail").hide();
+					return;
+				}
+				if(($("#ps").val()).length<8){
+					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+					$(".infoBox").show();
+					$("#checkEmail").hide();
+					return;
+				}
+
+				if( $("#psr").val() == ''){
+					$("#psr").focus();
+					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+					$(".infoBox").show();
+					$("#checkEmail").hide();
+					return;
+				}
+
+				if(($("#psr").val()).length<8){
+					$("#label_two").css("display","block");
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+					$(".infoBox").show();
+					$("#checkEmail").hide();
+					return;
+				}
+
+				if (($("#ps").val())!=($("#psr").val())){
+					$("#label_three").css("display","block");	
+					$("#label_three").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				return;
+				}
+
+			//判断checkbox是否选中
+			// alert($("#item").is(":checked"))
+				if ($("#item").is(":checked")==false){
+					b=false;
+					$("#label_four").css("display","block");
+					$("#label_four").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_six").css("display","none");
+					$(".infoBox").show();
+					$("#checkEmail").hide();
+					return;
+				}
+				else{
+					$(".infoBox").hide();
+					$("#checkEmail").show();
 				}
 					$(".infoBox").hide();
 					$("#checkEmail").show();
+					
 
 				var loginname=$("#email").val();
 				var	myps=$.md5($("#ps").val());
@@ -206,11 +463,10 @@
     					var end=start+ss.length;
     					var strtext="http://mail."+ss.substring(start,end);
 				 		$("#info a").text(strtext).attr("href",strtext);
-
             		}
             	});
+            
 			});
-		}
 		});
 	</script>
 

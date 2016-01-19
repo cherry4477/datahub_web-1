@@ -200,7 +200,7 @@ $(function() {
         maxentries:paegeitems,
         items_per_page: 6,
         num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_edge_entries: 3 ,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -281,7 +281,14 @@ $(function() {
 function apendBigbox(apendjson,i,labelstr){
     var thispricestate = '';
     if(apendjson.pricestate != ''){
-        thispricestate = '<p>'+apendjson.pricestate+'</p>';
+        if(apendjson.pricestate == '免费'){
+            pricestype = 'freetype';
+        }else if(apendjson.pricestate == '付费'){
+            pricestype = 'chargetype';
+        }else{
+            pricestype = 'limitedfreetype';
+        }
+        thispricestate = '<p class="'+pricestype+'">'+apendjson.pricestate+'</p>';
     }
     htmls =
         '<div class="repo">'+

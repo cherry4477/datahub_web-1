@@ -21,10 +21,6 @@ $(function(){
                     odertotal = json.data.total;
                     addOrderhtml(json);
                 }
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     }
@@ -44,7 +40,7 @@ $(function(){
         switch(phase)
         {
             case 1:
-                thisstate="正在消费中";
+                thisstate="正在生效中";
                 break;
             case 2:
                 thisstate="订单已完成";
@@ -66,6 +62,9 @@ $(function(){
                 break;
             case 9:
                 thisstate="申请被拒绝";
+                break;
+            case 10:
+                thisstate="余额不足失效";
                 break;
             default:
                 thisstate="未知的状态";
@@ -93,16 +92,12 @@ $(function(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 _this.parents('.thisoder').html('申请订购被拒绝');
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
             }
         });
     })
     $(".oderpages").pagination(odertotal, {
         maxentries:odertotal,
-        items_per_page: 5,
+        items_per_page: 30,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -130,16 +125,13 @@ $(function(){
             url: ngUrl+"/subscription/"+thisrepname+"/"+thisitemname+"/apply",
             type: "put",
             cache:false,
-            //async:false,
+            async:false,
             dataType:'json',
             data:JSON.stringify(dataison),
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
-                _this.parents('.thisoder').html('订单生效');
-            },
-            error:function(json){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
+                var thisphase = oderstate(json.data.phase);
+                _this.parents('.thisoder').html(thisphase);
             }
         });
     })

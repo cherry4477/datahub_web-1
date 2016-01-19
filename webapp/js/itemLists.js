@@ -66,10 +66,6 @@ function ajaxFunHtml(type,size,page){
 	            }else{
 	                console.log("报错");
 	            }
-	        },
-	        error:function(json){
-	            errorDialog($.parseJSON(json.responseText).code);
-	            $('#errorDM').modal('show');
 	        }
 	    });				
 		forList(list,4);			
@@ -89,7 +85,12 @@ function ajaxFunHtml(type,size,page){
 		        success:function(json){
 		        	var len=json.data.results.length;
 		        	for(var i=0;i<len;i++){
-		        		var oderdate =json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+		        		var oderdate="";
+		        		if(json.data.results[i].signtime!=undefined){
+		        			oderdate=json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+		        		}else{
+		        			oderdate=json.data.results[i].applytime.substr(0,10)+"&nbsp;"+json.data.results[i].applytime.substr(11,8);      		
+		        		}
 		        		var expiretimeOrder=json.data.results[i].expiretime.substr(0,10)+"&nbsp;"+json.data.results[i].expiretime.substr(11,8);
 		        		//详情内容
 		        		var comment="";
@@ -109,6 +110,9 @@ function ajaxFunHtml(type,size,page){
 		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
 		        		if(orderStatus=="5"){
 		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+		        		}
+		        		if(orderStatus=="10"){
+		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
 		        		}
 		        		
 		        		switch(orderStatus)
@@ -136,6 +140,9 @@ function ajaxFunHtml(type,size,page){
 		        			break;
 		        			case 9:
 		        				orderStatus="申请被拒绝";
+		        			break;
+		        			case 10:
+		        				orderStatus="余额不足失效";
 		        			break;
 		        			default:
 		        				orderStatus="未知的状态";		
@@ -201,7 +208,7 @@ function ajaxFunHtml(type,size,page){
 		    	        			"<div style='width:1130px;' class='repo'>"+
 		    							"<div class='left'>"+
 		    								"<div class='repoName'>"+ 
-		    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+		    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 		    								"</div>"+
 		    								"<div class='description'>"+	
 		    									"<p>"+comment+"</p>"+
@@ -220,14 +227,14 @@ function ajaxFunHtml(type,size,page){
 		    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 		    						"</div>"+
 		    						"<div class='button'>"+
-		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"' style='"+btnStyle+"' class='btn btn-warning' type='button'>评价</a>"+
+		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
 		    						"</div>"+
 		    					"</div>"+
 		    				"</div>"
 		                 ); 
 		        	}
 		    	    
-		        },
+		        }/*,
 		        error:function(json){
 		        	if(json.status==400){
 		        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -235,7 +242,7 @@ function ajaxFunHtml(type,size,page){
 		        		errorDialog(json.status,"","");            
 		        	}
 		            $('#errorDM').modal('show');
-		        }
+		        }*/
 		    });
 			//forList(null,5);
 		}
@@ -290,10 +297,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 
@@ -311,10 +314,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 
@@ -332,10 +331,6 @@ function forList(list,type){
 	                        }else {
 	                            console.log("报错");
 	                        }
-	                    },
-	                    error:function(json){
-	                        errorDialog($.parseJSON(json.responseText).code);
-	                        $('#errorDM').modal('show');
 	                    }
 	                });
 	                
@@ -394,7 +389,7 @@ function forList(list,type){
 	                         ); 
 	            	}
 	          
-	            },
+	            }/*,
 	            error:function(json){
 		        	if(json.status==400){
 		        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -402,7 +397,7 @@ function forList(list,type){
 		        		errorDialog(json.status,"","");            
 		        	}
 		            $('#errorDM').modal('show');
-		        }
+		        }*/
 	        });
 	    }
 	}else{
@@ -448,7 +443,7 @@ function ajaxTotal(type,size){
 	            }else{
 	                console.log("报错");
 	            }
-	        },
+	        }/*,
 	        error:function(json){
 	        	if(json.status==400){
 	        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -456,7 +451,7 @@ function ajaxTotal(type,size){
 	        		errorDialog(json.status,"","");            
 	        	}
 	            $('#errorDM').modal('show');
-	        }
+	        }*/
 	    });
 	}
 	if(type=="5"){
@@ -473,7 +468,13 @@ function ajaxTotal(type,size){
 	        	$("#itemnum").text(allrepnum);
 	        	var len=json.data.results.length;
 	        	for(var i=0;i<len;i++){
-	        		var oderdate =json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+        			//alert(json.data.results[i].repname+"/"+json.data.results[i].itemname+"---"+json.data.results[i].phase+"---"+json.data.results[i].signtime+"---"+json.data.results[i].applytime);
+	        		var oderdate="";
+	        		if(json.data.results[i].signtime!=undefined){
+	        			oderdate=json.data.results[i].signtime.substr(0,10)+"&nbsp;"+json.data.results[i].signtime.substr(11,8);
+	        		}else{
+	        			oderdate=json.data.results[i].applytime.substr(0,10)+"&nbsp;"+json.data.results[i].applytime.substr(11,8);      		
+	        		}
 	        		var expiretimeOrder=json.data.results[i].expiretime.substr(0,10)+"&nbsp;"+json.data.results[i].expiretime.substr(11,8);
 	        		//详情内容
 	        		var comment="";
@@ -493,6 +494,9 @@ function ajaxTotal(type,size){
 	        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
 	        		if(orderStatus=="5"){
 	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+	        		}
+	        		if(orderStatus=="10"){
+	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
 	        		}
 	        		
 	        		switch(orderStatus)
@@ -520,6 +524,9 @@ function ajaxTotal(type,size){
 	        			break;
 	        			case 9:
 	        				orderStatus="申请被拒绝";
+	        			break;
+	        			case 10:
+	        				orderStatus="余额不足失效";
 	        			break;
 	        			default:
 	        				orderStatus="未知的状态";		
@@ -585,7 +592,7 @@ function ajaxTotal(type,size){
 	    	        			"<div style='width:1130px;' class='repo'>"+
 	    							"<div class='left'>"+
 	    								"<div class='repoName'>"+ 
-	    									"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+	    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
 	    								"</div>"+
 	    								"<div class='description'>"+	
 	    									"<p>"+comment+"</p>"+
@@ -604,14 +611,14 @@ function ajaxTotal(type,size){
 	    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 	    						"</div>"+
 	    						"<div class='button'>"+
-	    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"' style='"+btnStyle+"' class='btn btn-warning' type='button'>评价</a>"+
+	    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
 	    						"</div>"+
 	    					"</div>"+
 	    				"</div>"
 	                 ); 
 	        	}
 	    	        	      	
-	        },
+	        }/*,
 	        error:function(json){
 	        	if(json.status==400){
 	        		errorDialog(json.status,$.parseJSON(json.responseText).code,$.parseJSON(json.responseText).msg);			            
@@ -619,7 +626,7 @@ function ajaxTotal(type,size){
 	        		errorDialog(json.status,"","");            
 	        	}
 	            $('#errorDM').modal('show');
-	        }
+	        }*/
 	    });
 	}
        
@@ -656,10 +663,6 @@ function ajaxReUser(){
             }else {
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }

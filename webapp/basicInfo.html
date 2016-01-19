@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
-<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
+<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通" />
 <title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
@@ -215,7 +215,10 @@
 <script src="js/login.js"></script>
 <script src="js/base64.js"></script>
 <script src="js/md5.js"></script>
+<script src="js/ajaxSetup.js"></script>
 <script src='js/errorDialog.js'></script>
+
+
 
 <script>
 $(document).ready(function(){
@@ -265,10 +268,6 @@ $(document).ready(function(){
 						$("#update_icon").css("display","none");
 
                     }
-				},
-				error:function(){
-					errorDialog($.parseJSON(json.responseText).code);
-					$('#errorDM').modal('show');
 				}
 		});
 		$("#update_icon").click(function(){
@@ -277,8 +276,6 @@ $(document).ready(function(){
             $("#textComment").attr("disabled",false);
 			$("#exampleInputName2").attr("disabled",false);
 			$("#update_icon").css("display","none");
-
-
         });
 
 		$.ajax({
@@ -307,11 +304,6 @@ $(document).ready(function(){
 					{
 						$("#exampleInputMember").val("钻石会员");
 					}	
-				},
-				error:function(json){
-					errorDialog($.parseJSON(json.responseText).code);
-					$('#errorDM').modal('show');
-
 				}
 		});
 });
@@ -436,10 +428,6 @@ $(document).ready(function(){
 				var pullNumB=(pullNumA/2000).toFixed(4);
 				var pullNumC=pullNumB.slice(2,4)+"."+pullNumB.slice(4,6)+"%";
 				$("#pullNum").css("width","pullNumC");
-			},
-			error:function(){
-                errorDialog($.parseJSON(json.responseText).code);
-                $('#errorDM').modal('show');
 			}
 		})
 
@@ -511,8 +499,6 @@ $(document).ready(function(){
                         $(".right1").css("transform", "rotate(-" + rightNum2 + "deg)");
                     }
                 }
-			},
-			error:function(){
 			}
 		})
 //托管空间
@@ -545,14 +531,7 @@ $(document).ready(function(){
                     $(".left2").css("transform", "rotate(-180deg)");
                     $(".right2").css("transform", "rotate(-" + rightNum + "deg)");
                 }
-            },
-				error:function(){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
-
-				}
-
-
+            }
 	    });
 
     });

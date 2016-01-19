@@ -78,10 +78,6 @@ function getrepname(pages) {
             }else{
                 console.log("报错");
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 }
@@ -201,10 +197,6 @@ function ajaxRe(){
                             }else {
                                 console.log("报错");
                             }
-                        },
-                        error:function(json){
-                            errorDialog($.parseJSON(json.responseText).code);
-                            $('#errorDM').modal('show');
                         }
                     });
                     if(json.data.label != null && json.data.label != ''){
@@ -215,8 +207,16 @@ function ajaxRe(){
                         }
                     }
                     var thispricestate = '';
+                    var pricestype = '';
                     if(json.data.pricestate != ''){
-                        thispricestate = '<p>'+json.data.pricestate+'</p>';
+                        if(json.data.pricestate == '免费'){
+                            pricestype = 'freetype';
+                        }else if(json.data.pricestate == '付费'){
+                            pricestype = 'chargetype';
+                        }else{
+                            pricestype = 'limitedfreetype';
+                        }
+                        thispricestate = '<p class="'+pricestype+'">'+json.data.pricestate+'</p>';
                     }
                     $("#terminal-content-body").append(""+
                         '<div class="repo">'+
@@ -248,10 +248,6 @@ function ajaxRe(){
                         '</div>'+
                         '</div>'
                     );
-                },
-                error:function(json){
-                    errorDialog($.parseJSON(json.responseText).code);
-                    $('#errorDM').modal('show');
                 }
             });
         }

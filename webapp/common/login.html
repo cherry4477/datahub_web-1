@@ -1,10 +1,15 @@
 <style>
 	#signs{
-		background-color: #29abe2;
+		/*background-color: #29abe2;*/
+		background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
 		border: 0 none;
 	}
+	#signs:focus{
+		background-image: linear-gradient(to bottom, #265a88 0%, #265a88 100%);
+	}
 	#signs:hover{
-		background-color: #1998ce;
+		/*background-color: #1998ce;*/
+		background-image: linear-gradient(to bottom, #265a88 0%, #265a88 100%);
 	}
 	#exampleInputEmail1{
 	width:360px;
@@ -36,6 +41,7 @@
 	
 	#nvitationLogin:hover{
 		color: #395289;
+		text-decoration: underline;
 	}
 
 </style>
@@ -67,7 +73,7 @@
 					  </div>
 					  <button id='signs' class="btn btn-primary" style='width:360px;height:40px;'>登录</button>     
 					  <div style="margin-top: 20px;margin-bottom: 40px;">
-					  		<p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="registration.html">邀请注册</a></p>
+					  		<p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="reg.html">马上注册</a></p>
 					  </div>                       
                 </div>
                 <!-- 
