@@ -35,11 +35,15 @@ $(function(){
     closewrap();//关闭弹窗s
 
 
+
+
+});
+$(document).ready(function(){
     $("#LT_left_icon .alert_login p a").click(function() {
         $(".modal-open").css("padding-right","15px");
         $('#myModal').modal('toggle');
     });
-
+    $('[data-toggle="tooltip"]').tooltip();
 });
 //获取reponame,itemname
 function getParam(key) {
@@ -112,6 +116,9 @@ function gonextpage(nextpages){
                         var tag_tag = taglist[i].tag;
                         var tag_comment = taglist[i].comment;
                         var tag_time = taglist[i].optime;
+                        var arry=new Array();
+                        arry=tag_time.split("|");
+
 
                         var $left_content = $("#left_content .left_content_con");
                         var $content = $("<div></div>").addClass("content").appendTo($left_content);
@@ -121,7 +128,7 @@ function gonextpage(nextpages){
 
                         var $content1_time = $("<div></div>").addClass("content1_time").appendTo($content);
                         $content1_time.append("<span></span>");
-                        $content1_time.append($("<span>2分钟以前</span>").text(tag_time));
+                        $content1_time.append($("<span>2分钟以前</span>").text(arry[1]).attr({"data-toggle":"tooltip","datapalecement":"top","title":arry[0]}));
 
                         var $content1_pullNumber = $("<div></div>").addClass("content1_pullNumber").appendTo($content);
                         if(login=="true"){
@@ -386,7 +393,7 @@ function about_item(){
                 var optime=json.data.optime;
                 var arr=new Array();
                 arr=optime.split("|");
-                $(".span_time span:nth-child(2)").text(arr[1]);
+                $(".span_time span:nth-child(2)").text(arr[1]).attr("title",arr[0]);
           /*      var label=json.data.label;
                 if(label==null||label=="null"){
                 }
@@ -843,11 +850,11 @@ function hurry_buy(){
         var data = {"price":{}};
         var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
         var planid = charge.find(".moneyu").attr("mark").toString();
+
+        var headerToken={};
         Array.prototype.max = function(){   //最大值
             return Math.max.apply({},this)
         }
-        var headerToken={};
-
         //登陆后
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
@@ -874,12 +881,12 @@ function hurry_buy(){
                     cache: false,
                     async: false,
                     dataType: 'json',
-                    headers: header,
+                    headers: headerToken,
                     success: function (json) {
                         //console.log(price_array.max());价格的最大值
                         var actualBalance=json.data.actualBalance;
                         var availableBalance=json.data.availableBalance;
-                        if(actualBalance>=(price_array.max())){
+                        if(availableBalance>=(price_array.max())){
                             //订购
                             $.ajax({
                                 url: ngUrl+"/subscription/"+repoName+"/"+itemName,
@@ -910,16 +917,17 @@ function hurry_buy(){
                                         $("#myModalLabel").text("签约结果");
                                     }else{
                                         clearInterval(timer);
+                                        $("#myModalLabel").text("签约结果");
                                         $("#subscriptDialog .modal-header").show();
                                         $("#subscriptDialog .subprocess").hide();
                                         $("#subscriptDialog .subafterprocess .successed").hide();
                                         $("#subscriptDialog .subafterprocess .failed").show();
-                                        $("#myModalLabel").text("签约结果");
                                     }
                                 }
                             });
                         }
                         else{
+                            $("#myModalLabel").text("签约结果");
                             $("#subscriptDialog .modal-header").show();
                             $("#subscriptDialog .subprocess").hide();
                             $("#subscriptDialog .subafterprocess .successed").hide();
@@ -941,7 +949,6 @@ function hurry_buy(){
 //申请订购
 function apply_buy(){
     $("#apply_buy").click(function(e){
-
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
         var create_user;
@@ -949,6 +956,8 @@ function apply_buy(){
         var supplyStyle;
         var prices;
         var subType=true;
+        //alert(usera);
+        //alert(userb);
         //替换  服务内容
 
         $(".sub1 .sbody").replaceWith("<div class='sbody'>甲方向乙方申请订购“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据服务。" +
@@ -1012,8 +1021,8 @@ function apply_buy(){
 
             //------------------------订购合同------------------------
             //设置甲方乙方
-            var usera = $.cookie("tname");//获取当前用户，甲方
-            var userb = create_user;//获取item用户，乙方
+            window.usera = $.cookie("tname");//获取当前用户，甲方
+            window.userb = create_user;//获取item用户，乙方
             $.ajax({
                 url: ngUrl+"/users/"+usera,
                 type: "get",
@@ -1136,41 +1145,88 @@ function apply_buy(){
         var charge = $("#subscriptDialog .modal-body .sub3 .charge-body .chargeitem input:radio:checked").closest(".chargeitem");
         var planid = charge.find(".moneyu:first").attr("mark").toString();
         //申请订购
+        var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+        var price_array;
+        Array.prototype.max = function(){   //最大值
+            return Math.max.apply({},this)
+        };
         $.ajax({
-            url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
-            type: "PUT",
-            cache:false,
-            //	data:JSON.stringify(data),
-            data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid,"action":"apply"}),
-            async:false,
-            dataType:'json',
-            headers:header,
-            success:function(json){
-                if(json.code == 0){
-                    setTimeout(function() {
-                        clearInterval(timer);
-                        $("#subscriptDialog .modal-header").show();
-                        $("#subscriptDialog .subprocess").hide();
-                        $("#myModalLabel").text("签约结果");
-                        $("#subscriptDialog .subafterprocess .successed").show();
-                        $("#subscriptDialog .subafterprocess .failed").hide();
-                        var stars = parseInt($("#dataitem-head-right .subscript .value").text());
-                        $("#dataitem-head-right .subscript .value").text(stars+1);
-                        $("#apply_buy").hide();
-                        $("#hurry_buy").hide();
-                        $("#cancel_buy").show();
-                        location.reload();
-                    }, 1000)
-                }else {
+            url: ngUrl + "/repositories/" + repoName + "/" + itemName,
+            type: "GET",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: header,
+            success: function (json) {
+                var price_length = json.data.price.length;
+                price_array = new Array();
+                var price = json.data.price;//计费方式
+                for (var i = 0; i < price_length; i++) {
+                    price_array.push(price[i].money);
+                }
+            }
+        });
+
+        //
+        $.ajax({
+            url: ngUrl + "/bill/" + $.cookie("tname") + "/info",
+            type: "GET",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: header,
+            success: function (json) {
+                //console.log(price_array.max());价格的最大值
+                var actualBalance = json.data.actualBalance;
+                var availableBalance = json.data.availableBalance;
+                if (availableBalance >= (price_array.max())) {
+                    $.ajax({
+                        url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
+                        type: "PUT",
+                        cache:false,
+                        //	data:JSON.stringify(data),
+                        data:JSON.stringify({"subscriptionid":subscriptionid,"planid":planid,"action":"apply"}),
+                        async:false,
+                        dataType:'json',
+                        headers:header,
+                        success:function(json){
+                            if(json.code == 0){
+                                setTimeout(function() {
+                                    clearInterval(timer);
+                                    $("#myModalLabel").text("签约结果");
+                                    $("#subscriptDialog .modal-header").show();
+                                    $("#subscriptDialog .subprocess").hide();
+                                    $("#subscriptDialog .subafterprocess .successed").show();
+                                    $("#subscriptDialog .subafterprocess .failed").hide();
+                                    var stars = parseInt($("#dataitem-head-right .subscript .value").text());
+                                    $("#dataitem-head-right .subscript .value").text(stars+1);
+                                    $("#apply_buy").hide();
+                                    $("#hurry_buy").hide();
+                                    $("#cancel_buy").show();
+                                    location.reload();
+                                }, 1000)
+                            }else {
+                                clearInterval(timer);
+                                $("#myModalLabel").text("签约结果");
+                                $("#subscriptDialog .modal-header").show();
+                                $("#subscriptDialog .subprocess").hide();
+                                $("#subscriptDialog .subafterprocess .successed").hide();
+                                $("#subscriptDialog .subafterprocess .failed").show();
+                            }
+                        }
+                    });
+                }
+                else{
                     clearInterval(timer);
+                    $("#myModalLabel").text("签约结果");
                     $("#subscriptDialog .modal-header").show();
                     $("#subscriptDialog .subprocess").hide();
                     $("#subscriptDialog .subafterprocess .successed").hide();
                     $("#subscriptDialog .subafterprocess .failed").show();
-                    $("#myModalLabel").text("签约结果");
                 }
             }
-        });
+            });
+
     });
 
 }
