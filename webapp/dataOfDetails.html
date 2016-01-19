@@ -131,8 +131,8 @@
 			//会员判断
 
 	$.ajax({
-			url:ngUrl+"/users/"+$.cookie("tname"),
-			//url: ngUrl + "/users/" + getParam("username"),
+			//url:ngUrl+"/users/"+$.cookie("tname"),
+			url: ngUrl + "/users/" + getParam("username"),
 			type: "get",
 			cache: false,
 			async: false,
