@@ -63,6 +63,9 @@ $(function(){
             case 9:
                 thisstate="申请被拒绝";
                 break;
+            case 10:
+                thisstate="余额不足失效";
+                break;
             default:
                 thisstate="未知的状态";
         }
@@ -122,12 +125,13 @@ $(function(){
             url: ngUrl+"/subscription/"+thisrepname+"/"+thisitemname+"/apply",
             type: "put",
             cache:false,
-            //async:false,
+            async:false,
             dataType:'json',
             data:JSON.stringify(dataison),
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
-                _this.parents('.thisoder').html('订单生效');
+                var thisphase = oderstate(json.data.phase);
+                _this.parents('.thisoder').html(thisphase);
             }
         });
     })

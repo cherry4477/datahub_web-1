@@ -330,6 +330,13 @@ $(function(){
                     success: function(msg){
                         var fornum = msg.data.total;
                         $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        if(XMLHttpRequest.status == 400){
+                            $('.baimingdannum').html('(0)');
+                        }
+
                     }
                 });
                 $('.xiugaiwrop').show();
@@ -424,7 +431,12 @@ function getpermissions(pages){
                 '</li>';
               $('.namelist').append(lis);
             }
-
+        },
+        error:function (XMLHttpRequest, textStatus, errorThrown)
+        {
+            if(XMLHttpRequest.status == 400){
+                $('.baimingdannum').html('(0)');
+            }
 
         }
     });
@@ -527,6 +539,7 @@ var _this = $(this);
                success: function(deluser){
                     if(deluser.code == 0){
                        _this.parent().remove();
+                        $('.gobackbtnwrop').hide();
                         $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF();
                     }
