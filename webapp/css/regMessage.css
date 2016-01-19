@@ -1,0 +1,36 @@
+#created{
+	margin-top: 40px;
+	border-top:5px solid #c8c8c8;
+	border-bottom: 1px solid #395289;
+	border-left: 1px solid #395289;
+	border-right: 1px solid #395289;
+	width:740px;
+	height:310px;
+}
+#successed{
+	float: left;
+	margin-top: 40px;
+	margin-left: 50px;
+	font-size:27px;
+	color: #333333;
+}
+#info {
+	float:left;
+}
+#info p{
+	margin-left: -35px;
+	margin-top: 70px;
+	margin-bottom: 70px;
+	font:16px;
+	text-align: center;
+}
+#login{
+	float: left;
+	margin-left: 245px;
+	margin-bottom:56px;
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+}

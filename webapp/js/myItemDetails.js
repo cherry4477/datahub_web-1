@@ -322,22 +322,30 @@ $(function(){
     });
         $(".itemListName-icon").click(function() {
             if(itemaccesstype == 'private'){
+                $.ajax({
+                    type: "get",
+                    url:ngUrl+"/permission/"+repname+"/"+itemname,
+                    cache:false,
+                    headers:{Authorization: "Token "+account},
+                    success: function(msg){
+                        var fornum = msg.data.total;
+                        $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        if(XMLHttpRequest.status == 400){
+                            $('.baimingdannum').html('(0)');
+                        }
+
+                    }
+                });
                 $('.xiugaiwrop').show();
             }else{
                 $('.xiugaiwrop').hide();
             }
             $('.valuemoney').empty();
             $('.itemtag .value').empty();
-            $.ajax({
-                type: "get",
-                url:ngUrl+"/permission/"+repname+"/"+itemname,
-                cache:false,
-                headers:{Authorization: "Token "+account},
-                success: function(msg){
-                    var fornum = msg.data.total;
-                    $('.xiugaiwrop .baimingdannum').html('('+ fornum +')');
-                }
-            });
+
                 $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname,
                         type: "GET",
@@ -358,7 +366,7 @@ $(function(){
                                         var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
                                         var itemProSelect = $("#editItem .itempro .value span");
                                         var itemtagDiv = $("#editItem .itemtag .value");
-                                        itemNameInput.val(repname).attr("disabled", "disabled");
+                                        itemNameInput.val(itemname).attr("disabled", "disabled");
                                         itemCommentTextArea.val(json.data.comment);
                                         itemProSelect.html(itemaccesstype);
                                         if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
@@ -370,20 +378,20 @@ $(function(){
                                                 }
                                         }
                                     var jsonobj = json.data.price;
-                                    for(var i = 0;i<jsonobj.length;i++){
-                                        var islimit = false;
-                                        var limitvalue = ''
-                                       if (jsonobj[i].limit){
-                                           islimit = true;
-                                           limitvalue = jsonobj[i].limit;
-                                       }
-                                        var itemdatatype = supply_style;
-                                        createItemTagmoney(jsonobj[i].units, jsonobj[i].money, jsonobj[i].expire,jsonobj[i].plan_id,false,islimit,itemdatatype,limitvalue);
-                                    }                                
+                                    if(jsonobj){
+                                        for(var i = 0;i<jsonobj.length;i++){
+                                            var islimit = false;
+                                            var limitvalue = ''
+                                            if (jsonobj[i].limit){
+                                                islimit = true;
+                                                limitvalue = jsonobj[i].limit;
+                                            }
+                                            var itemdatatype = supply_style;
+                                            createItemTagmoney(jsonobj[i].units, jsonobj[i].money, jsonobj[i].expire,jsonobj[i].plan_id,false,islimit,itemdatatype,limitvalue);
+                                        }
+                                    }
+
                                 }
-                        },
-                        error:function(json){
-                                alert(json.msg);
                         }
                 });
                 $('#editItem').modal('toggle');
@@ -394,8 +402,8 @@ function getpagesF(){
     getpermissions(1);
     $(".baipages").pagination(totals, {
         items_per_page: 6,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_edge_entries:3,
+        num_display_entries:3,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -405,7 +413,7 @@ function getpagesF(){
     });
 }
 function getpermissions(pages){
-    $('.namelist').empty();
+
     $.ajax({
         type: "get",
         url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page='+pages,
@@ -413,15 +421,22 @@ function getpermissions(pages){
         async:false,
         headers:{Authorization: "Token "+account},
         success: function(msg){
+            $('.namelist').empty();
             var fornum = msg.data.permissions.length;
             totals =  msg.data.total;
+            $('.baimingdannum').html('('+totals+')');
             for(var i = 0;i<fornum;i++)
             {
                 var lis = '<li class="lis">'+ '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+msg.data.permissions[i].username+'</span><span class="namelistdel">[删除]</span>'+
                 '</li>';
               $('.namelist').append(lis);
             }
-
+        },
+        error:function (XMLHttpRequest, textStatus, errorThrown)
+        {
+            if(XMLHttpRequest.status == 400){
+                $('.baimingdannum').html('(0)');
+            }
 
         }
     });
@@ -433,8 +448,13 @@ function Fens(new_page_index){
  $('.xiugainame').click(function(){
      $('.namelist').empty();
      getpagesF();
-     $('#editItem').modal('toggle');
+     //$('#editItem').modal('toggle');
+     $('#editBox').on('hidden.bs.modal', function (e) {
+         $("body").addClass("modal-open");
+     })
+
      $('#editBox').modal('toggle');
+
 
  })
 
@@ -456,16 +476,15 @@ $('.addnamebtn').click(function(event) {
           $('#mess').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkloginusers(username) == 1){
-        $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+        //$('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else if(checkname(username) == 2){
          $('#mess').html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
-            return false;
+         return false;
     }else if($.cookie("tname") == username){
         $('#mess').html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
         return false;
     }else{
-         
           $.ajax({
                 type:"put",
                 url:ngUrl+"/permission/"+repname+"/"+itemname,
@@ -520,6 +539,8 @@ var _this = $(this);
                success: function(deluser){
                     if(deluser.code == 0){
                        _this.parent().remove();
+                        $('.gobackbtnwrop').hide();
+                        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF();
                     }
                }
@@ -531,35 +552,45 @@ var _this = $(this);
 ////////////////////////////////////////////////////////////////批量删除白名单
 $('.dellist').click(function(){
 var thisusername = [];
+var isdele = false;
 var namejson = {}
 var lilist = $('.namelist li');
     for(var i = 0;i<lilist.length;i++){
         if($('.namelist li').eq(i).children('.ischeck').is(':checked')==true){
-
               var thisval = $(lilist[i]).children('.thisusername').html();
                namejson[$('.namelist li').eq(i).index()] = thisval;
               thisusername.push(thisval);
         }
     }
-    for(var j in namejson){
-         $.ajax({
-                   type:"DELETE",
-                   url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
-                   cache:false,
-                   dataType:'json',
-                   headers:{Authorization: "Token "+account},
-                   success: function(deluser){
-                         if(deluser.code == 0){
-                             getpagesF();
-                         }
-                   }
-        })
-    };
-
+    if(thisusername.length>0){
+        for(var j in namejson){
+            $.ajax({
+                type:"DELETE",
+                url:ngUrl+"/permission/"+repname+"/"+itemname+"?username="+namejson[j],
+                cache:false,
+                dataType:'json',
+                headers:{Authorization: "Token "+account},
+                success: function(deluser){
+                    if(deluser.code == 0){
+                        $('.namelist').empty();
+                        isdele = true;
+                        $('.gobackbtnwrop').hide();
+                        getpagesF();
+                    }
+                }
+            })
+        };
+        if(isdele = true){
+            $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+        }
+    }
 })
 //////////////////搜索白名单
     $('.selectbtn').click(function(){
         var curusername = $.trim($('#addvalue').val());
+        if(curusername == ''){
+            return;
+        }
         $.ajax({
             type:"GET",
             url: ngUrl+'/permission/'+repname +'/'+itemname+'?username='+curusername,
@@ -567,25 +598,34 @@ var lilist = $('.namelist li');
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function (datas) {
                    if(datas.code == 0){
-                       var lis = '<li class="lis">'+
-                           '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
-                           '</li>';
-                       $('.namelist').empty().append(lis);
-                       $('.gobackbtnwrop').show();
-                       $(".baipages").pagination(0, {
-                           items_per_page:6,
-                           num_display_entries: 1,
-                           num_edge_entries: 5 ,
-                           prev_text:"上一页",
-                           next_text:"下一页",
-                           ellipse_text:"...",
-                           link_to:"javascript:void(0)",
-                           callback:Fens,
-                           load_first_page:false
-                       });
+                       if(datas.data.permissions.length > 0){
+                           var lis = '<li class="lis">'+
+                               '<input class="ischeck" type="checkbox"/><span class="namelistcon"></span><span class="thisusername">'+datas.data.permissions[0].username+'</span><span class="namelistdel">[删除]</span>'+
+                               '</li>';
+                           $('.namelist').empty().append(lis);
+                           $('.gobackbtnwrop').show();
+                           $(".baipages").pagination(0, {
+                               items_per_page:6,
+                               num_display_entries: 1,
+                               num_edge_entries: 5 ,
+                               prev_text:"上一页",
+                               next_text:"下一页",
+                               ellipse_text:"...",
+                               link_to:"javascript:void(0)",
+                               callback:Fens,
+                               load_first_page:false
+                           });
+                       }
                    }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
-        });
+    });
 
     })
 //////////////////////////返回按钮
@@ -598,8 +638,7 @@ $('.gobackbtnwrop').click(function(){
 ///////////////提交修改
     $("#editItem .submit input").click(function() {
         var reg = new RegExp("^[0-9]*$");
-        var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
-
+        //var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
         var itemtagDiv = $("#editItem .itemtag .value");
         var labels = itemtagDiv.children(".persontag");
         var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
@@ -613,22 +652,34 @@ $('.gobackbtnwrop').click(function(){
             var tagtime = moneydiv.children(".tagtime:first").val();
             var tagmoney = moneydiv.children(".tagmoney:first").val();
             var tagexpire = moneydiv.children(".tagexpire:first").val();
+            var isnimitid = moneydiv.children(".isnimitid:first");
             var limitnum = moneydiv.children(".ishiddenbox").children(".limitnum:first").val();
             if(!reg.test(tagtime) || tagtime ==0 || tagtime == ""){
                 $('#itemmess').html('次数（天数）需为大于0的整数').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
                  //alert("");
                  return;
              }
-            if(tagmoney == "" || tagmoney <= 0 || !reg.test(tagmoney)){
-                $('#itemmess').html('价格需大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                //alert('价格需大于0');
+            if(isNaN(tagmoney)){
+                $('#itemmess').html('价格必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                 return;
             }
-            if(newmoney.test(tagmoney) == false){
-                $('#itemmess').html('价格精确到小数点后2位').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                //alert('价格精确到小数点后2位');
+            if(tagmoney == ''){
+                $('#itemmess').html('价格不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                 return;
             }
+            if(tagmoney < 0 ){
+                $('#itemmess').html('价格需大于等于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                return;
+            }
+            var dot = tagmoney.indexOf(".");
+            if(dot != -1){
+                var dotCnt = tagmoney.substring(dot+1,tagmoney.length);
+                if(dotCnt.length > 2){
+                    $('#itemmess').html('价格精确到小数点后2位').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                    return;
+                }
+            }
+            //alert(tagmoney.indexOf('.'))
             if(tagmoney.indexOf('.') == -1){
                 tagmoney = tagmoney+'.00';
             }
@@ -643,19 +694,26 @@ $('.gobackbtnwrop').click(function(){
                 //alert("有效期需为大于0的整数");
                 return;
             }
-            if(limitnum){
-                if(!reg.test(limitnum)){
-                    $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                    //alert("限购次数必须为数字");
+            if(isnimitid.is(':checked') == true){
+                if(limitnum){
+                    if(!reg.test(limitnum)){
+                        $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                        //alert("限购次数必须为数字");
+                        return;
+                    }
+                    if(limitnum <= 0){
+                        $('#itemmess').html('限购次数必须大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                        //alert("限购次数必须大于0");
+                        return;
+                    }
+                    dataarr[i].limit = parseInt(limitnum);
+                }else{
+                    $('#itemmess').html('限购次数不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                     return;
                 }
-                if(limitnum <= 0){
-                    $('#itemmess').html('限购次数必须大于0').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
-                    //alert("限购次数必须大于0");
-                    return;
-                }
-                dataarr[i].limit = parseInt(limitnum);
             }
+
+
             dataarr[i].units = parseInt(tagtime);
             dataarr[i].money = parseFloat(tagmoney);
             dataarr[i].expire = parseInt(tagexpire);
@@ -682,19 +740,23 @@ $('.gobackbtnwrop').click(function(){
             success:function(json){
                 var labelstr = '';
                 if(json.code == 0){
-                    //修改label
                     var priceobj = {};
-
                     for(var i=0; i<labels.length; i++) {
                         var label = $(labels[i]);
                         var labelkey = $.trim(label.children(".tagkey:first").val());
                         var labelvalue = $.trim(label.children(".tagvalue:first").val());
                         if(labelkey == "" || labelvalue == "") {
-                            alert("标签名和标签值不能为空！");
+                            //alert("标签名和标签值不能为空！");
+                            $('#errlabels').html('标签名和标签值不能为空').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
                             return;
                         }
+                        var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+                        if(reg.test(labelkey)){
+                            $('#errlabels').html('key值不能为中文').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
+                            return
+                        }
                         datalabel["owner."+labelkey] = labelvalue;
-                        labelstr+='<span class="personaltag">'+labelkey+'</span>';
+                        labelstr+='<span class="personaltag">'+labelvalue+'</span>';
                     }
                     $(".filletspan .personaltag").remove();
                     $(".filletspan").append(labelstr);
@@ -711,19 +773,20 @@ $('.gobackbtnwrop').click(function(){
                             if(json.code == 0){
                                 $('#editItem').modal('toggle');
                             }
-                        },
-                        error:function(json){
-                            alert(json.msg);
                         }
                     });
                 }
-            },
-            error:function(json){
-                alert(json.msg);
             }
         });
 
     });
+    $(document).on('blur','.tagkey',function(){
+        var tagval = $(this).val();
+        var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+        if(reg.test(tagval)){
+            $('#errlabels').html('key值不能为中文').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+        }
+    })
     function createItemTag(tagkey, tagvalue,newlabel,isdisabled) {
         tagkey = tagkey == undefined ? "": tagkey;
         tagvalue = tagvalue == undefined ? "": tagvalue;
@@ -777,6 +840,13 @@ $('.gobackbtnwrop').click(function(){
                         iscurname = 2;
                     }
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    iscurname = 1;
+                }
+
             }
         });
         return iscurname;
@@ -795,6 +865,13 @@ $('.gobackbtnwrop').click(function(){
                 if(json.code == 0){
                     isloginusers = 2;
                 }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
             }
         });
         return isloginusers;
@@ -806,6 +883,14 @@ $('.gobackbtnwrop').click(function(){
 
 function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecked,itemdatatype,limitvalue) {
     var isday = '';
+    var thisthistagmoney = '';
+    if(tagmoney >= 0 && tagmoney != 'null' && tagmoney != null){
+        if(tagmoney.toString().indexOf('.') == -1){
+            thisthistagmoney = tagmoney+'.00';
+        }else{
+            thisthistagmoney = tagmoney;
+        }
+    }
     if(itemdatatype == 'flow'){
         isday = '天';
     }else{
@@ -821,7 +906,7 @@ function createItemTagmoney(tagtime, tagmoney,tagexpire,dataid,newlabel,ischecke
         var persontag = $("<div></div>").addClass("persontag").attr("newlabel",newlabel?true:false).attr('dataid',dataid).appendTo(itemtagmoney);
         persontag.append($("<input/>").addClass("tagtime").attr("type", "text").val(tagtime));
         persontag.append($("<div> "+isday +"=</div>").addClass("tagequal"));
-        persontag.append($("<input/>").addClass("tagmoney").attr("type", "text").val(tagmoney));
+        persontag.append($("<input/>").addClass("tagmoney").attr("type", "text").val(thisthistagmoney));
         persontag.append($("<div>元&nbsp;&nbsp;有效期</div>").addClass("tagequal"));
         persontag.append($("<input/>").addClass("tagexpire").attr("type", "text").val(tagexpire));
         persontag.append($("<div>天</div>").addClass("tagequal"));

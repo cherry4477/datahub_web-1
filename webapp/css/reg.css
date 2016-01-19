@@ -1,0 +1,209 @@
+.infoBox{
+	float: left;
+	margin-top: 40px;
+	border-top:5px solid #c8c8c8;
+	border-bottom: 1px solid #c8c8c8;
+	border-left: 1px solid #c8c8c8;
+	border-right: 1px solid #c8c8c8;
+	width:740px;
+}
+#title{
+	float: left;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 50px;
+	font-size:27px;
+	color: #333333;
+}
+
+.labelBox{
+	float: left;
+	margin-left: -174px;
+	margin-top: 100px;
+	text-align: left;
+	color: #FF0000;
+	height:;
+}
+.labelBox p{
+	font:14px #ea0c1d;
+}
+#label_four{
+	display: none
+	}
+.input-group{
+	float: left;
+	margin-left: 90px;
+	margin-right: 90px;
+	display: inline;
+}
+.input-group label{
+	float: left;
+	font-size:20px;
+	color:#333333;
+	margin-top: 40px;
+	margin-right: 20px;
+	width:85px;
+}
+#label1{
+	padding-top: 5px;
+}
+#label2{
+	padding-top: 14px;
+}
+#label3{
+	padding-top: 14px;
+}
+.input-group input{
+	margin-top: 35px;
+	float: right !important;
+	height:50px;
+	width:450px !important;
+	border-top:1px solid;
+	border-bottom:1px solid;
+	border-left:1px solid;
+	border-right:1px solid;
+	border-radius: 5px;
+	padding-top: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	display: inline;
+	font-size: 14px;
+	color: #c8c8c8;
+}
+#email{
+	font:14px #c8c8c8;
+}
+#ps{
+	font:14px #c8c8c8;
+}
+#psr{
+	font:14px #c8c8c8;
+}
+
+#accept{
+	float:left;
+	display: inline;
+	text-align: center;
+	margin-left: 250px;
+}
+#item{
+	display: inline;
+	float:left;
+	height: 15px;
+	width: 15px;
+	margin-top: 20px;
+	margin-bottom:30px;
+}
+
+#accept span{
+	display: inline;
+	float:left;
+	font-size: 14px;
+	color: #333333;
+	margin-top: 20px;
+	margin-bottom:30px
+}
+#registration{
+	
+	margin-left: 245px;
+	margin-bottom: 30px;
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+}
+#registration:hover{
+	background-image: linear-gradient(to bottom, #265a88 0%, #337ab7 100%) !important;
+	background-color:#337ab7;
+	color:#ffffff;
+}
+#login{
+	float: left;
+	text-align: center;
+	height:70px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-top:1px solid #c8c8c8;
+	width:100%;
+}
+#login{
+	font:14px #333333;
+}
+
+#login a{
+	font:14px #666666;
+	font-weight: bold;
+}
+#checkEmail{
+	float: left;
+	margin-top: 40px;
+	border-top:5px solid #c8c8c8;
+	border-bottom: 1px solid #395289;
+	border-left: 1px solid #395289;
+	border-right: 1px solid #395289;
+	width:740px;
+	height:300px;
+}
+
+#successed{
+	float: left;
+	margin-top: 40px;
+	margin-left: 50px;
+	font-size:27px;
+	color: #333333;
+}
+#info {
+	float:left;
+	
+}
+#info p{
+	float:left;
+	font:16px;
+	margin-top: 70px; 
+	margin-left: 125px;
+	margin-bottom: 70px;
+	text-align: center;
+}
+#info a{
+	color: #0000FF;
+	font-size:18px;
+	font-weight: bold;
+}
+#info a:hover{
+	color: #faaa68;
+}
+#protocol{
+	font-weight: bold;
+}
+.modal-body {
+    padding: 0;
+}
+#subscriptDialog .modal-dialog {
+    width: 758px;
+
+}
+#subscriptDialog .modal-dialog .modal-content{
+    background-color: #f6f9fd;
+}
+
+.shead{
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 0px 20px;
+	font:16px bold;
+	margin-top: 15px;
+}
+.sbody{
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 0px 20px;
+}
+.note{
+	margin-top: 20px;
+	padding: 0px 20px;
+}
+.sub9{
+	margin-bottom: 20px;
+}

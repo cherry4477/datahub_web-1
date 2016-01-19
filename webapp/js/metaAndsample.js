@@ -11,7 +11,7 @@ $(function(){
         return value;
     }
     var headerToken={};
-    //µÇÂ½ºó
+    //ï¿½ï¿½Â½ï¿½ï¿½
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
@@ -30,10 +30,6 @@ $(function(){
                 var thisdata = json.data[datas];
                 $('.conment').html(marked(thisdata));
             }
-        },
-        error:function(json){
-            errorDialog($.parseJSON(json.responseText).code);
-            $('#errorDM').modal('show');
         }
     });
 })
