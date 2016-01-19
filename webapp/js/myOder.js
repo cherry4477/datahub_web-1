@@ -94,7 +94,7 @@ $(function(){
     })
     $(".oderpages").pagination(odertotal, {
         maxentries:odertotal,
-        items_per_page: 5,
+        items_per_page: 30,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
