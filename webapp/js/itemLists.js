@@ -111,6 +111,9 @@ function ajaxFunHtml(type,size,page){
 		        		if(orderStatus=="5"){
 		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 		        		}
+		        		if(orderStatus=="10"){
+		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
+		        		}
 		        		
 		        		switch(orderStatus)
 		        		{
@@ -137,6 +140,9 @@ function ajaxFunHtml(type,size,page){
 		        			break;
 		        			case 9:
 		        				orderStatus="申请被拒绝";
+		        			break;
+		        			case 10:
+		        				orderStatus="余额不足失效";
 		        			break;
 		        			default:
 		        				orderStatus="未知的状态";		
@@ -489,6 +495,9 @@ function ajaxTotal(type,size){
 	        		if(orderStatus=="5"){
 	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 	        		}
+	        		if(orderStatus=="10"){
+	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
+	        		}
 	        		
 	        		switch(orderStatus)
 	        		{
@@ -515,6 +524,9 @@ function ajaxTotal(type,size){
 	        			break;
 	        			case 9:
 	        				orderStatus="申请被拒绝";
+	        			break;
+	        			case 10:
+	        				orderStatus="余额不足失效";
 	        			break;
 	        			default:
 	        				orderStatus="未知的状态";		
