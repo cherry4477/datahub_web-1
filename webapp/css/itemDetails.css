@@ -388,6 +388,9 @@
     overflow:hidden;
     text-overflow:ellipsis;
 }
+.content .content1_title p:nth-child(1):hover{
+    font-weight: bold;
+}
 .content .content1_title p:nth-child(2){
     font-size:12px;
     line-height: 25px;
@@ -459,6 +462,7 @@
     height:45px;
     width: 60px;
     border: 1px solid;
+    background-image: linear-gradient(to bottom ,#f7fafc 0%,#eff5f9 100%);
 }
 .content .content1_download{
     width: 85px;

@@ -31,6 +31,7 @@ $(document).ready(function(){
             changebg(mouseoutindex);
         }
     });
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 //导航
@@ -292,22 +293,26 @@ function addhtml(){
                 var times=json.data.optime;
                 var jdTime=times.substring(0, times.indexOf("."));
                 var xdTime="";
-                var showTime="";
-                var nums=times.indexOf("|");
+                var showtime=new Array();
+                showtime=times.split("|");
+
+        /*        var nums=times.indexOf("|");
                 if(nums!="-1"){
                     showTime=times.substring(times.indexOf("|")+1,times.length);
                 }else{
                     showTime=times.substring(0, times.indexOf("."));
-                }
+                }*/
 
                 var $repo_left_subline_icon=$("<div></div>").addClass("icon").appendTo($repo_left_subline);
                 $repo_left_subline_icon.append("" +
                 "<img style='margin-right:15px;margin-left:60px' src='images/selects/images_17.png'/>"+
-                " <span>"+showTime+"</span>"+
+                " <span class='showtime'>"+showtime[1]+"</span>"+
                 "<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='Paste'/>"+
                 " <span>"+json.data.tags+"</span>");
 
                 var label_style=json.data.label.sys.supply_style;
+
+                $(".subline .icon .showtime").attr({"data-toggle":"tooltip","datapalecement":"top","data-original-title":showtime[0]});
                 var labelV="";
                 if(label_style=="api"){
                     vvclass="api";
