@@ -437,7 +437,12 @@ function Fens(new_page_index){
      $('.namelist').empty();
      getpagesF();
      //$('#editItem').modal('toggle');
+     $('#editBox').on('hidden.bs.modal', function (e) {
+         $("body").addClass("modal-open");
+     })
+
      $('#editBox').modal('toggle');
+
 
  })
 
