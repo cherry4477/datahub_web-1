@@ -72,7 +72,7 @@ function request(){
     $(".left_content_page").pagination(tagNum, {
         maxentries:tagNum,
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries: 5,
         num_edge_entries: 5 ,
         prev_text:"上一页",
         next_text:"下一页",
@@ -592,6 +592,7 @@ function closewrap(){
                 success: function (json) {
                    var tags=json.data.tags;
                     var price=json.data.price;
+                    console.log();
                     if(tags==0||price==null||price=="undefined"|| price==undefined)
                     {
                         $("#cancel_buy").hide();
