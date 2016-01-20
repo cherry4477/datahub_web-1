@@ -1,5 +1,5 @@
 $.ajaxSetup({
-    timeout:1000,
+    timeout:3000,
 	error:function(json){
 		if(json.statusText=="timeout"){
 			errorDialog(99,"",""); 
