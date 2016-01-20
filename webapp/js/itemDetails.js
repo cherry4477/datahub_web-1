@@ -491,14 +491,14 @@ function company(){
                 success:function(j) {
                     //company
                     if(j.code==0){
-                        company_name= j.data.userName;
+                    	company_name= j.data.userName;
                         var url="dataOfDetails.html?username="+create_user;
                         $("#client_down .company_name a").text(company_name).attr("href",url);
                         //GET /heartbeat/status/:user 获取user的daemon status。
                         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
                         if(login=="true"){
                             $.ajax({
-                                url: ngUrl + "/heartbeat/status/"+company_name,
+                                url: ngUrl + "/heartbeat/status/"+create_user,
                                 type: "GET",
                                 cache: false,
                                 async: false,
@@ -785,7 +785,7 @@ function hurry_buy(){
                                 var money = price[i].money;//money
                                 var units = price[i].units;//次数
                                 var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value='defalt' checked='checkted'>")));
                                 charegeitem.append($("<span class='cvalue'></span>").
                                 append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
                                 append($("<span class='moneyv'></span>").text(money+"元")).
@@ -852,29 +852,31 @@ function hurry_buy(){
         var planid = charge.find(".moneyu").attr("mark").toString();
 
         var headerToken={};
-        Array.prototype.max = function(){   //最大值
-            return Math.max.apply({},this)
-        }
+//        Array.prototype.max = function(){   //最大值
+//            return Math.max.apply({},this)
+//        }
         //登陆后
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
-        $.ajax({
-            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
-            type: "GET",
-            cache:false,
-            async:false,
-            dataType:'json',
-            headers:headerToken,
-            success:function(json) {
-                var pricestate = json.data.pricestate;//获取付费状态
-                var price = json.data.price;//计费方式
-                var price_length=json.data.price.length;
-                var price_array=new Array();
-                for(var i=0;i<price_length;i++)
-                {
-                    price_array.push(price[i].money);
-                }
+//        $.ajax({
+//            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+//            type: "GET",
+//            cache:false,
+//            async:false,
+//            dataType:'json',
+//            headers:headerToken,
+//            success:function(json) {
+//                var pricestate = json.data.pricestate;//获取付费状态
+//                var price = json.data.price;//计费方式
+//                var price_length=json.data.price.length;
+//                var price_array=new Array();
+//                for(var i=0;i<price_length;i++)
+//                {
+//                    price_array.push(price[i].money);
+//                }
+                var sel_price1= $("input:radio[charge_hurry=charge_hurry]:checked").parent().siblings().find(".moneyv").text();
+                sel_price1=sel_price1.substring(0,sel_price1.length-1);
                 $.ajax({
                     url: ngUrl + "/bill/" + $.cookie("tname") + "/info",
                     type: "GET",
@@ -886,7 +888,7 @@ function hurry_buy(){
                         //console.log(price_array.max());价格的最大值
                         var actualBalance=json.data.actualBalance;
                         var availableBalance=json.data.availableBalance;
-                        if(availableBalance>=(price_array.max())){
+                        if(availableBalance>=(sel_price1)){
                             //订购
                             $.ajax({
                                 url: ngUrl+"/subscription/"+repoName+"/"+itemName,
@@ -937,8 +939,8 @@ function hurry_buy(){
                 });
 
 
-            }
-        });
+//            }
+//        });
 
     });
 }
@@ -1083,7 +1085,7 @@ function apply_buy(){
                             var money = price[i].money;//money
                             var units = price[i].units;//次数
                             var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' type='radio' value='defalt' checked='checkted'>")));
+                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge='charge' type='radio' value='defalt' checked='checkted'>")));
                             charegeitem.append($("<span class='cvalue'></span>").
                             append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
                             append($("<span class='moneyv'></span>").text(money+"元")).
@@ -1124,6 +1126,8 @@ function apply_buy(){
         var repoName = getParam("repname");
         var itemName = getParam("itemname");
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
+        var sel_price1= $("input:radio[charge=charge]:checked").parent().siblings().find(".moneyv").text();
+        sel_price1=sel_price1.substring(0,sel_price1.length-1);
         //process
         $("#subscriptDialog .modal-header").hide();
         $("#subscriptDialog .subcontent").hide();
@@ -1147,25 +1151,25 @@ function apply_buy(){
         //申请订购
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
         var price_array;
-        Array.prototype.max = function(){   //最大值
-            return Math.max.apply({},this)
-        };
-        $.ajax({
-            url: ngUrl + "/repositories/" + repoName + "/" + itemName,
-            type: "GET",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: header,
-            success: function (json) {
-                var price_length = json.data.price.length;
-                price_array = new Array();
-                var price = json.data.price;//计费方式
-                for (var i = 0; i < price_length; i++) {
-                    price_array.push(price[i].money);
-                }
-            }
-        });
+//        Array.prototype.max = function(){   //最大值
+//            return Math.max.apply({},this)
+//        };
+//        $.ajax({
+//            url: ngUrl + "/repositories/" + repoName + "/" + itemName,
+//            type: "GET",
+//            cache: false,
+//            async: false,
+//            dataType: 'json',
+//            headers: header,
+//            success: function (json) {
+//                var price_length = json.data.price.length;
+//                price_array = new Array();
+//                var price = json.data.price;//计费方式
+//                for (var i = 0; i < price_length; i++) {
+//                    price_array.push(price[i].money);
+//                }
+//            }
+//        });
 
         //
         $.ajax({
@@ -1179,7 +1183,7 @@ function apply_buy(){
                 //console.log(price_array.max());价格的最大值
                 var actualBalance = json.data.actualBalance;
                 var availableBalance = json.data.availableBalance;
-                if (availableBalance >= (price_array.max())) {
+                if (availableBalance >= (sel_price1)) {
                     $.ajax({
                         url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
                         type: "PUT",
