@@ -215,6 +215,20 @@
     border: 1px solid #666666;
     display: none;
 }
+#cance_alert{
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    top: 230px;
+    left: 830px;
+    color:#3bcb6e;
+    background-image: url('../images/images02_125.png');
+    background-repeat: no-repeat;
+    height: 18px;
+    display: none ;
+    width: 150px;
+    text-align: center;
+}
 #cancel_buy:hover{
     background-image: linear-gradient(to bottom, #666666 0%, #666666 100%) !important;
     background-color:#666666 ;

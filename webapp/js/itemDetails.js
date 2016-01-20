@@ -1264,7 +1264,7 @@ function cancel_buy(){
                             $("#apply_buy").show();
                             $("#hurry_buy").hide();
                             $("#cancel_buy").hide();
-                            alert("取消成功！");
+                            $("#cance_alert").show();
                             location.reload();
                         }
                     }

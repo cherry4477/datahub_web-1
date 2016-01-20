@@ -373,15 +373,15 @@ function addhtml(){
                "</div>"+
                 "<div class='iconGroup'>"+
                     "<div class='like'>"+
-                    "<img style='margin-left: 20px;' src='images/selects/images_39.png'>"+
+                    "<img style='margin-left: 20px;' src='images/selects/images_08.png'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdstarNum[j]+"</span>"+
                     "</div>"+
                     "<div class='cart'>"+
-                    "<img style='margin-left: 20px;'src='images/selects/images_32.png'>"+
+                    "<img style='margin-left: 20px;'src='images/selects/images_10.png'>"+
                     "<span style='margin-left: 20px;'>"+dataitemd[j]+"</span>"+
                     "</div>"+
                     "<div class='download'>"+
-                    "<img style='margin-left: 20px' src='images/selects/images_10.png'>"+
+                    "<img style='margin-left: 20px' src='images/selects/images_12.png'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
                     "</div>"+
                     "</div>");
