@@ -248,6 +248,45 @@ function ajaxFunHtml(type,size,page){
 		}
 		
 	}
+	if(type=="6"){
+		if($("#terminal-content-body").attr("mark")!=""){
+		    $("#terminal-content-body").empty();
+			url=ngUrl+"/notifications?size="+size+"&page="+page;	
+			$.ajax({
+		        url: url,
+		        type: "get",
+		        cache:false,
+		        async:false,
+		        headers:headerToken,
+		        dataType:'json',
+		        success:function(json){
+		        	allrepnum =json.data.total;
+		        	$(".zongNums").text(allrepnum);
+		        	var len=json.data.results.length;        	
+		        	for(var i=0;i<len;i++){    		
+		        		$("#terminal-content-body").append(""+
+	    	        		"<div class='record'>"+
+	    	        			"<div class='head'>"+
+	    	        				"<span class='icon'></span>"+
+	    	        				"<span class='date'>"+json.data.results[i].time+"</span>"+	
+	    	        			"</div>"+
+	    	        			"<div class='body'>"+
+	    	        				"<div class='info'>"+
+	    	        					"<div class='box'>"+
+	    									"<p ID='title' style='font-size:16px; color: #000000;padding-top:20px;'>"+json.data.results[i].type+"</p>"+
+	    									"<p ID='description' style='font:12px; color: #666666;padding-top:15px; padding-bottom:15px'>管理员<a style='font:14px bold;color:#43609f;'>****(用户真实姓名)申请加入repo名／item名白名单，并以“＊元＝＊条，有效期＊天 的价格订购。”</a></p>"+
+	    								"</div>"+
+	    							"</div>"+
+	    	        			"</div>"+
+	    	        		"</div>"	    	        	
+		                 ); 
+		        	}
+		    	        	      	
+		        }
+		    });
+		}
+	    
+	}
 
 }
 
@@ -629,11 +668,75 @@ function ajaxTotal(type,size){
 	        }*/
 	    });
 	}
+	if(type=="6"){
+		url=ngUrl+"/notifications?size="+window.size+"&type=item_event";
+	    $.ajax({
+	        url: url,
+	        type: "get",
+	        cache:false,
+	        async:false,
+	        headers:headerToken,
+	        dataType:'json',
+	        success:function(json){
+	        	allrepnum =json.data.total;
+	        	$(".zongNums").text(allrepnum);
+	        	var len=json.data.results.length;        	
+	        	for(var i=0;i<len;i++){    		
+	        		var type=json.data.results[i].type;
+	        		var typeText="";
+	        		if(type=="subsapply_event"){
+	        			typeText="订购申请事件";
+	        		}
+	        		if(type=="item_event"){
+	        			typeText="data item事件";
+	        			
+	        			
+	        			for(var p in json.data.results[i].data){
+			        		//totalnum=totalnum+json.data[p];
+	        				if(p=="event"){
+	        					alert(json.data[p]);
+	        				}
+			        	}
+	        			
+	        		}
+	        		if(type=="subs_event"){
+	        			typeText="订购事件";
+	        		}
+	        		if(type=="vip_remind"){
+	        			typeText="会员续费提醒";
+	        		}
+	        		if(type=="apply_whitelist"){
+	        			typeText="申请白名单";
+	        		}
+	        		if(type=="admin_message"){
+	        			typeText="管理员消息";
+	        		}
+	        		$("#terminal-content-body").append(""+
+    	        		"<div class='record'>"+
+    	        			"<div class='head'>"+
+    	        				"<span class='icon'></span>"+
+    	        				"<span class='date'>"+json.data.results[i].time+"</span>"+	
+    	        			"</div>"+
+    	        			"<div class='body'>"+
+    	        				"<div class='info'>"+
+    	        					"<div class='box'>"+
+    									"<p ID='title' style='font-size:16px; color: #000000;padding-top:20px;'>"+typeText+"</p>"+
+    									"<p ID='description' style='font:12px; color: #666666;padding-top:15px; padding-bottom:15px'>管理员<a style='font:14px bold;color:#43609f;'>****(用户真实姓名)申请加入repo名／item名白名单，并以“＊元＝＊条，有效期＊天 的价格订购。”</a></p>"+
+    								"</div>"+
+    							"</div>"+
+    	        			"</div>"+
+    	        		"</div>"	    	        	
+	                 ); 
+	        	}
+	    	        	      	
+	        }
+	    });
+	}
        
 	$(".pages").pagination(allrepnum, {
         maxentries:allrepnum,
         items_per_page: size,
-        num_display_entries: 1,
+        num_display_entries: 5,
         num_edge_entries: 5 ,
         prev_text:"上一页",
         next_text:"下一页",
