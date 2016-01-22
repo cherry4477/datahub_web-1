@@ -476,6 +476,11 @@ $(function() {
                     success:function(json){
                        var totalNumber=json.data.total;
                         $("#ListManagement p span:first").text(totalNumber);
+                    },
+                    error:function(json) {
+                        if ($.parseJSON(json.responseText).code == 1009) {
+                            $("#ListManagement p span:first").text("0");
+                        }
                     }
 
                 });
@@ -535,6 +540,11 @@ function uuuuuuu(){
                         $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
                     }
                 }
+            },
+            error:function(json) {
+                if ($.parseJSON(json.responseText).code == 1009) {
+
+                }
             }
         });
         //分页
@@ -581,6 +591,11 @@ function uuuuuuu(){
                     for (var i = 0; i < len; i++) {
                         $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
                     }}
+            },
+            error:function(json) {
+                if ($.parseJSON(json.responseText).code == 1009) {
+
+                }
             }
         });
 
