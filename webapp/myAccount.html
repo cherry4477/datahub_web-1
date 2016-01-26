@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的账户_DataHub阳光下的数据流通平台</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/command.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/editormd.css">
+    <link rel="stylesheet" href="css/myAccount.css">
+</head>
+<style>
+    .nav > li > a:hover{
+        background-color:rgba(31,154,218,0.7);
+    }
+    .navbar-toggle .icon-bar {
+        background-color: #fff;
+    }
+    .navbar-nav > li > a:focus{
+        background:none;
+    }
+</style>
+<body>
+<div class="be-loader" style="display: block;">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header></header>
+<div class="container">
+   <div id="myAccount">
+       <p class="Account_title">我的账户</p>
+       <div id="accountBalance">
+            <div class="total_balance">
+                <p class="account_text">账户总余额</p>
+                <p class="account_num"><span id="total_balance_span" >12233.11 </span><span class="yuan">元</span></p>
+                <button id="recharge_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">充值</button>
+            </div>
+           <div class="usable_balance">
+               <p class="account_text">可用余额</p>
+               <p class="account_num"><span id="usable_balance_span" >12233.11</span><span class="yuan">元</span></p>
+           </div>
+           <div class="cash_balance">
+               <p class="account_text">可提现余额</p>
+               <p class="account_num"><span id="cash_balance_span">12233.11</span><span class="yuan">元</span></p>
+               <button id="reflect_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">充值</button>
+                <p class="get_cash" >设置提现密码</p>
+           </div>
+       </div>
+       <div id="accountRecord">
+           <table class="table_title">
+               <tr>
+                   <th>时间</th>
+                   <th>流水号</th>
+                   <th>订单号</th>
+                   <th>金额（元）</th>
+                   <th>类型</th>
+                   <th>出账方/入帐方</th>
+                   <th>可用额度</th>
+                   <th>总余额</th>
+               </tr>
+           </table>
+           <table class="table_main">
+               <tr class="Record_time_title">
+                   <td> 2015-12-25</td>
+               </tr>
+               <tr class="table_content">
+                   <td>12:32:12</td>
+                   <td>xxxxxxxx</td>
+                   <td>xxxxxxxx</td>
+                   <td class="count_num">+111</td>
+                   <td>充值</td>
+                   <td>支付宝</td>
+                   <td>89.00</td>
+                   <td>92.25</td>
+               </tr>
+               <tr class="table_content">
+                   <td>12:32:12</td>
+                   <td>xxxxxxxx</td>
+                   <td>xxxxxxxx</td>
+                   <td class="count_num">+111</td>
+                   <td>充值</td>
+                   <td>支付宝</td>
+                   <td>89.00</td>
+                   <td>92.25</td>
+               </tr>
+               <tr class="table_content">
+                   <td>12:32:12</td>
+                   <td>xxxxxxxx</td>
+                   <td>xxxxxxxx</td>
+                   <td class="count_num">+111</td>
+                   <td>充值</td>
+                   <td>支付宝</td>
+                   <td>89.00</td>
+                   <td>92.25</td>
+               </tr>
+               <tr class="Record_time_title">
+                   <td> 2015-12-25</td>
+               </tr>
+               <tr class="table_content">
+                   <td>12:32:12</td>
+                   <td>xxxxxxxx</td>
+                   <td>xxxxxxxx</td>
+                   <td>+111</td>
+                   <td>充值</td>
+                   <td>支付宝</td>
+                   <td>89.00</td>
+                   <td>92.25</td>
+               </tr>
+           </table>
+       </div>
+   </div>
+</div>
+
+
+
+
+
+
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/jquery.zclip.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<script src='js/clipboard.min.js'></script>
+<script src='js/errorDialog.js'></script>
+<script src='js/myAccount.js'></script>
+<script>
+
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+
+    var repos=[];
+
+    $(window).load(function(){
+        $(".be-loader").fadeOut("slow");
+    });
+
+    $(document).ready(function(){
+
+    });
+</script>
+</html>

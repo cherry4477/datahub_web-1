@@ -772,11 +772,11 @@ function ajaxReUser(){
 
 //获取url参数
 function getParam(key) {
-    var value='';
-    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-    if (itemid.test(decodeURIComponent(window.location.href))) {
-        value = itemid.exec(decodeURIComponent(window.location.href))[1];
-    }
-    return value;
+	var value='';
+	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+	if (itemid.test(decodeURIComponent(window.location.href))) {
+		value = itemid.exec(decodeURIComponent(window.location.href))[1];
+	}
+	return value;
 }
 

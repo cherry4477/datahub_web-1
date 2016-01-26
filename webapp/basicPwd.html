@@ -186,13 +186,14 @@
 				headers:{Authorization:"Token "+$.cookie("token")},
 				datatype:'json',
 				success:function(data){
-					if(data.code==8004)
-					{
-						oldsure=false;
-					}
 					if(data.code==0)
 					{
 						oldsure=true;
+					}
+				},
+				error:function(json) {
+					if ($.parseJSON(json.responseText).code == 8004) {
+						oldsure=false;
 					}
 				}
 			});

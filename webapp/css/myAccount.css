@@ -1,0 +1,125 @@
+#myAccount{
+    float: left;
+    margin-top: 90px;
+    padding-bottom: 100px;
+}
+.Account_title{
+    float: left;
+    font-size: 28px;
+}
+#accountBalance{
+    float: left;
+    width: 1170px;
+    margin-top: 40px;
+    color: #666666;
+}
+#accountBalance .total_balance{
+    width:33%;
+    float: left;
+    text-align: center;
+}
+#accountBalance .usable_balance{
+    width:33%;
+    float: left;
+    text-align: center;
+}
+#accountBalance .cash_balance{
+    width:33%;
+    float: left;
+    text-align: center;
+}
+#accountBalance .account_text{
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+#accountBalance .account_num{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#accountBalance .yuan{
+    font-size: 16px;
+    margin-left: 5px;
+}
+#accountBalance .get_cash{
+    font-weight: bold;
+    color: #43609f;
+    margin-top: 10px;
+
+}
+#recharge_btn{
+     width: 110px;
+     height: 40px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background-image: linear-gradient(to bottom, #68e69b 0%, #50cd83 100%);
+    background-image: -webkit-linear-gradient(bottom, #68e69b 0%, #50cd83 100%);
+    background-image:      -o-linear-gradient(bottom, #68e69b 0%, #50cd83 100%);
+    border-radius: 5px;
+    border-color:#68e69b ;
+    font-weight: bold;
+ }
+#recharge_btn:hover,
+#recharge_btn:focus {
+    background-color: #50cd83;
+    background-image: linear-gradient(to top, #68e69b 0%, #50cd83 100%);
+    background-image: -webkit-linear-gradient(top, #68e69b 0%, #50cd83 100%);
+    background-image:      -o-linear-gradient(top, #68e69b 0%, #50cd83 100%);
+}
+#reflect_btn{
+    width: 110px;
+    height: 40px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    background-image: linear-gradient(to top, #d98747 0%, #faaa68 100%);
+    background-image: -webkit-linear-gradient(top, #d98747 0%, #faaa68 100%);
+    background-image:      -o-linear-gradient(top, #d98747 0%, #faaa68 100%);
+    border-radius: 5px;
+    border-color:#d98747 ;
+    font-weight: bold;
+}
+#reflect_btn:hover,
+#reflect_btn:focus {
+    background-color: #d98747;
+    background-image: linear-gradient(to bottom, #d98747 0%, #faaa68 100%);
+    background-image: -webkit-linear-gradient(bottom, #d98747 0%, #faaa68 100%);
+    background-image:      -o-linear-gradient(bottom, #d98747 0%, #faaa68 100%);
+}
+/*-------------------------accountRecord-------------------------------*/
+
+#accountRecord {
+    float: left;
+    margin-top: 55px;
+}
+table,tr,th{
+    text-align: center;
+}
+tbody tr th{
+    height: 55px;
+    width: 145px;
+}
+tbody tr td{
+    height: 55px;
+    width: 140px;
+}
+#accountRecord .table_title tr{
+    border-top: 1px solid #8c8c8c;
+}
+#accountRecord .table_main tr{
+    border-bottom: 1px solid #8c8c8c;
+    border-top: 1px solid #8c8c8c;
+}
+#accountRecord .table_main {
+    width: 1130px;
+    margin-left: 15px;
+}
+#accountRecord .Record_time_title{
+    font-weight: bold;
+}
+#accountRecord .table_content{
+    width: 1130px;
+}
+
+/*#accountRecord .table_content .count_num{
+    color:#d68d00;
+}*/
