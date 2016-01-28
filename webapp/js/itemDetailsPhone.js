@@ -78,8 +78,8 @@ $(function(){
         $('#topbox').append(topstr)
     }
     $('#goTagListPhone').attr('href','tagListPhone.html?repname='+repname+'&itemname='+itemname)
-    $('#metahref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Meta')
-    $('#samplehref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Sample')
+    $('#metahref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Sample')
+    $('#samplehref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Meta')
     /////////////////////////查看item详情;
     $.ajax({
         url: ngUrl+"/repositories/"+repname+"/"+itemname,

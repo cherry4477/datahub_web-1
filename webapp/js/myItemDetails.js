@@ -53,7 +53,7 @@ $(function(){
             'vvclass' : '',
             'labelV' : ''
         };
-        if (labeldata.label == "single") {
+        if (labeldata.label == "api") {
             labeldata.vvclass = "api";
             labeldata.labelV = "API";
         }
@@ -178,7 +178,7 @@ $(function(){
             type: "get",
             async: false,
             headers:{Authorization: "Token "+account},
-            url:ngUrl+'/repositories/'+repname+"/"+itemname+'?size=3&page='+pages,
+            url:ngUrl+'/repositories/'+repname+"/"+itemname+'?size=10&page='+pages,
             success: function(msg) {
                 allpricecon = msg.data.price;
                 tagallnum = msg.data.tags;
@@ -193,10 +193,12 @@ $(function(){
                 } else {
                     meta = '';
                 }
-                if(msg.data.label != null && msg.data.label != ''){
+                if(msg.data.label){
+
                     var ptags = msg.data.label.owner;
                     var labelstr = '';
                     for(var j in ptags) {
+
                         labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
                     }
                 }
@@ -250,7 +252,7 @@ $(function(){
     tagbox(1);
     $(".pages").pagination(paegetags, {
         maxentries:paegetags,
-        items_per_page: 3,
+        items_per_page: 10,
         num_display_entries: 1,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -483,8 +485,8 @@ $(function(){
                         datalabel["owner."+labelkey] = labelvalue;
                         labelstr+='<span class="personaltag">'+labelvalue+'</span>';
                     }
-                    $(".filletspan .personaltag").remove();
-                    $(".filletspan").append(labelstr);
+                    $(".topbtcenter .personaltag").remove();
+                    $(".topbtcenter").append(labelstr);
                     $.ajax({
                         url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label",
                         type: "PUT",

@@ -10,9 +10,9 @@
     float: left;
 }
 .itemtopRight{
-    width: 20%;
+    width: 15%;
     overflow: hidden;
-    float: left;
+    float: right;
 }
 .itemandrepName{
     font-size:20px;
@@ -106,7 +106,7 @@
 }
 
 .personaltag {
-    border: 1px solid #6ecbcc;
+    border: 1px solid #666;
 }
 .api {
     border: 1px solid #eb6877;
@@ -238,30 +238,22 @@
     background: url(../images/edit_hover.png) left center no-repeat;
 }
 .topbtcenter span.period {
-    background-color: #29abe2;
-    height: 20px;
     font-size: 12px;
-    color: #fff;
-    line-height: 20px;
-    padding:3px 10px;
+    color: #666;
+    padding:1px 10px;
     border-radius: 2px;
     margin-left:1px;
 }
 .topbtcenter span.api {
-    background-color: #f06f77;
-    height: 20px;
     font-size: 12px;
-    color: #fff;
-    line-height: 20px;
-    padding:0px 10px;
+    color: #666;
+    padding:1px 10px;
     border-radius: 2px;
     margin-left:1px;
 }
 .topbtcenter span.flot-data {
-    background-color: #fc9b00;
-    height: 20px;
     font-size: 12px;
-    color: #fff;
+    color: #666;
     line-height: 20px;
     padding:0px 10px;
     border-radius: 2px;
@@ -269,13 +261,10 @@
 }
 .topbtcenter span.personaltag{
     border-radius: 2px;
-    color: #fff;
     font-size: 12px;
-    height: 20px;
-    line-height: 20px;
     margin-left: 1px;
-    padding: 3px 10px;
-    background-color: rgb(110, 203, 204);
+    padding: 1px 10px;
+    color:#666;
 }
 #editItem .head {
     margin-bottom: 30px;
