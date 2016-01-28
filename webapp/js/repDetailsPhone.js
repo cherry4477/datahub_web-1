@@ -76,8 +76,8 @@ $(function(){
     getrepname(1);
     //得到数据拥有方;
     getAjax(ngUrl +"/users/"+preloginname,function(msg){
-        $('#cur_user').html(msg.data.userName).attr('href','dataOfDetails.html?username='+preloginname);
-        $('.cur_link a').attr('href','dataOfDetails.html?username='+preloginname);
+        $('#cur_user').html(msg.data.userName).attr('href','dataOfDetailsPhone.html?username='+preloginname);
+        $('.cur_link a').attr('href','dataOfDetailsPhone.html?username='+preloginname);
     });
     //返回rep的star量
     getAjax(ngUrl +"/star_stat/"+repname,function(msg){
