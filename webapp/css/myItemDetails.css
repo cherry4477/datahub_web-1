@@ -1,362 +1,243 @@
 
-.container{
-    padding:0 40px;
-}
-.release-top{
-    font-size: 18px;
-    font-weight: bold;
-    padding-top:19px;
-    padding-bottom:20px;
-}
-#dataitem-tag .tag-body {
-    background-color: #fff;
-    border-left: 5px solid #fff;
-    clear: both;
-    overflow: hidden;
-    padding: 5px 10px 5px 5px;
-}
-
-#dataitem-tag .tag-body td {
-    padding: 8px;
-}
-.rightsimg .time-icon{
-    background-image: url("../images/slice.png");
-    background-repeat: no-repeat;
-    background-position: 1px -5px;
-    width: 15px;
-    height: 15px;
-    line-height: 50px;
-}
-#introduce4 .icons > span, .rightsimg > span {
-    float: left;
-}
-#dataitem-head-right > span, #introduce4 .icons > span, .rightsimg > span {
-    color: #666;
-    display: inline-block;
-    font-size: 12px;
-}
-.rightsimg .private-icon {
-    background-image: url("../images/release1.png");
-    background-position: -113px -124px;
-    background-repeat: no-repeat;
-    height: 15px;
-    line-height: 50px;
-    margin-left: 3px;
-    width: 15px;
-}
-.rightsimg .trusteeship-icon {
-    background-image: url("../images/release1.png");
-    background-position: -162px -124px;
-    background-repeat: no-repeat;
-    height: 15px;
-    line-height: 50px;
-    margin-left: 3px;
-    width: 15px;
-}
-.rightsimg .havenum-icon {
-    background-image: url("../images/release1.png");
-    background-position: -223px -124px;
-    background-repeat: no-repeat;
-    height: 15px;
-    line-height: 50px;
-    margin-left: 3px;
-    width: 15px;
-}
-.rightsimg .star-icon {
-    background-position: -60px -5px;
-}
-.nofloat span {
-    float: right;
-}
-#dataitem-head-right .downloaded-icon, #introduce4 .icons .downloaded-icon, .rightsimg .downloaded-icon {
-    background-image: url("../images/slice.png");
-    background-position: -125px -5px;
-    background-repeat: no-repeat;
-    height: 20px;
-    line-height: 50px;
-    margin-left: 8px;
-    width: 15px;
-}
-#dataitem-head-right .subscript-icon, #introduce4 .icons .subscript-icon, .rightsimg .subscript-icon {
-     background-image: url("../images/slice.png");
-     background-position: -93px -5px;
-     background-repeat: no-repeat;
-     height: 15px;
-     line-height: 50px;
-     margin-left: 8px;
-     width: 15px;
- }
-.rightsimg .star-icon {
-    background-position: -60px -5px;
-}
-#dataitem-head-right .star-icon, #introduce4 .icons .star-icon, .rightsimg .star-icon {
-    background-image: url("../images/slice.png");
-    background-position: -60px -5px;
-    background-repeat: no-repeat;
-    height: 15px;
-    line-height: 50px;
-    width: 15px;
-}
-.itemList{
-    border: 1px solid #e5e5e5;
-}
-.content{
+.itemtop{
     width: 100%;
     overflow: hidden;
-    margin-top:15px;
+    border-bottom: 1px solid #c8c8c8;
 }
-.leftnav{
-    width: 12%;
-    height: auto;
+.itemtopLeft{
+    width: 80%;
+    overflow: hidden;
     float: left;
-    padding-top:23px;
 }
-.leftnav li{
-    width: 132px;
-    height: 40px;
-    margin-top:6px;
-    cursor: pointer;
-
+.itemtopRight{
+    width: 20%;
+    overflow: hidden;
+    float: left;
 }
-.leftnav li div{
-    width: 132px;
-    height: 40px;
-    line-height: 40px;
-    padding-left:30px;
-    border: 1px solid #e5e5e5;
-    border-left: 3px solid #e5e5e5;
+.itemandrepName{
+    font-size:20px;
     color:#666;
-
+    line-height: 29px;
 }
-.leftnav li.cur{
-    width: 189px;
-    position: relative;
-    z-index: 10;
-    height: 66px;
-
-
+.itemandrepName a{
+    color:#43609f;
 }
-.leftnav li.cur div{
-    width: 130px;
-    height: 60px;
-    line-height: 60px;
-    font-weight: bold;
-    color: #4dc499;
-    border-left: 3px solid #4dc499;
-    border-right: 0 none;
-    float: left;
-    font-size: 15px;
-    background: #fbfcfe;
+.itemandrepName a:hover{
+    color: #395289;
 }
-#editItem .xiugainame{
-    background: rgba(0, 0, 0, 0) url("../images/allow_icon.png") no-repeat scroll 3px 5px;
-    cursor: pointer;
-    margin-left: 10px;
-    padding: 3px 10px;
-}
-#editItem .xiugaiwrop{
-    width: 100%;
-    height: 30px;
-    line-height: 30px;
-}
-.leftnav li.cur span{
-    width: 35px;
-    height: 62px;
-    display: inline-block;
-    float: left;
-    background:url("../images/pic1.png") no-repeat right center ;
-}
-.con-main{
-    width: 88% ;
-    border: 1px solid #e5e5e5;
-    float: left;
-    padding-left:40px;
-    padding-right:15px;
-    min-height: 260px;
-}
-.tagbox .head{
-    margin:18px 0;
-    height: 30px;
-    width: 100%;
-    overflow: hidden;
-}
-.tagbox .head>span {
-    display: inline-block;
-    font-size: 12px;
-    color: #666;
-    float: left;
-
-}
-.tagbox .head span.date{
+.itemComment{
+    margin-top:10px;
+    color:#666;
     line-height: 24px;
 }
-
-.tagbox .head span.icon{
-    padding:11px 8px;
-    background:url("../images/tag.png") no-repeat left center;;
+.itemtop{
+    padding-top:40px;
+    padding-bottom: 20px;
 }
-
-.tagbox .body table {
-    color: #666;
-    font-size: 14px;
-    width: 100%;
-    table-layout:fixed;
-}
-.tagbox .body table tr td{
+.itemtopRight p {
+    color: #b5b5b5;
+    cursor: pointer;
     height: 30px;
     line-height: 30px;
-    text-align: center;
-    width: 25%;
-    word-break: keep-all;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    padding-left: 28px;
+    width: 100%;
 }
-.tagbox .body table tr .first {
-    text-align: center;
-    padding-left: 20px;
-    width: 15%;
+.baimingdan{
+    background:url(../images/as_user.png) left 5px no-repeat;
 }
-.tagbox .body table tr .last {
-    text-align: center;
-    padding-right: 20px;
-    width: 20%;
+.baimingdan:hover{
+    background:url(../images/as_user_hover.png) left 5px no-repeat;
+    color: #395289;
 }
-.tagbox .body table tr:nth-child(odd) {
-    background-color: #f5f5f5;
+.xiezuozhe{
+    background:url(../images/delete.png) left 5px no-repeat;
 }
-.tagbox .body table tr:nth-child(even) td{
-    padding-top: 5px;
-    padding-bottom: 5px;
+.xiezuozhe:hover{
+    background:url(../images/delete_hover.png) left 5px no-repeat;
+    color: #395289;
+}
+.xiugairep{
+    background:url(../images/edit.png) left 5px no-repeat;
+}
+.xiugairep:hover{
+    background:url(../images/edit_hover.png) left 5px no-repeat;
+    color: #395289;
+}
+.chekcprice{
+    background:url(../images/price.png) left 5px no-repeat;
+}
+.chekcprice:hover{
+    background:url(../images/price_hover.png) left 5px no-repeat;
+    color: #395289;
+}
+.itemtopbt{
+    width: 100%;
+    overflow: hidden;
+    padding-top:20px;
+    padding-bottom: 60px;
+}
+.topbtleft,.topbtcenter,.topbtright{
+    width: 33%;
+    overflow: hidden;
+    float: left;;
 }
 
-.tagbox .last span.downloaded-icon{
-    background-image: url("../images/slice.png");
-    background-position: -125px 1px;
-    background-repeat: no-repeat;
-    height: 20px;
-    line-height: 50px;
-    margin-left: 8px;
-    width: 20px;
-    display: inline-block;
+.iconiamg1 {
+    margin-left: 60px;
+    margin-right: 15px;
 }
-.pullbox,.operationbox{
-    padding-top:15px;
+.iconiamg2 {
+    margin-left: 20px;
 }
-.pullbox .head,.operationbox .head {
-    font-size: 0px;
+.topbtright,.topbtleft span {
+    color: #b5b5b5;
+}
+.topbtcenter{
+    text-align: center;
+}
+.topbtcenter span{
+    border-radius: 3px;
+    font-size: 12px;
+    margin-right: 5px;
+    padding: 1px 10px;
+}
+.period {
+    border: 1px solid #29abe2;
+}
+
+.personaltag {
+    border: 1px solid #6ecbcc;
+}
+.api {
+    border: 1px solid #eb6877;
+}
+.flot-data {
+    border: 1px solid #fc9b00;
+}
+
+.itembottom{
+    width: 98%;
+    overflow: hidden;
+    margin:0 auto;
+}
+.itembtNav{
+    border-bottom: 1px solid #8c97cb;
+    border-top: 1px solid #8c97cb;
+    color: #43609f;
+    font-size: 20px;
+    height: 52px;
+    text-align: center;
+    width: 100%;
+}
+.itembtNav li{
+    width: 20%;
+    height: 50px;
+    line-height: 54px;
+    float: left;
+    border-bottom: 4px solid #fff;
     cursor: pointer;
 }
-.pullbox .body,.operationbox .body {
-    border-left: 1px solid #ccc;
-    margin-left: 7px;
-    margin-top: -6px;
-    padding: 15px 0px 25px  27px;
+.itembtNav li.borderBt {
+    border-bottom: 4px solid #8c97cb;
+    font-weight: bold;
 }
-.pullbox .head>span,.operationbox .head>span {
-    display: inline-block;
-    font-size: 16px;
-    color: #29abe2;
-}
-.pullbox .head .icon,.operationbox .head .icon {
-    background-image: url("../images/sliceU1.png");
-    background-repeat: no-repeat;
-    background-position: -272px -6px;
-    width: 15px;
-    height: 15px;
-    margin-right: 20px;
-}
-.pullbox .body table,.operationbox .body table {
-    color: #666;
-    font-size: 14px;
+.itembottomcon{
     width: 100%;
-    table-layout:fixed;
+    overflow: hidden;
 }
-.pullbox .body table tr td,.operationbox .body table tr td{
-    height: 30px;
-    line-height: 30px;
+.itembottomcon li{
+    width: 98% ;
+    overflow: hidden;
+    margin:0 auto;
+    display: none;
+}
+.tagListcon{
+    width: 100%;
+    overflow: hidden;
+    padding:30px 0px;
+}
+.tagName{
+    width: 50%;
+    overflow: hidden;
+    color:#666;
+    float: left;
+}
+.tagName p{
+    line-height: 25px;
+    font-size: 12px;
+}
+.tagtime,.tagpullNum{
+    width: 25%;
+    overflow: hidden;
+    float: left;
+}
+.tagtime{
     text-align: center;
-    width: 20%;
-    word-break: keep-all;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    line-height: 25px;
 }
-.pullbox .body table tr .first,.operationbox .body table tr .first {
-    text-align: left;
-    padding-left: 20px;
-}
-.pullbox .body table tr .last,.operationbox .body table tr .last {
+.tagpullNum p{
     text-align: right;
-    padding-right: 20px;
+    line-height: 24px;
 }
-.pullbox .body table tr:nth-child(odd),.operationbox .body table tr:nth-child(odd) {
-    background-color: #f5f5f5;
-}
-.pullbox .body table tr:nth-child(even) td,.operationbox .body table tr:nth-child(even) td{
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.operationbox .last span.upload-icon{
-    background-image: url("../images/release.png");
-    background-position: -85px -2px;
-    background-repeat: no-repeat;
-    height: 18px;
-    line-height: 50px;
-    margin-left: 8px;
-    width: 20px;
-    display: inline-block;
-}
-.metadatatop{
+.pullListcon,.pullListconwrop{
     width: 100%;
+    overflow: hidden;
+}
+.pullListcon{
+    border-bottom: 1px solid #c8c8c8;
+    padding:20px 0px;
+}
+.pullalltaglist>div{
+    float: left;
+    color: #333;
+}
+.pulltagtime{
+    color: #333;
+    font-weight: bold;
+    padding:20px 0px;
+    border-bottom: 1px solid #c8c8c8;
+}
+
+.pullusername{
+    width: 40%;
+    overflow: hidden;
+}
+.pullthistime{
+    width: 20%;
+    overflow: hidden;
+}
+.pulltagName{
+    width: 40%;
+    overflow: hidden;
+}
+.metatitle{
+    color: #666666;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 0 15px 15px;
+}
+
+.metabox{
+    padding:40px;
+    width: 100%;
+    overflow: hidden;
+    border:1px dashed #c8c8c8;
+}
+.editmeta,.editsample{
+    width: 70px;
     height: 20px;
     line-height: 20px;
-    position: relative;
-    margin-top:20px;
-    margin-bottom:14px;
-}
-.metadata-icon{
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 2px;
-    right: 10px;
+    padding-left:30px;
+    background: url(../images/edit.png) left center no-repeat;
+    float: right;
     cursor: pointer;
-    background:url("../images/release.png") -63px -29px;
+    font-weight: normal;
+    font-size: 14px;
 }
-.metadata-con{
-    border: 1px solid #e5e5e5;
-    padding:14px;
-    margin-top:14px;
-    margin-bottom: 40px;
-    color: #969697;
-    line-height: 18px;
+.editmeta:hover,.editsample:hover{
+    background: url(../images/edit_hover.png) left center no-repeat;
 }
-
-.itemListName{
-    position: relative;
-}
-.itemListName a:link,.itemListName a:visited{
-    color: #0077aa;
-    font-size: 22px;
-
-}
-.itemListName a:hover{
-    color: #0077aa;
-    text-decoration: underline;
-}
-.itemListName-icon{
-    width: 20px;
-    height: 20px;
-    display: block;
-    position: absolute;
-    top: 4px;
-    right: 14px;
-    background: url("../images/release.png") -63px -29px;
-    cursor: pointer;
-}
-
-.filletspan span.period {
+.topbtcenter span.period {
     background-color: #29abe2;
     height: 20px;
     font-size: 12px;
@@ -366,7 +247,7 @@
     border-radius: 2px;
     margin-left:1px;
 }
-.filletspan span.api {
+.topbtcenter span.api {
     background-color: #f06f77;
     height: 20px;
     font-size: 12px;
@@ -376,7 +257,7 @@
     border-radius: 2px;
     margin-left:1px;
 }
-.filletspan span.flot-data {
+.topbtcenter span.flot-data {
     background-color: #fc9b00;
     height: 20px;
     font-size: 12px;
@@ -386,445 +267,7 @@
     border-radius: 2px;
     margin-left:1px;
 }
-.top-con{
-    color: #666;
-}
-
-.rightsimg{
-    width: 30%;
-}
-.filletspan{
-    text-align: center;
-}
-.marginleft{
-    margin-left:5px;
-}
-.pages{
-    width: 88%;
-    padding-left: 40px;
-    padding-right: 15px;
-    float: right;
-}
-.pagination a, .pagination span{
-    padding:0.5em 1em;
-    display: inline;
-    float: none;
-}
-.pagination a{
-    border:1px solid #e5e5e5;
-    color: #666;
-     border-radius: 3px;
-}
-.pagination span.current{
-   border-radius: 3px;
-   background: #29abe2;
-}
-.pagination{
-    width: 100%;
-    text-align: right;
-}
-
-.itemnameitem{
-    font-weight: normal;
-    font-size:22px;
-    color: #989898;
-}
-
-.metadata-icon a{
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-}
-
-#editItem .modal-dialog{
-    width: 600px;
-}
-#editItem .head{
-    margin-bottom: 30px;
-}
-#editItem .head span  {
-    font-size: 20px;
-    color: #333;
-}
-#editItem .itemname .key,#editItem .itemcomment .key,#editItem .itempro .key,#editItem .itemtag .key{
-    font-size: 14px;
-    color: #29abe2;
-    margin-bottom: 10px;
-}
-.divmoney{
-    width: 100%;
-    height: 24px;
-    line-height: 24px;
-}
-#editItem .itemname .value input{
-    width: 100%;
-    height: 38px;
-    padding: 0px 10px;
-    border: 1px solid #c7c7c7;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 14px;
-    color: #666;
-}
-#editItem .itempro .value span{
-    border: 1px solid #c7c7c7;
-    border-radius: 5px;
-    color: #666;
-    font-size: 12px;
-    padding:3px 15px;
-}
-.delitemlabelicon{
-    width: 16px;
-    height: 16px;
-    background-image: url("../images/item_close.png") ;
-    float: left;
-    margin-left:10px;
-    margin-top:3px;
-    cursor: pointer;
-}
-.delitemlabelicon:hover{
-    width: 16px;
-    height: 16px;
-    background-image: url("../images/item_close.png") ;
-    background-position: -26px 0px;
-    float: left;
-    margin-left:10px;
-    margin-top:3px;
-    cursor: pointer;
-}
-#editItem .itemcomment .value textarea{
-    width: 100%;
-    height: 112px;
-    padding: 0px 10px;
-    border: 1px solid #c7c7c7;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 30px;
-}
-#editItem .itempro .value select{
-    width: 92px;
-    height: 24px;
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 30px;
-    border-radius: 5px;
-    padding-left: 23px;
-    border: 1px solid #666;
-}
-#editItem .itemtag {
-    margin-bottom: 30px;
-}
-#editItem .itemtag .key .addbtn {
-    display: inline-block;
-    font-size: 0px;
-}
-#editItem .itemtag .key .addbtn > span{
-    display: inline-block;
-    font-size: 12px;
-}
-#editItem .itemtag .key {
-    overflow: hidden;
-    border-bottom: 1px solid #c5c5c5;
-    padding-bottom: 5px;
-    height:24px;
-}
-#editItem .itemtag .key .tagname {
-    float: left;
-}
-#editItem .itemtag .key .addbtn {
-    float: right;
-    font-size: 12px;
-    color: #666;
-}
-#editItem .itemtag .key .addbtn .btnicon {
-    background-image: url("../images/myPublish.png");
-    background-repeat: no-repeat;
-    background-position: -91px -28px;
-    width: 18px;
-    height: 18px;
-    margin-top: 4px;
-    margin-left: 5px;
-    margin-bottom: -4px;
-    cursor: pointer;
-}
-#editItem .itemtag .key .addbtn .btnicon:hover {
-    background-image: url("../images/edit_item.png");
-    background-repeat: no-repeat;
-    background-position: -51px 0px;
-    width: 18px;
-    height: 18px;
-    margin-top: 4px;
-    margin-bottom: -4px;
-    margin-left: 5px;
-    cursor: pointer;
-}
-.itemtagmoney .keymoney{
-    border-bottom: 1px solid #c5c5c5;
-    overflow: hidden;
-    padding-bottom: 5px;
-    font-size: 14px;
-    color: #29abe2;
-}
-.itemtagmoney .keymoney .tagnamemoney{
-    float: left;
-    width: 30px;
-    height: 24px;
-    line-height: 24px;
-}
-#editItem .itemtagmoney .keymoney .addbtnmoney{
-    color: #666;
-    display: inline-block;
-    font-size: 12px;
-}
-#editItem .itemtagmoney .keymoney .divmoney > span{
-    display: inline-block;
-    font-size: 12px;
-}
-#editItem .itemtagmoney .keymoney .divmoney .btniconmoney{
-    background-image: url("../images/myPublish.png");
-    background-position: -91px -28px;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    height: 18px;
-    margin-left: 5px;
-    width: 18px;
-    display: inline-block;
-    float: left;
-    margin-top:4px;
-}
-#itemmess{
-    width: 300px;
-}
-#editItem .itemtagmoney .valuemoney .persontag{
-    margin-bottom: 10px;
-    overflow: hidden;
-    padding-right: 3px;
-    width: 100%;
-    margin-top:10px;
-}
-#editItem .itemtagmoney .valuemoney .persontag .limitnum,#editItem .itemtagmoney .valuemoney .persontag .tagtime, #editItem .itemtagmoney .valuemoney .persontag .tagmoney,#editItem .itemtagmoney .valuemoney .persontag .tagexpire{
-    border: 1px solid #c7c7c7;
-    border-radius: 5px;
-    color: #666;
-    font-size: 12px;
-    height: 22px;
-    text-align: center;
-    width: 45px;
-    margin:0px 5px;
-}
-#editItem .itemtagmoney .valuemoney .persontag input, #editItem .itemtagmoney .valuemoney .persontag div{
-    float: left;
-}
-
-#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon{
-    background-image: url("../images/item_close.png");
-    cursor: pointer;
-    float: left;
-    height: 16px;
-    margin-left: 10px;
-    margin-top: 3px;
-    width: 16px;
-}
-#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon:hover {
-    width: 16px;
-    height: 16px;
-    background-image: url("../images/item_close.png") ;
-    background-position: -26px 0px;
-    float: left;
-    margin-left:10px;
-    margin-top:3px;
-    cursor: pointer;
-}
-
-
-
-#editItem .itemtag .value {
-    overflow: hidden;
-}
-#editItem .itemtag .value .persontag {
-    overflow: hidden;
-    width: 260px;
-    padding-right: 3px;
-    float: left;
-    margin-bottom: 10px;
-    padding-left:10px;
-}
-#editItem .itemtag .value .persontag input, #editItem .itemtag .value .persontag div {
-    float: left;
-}
-#editItem .itemtag .value .persontag .tagkey,#editItem .itemtag .value .persontag .tagvalue {
-    width: 95px;
-    height: 22px;
-    border: 1px solid #c7c7c7;
-    font-size: 12px;
-    color: #666;
-    border-radius: 5px;
-    text-align: center;
-}
-#editItem .itemtag .value .persontag .tagequal {
-    margin: 0px 4px;
-}
-#editItem .itemtag .value .persontag .delicon {
-    background-image: url("../images/edit_item.png");
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-    width: 18px;
-    height: 18px;
-    margin-top: 4px;
-    margin-bottom: -4px;
-    cursor: pointer;
-    float: left;
-    margin-left: 3px;
-}
-#editItem .itemtag .value .persontag .delicon:hover {
-    background-image: url("../images/edit_item.png");
-    background-repeat: no-repeat;
-    background-position: -26px 0px;
-    width: 18px;
-    height: 18px;
-    margin-top: 4px;
-    margin-bottom: -4px;
-}
-#editItem .submit input{
-    width: 100%;
-    height: 40px;
-    background-color: #29abe2;
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 5px;
-    border: 0 none;
-}
-#editItem .submit input:hover {
-    background-color: #1998ce;
-}
-#editItem .submit{
-    padding-top:30px;
-}
-
-
-#editBox .modal-dialog{
-    width: 600px;
-    background: #fff;
- border-radius: 5px;
-}
-#editBox .modal-dialog .modal-content .modal-body{
-    min-height: 550px;
-}
-#addRep .head{
-    margin-bottom: 30px;
-}
-#addRep .head span  {
-    font-size: 20px;
-    color: #333;
-}
-#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key,.managename{
-    font-size: 14px;
-    color: #29abe2;
-    margin-bottom: 10px;
-}
-.namenum{
-    color: #333;
-    margin-left: 5px;
-}
-
-.addcontent{
-    width: 100%;
-    height: 30px;
-    margin-top:40px;
-}
-#addvalue{
-    width: 295px;
-    height: 30px;
-    line-height: 30px;
-    border: 1px solid #c7c7c7;
-    border-radius: 4px;
-}
-.addcontent span{
-    width: 110px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    color: #ffffff;
-    display: inline-block;
-    background: #0077aa;
-    border-radius: 4px;
-    margin-left:10px;
-    cursor: pointer;
-}
-.addcontent h1{
-    width: 100%;
-    height: 1px;
-    background: #e5e5e5;
-}
-
-.guanlilist{
-    width: 100%;
-    height: 20px;
-}
-.guanlilist span{
-    color: #0077aa;
-    cursor: pointer;
-}
-.guanlilist span:hover{
-    text-decoration: underline;
-}
-.guanlilist span.emptylist{
-    margin-left:10px;
-}
-.namelist{
-    width: 100%;
-    overflow: hidden;
-}
-.namelist li{
-    width: 100% ;
-    height: 30px;
-    line-height: 30px;
-    background: #e5e5e5;
-    padding: 0px 10px;
-    margin-top:10px;
-    color: #333;
-}
-.namelistdel{
-    float: right;
-    cursor: pointer;
-
-}
-.namelistdel:hover{
-    text-decoration: underline;
-}
-.namelistcon{
-    margin-left: 6px;
-}
-
-
-.successMess{
-        text-align:center;
-        background-color: #e8f7e6;
-        font-size: 14px;
-        color: #1bd506;
-        width:200px;
-        margin-bottom:15px;
-    }
-    
-    .errorMess{
-        text-align:center;
-        background-color: #ffd1d1;
-        font-size: 14px;
-        color: #ff0000;
-        width:300px;
-    }
-    .errorMesslabels{
-        text-align:center;
-        background-color: #ffd1d1;
-        font-size: 14px;
-        color: #ff0000;
-        width:80%;
-    }
-
-.filletspan span.personaltag{
+.topbtcenter span.personaltag{
     border-radius: 2px;
     color: #fff;
     font-size: 12px;
@@ -834,16 +277,355 @@
     padding: 3px 10px;
     background-color: rgb(110, 203, 204);
 }
-.gobackbtn{
+#editItem .head {
+    margin-bottom: 30px;
+}
+#editItem .head span {
+    color: #333;
+    font-size: 20px;
+}
+#editItem .itemname .key, #editItem .itemcomment .key, #editItem .itempro .key, #editItem .itemtag .key {
+    color: #29abe2;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+#editItem .itemname .value input {
+    background-color: #fff;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 14px;
+    height: 38px;
+    padding: 0 10px;
+    width: 100%;
+}
+#editItem .itemcomment .value textarea {
+    background-color: #fff;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 14px;
+    height: 112px;
+    margin-bottom: 30px;
+    padding: 0 10px;
+    width: 100%;
+}
+#editItem .itempro .value span {
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 12px;
+    padding: 3px 15px;
+}
+
+#editItem .itemtag {
+    margin-bottom: 30px;
+}
+#editItem .itemtag .value .persontag {
+    float: left;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 3px;
+    width: 260px;
+}
+#editItem .itemtag .value .persontag .tagkey, #editItem .itemtag .value .persontag .tagvalue {
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 12px;
+    height: 22px;
+    text-align: center;
+    width: 95px;
+}
+#editItem .itemtag .value .persontag .tagequal {
+    margin: 0 4px;
+}
+#editItem .itemtag .value .persontag input, #editItem .itemtag .value .persontag div {
+    float: left;
+}
+.delitemlabelicon {
+    background-image: url("../images/item_close.png");
+    cursor: pointer;
+    float: left;
+    height: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+    width: 16px;
+}
+.errorMesslabels {
+    background-color: #ffd1d1;
+    color: #ff0000;
+    font-size: 14px;
+    text-align: center;
+    width: 80%;
+}
+#editItem .itemtag .key .tagname {
+    float: left;
+}
+#editItem .itemtag .key .addbtn > span {
+    display: inline-block;
+    font-size: 12px;
+}
+#editItem .itemtag .key .addbtn .btnicon {
+    background-image: url("../images/myPublish.png");
+    background-position: -91px -28px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 18px;
+    margin-bottom: -4px;
+    margin-left: 5px;
+    margin-top: 4px;
+    width: 18px;
+}
+#editItem .itemtag .key .addbtn > span {
+    display: inline-block;
+    font-size: 12px;
+}
+#editItem .itemtagmoney .valuemoney .persontag .limitnum, #editItem .itemtagmoney .valuemoney .persontag .tagtime, #editItem .itemtagmoney .valuemoney .persontag .tagmoney, #editItem .itemtagmoney .valuemoney .persontag .tagexpire {
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    color: #666;
+    font-size: 12px;
+    height: 22px;
+    margin: 0 5px;
+    text-align: center;
+    width: 45px;
+}
+#editItem .itemtagmoney .valuemoney .persontag input, #editItem .itemtagmoney .valuemoney .persontag div {
+    float: left;
+}
+#editItem .itemtagmoney .valuemoney .persontag input.isnimitid {
+    margin: 3px 3px 0;
+}
+#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon {
+    background-image: url("../images/item_close.png");
+    cursor: pointer;
+    float: left;
+    height: 16px;
+    margin-left: 10px;
+    margin-top: 3px;
+    width: 16px;
+}
+#editItem .submit {
+    padding-top: 30px;
+}
+#editItem .modal-dialog {
+    width: 600px;
+}
+#pricealertbox .modal-dialog {
+    width: 500px;
+}
+#editItem .itemtag .key {
+    border-bottom: 1px solid #c5c5c5;
+    height: 24px;
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+.itemtagmoney .keymoney {
+    border-bottom: 1px solid #c5c5c5;
+    color: #29abe2;
+    font-size: 14px;
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+#editItem .submit input {
+    background-color: #29abe2;
+    border: 0 none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    height: 40px;
+    text-align: center;
+    width: 100%;
+}
+#editItem .itemtag .key .addbtn {
+    color: #666;
+    float: right;
+    font-size: 12px;
+}
+#editItem .itemtag .key .addbtn {
+    display: inline-block;
+    font-size: 0;
+}
+.divmoney {
+    height: 24px;
+    line-height: 24px;
+    width: 100%;
+}
+.itemtagmoney .keymoney .tagnamemoney {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    width: 30px;
+}
+#editItem .itemtagmoney .keymoney .divmoney .btniconmoney {
+    background-image: url("../images/myPublish.png");
+    background-position: -91px -28px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    height: 18px;
+    margin-left: 5px;
+    margin-top: 4px;
+    width: 18px;
+}
+#editItem .itemtagmoney .keymoney .divmoney > span {
+    display: inline-block;
+    font-size: 12px;
+}
+#itemmess {
+    width: 300px;
+}
+#editItem .itemtagmoney .valuemoney .persontag {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding-right: 3px;
+    width: 100%;
+}
+
+#editItem .itemtag .value {
+    overflow: hidden;
+}
+#editBox .modal-dialog {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 5px;
+    width: 600px;
+}
+#addvalue {
+    border: 1px solid #c7c7c7;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    width: 295px;
+}
+.addcontent span {
+    background: #0077aa none repeat scroll 0 0;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    width: 110px;
+}
+.guanlilist {
+    height: 20px;
+    width: 100%;
+}
+.guanlilist span.emptylist {
+    margin-left: 10px;
+}
+.guanlilist span {
     color: #0077aa;
     cursor: pointer;
 }
-.gobackbtn:hover{
-    text-decoration: underline;
+.namelist {
+    overflow: hidden;
+    width: 100%;
 }
-.gobackbtnwrop{
+.namelist li {
+    background: #e5e5e5 none repeat scroll 0 0;
+    color: #333;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+}
+.namelistcon {
+    margin-left: 6px;
+}
+.namelistdel {
+    cursor: pointer;
+    float: right;
+}
+.gobackbtnwrop {
     display: none;
 }
-#editItem .itemtagmoney .valuemoney .persontag input.isnimitid{
-    margin:3px 3px 0px ;
+.gobackbtn {
+    color: #0077aa;
+    cursor: pointer;
+}
+.pages {
+    float: right;
+    padding-left: 40px;
+    padding-right: 15px;
+    width: 88%;
+}
+.pagination a, .pagination span {
+    display: inline;
+    float: none;
+    padding: 0.5em 1em;
+}
+.pagination a {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    color: #666;
+}
+.pagination span.current {
+    background: #29abe2 none repeat scroll 0 0;
+    border-radius: 3px;
+}
+.pagination {
+    text-align: right;
+    width: 100%;
+}
+.errorMess{
+    text-align:center;
+    background-color: #ffd1d1;
+    font-size: 14px;
+    color: #ff0000;
+    width:300px;
+}
+.errorMesslabels{
+    text-align:center;
+    background-color: #ffd1d1;
+    font-size: 14px;
+    color: #ff0000;
+    width:80%;
+}
+.successMess{
+    text-align:center;
+    background-color: #e8f7e6;
+    font-size: 14px;
+    color: #1bd506;
+    width:200px;
+    margin-bottom:15px;
+}
+.allpriceList{
+    width: 100%;
+    overflow: hidden;
+}
+.allpriceList li{
+    background: #e5e5e5 none repeat scroll 0 0;
+    color: #333;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+}
+sup {
+    top: -0.5em;
+}
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+.alltagnums{
+    border: 1px solid #43609f;
+    border-radius: 9px;
+    font-size: 10px;
+    height: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 1px 4px;
+    /*width: 30px;*/
 }
