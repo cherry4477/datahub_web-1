@@ -78,7 +78,7 @@ $(function() {
                 var usePrivate=data.data.usePrivate;
                 var quotaPrivate=data.data.quotaPrivate;
                 var uq_private=quotaPrivate-usePrivate;
-                if(uq_private>0)
+                if(uq_private!=0)
                 {
                     $("#addRep .submit input").attr("repevent", "add");
                     $("#addRep .head .title").text("新增Repository");
