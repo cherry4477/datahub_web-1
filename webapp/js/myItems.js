@@ -238,25 +238,56 @@ function del_item(){
     $("#sel_item .del_bg").on("click",function(){
         var stats=0;
        var check_stats1=false;
+        var numsubs=0;
         $("input[name=list_check]:checked").each(function(){
              check_stats1=true;
             if(check_stats1==true){
                 var item=$(this).siblings(".item_name").text();
+                //GET /subscription_stat/:repname/:itemname?phase={phase}
                 $.ajax({
-                    url: ngUrl + "/repositories/" + repoName + "/" + item,
+                    url: ngUrl + "/subscription_stat/" + repoName + "/" + item,
                     type: "DELETE",
                     cache: false,
                     async: false,
                     headers:headerToken,
                     dataType: 'json',
-                    success: function () {
-                        var refer=confirm("您确定要删除"+item+"?");
-                        if(refer){
+                    success: function (json) {
+                        numsubs=json.data.numsubs;
+                       console.log(json.data.numsubs);
+                    }
+                });
+
+                if(numsubs>0){
+                    var refer=confirm(item+"处于订购中，"+"确定要删除？");
+                    if(refer){
+                        $.ajax({
+                            url: ngUrl + "/repositories/" + repoName + "/" + item,
+                            type: "DELETE",
+                            cache: false,
+                            async: false,
+                            headers:headerToken,
+                            dataType: 'json',
+                            success: function () {
+                                $(".table_content").empty();
+                                stats=1;
+                            }
+                        });
+                    }
+                }else{
+                    $.ajax({
+                        url: ngUrl + "/repositories/" + repoName + "/" + item,
+                        type: "DELETE",
+                        cache: false,
+                        async: false,
+                        headers:headerToken,
+                        dataType: 'json',
+                        success: function () {
                             $(".table_content").empty();
                             stats=1;
                         }
-                    }
-                })
+                    });
+                }
+
             }
         });
         if(check_stats1==false){
