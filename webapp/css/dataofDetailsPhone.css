@@ -1,0 +1,49 @@
+.boxwrop {
+    overflow: hidden;
+    padding: 50px 20px;
+}
+.contop {
+    color: #43609f;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.markdown-body {
+    color: #333;
+    font-size: 12px;
+    line-height: 1.6;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.conment {
+    font-size: 1.2em;
+    line-height: 1.5em;
+    overflow: hidden;
+    width: 100%;
+    padding:15px 0px;
+    border-bottom: 1px solid #ccc;
+}
+.borderbt{
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
+.vip1{
+    width: 30%;
+    height: 24px;
+    background-size: contain;
+    background:url('../images/0003.png') no-repeat top left;
+}
+.vip2{
+     width: 30%;
+    height: 24px;
+    background-size: contain;
+    background:url('../images/0004.png') no-repeat top left;
+}
+.vip3{
+     width: 30%;
+    height: 24px;
+    background-size: contain;
+    background:url('../images/0005.png') no-repeat top left;
+}
