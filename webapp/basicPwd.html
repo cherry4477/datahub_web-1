@@ -221,6 +221,7 @@
 				async:false,
 				headers:{Authorization:"Token "+$.cookie("token")},
 				datatype:'json',
+				contentType:"application/json",
 				data:JSON.stringify(myPwd),
 				success:function(data){
 					if((data.code==0)&&(pwd1==pwd2)&&($("#passwd").val().length>=8)&&($("#paspasswd").val().length>=8)){

@@ -37,8 +37,7 @@
     background-position: 2%  1%;
     display: inline-block;
     margin-top: 10px;
-    margin-bottom: -5px;
-
+    margin-bottom:-5px;
 }
 #list_details{
     float: left;
@@ -54,7 +53,6 @@
  }
 .item_con_line:hover{
     background-color: #f2fafe;
-    border: #f2fafe ;
 }
 .item_con_line  .item_check{
     width: 12px;
@@ -65,7 +63,6 @@
 .item_con_line  .item_name{
     font: 14px bold;
     color:#43609f;
-
 }
 
 .item_con_line .mianfei_sheet{
@@ -98,6 +95,7 @@ table th{
 }
 table td{
     height:90px;
+    border-bottom: 1px solid #c8c8c8;
 }
 .item_con_title{
     color: #666;
