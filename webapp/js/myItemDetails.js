@@ -287,7 +287,6 @@ $(function(){
         }else{
             for(var i = 0; i < allpricecon.length;i++){
                 if(allpricecon[i].limit){
-                    alert(allpricecon[i].limit)
                     limitstr = '每个用户限购&nbsp;'+allpricecon[i].limit+'&nbsp;次';
                 }
                 var str =  '<li>￥'+allpricecon[i].money+'&nbsp;/&nbsp;'+allpricecon[i].units+'次&nbsp;有效期&nbsp;'+allpricecon[i].expire+'&nbsp;天&nbsp;'+limitstr+'</li>'
