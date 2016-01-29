@@ -277,7 +277,6 @@ $(function() {
 
 });
 
-
 function apendBigbox(apendjson,i,labelstr){
     var thispricestate = '';
     if(apendjson.pricestate != ''){
@@ -337,3 +336,160 @@ function apendBigbox(apendjson,i,labelstr){
     $('[data-toggle="tooltip"]').tooltip();
 
 }
+
+//获取reponame,itemname
+function getParam(key) {
+    var value='';
+    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+        value = itemid.exec(decodeURIComponent(window.location.href))[1];
+    }
+    return value;
+}
+//the amount of like:star
+function subscription(){
+    var starAmount = '';
+    var repoName=getParam("repname");
+        $.ajax({
+            url: ngUrl + "/star_stat/" +"?size=3&username="+repoName,
+            type: "GET",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            //headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if(json.code == 0){
+                    starAmount = json.data.numstars;
+                }
+                return starAmount;
+            }
+        });
+        return starAmount;
+}
+
+//the amount of purchase icon cart
+function purchase(){
+    var purchaseAmount = '';
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+            $.ajax({
+                url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
+                type: "GET",
+                cache:false,
+                async:false,
+                dataType:'json',
+                //headers:{Authorization:"Token "+$.cookie("token")},
+                success:function(json){
+                    if(json.code == 0){
+                        //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
+                        purchaseAmount=json.data.numsubs;
+                    }
+                    return purchaseAmount;
+                 }
+             });
+    return purchaseAmount;
+ }
+//the amount of download the icon download
+ function download_icon(){
+     var downloadAmount ='';
+     var repoName=getParam("repname");
+     var itemName=getParam("itemname");
+     $.ajax({
+         url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
+         type: "GET",
+         cache:false,
+         async:false,
+         dataType:'json',
+         //headers:{Authorization:"Token "+$.cookie("token")},
+         success:function(json){
+             if(json.code == 0){
+                 downloadAmount = json.data.numpulls;
+             }return downloadAmount;
+         }
+     });
+     return downloadAmount;
+}
+//the amount of comment
+function getComment(){
+    var commentAmount='';
+    var repoName=getParam("repname");
+    var itemName=getParam("itemname");
+    $.ajax({
+         url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
+         type: "GET",
+         cache:false,
+         async:false,
+         dataType:'json',
+         success:function(json){
+             if(json.code == 0){
+                commentAmount=json.data.numcomments;
+             }return commentAmount;
+        }
+    });
+    return commentAmount;
+}
+
+$(document).ready(function(){
+    getUserEmail();
+})
+var $place=$("<div></div>").appendTo($("#hot"));
+//get currently user's loginname(email)
+function getUserEmail(){
+        var loginEmail = '';
+        $.ajax({
+            url: ngUrl +"/repositories/"+repname,
+            type: "get",
+            cache: false,
+            async: false,
+            success: function (jsons) {   
+                loginEmail = jsons.data.create_user;  
+                 
+                //get username
+                    var userName = '';
+                    $.ajax({
+                        url: ngUrl +"/users/"+loginEmail,
+                        type: "get",
+                        cache: false,
+                        async: false,
+                        success: function (jsons){
+                        
+                            //get reponame
+                            var repoName = '';
+                            $.ajax({
+                                url: ngUrl +"/repositories/"+"?size=3&username="+loginEmail,
+                                type: "get",
+                                cache: false,
+                                async: false,
+                                success: function (jsons) {     
+                                    var like = subscription();
+                                    var cart = '';
+                                    var download = '';
+                                    var comment = '';
+                                    //alert(jsons.data);
+                                    var length = jsons.data.length;
+                                    //$('.starnum').html(msg.data.numstars);
+                                    //alert(length);
+                                    for (i=0;i<length;i++){
+                                        repoName=jsons.data[i].repname;
+                                        console.log(repoName);
+                                        $place.append(""+
+                                        "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p>"+
+                                        "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
+                                        "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+like+"</span>"
+                                        +"</div>"
+                                        +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_10.png' style='padding-right: 15px;'>"+"<span>"+cart+"</span>"
+                                        +"</div>"
+                                        +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width:50%'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+download+"</span>"
+                                        +"</div>"
+                                        +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+comment+"</span>"
+                                        +"</div>"+"</div>"+"</div>"); 
+                                    }
+                        }
+                    });
+                           
+            }
+        }); 
+    }
+});
+    }
+
