@@ -120,6 +120,7 @@ strong{
 	margin-right: 20px;
 	overflow: hidden;
 	width: 160px;
+	margin-top: 10px;
 }
 .price {
 	float: left;
@@ -410,15 +411,15 @@ strong{
 
 
 /*********************白名单弹窗************************/
-#cooperatordelCurrent,#delCurrent,#cooperatordelAll,#cooperatordelAllpri,#delAll {
+#cooperatordelCurrent,#cooperatordelCurrentpublic,#delCurrent,#cooperatordelAll,#cooperatordelAllpri,#delAll {
 	color: #0077aa;
 	font-size: 14px;
 	cursor: pointer;
 }
-#cooperatordelCurrent:hover,#delCurrent:hover, #delAll:hover{
+#cooperatordelCurrent:hover,#cooperatordelCurrentpublic:hover,#delCurrent:hover, #delAll:hover{
 	text-decoration: underline;
 }
-#cooperatordelCurrent,#delCurrent{
+#cooperatordelCurrent,#cooperatordelCurrentpublic,#delCurrent{
 	float:left;
 	margin-right:10px;
 	margin-bottom: 10px;

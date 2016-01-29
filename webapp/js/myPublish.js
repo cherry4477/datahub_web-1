@@ -97,7 +97,7 @@ $(function() {
             }
         });
     }
-    ////////////////////////////////分页
+    ////////////////////////////////repo分页
     $(".repopages").pagination(allrepnums, {
         maxentries: allrepnums,
         items_per_page: 6,
@@ -211,7 +211,10 @@ $(function() {
             '</div>'+
             '</div>'+
             '</div>';
-        $('.repList').append(repostr)
+        $('.repList').append(repostr);
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        })
     }
     //////////////查看repo下的item
     $(document).on('click','.describe',function (e) {
@@ -581,7 +584,7 @@ $(function() {
         });
 
     })
-//////////////////////////
+//////////////////////////私有repo协作者白名单收索
     $('#searchpomisionemailTest').click(function(){
         var curusername = $.trim($('#privatepomisionemailTest').val());
         var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
@@ -682,7 +685,7 @@ $(function() {
             for(var j in namejson){
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"?username="+namejson[j],
+                    url:ngUrl+"/permission/repository/"+thisrepoName+"/whitelist?username="+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -701,19 +704,56 @@ $(function() {
             }
         }
     })
+////////////////////////////////////////////////////////////////批量删除协作者
+    $('#delCurrent').click(function(){
+        var thisrepoName =  $('.cooperator_list').attr('modal-repoName');
+        var thisusername = [];
+        var isdele = false;
+        var namejson = {}
+        var lilist = $('.privatecooperList>div');
+        for(var i = 0;i<lilist.length;i++){
+            if($('.privatecooperList>div').eq(i).find('.ischeck').is(':checked')==true){
+                var thisval = $(lilist[i]).attr("datareponame");
+                namejson[$('.privatecooperList>div').eq(i).index()] = thisval;
+                thisusername.push(thisval);
+            }
+        }
+        if(thisusername.length>0){
+            for(var j in namejson){
+                $.ajax({
+                    type:"DELETE",
+                    url:ngUrl+"/permission/repository/"+thisrepoName+"/cooperator?username="+namejson[j],
+                    cache:false,
+                    dataType:'json',
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success: function(deluser){
+                        if(deluser.code == 0){
+                            $('#modalRep_list').empty();
+                            isdele = true;
+                            $('.gobackbtnwrop').hide();
+                            getpagesF(thisrepoName,1,0);
+                        }
+                    }
+                })
+            };
+            if(isdele = true){
+                //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+            }
+        }
+    })
 /////////////////////////////////////////////////////////////////清空白名单
     function delallpomitionorcoop(repname,iscoo,boxobj,pagesobj){
         $.ajax({
             type:"DELETE",
-            url:ngUrl+"/permission/"+repname+"?delall=1"+iscoo,
+            url:ngUrl+"/permission/repository/"+iscoo+'/'+repname+"/username?delall=1",
             cache:false,
             dataType:'json',
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function(deluser){
                 if(deluser.code == 0){
-                    if(iscoo == '' || iscoo == 'undefined' || iscoo == 'null'){
-                        $('.pomosionList').empty();
-                        $('.pagesPer').pagination(0, {
+                    if(iscoo == 'whitelist'){
+                        $(boxobj).empty();
+                        $(pagesobj).pagination(0, {
                             items_per_page: 6,
                             num_display_entries: 1,
                             num_edge_entries: 5 ,
@@ -725,30 +765,32 @@ $(function() {
                             load_first_page:false
                         });
                     }else{
-                        $('.cooperator_list').empty();
+                        $(boxobj).empty();
                     }
                 }
             }
         });
     }
+    //////////////////////////////////////////清空白名单
     $('#delAll').click(function(){
         var thisrepoame = $('#myModalTest').attr('modal-repoName');
-        delallpomitionorcoop(thisrepoame,' ','.namelist','.pagesPer');
+        delallpomitionorcoop(thisrepoame,'whitelist','.namelist','.pagesPer');
     })
+    //////////////////////////////////////////清空私有协作者
     $('#cooperatordelAllpri').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
-        delallpomitionorcoop(thisrepoame,'&cooperator=1');
+        delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
     })
 ////////////////////////////////////////////////////////////////单个删除白名单
     function delonepomitionorcoo(thisrepoName,thisusername,iscoo){
         $.ajax({
             type:"DELETE",
-            url:ngUrl+"/permission/"+thisrepoName+"?username="+thisusername+iscoo,
+            url:ngUrl+"/permission/repository/"+thisrepoName+"/"+iscoo+"/"+thisusername,
             cache:false,
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function(deluser){
                 if(deluser.code == 0){
-                    if(iscoo == '' || iscoo == 'undefined' || iscoo == 'null'){
+                    if(iscoo == 'whitelist'){
                         $('.gobackbtnwrop').hide();
                         $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(thisrepoName,1,0);
@@ -764,7 +806,7 @@ $(function() {
         var thisusername = $(this).attr('datareponame');
         var thisrepoName =  $('#myModalTest').attr('modal-repoName');
         var _this = $(this);
-        delonepomitionorcoo(thisrepoName,thisusername,'');
+        delonepomitionorcoo(thisrepoName,thisusername,'whitelist');
 
     })
 
@@ -772,7 +814,7 @@ $(function() {
         var thisusername = $(this).attr('datareponame');
         var thisrepoName =  $('.cooperator_list').attr('modal-repoName');
         var _this = $(this);
-        delonepomitionorcoo(thisrepoName,thisusername,'&cooperator=1');
+        delonepomitionorcoo(thisrepoName,thisusername,'cooperator');
         _this.parents('.pomosionList').remove();
 
     })
@@ -889,13 +931,16 @@ $(function() {
     $("#addRep .submit input").click(function(){
         var method = "POST";
         var data = {};
+        var thisispublic = '';
         repname = $.trim($("#addRep .repname .value input").val());
         data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
         if($("#ispublic").val()==1) {
             data["repaccesstype"] ="public";
+            thisispublic = '开放';
         }
         else {
             data["repaccesstype"] ="private";
+            thisispublic = '私有';
         }
         if($(this).attr("repevent") == "add") {
             if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
@@ -934,6 +979,12 @@ $(function() {
                 if(json.code == 0){
                     location.reload();
                 }
+            }, error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                   alert('您可新增的'+thisispublic+'Repository资源不足');
+                }
+
             }
         });
         $('#addRep').modal('toggle');
