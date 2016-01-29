@@ -1,119 +1,138 @@
-body {
-	background-color: #f5f5f5;
+#itemList{
+	float: left;
+	margin-top: 90px;
+	width: 1170px;
+	padding-bottom: 100px;
+
 }
-#myItems {
-	padding: 22px 40px;
-	margin-top: 50px;
+#list_title{
+	float: left;
+	width:100%;
+	font: 20px bold;
+	color:#43609f;
+	height:50px;
+	border-bottom: 1px solid  #c8c8c8;
 }
-#myItems-head {
-	margin-bottom: 25px;
+#list_title:hover{
+	color:#395289;
 }
-#myItems-head>span {
-	display: inline-block;
+#sel_item {
+	float: left;
+	width:100%;
+	margin-top: 40px;
+	border-bottom:1px solid #c8c8c8;
+	height: 55px;
+	color:#43609f;
+	padding-left: 20px ;
 }
-#myItems-head .name {
-	font-size: 20px;
-	margin-right: 11px;
+#sel_item span{
+	line-height: 40px;
+	margin-left: 5px;
 }
-#myItems-body .repocount{
-	font-size: 0px;
-	margin-bottom: 11px;
-}
-#myItems-body .repocount > span{
-	display: inline-block;
-	font-size: 14px;
-}
-#myItems-body .repocount .repname a{
-	font-size: 16px;
-	color: #333;
-	margin-right: 10px;
-}
-#myItems-body .repocount .repname a:hover {
-	text-decoration: underline;
-}
-#myItems-body .repocount .icon{
-	background-image: url("../images/myPublish.png");
+.del_bg{
+	background-image: url("../images/delete.png");
 	background-repeat: no-repeat;
-	background-position: -223px -126px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	margin-right: 6px;
-}
-#myItems-body .repocount .numitems {
-	font-size: 12px;
-	color: #666;
-}
-#myItems-body .tablelist {
-	border: 1px solid #e5e5e5;
-	background-color: #fff;
-	margin-bottom: 50px;
-}
-#myItems-body .tablelist .dhead {
-	padding: 27px 55px 16px 55px;
-	background-color: #eef8ff;
-}
-#myItems-body .tablelist span {
+	width: 23px;
+	height:23px;
+	background-position: 2%  1%;
 	display: inline-block;
+	margin-top: 10px;
+	margin-bottom:-5px;
 }
-#myItems-body .tablelist .dtable {
-	font-size: 0px;
+#list_details{
+	float: left;
 }
-#myItems-body .tablelist .dhead span, #myItems-body .tablelist .dbody span {
-	font-size: 14px;
-	width: 25%;
-	word-break: keep-all;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+.table_title{
+	width: 100%;
 }
-#myItems-body .tablelist .dbody .row{
-	margin:0px 55px;
-	border-bottom: 1px solid #e5e5e5;
+.table_content{
+	margin-left: 20px;
 }
-#myItems-body .tablelist .dbody span{
-	height: 36px;
-	line-height: 36px;
+.item_con_line{
+	border-bottom: 1px solid #c8c8c8;
 }
-#myItems-body .tablelist .dtable .dbody .row .col1 a:hover{
-	text-decoration: underline;
-	color: #666;
+.item_con_line:hover{
+	background-color: #f2fafe;
 }
-#myItems-body .tablelist .dbody .col1, #myItems-body .tablelist .dhead .col1 {
-	padding-left: 41px;
-	text-align: left;
+.item_con_line  .item_check{
+	width: 12px;
+	height:12px;
+	border-radius: 3px;
+	margin-right: 8px;
 }
-#myItems-body .tablelist .dbody .col2, #myItems-body .tablelist .dbody .col3,
-#myItems-body .tablelist .dhead .col2, #myItems-body .tablelist .dhead .col3 {
-	text-align: center;
-}
-#myItems-body .tablelist .dbody .col4, #myItems-body .tablelist .dhead .col4 {
-	padding-right: 41px;
-	text-align: right;
-}
-#splitpage {
-	font-size: 14px;
-	margin-top: 20px;
+.item_con_line  .item_name{
+	font: 14px bold;
+	color:#43609f;
 }
 
-/*��ҳ��ʽ*/
-.pagination a, .pagination span{
-	padding:0.5em 1em;
-	display: inline;
-	float: none;
+.item_con_line .mianfei_sheet{
+	color: #f49f12;
+	border:2px solid #f49f12;
+	padding: 2px 8px ;
+	margin-left:3px;
+	border-radius: 3px;
 }
-.pagination a{
-	border:1px solid #e5e5e5;
+.item_con_line .xianliang_sheet{
+	color: #e60012;
+	border:2px solid #e60012;
+	padding: 2px 8px ;
+	margin-left:3px;
+	border-radius: 3px;
+}
+.item_con_line .fufei_sheet{
+	color: #e60012;
+	border:2px solid #e5004f;
+	padding: 2px 8px ;
+	margin-left:3px;
+	border-radius: 3px;
+}
+.item_con_line .wu_sheet{
+	display: none;
+}
+table th{
+	height:70px;
+	border-bottom: 1px solid #43609f;
+}
+table td{
+	height:90px;
+	border-bottom: 1px solid #c8c8c8;
+}
+.item_con_title{
 	color: #666;
-	border-radius: 3px;
+	font: 14px bold;
 }
-.pagination span.current{
-	border-radius: 3px;
-	background: #29abe2;
+.item_con_title th:nth-child(1){
+	padding-left: 43px;
 }
-.pagination{
-	width: 100%;
-	text-align: right;
-	margin: 0px;
+.item_con_title:nth-child(1){
+	padding-left: 30px;
+}
+
+table th:nth-child(1),table td:nth-child(1){
+	width: 550px;
+
+}
+table th:nth-child(2){
+	width: 280px;
+}
+table td:nth-child(2){
+	width: 280px;
+	padding-left: 15px;
+}
+table th:nth-child(3){
+	width: 110px;
+}
+table td:nth-child(3){
+	width: 110px;
+	padding-left: 32px;
+
+}
+table th:nth-child(4){
+	width: 160px;
+	padding-left: 66px;
+}
+table td:nth-child(4){
+	width: 190px;
+	padding-left: 105px;
+
 }

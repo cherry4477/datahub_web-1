@@ -1,0 +1,138 @@
+#itemList{
+    float: left;
+    margin-top: 90px;
+    width: 1170px;
+    padding-bottom: 100px;
+
+}
+#list_title{
+    float: left;
+    width:100%;
+    font: 20px bold;
+    color:#43609f;
+    height:50px;
+    border-bottom: 1px solid  #c8c8c8;
+}
+#list_title:hover{
+    color:#395289;
+}
+#sel_item {
+    float: left;
+    width:100%;
+    margin-top: 40px;
+    border-bottom:1px solid #c8c8c8;
+    height: 55px;
+    color:#43609f;
+    padding-left: 20px ;
+}
+#sel_item span{
+    line-height: 40px;
+    margin-left: 5px;
+}
+ .del_bg{
+    background-image: url("../images/delete.png");
+    background-repeat: no-repeat;
+    width: 23px;
+    height:23px;
+    background-position: 2%  1%;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom:-5px;
+}
+#list_details{
+    float: left;
+}
+.table_title{
+    width: 100%;
+}
+.table_content{
+    margin-left: 20px;
+}
+.item_con_line{
+     border-bottom: 1px solid #c8c8c8;
+ }
+.item_con_line:hover{
+    background-color: #f2fafe;
+}
+.item_con_line  .item_check{
+    width: 12px;
+    height:12px;
+    border-radius: 3px;
+    margin-right: 8px;
+}
+.item_con_line  .item_name{
+    font: 14px bold;
+    color:#43609f;
+}
+
+.item_con_line .mianfei_sheet{
+    color: #f49f12;
+    border:2px solid #f49f12;
+    padding: 2px 8px ;
+    margin-left:3px;
+    border-radius: 3px;
+}
+.item_con_line .xianliang_sheet{
+    color: #e60012;
+    border:2px solid #e60012;
+    padding: 2px 8px ;
+    margin-left:3px;
+    border-radius: 3px;
+}
+.item_con_line .fufei_sheet{
+    color: #e60012;
+    border:2px solid #e5004f;
+    padding: 2px 8px ;
+    margin-left:3px;
+    border-radius: 3px;
+}
+.item_con_line .wu_sheet{
+    display: none;
+}
+table th{
+    height:70px;
+    border-bottom: 1px solid #43609f;
+}
+table td{
+    height:90px;
+    border-bottom: 1px solid #c8c8c8;
+}
+.item_con_title{
+    color: #666;
+    font: 14px bold;
+}
+.item_con_title th:nth-child(1){
+    padding-left: 43px;
+}
+.item_con_title:nth-child(1){
+    padding-left: 30px;
+}
+
+table th:nth-child(1),table td:nth-child(1){
+    width: 550px;
+
+}
+table th:nth-child(2){
+    width: 280px;
+}
+table td:nth-child(2){
+    width: 280px;
+    padding-left: 15px;
+}
+table th:nth-child(3){
+    width: 110px;
+}
+table td:nth-child(3){
+    width: 110px;
+    padding-left: 32px;
+
+}
+table th:nth-child(4){
+    width: 160px;
+    padding-left: 66px;
+}
+table td:nth-child(4){
+    width: 190px;
+    padding-left: 105px;
+
+}

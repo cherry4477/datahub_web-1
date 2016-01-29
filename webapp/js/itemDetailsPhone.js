@@ -71,15 +71,15 @@ $(function(){
             '</div>'+
             '<div class="repcreate_user">'+
             '<a href="#">'+
-            '<div class="cur_user"><a href="dataOfDetails.html?username='+createuser+'" >本数据由 <span id="cur_user">'+cur_user+'</span> 提供</a></div>'+
-            '<div class="cur_link"><a href="dataOfDetails.html?username='+createuser+'"></a></div>'+
+            '<div class="cur_user"><a href="dataOfDetailsPhone.html?username='+createuser+'" >本数据由 <span id="cur_user">'+cur_user+'</span> 提供</a></div>'+
+            '<div class="cur_link"><a href="dataOfDetailsPhone.html?username='+createuser+'"></a></div>'+
             '</a>'+
             '</div>';
         $('#topbox').append(topstr)
     }
     $('#goTagListPhone').attr('href','tagListPhone.html?repname='+repname+'&itemname='+itemname)
-    $('#metahref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Meta')
-    $('#samplehref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Sample')
+    $('#metahref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Sample')
+    $('#samplehref').attr('href','metaAndsample.html?repname='+repname+'&itemname='+itemname+'&datas=Meta')
     /////////////////////////查看item详情;
     $.ajax({
         url: ngUrl+"/repositories/"+repname+"/"+itemname,

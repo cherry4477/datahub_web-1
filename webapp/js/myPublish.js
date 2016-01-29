@@ -4,117 +4,894 @@
 
 
 $(function() {
-
-    //addRep
-    $(".add-icon").click(function() {
-
-        var display=$("#judgment").css("display");
-        if(display=="none")
-        {
-            $("#judgment").css("display","block");
-        }
-        if(display=="block")
-        {
-            $("#judgment").css("display","none");
-        }
-        $("#judgment_number").css("display","none");
-
-    });
-    //修改新增repo开始
-    //开放repo
-    $("#openRepo").click(function(){
-        //判断是否有配额数
+    function getAjax(url,fun){
         $.ajax({
-            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
-            type:"get",
+            type: "get",
+            async: false,
+            url: url,
+            success: function(msg){
+                fun(msg);
+            },
+            error:function(json){
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+    }
+    function getTimes(times){
+        var jsonTime = {};
+        jsonTime.nums=times.indexOf("|");
+        if(jsonTime.nums!="-1"){
+            jsonTime.jdTime=times.substr(0,19);
+            jsonTime.xdTime=times.substring(jsonTime.nums+1,times.length);
+            jsonTime.showTime=jsonTime.xdTime;
+        }else{
+            jsonTime.showTime=times;
+        }
+        return jsonTime;
+    };
+    var allrepnums = 0;
+    $.ajax({
+        url: ngUrl + "/repositories?size=-1",
+        type: "get",
+        cache: false,
+        data: {},
+        async: false,
+        dataType: 'json',
+        headers: {Authorization: "Token " + $.cookie("token")},
+        success: function (json) {
+            if (json.code == 0) {
+                allrepnums = json.data.length;
+            }
+        },
+        error: function (json) {
+            errorDialog($.parseJSON(json.responseText).code);
+            $('#errorDM').modal('show');
+        }
+    });
+    //请求所有rep
+    var curpagerepoarr = [];
+    function getreps(nextpages) {
+        $('.repList').empty();
+        reps = null;
+        $.ajax({
+            url: ngUrl + "/repositories?size=6&page=" + nextpages,
+            type: "get",
+            cache: false,
+            data: {},
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if (json.code == 0) {
+                    for (var i = 0;i<json.data.length;i++) {
+                        getrepocon(json.data[i]);
+                    }
+                }
+            },
+            error: function (json) {
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
+            }
+        });
+    }
+
+    getreps(1);
+    ////////////////获取repo详细信息
+    function getrepocon(thisrepoame){
+        $.ajax({
+            url: ngUrl+"/repositories/"+thisrepoame.repname+"?items=1",
+            type: "get",
             cache:false,
             async:false,
             dataType:'json',
             headers:{ Authorization:"Token "+$.cookie("token") },
-            success:function(data){
-                var usePublic=data.data.usePublic;
-                var quotaPublic=data.data.quotaPublic;
-                var uq_public=quotaPublic-usePublic;
-
-                if(uq_public>0)
-                {
-                    $("#addRep .submit input").attr("repevent", "add");
-                    $("#addRep .head .title").text("新增Repository");
-                    $("#addRep .repname .value input").removeAttr("disabled");
-                    $("#addRep .repname .value input").val("");
-                    $("#addRep .repcomment .value textarea").val("");
-                    $("#addRep .repname .key .promt").show();
-                    $('#addRep').modal('toggle');
-                    $("#addRep .property .value p").text("开放");
-                    $("#judgment").css("display","none");
-                    $("#ListManagement").css("display","none");
-                }else {
-                    $("#judgment_number").css("display","block");
-                    $("#judgment").css("display","none");
-                 /*   $(document).bind("click",function(e){
-                        var target= e.target;
-                        if((target.className.indexOf("#judgment_number")<0))
-                        {
-                            $("#judgment_number").css("display","none");
-                        }
-                    });*/
+            success:function(json){
+                if(json.code == 0){
+                    addrepohtml(json.data,thisrepoame);
                 }
+            },
+            error:function(json){
+                errorDialog($.parseJSON(json.responseText).code);
+                $('#errorDM').modal('show');
             }
-
         });
+    }
+    ////////////////////////////////分页
+    $(".repopages").pagination(allrepnums, {
+        maxentries: allrepnums,
+        items_per_page: 6,
+        num_display_entries: 1,
+        num_edge_entries: 5,
+        prev_text: "上一页",
+        next_text: "下一页",
+        ellipse_text: "...",
+        link_to: "javascript:void(0)",
+        callback: gonextpage,
+        load_first_page: false
     });
-    //新增私有repo
-    $("#privateRepo").click(function(){
-        //判断是否有配额数
-        $.ajax({
-            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
-            type:"get",
-            cache:false,
-            async:false,
-            dataType:'json',
-            headers:{ Authorization:"Token "+$.cookie("token") },
-            success:function(data){
+    function gonextpage(new_page_index){
+        getreps(new_page_index+1);
+    }
 
-                var usePrivate=data.data.usePrivate;
-                var quotaPrivate=data.data.quotaPrivate;
-                var uq_private=quotaPrivate-usePrivate;
-                if(uq_private>0)
-                {
-                    $("#addRep .submit input").attr("repevent", "add");
-                    $("#addRep .head .title").text("新增Repository");
-                    $("#addRep .repname .value input").removeAttr("disabled");
-                    $("#addRep .repname .value input").val("");
-                    $("#addRep .repcomment .value textarea").val("");
-                    $("#addRep .repname .key .promt").show();
-                    $('#addRep').modal('toggle');
-                    $("#addRep .property .value p").text("私有");
-                    $("#judgment").css("display","none");
-                    $("#ListManagement").css("display","none");
-                }else {
-                    $("#judgment_number").css("display","block").slideDown(2000);
-                    $("#judgment").css("display","none");
-                }
+
+    /////////////////添加repo列表
+    function addrepohtml(repocon,iscooperatestate){
+        ////////点赞；
+        var starnum = '';
+        getAjax( ngUrl+"/star_stat/"+iscooperatestate.repname,function(msg){
+            starnum = msg.data.numstars;
+        })
+        ////////订购量；
+        var subsnum = '';
+        getAjax( ngUrl+"/subscription_stat/"+iscooperatestate.repname,function(msg){
+            subsnum = msg.data.numsubs;
+        })
+        ////////下载量
+        var pullnum = '';
+        getAjax( ngUrl+"/transaction_stat/"+iscooperatestate.repname,function(msg){
+            pullnum = msg.data.numpulls;
+        })
+        ////////////是否协作
+        var thisiscooperatestat = ''
+        if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null){
+            thisiscooperatestat = '';
+        }else{
+            thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>'
+        }
+        ////////是否开放;
+        var ispublic = '';
+        var baimingdan = '';
+        if(repocon.repaccesstype == 'public'){
+            ispublic = '开放';
+        }else{
+            var permissioncon = getpermission(iscooperatestate.repname,1,0);
+            // console.log(permissioncon)
+            if(permissioncon == 'null' || permissioncon == '' || permissioncon == 'undefined'){
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（0）</p>';
+            }else{
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（'+permissioncon.total+'）</p>';
             }
+            ispublic = '私有';
 
-        });
-/*        $(document).bind("click",function(e){
-            var target= e.target;
-            if((target.className.indexOf("#judgment_number")<0)&&(target.className.indexOf("#privateRepo")<0))
+        }
+        var dataitemsalllist = '';
+        if(repocon.dataitems){
+            dataitemsalllist = 'itemdata="'+repocon.dataitems+'"';
+        }else{
+            dataitemsalllist = 'itemdata=""';
+        }
+        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+        var cooperator = getcooperator(iscooperatestate.repname);
+        if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined'){
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+        }else{
+
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（'+cooperator.total+'）</p>';
+        }
+        var repotiems = getTimes(repocon.optime)
+        var repostr = '<div class="repo" >'+
+            '<div class="describe" '+dataitemsalllist+'>'+
+            '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'+
+            '<div class="left">'+
+            '<div class="subtitle"><span class="curreoName">'+iscooperatestate.repname+'</span>'+thisiscooperatestat+'</div>'+
+            '<div class="description"><p>'+repocon.comment+'</p></div>'+
+            '<div class="subline">'+
+            '<div class="icon">'+
+            '<img data-original-title="更新时间" class="iconiamg1 iconiamg2" src="images/newpic004.png" data-toggle="tooltip" datapalecement="top">'+
+            '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
+            '<img data-original-title="titem量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
+            '<span>'+repocon.items+'</span>'+
+            '<img  class="iconiamg1" src="images/sx.png">'+
+            '<span>'+ispublic+'</span>'+
+                //'<img data-original-title="tag量" class="iconiamg1" src="images/tg.png" data-toggle="tooltip" datapalecement="top"/>'+
+                //'<span>4</span>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '<div class="repcenter">'+
+            '<div class="iconGroup">'+
+            '<div class="like">'+
+            '<img data-original-title="点赞量" style="" src="images/newpic001.png" data-toggle="tooltip" datapalecement="top" >'+
+            '<span>'+starnum+'</span>'+
+            '</div>'+
+            '<div class="cart">'+
+            '<img data-original-title="订购量" style="" src="images/newpic002.png" data-toggle="tooltip" datapalecement="top" >'+
+            '<span>'+subsnum+'</span>'+
+            '</div>'+
+            '<div class="download">'+
+            '<img data-original-title="下载量" style="" src="images/newpic003.png" data-toggle="tooltip" 	datapalecement="top">'+
+            '<span>'+pullnum+'</span>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '<div class="repright">'+
+            baimingdan+xizuozhe+
+            '<p class="xiugairep" datareponame="'+iscooperatestate.repname+'">Repository修改</p>'+
+            '</div>'+
+            '</div>'+
+            '</div>';
+        $('.repList').append(repostr)
+    }
+    //////////////查看repo下的item
+    $(document).on('click','.describe',function (e) {
+        if ((e.target.className.indexOf("checkrepo")<0 && e.target.className.indexOf("baimingdan")<0 && e.target.className.indexOf("xiezuozhe")<0 && e.target.className.indexOf("xiugairep")<0)) {
+            if ($(this).siblings('.tablelist').length <= 0) {
+                var thisitems = $(this).attr('itemdata');
+                var itemstr = ' <div class="tablelist">' +
+                    ' <div class="dtable">' +
+                    ' <div class="dhead">' +
+                    ' <span class="col1"><b>DateItem name</b></span>' +
+                    ' <span class="col2"><b>更新时间</b></span>' +
+                    ' <span class="col3"><b>属性</b></span>' +
+                    ' <span class="col4"><b>Tag数量</b></span>' +
+                    ' </div>' +
+                    ' <div class="dbody">';
+                //////////////////添加item列表;
+                if(thisitems){
+                    var itemsarr = thisitems.split(",");
+                    var thisrepName = $(this).find('.curreoName').html();
+                    for (var i = 0; i < itemsarr.length; i++) {
+                        $.ajax({
+                            url: ngUrl + "/repositories/" + thisrepName + "/" + itemsarr[i],
+                            type: "get",
+                            cache: false,
+                            async: false,
+                            headers: {Authorization: "Token " + $.cookie("token")},
+                            success: function (json) {
+                                if (json.code == 0) {
+                                    var itemtimes = getTimes(json.data.optime);
+                                    var ispublic = '';
+                                    if (json.data.itemaccesstype == 'public') {
+                                        ispublic = '开放';
+                                    } else {
+                                        ispublic = '私有';
+                                    }
+                                    var thisiscooperatestat = ''
+                                    if (json.data.cooperatestate == 'null' || json.data.cooperatestate == null || json.data.cooperatestate == '') {
+                                        thisiscooperatestat = '';
+                                    } else {
+                                        thisiscooperatestat = '<strong class="xzbox">' + json.data.cooperatestate + '</strong>'
+                                    }
+                                    var thisispricestate = ''
+                                    if (json.data.pricestate == 'null' || json.data.pricestate == null || json.data.pricestate == '') {
+                                        thisispricestate = '';
+                                    } else {
+                                        thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
+                                    }
+                                    itemstr += ' <div class="row">' +
+                                        ' <span class="col1"><a href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
+                                        ' <span class="col3">' + ispublic + '</span>' +
+                                        ' <span class="col4">' + json.data.tags + '</span>' +
+                                        ' </div>';
+                                }
+                            },
+                            error: function (json) {
+                                errorDialog($.parseJSON(json.responseText).code);
+                                $('#errorDM').modal('show');
+                            }
+                        });
+                    }
+                }
+                itemstr += ' </div>' +
+                    ' <div class="dtail">' +
+                    ' <a class="icon2wrop" href="myItems.html?repname='+ thisrepName +'">查看更多</a>' +
+                    ' </div>' +
+                    ' </div>' +
+                    ' </div>';
+                $(this).after(itemstr).hide().slideDown(600);
+            }else{
+                $(this).siblings('.tablelist').slideToggle(600)
+            }
+        }
+    })
+
+////////////////////////////////全选repo////////////////////////
+    $("#select_all_rep").click(function(){
+        if(this.checked){
+            $(".checkrepo").each(function() {
+                $(this).prop("checked", true);
+            });
+        }else{
+            $(".checkrepo").each(function() {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+
+////////////////////////////////////得到白名单
+    function getpermission(repopermission,pages,isdelhtml){
+        var  permission = '';
+        $.ajax({
+            url: ngUrl + "/permission/"+repopermission+"?page="+pages+"&size=6",
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                total=json.data.total;
+                if (json.code == 0) {
+                    permission = json.data;
+                    addpomitionhtml(permission,isdelhtml);
+                }
+                return permission;
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
             {
-                $("#judgment_number").css("display","none");
+                if(XMLHttpRequest.status == 400){
+                    // $('.baimingdan').html('白名单管理（0）')
+                }
+
             }
-        })*/
+        });
+        return permission;
+
+    }
+    //////////////////////////////////得到协作者名单
+    function getcooperator(repopermission){
+        var  permission = '';
+        $.ajax({
+            url: ngUrl + "/permission/"+repopermission+"?&size=-1&cooperator=1",
+            type: "get",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if (json.code == 0) {
+                    permission = json.data;
+                    addcooperatorhtml(permission);
+                }
+                return permission;
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    // $('.xiezuozhe').html('协作者管理（0）')
+                }
+
+            }
+        });
+        return permission;
+
+    }
+    //////////////////////////////////填充白名单列表
+    function addpomitionhtml(thispermissioncon,isdelhtml){
+
+        $('#modalRep_list').empty();
+        $(".cooperatorpomitionList").empty();
+        var len = thispermissioncon.permissions.length;
+        for (var i = 0; i < len; i++) {
+            var isdelhtml = isdelhtml;
+            var delthispomition;
+            if(isdelhtml == 0){
+                delthispomition = '<div class="delthispomition"><a class="deleteTest" href="javaScript:void(0)"; datareponame="'+ thispermissioncon.permissions[i].username +'">[删除]</a></div>'
+            }else{
+                delthispomition = ''
+            }
+            var thisstr = "<div class='pomosionList' datareponame='"+ thispermissioncon.permissions[i].username +"'>"+
+                "<div class='pomosionListcon'>"+
+                "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + thispermissioncon.permissions[i].username + "</input></div>"+delthispomition+
+                "</div>"
+            $("#modalRep_list").append(thisstr);
+            $(".cooperatorpomitionList").append(thisstr)
+        }
 
 
 
+    }
+    //////////////////////////////////填充协作者列表
+    function addcooperatorhtml(thispermissioncon){
+        $('.cooperator_list').empty();
+        if(thispermissioncon.permissions){
+            var len = thispermissioncon.permissions.length;
+            if(len>0){
+                for (var i = 0; i < len; i++) {
+                    var thisstr = "<div class='pomosionList' datareponame='"+ thispermissioncon.permissions[i].username +"'>"+
+                        "<div class='pomosionListcon'>"+
+                        "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + thispermissioncon.permissions[i].username + "</input></div>"+
+                        '<div class="delthispomition"><a class="delecooperator" href="javaScript:void(0)"; datareponame="'+ thispermissioncon.permissions[i].username +'">[删除]</a></div>'+
+                        "</div>"
+                    $(".cooperator_list").append(thisstr);
+                }
+            }
+        }
+
+    }
+    ///////////////////////////////////////////白名单分页
+    function getpagesF(thisrepoName,pages,isdelhtml){
+        $('#modalRep_list').empty();
+        $('.cooperatorpomitionList').empty();
+        var thispermissioncon = getpermission(thisrepoName,pages,isdelhtml);
+        var total = thispermissioncon.total;
+        $(".pagesPer").pagination(total, {
+            items_per_page: 6,
+            num_display_entries: 3,
+            num_edge_entries: 3,
+            prev_text: "上一页",
+            next_text: "下一页",
+            ellipse_text: "...",
+            link_to: "javascript:void(0)",
+            callback: Fens,
+            load_first_page: false
+        });
+        $(".pagescooperator").pagination(total, {
+            items_per_page: 6,
+            num_display_entries: 1,
+            num_edge_entries: 1,
+            prev_text: "上一页",
+            next_text: "下一页",
+            ellipse_text: "...",
+            link_to: "javascript:void(0)",
+            callback: Fens1,
+            load_first_page: false
+        });
+    }
+    function Fens(new_page_index){
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName') || $('.cooperatorpomitionList').attr('modal-repoName')
+        getpermission(thisrepoName,new_page_index+1,0);
+    }
+    function Fens1(new_page_index){
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName') || $('.cooperatorpomitionList').attr('modal-repoName')
+        getpermission(thisrepoName,new_page_index+1,1);
+    }
+
+////////////////////////////////////////管理白名单
+    $(document).on('click','.baimingdan',function () {
+        $('#modalRep_list').empty();
+        var thisrepoName = $(this).attr('datareponame');
+        $('#myModalTest').attr('modal-repoName',thisrepoName);
+        getpagesF(thisrepoName,1,0);
+        $('#myModalTest').modal('toggle');
+
+    })
+    ////////////////////////////////协作者添加列表
+
+    $(document).on('click','.xiezuozhe',function () {
+        $('.cooperator_list').empty();
+        var dataispublic = $(this).attr('dataispublic');
+        var thisrepoName = $(this).attr('datareponame');
+        var thiscooperatorcon = getcooperator(thisrepoName)
+        $('.cooperator_list').attr('modal-repoName',thisrepoName);
+        addcooperatorhtml(thiscooperatorcon);
+
+        $('.cooperatorpomitionList').empty();
+        var thisrepoName = $(this).attr('datareponame');
+        $('.cooperatorpomitionList').attr('modal-repoName',thisrepoName);
+        getpagesF(thisrepoName,1,1);
+        if(dataispublic == 'public'){
+            $('#pwublicalertbox').modal('toggle');
+            $('#pwublicalertbox').attr('modal-repoName',thisrepoName)
+        }else{
+            $('.cooperator_list').attr('modal-repoName',thisrepoName)
+            $('#privatealertbox').modal('toggle');
+        }
+
+    })
+//////////////////////////////////新增白名单//////////////////////////////////
+    function addpomitionorcoo(username,errorobj,tihsreponame,ispublic){
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var userjson = {};
+        if(username == ''){
+            $(errorobj).html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            return false;
+        }else if(!filter.test(username)){
+            $(errorobj).html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if(checkloginusers(username) == 1){
+            return false;
+        }else if($.cookie("tname") == username){
+            $(errorobj).html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else{
+            if(ispublic == 'public'){
+                userjson = {
+                    "username":username,
+                    "opt_permission":1
+                }
+            }else{
+                if(checkname(tihsreponame,username) == 2){
+                    $(errorobj).html('已添加该用户').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                    return false;
+                }
+                userjson = {
+                    "username":username
+                }
+            }
+            $.ajax({
+                type:"put",
+                url:ngUrl+"/permission/"+tihsreponame,
+                cache:false,
+                dataType:'json',
+                async:false,
+                headers:{ Authorization:"Token "+$.cookie("token") },
+                data:JSON.stringify(userjson),
+                success: function(adduser){
+                    if(ispublic == 'public'){
+                        var thiscooperatorcon = getcooperator(tihsreponame)
+                        addcooperatorhtml(thiscooperatorcon);
+
+                    }else{
+                        $(errorobj).html('成功添加白名单').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+                        getpagesF(tihsreponame,1,0);
+                    }
+                }
+            });
+        }
+    }
+    $('#inList').click(function(event) {
+        /* Act on the event */
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        var username = $.trim($('#emailTest').val());
+        addpomitionorcoo(username,'#mess',thisrepoName,'privet');
     });
 
+///////////////////////////////////////////////////公开repo添加白名单
+    $('#cooperatorinList').click(function(){
+        var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
+        var username = $.trim($('#cooperatoremailTest').val());
+        addpomitionorcoo(username,'#messcooperator',thisrepoName,'public')
+    })
+
+//////////////////搜索白名单//////////////////////////////////////////////////
+    $('#seList').click(function(){
+        var curusername = $.trim($('#emailTest').val());
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        if(curusername == ''){
+            return;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername,
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            '<div class="delthispomition"><a class="deleteTest" href="javaScript:void(0)"; datareponame="'+ datas.data.permissions[0].username +'">[删除]</a></div>'+
+                            "</div>"
+                        $("#modalRep_list").empty().append(thisstr);
+                        $('.gobackbtnwrop').show();
+                        $(".pagesPer").pagination(0, {
+                            items_per_page:6,
+                            num_display_entries: 1,
+                            num_edge_entries: 3 ,
+                            prev_text:"上一页",
+                            next_text:"下一页",
+                            ellipse_text:"...",
+                            link_to:"javascript:void(0)",
+                            callback:Fens,
+                            load_first_page:false
+                        });
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+
+    })
+//////////////////////////
+    $('#searchpomisionemailTest').click(function(){
+        var curusername = $.trim($('#privatepomisionemailTest').val());
+        var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
+        if(curusername == ''){
+            return;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername,
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            "</div>"
+                        $(".cooperatorpomitionList").empty().append(thisstr);
+                        $('.gobackbtnwropcoo').show();
+                        $(".pagescooperator").pagination(0, {
+                            items_per_page:6,
+                            num_display_entries: 1,
+                            num_edge_entries: 3 ,
+                            prev_text:"上一页",
+                            next_text:"下一页",
+                            ellipse_text:"...",
+                            link_to:"javascript:void(0)",
+                            callback:Fens,
+                            load_first_page:false
+                        });
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+
+    })
+//////////////////////////////批量添加协作者/////////////////////////////////////////////////
+    $('#addpricoo').click(function(){
+        var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
+        var thisusername = [];
+        var lilist = $('.cooperatorpomitionList>div');
+        for(var i = 0;i<lilist.length;i++){
+            var namejson = {}
+            if($('.cooperatorpomitionList>div').eq(i).find('.ischeck').is(':checked')==true){
+                var thisval = $(lilist[i]).attr("datareponame");
+                namejson['username'] = thisval;
+                namejson['opt_permission'] = 1;
+                thisusername.push(namejson);
+            }
+
+
+        }
+        if(thisusername.length>0){
+            for(var j = 0; j<thisusername.length;j++){
+                alert(j)
+                $.ajax({
+                    type:"put",
+                    url:ngUrl+"/permission/"+thisrepoName,
+                    cache:false,
+                    dataType:'json',
+                    data:JSON.stringify(thisusername[j]),
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success: function(deluser){
+                        if(deluser.code == 0){
+                            var thiscooperatorcon = getcooperator(thisrepoName);
+                            addcooperatorhtml(thiscooperatorcon);
+                        }
+                    }
+                })
+            };
+        }
+
+    })
+
+////////////////////////////////////////////////////////////////批量删除白名单
+    $('#delCurrent').click(function(){
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        var thisusername = [];
+        var isdele = false;
+        var namejson = {}
+        var lilist = $('#modalRep_list>div');
+        for(var i = 0;i<lilist.length;i++){
+            if($('#modalRep_list>div').eq(i).find('.ischeck').is(':checked')==true){
+                var thisval = $(lilist[i]).attr("datareponame");
+                namejson[$('#modalRep_list>div').eq(i).index()] = thisval;
+                thisusername.push(thisval);
+            }
+        }
+        if(thisusername.length>0){
+            for(var j in namejson){
+                $.ajax({
+                    type:"DELETE",
+                    url:ngUrl+"/permission/"+thisrepoName+"?username="+namejson[j],
+                    cache:false,
+                    dataType:'json',
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success: function(deluser){
+                        if(deluser.code == 0){
+                            $('#modalRep_list').empty();
+                            isdele = true;
+                            $('.gobackbtnwrop').hide();
+                            getpagesF(thisrepoName,1,0);
+                        }
+                    }
+                })
+            };
+            if(isdele = true){
+                $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+            }
+        }
+    })
+/////////////////////////////////////////////////////////////////清空白名单
+    function delallpomitionorcoop(repname,iscoo,boxobj,pagesobj){
+        $.ajax({
+            type:"DELETE",
+            url:ngUrl+"/permission/"+repname+"?delall=1"+iscoo,
+            cache:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function(deluser){
+                if(deluser.code == 0){
+                    if(iscoo == '' || iscoo == 'undefined' || iscoo == 'null'){
+                        $('.pomosionList').empty();
+                        $('.pagesPer').pagination(0, {
+                            items_per_page: 6,
+                            num_display_entries: 1,
+                            num_edge_entries: 5 ,
+                            prev_text:"上一页",
+                            next_text:"下一页",
+                            ellipse_text:"...",
+                            link_to:"javascript:void(0)",
+                            callback:Fens,
+                            load_first_page:false
+                        });
+                    }else{
+                        $('.cooperator_list').empty();
+                    }
+                }
+            }
+        });
+    }
+    $('#delAll').click(function(){
+        var thisrepoame = $('#myModalTest').attr('modal-repoName');
+        delallpomitionorcoop(thisrepoame,' ','.namelist','.pagesPer');
+    })
+    $('#cooperatordelAllpri').click(function(){
+        var thisrepoame = $('.cooperator_list').attr('modal-repoName');
+        delallpomitionorcoop(thisrepoame,'&cooperator=1');
+    })
+////////////////////////////////////////////////////////////////单个删除白名单
+    function delonepomitionorcoo(thisrepoName,thisusername,iscoo){
+        $.ajax({
+            type:"DELETE",
+            url:ngUrl+"/permission/"+thisrepoName+"?username="+thisusername+iscoo,
+            cache:false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function(deluser){
+                if(deluser.code == 0){
+                    if(iscoo == '' || iscoo == 'undefined' || iscoo == 'null'){
+                        $('.gobackbtnwrop').hide();
+                        $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+                        getpagesF(thisrepoName,1,0);
+                    }else{
+                        var thiscooperatorcon = getcooperator(thisrepoName)
+                        addcooperatorhtml(thiscooperatorcon);
+                    }
+                }
+            }
+        });
+    }
+    $(document).on('click','.deleteTest',function(){
+        var thisusername = $(this).attr('datareponame');
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        var _this = $(this);
+        delonepomitionorcoo(thisrepoName,thisusername,'');
+
+    })
+
+    $(document).on('click','.delecooperator',function(){
+        var thisusername = $(this).attr('datareponame');
+        var thisrepoName =  $('.cooperator_list').attr('modal-repoName');
+        var _this = $(this);
+        delonepomitionorcoo(thisrepoName,thisusername,'&cooperator=1');
+        _this.parents('.pomosionList').remove();
+
+    })
+
+//////////////////////////返回按钮
+    $('.gobackbtnwrop').click(function(){
+        $('.namelist').empty();
+        var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        getpagesF(thisrepoName,1,0);
+        $(this).hide();
+    })
+//////////
+    $('.gobackcooperator').click(function(){
+        $('.cooperatorpomitionList').empty();
+        var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
+        getpagesF(thisrepoName,1,0);
+        $(this).hide();
+    })
+
+///////////////////////////////验证是否已经添加该用户/////////////////////////////////
+    function checkname(repname,curusername){
+        var iscurname = 1;
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+repname +'?username='+curusername,
+            cache: false,
+            async:false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0 && datas.data.permissions.length>0){
+                    if(datas.data.permissions[0].username == curusername){
+                        iscurname = 2;
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    iscurname = 1;
+                }
+
+            }
+        });
+        return iscurname;
+    }
+///////////////////////////////验证用户已经注册/////////////////////////////////
+    function checkloginusers(loginusers){
+        var isloginusers = 1;
+        $.ajax({
+            url: ngUrl + "/users/"+loginusers ,
+            type: "get",
+            cache: false,
+            async: false,
+            headers: {Authorization: "Token " + $.cookie("token")},
+            datatype: 'json',
+            success:function(json){
+                if(json.code == 0){
+                    isloginusers = 2;
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+        return isloginusers;
+    }
+////////////////////////修改白名单//////////////////////////////
+
+    $(document).on('click','.xiugairep',function(e) {
+        var thisusername = $(this).attr('datareponame');
+        $("#addRep .submit input").attr("repevent", "edit");
+        $("#addRep .head .title").text("修改Repository");
+        $("#addRep .repname .value input").attr("disabled", "disabled");
+        $("#addRep .repname .key .promt").hide();
+        $("#addRep .repname .value input").val(thisusername);
+        $.ajax({
+            url: ngUrl+"/repositories/"+thisusername,
+            type: "GET",
+            cache:false,
+            data:{},
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
+                if(json.code == 0){
+                    //转换中英私有和开放
+                    if(json.data.repaccesstype=="public")
+                    {
+                        // $("#addRep .property .value p").text("开放");
+                        $("#ispublic").val(1);
+                        // $("#ListManagement").css("display","none");
+                    }
+                    if(json.data.repaccesstype=="private")
+                    {
+                        // $("#addRep .property .value p").text("私有");
+                        $("#ispublic").val(2);
+                        // $("#ListManagement").css("display","block");
+                    }
+                    $("#addRep .repcomment .value textarea").val(json.data.comment);
+                    $("#ListManagement p span:first").empty();
+
+                }
+            }
+        });
+        $('#addRep').modal('toggle');
+        stopEventStrans(e);
+    });
+
+////////////////////////提交修改//////////////////////////////
     $("#addRep .submit input").click(function(){
         var method = "POST";
         var data = {};
         repname = $.trim($("#addRep .repname .value input").val());
         data["comment"] = $.trim($("#addRep .repcomment .value textarea").val());
-        if($("#addRep .property .value p").text()=="开放") {
+        if($("#ispublic").val()==1) {
             data["repaccesstype"] ="public";
         }
         else {
@@ -161,336 +938,182 @@ $(function() {
         });
         $('#addRep').modal('toggle');
     });
-    var allrepnums = 0;
-    $.ajax({
-        url: ngUrl+"/repositories?size=-1",
-        type: "get",
-        cache:false,
-        data:{},
-        async:false,
-        dataType:'json',
-        headers:{ Authorization:"Token "+$.cookie("token") },
-        success:function(json){
-            if(json.code == 0){
-                allrepnums = json.data.length;
-            }
+
+
+/////////////////添加repo按钮///////////////////
+    $(".add-icon").click(function() {
+        var display=$("#judgment").css("display");
+        if(display=="none")
+        {
+            $("#judgment").css("display","block");
         }
+        if(display=="block")
+        {
+            $("#judgment").css("display","none");
+        }
+        $("#judgment_number").css("display","none");
+
     });
 
-    var reps ;
-    //请求所有rep
-    var nextpages = 1;
-    function getreps(nextpages){
-        reps = null;
+//////////////////开放repo//////////////////////
+    $("#openRepo").click(function(){
+        //判断是否有配额数
         $.ajax({
-            url: ngUrl+"/repositories?size=10&page="+nextpages,
-            type: "get",
+            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
+            type:"get",
             cache:false,
-            data:{},
             async:false,
             dataType:'json',
             headers:{ Authorization:"Token "+$.cookie("token") },
-            success:function(json){
-                if(json.code == 0){
-                    reps = json.data;
+            success:function(data){
+                var usePublic=data.data.usePublic;
+                var quotaPublic=data.data.quotaPublic;
+                var uq_public=quotaPublic-usePublic;
+
+                if(uq_public>0)
+                {
+                    $("#addRep .submit input").attr("repevent", "add");
+                    $("#addRep .head .title").text("新增Repository");
+                    $("#addRep .repname .value input").removeAttr("disabled");
+                    $("#addRep .repname .value input").val("");
+                    $("#addRep .repcomment .value textarea").val("");
+                    $("#addRep .repname .key .promt").show();
+                    $('#addRep').modal('toggle');
+                    // $("#addRep .property .value p").text("开放");
+                    $("#ispublic").val(1);
+                    $("#judgment").css("display","none");
+                    // $("#ListManagement").css("display","none");
+                }else {
+                    $("#judgment_number").css("display","block");
+                    $("#judgment").css("display","none");
                 }
             }
+
         });
-    }
-    getreps(1);
-    //////////////////////////////////分页
-    $(".pages").pagination(allrepnums, {
-        maxentries:allrepnums   ,
-        items_per_page: 10,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
-        prev_text:"上一页",
-        next_text:"下一页",
-        ellipse_text:"...",
-        link_to:"javascript:void(0)",
-        callback:gonextpage,
-        load_first_page:false
+    });
+///////////////////////////新增私有repo///////////////////////////
+    $("#privateRepo").click(function(){
+        //判断是否有配额数
+        $.ajax({
+            url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
+            type:"get",
+            cache:false,
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(data){
+                var usePrivate=data.data.usePrivate;
+                var quotaPrivate=data.data.quotaPrivate;
+                var uq_private=quotaPrivate-usePrivate;
+                if(uq_private>0)
+                {
+                    $("#addRep .submit input").attr("repevent", "add");
+                    $("#addRep .head .title").text("新增Repository");
+                    $("#addRep .repname .value input").removeAttr("disabled");
+                    $("#addRep .repname .value input").val("");
+                    $("#addRep .repcomment .value textarea").val("");
+                    $("#addRep .repname .key .promt").show();
+                    $('#addRep').modal('toggle');
+                    // $("#addRep .property .value p").text("私有");
+                    $("#ispublic").val(2)
+                    $("#judgment").css("display","none");
+                    // $("#ListManagement").css("display","none");
+                }else {
+                    $("#judgment_number").css("display","block").slideDown(2000);
+                    $("#judgment").css("display","none");
+                }
+            }
+
+        });
+
     });
 
-    //请求每个rep的详情
-   function getrepcomment(){
-       for(var i in reps) {
-           var rep = reps[i];
-           $.ajax({
-               url: ngUrl+"/repositories/"+rep.repname+"?items=1",
-               type: "get",
-               cache:false,
-               data:{items:1},
-               async:false,
-               dataType:'json',
-               headers:{ Authorization:"Token "+$.cookie("token") },
-               success:function(json){
-                   if(json.code == 0){
-                       for(var j in json.data) {
-                           rep[j] = json.data[j];
-                       }
-                   }
-               }
-           });
-           //获取star量
-           $.ajax({
-               url: ngUrl+"/star_stat/"+rep.repname,
-               type: "get",
-               cache:false,
-               data:{},
-               async:false,
-               dataType:'json',
-               success:function(json){
-                   if(json.code == 0){
-                       rep["numstars"] = json.data.numstars;
-                   }
-               }
-           });
-           //获取订阅量
-           $.ajax({
-               url: ngUrl+"/subscription_stat/"+rep.repname,
-               type: "get",
-               cache:false,
-               data:{},
-               async:false,
-               dataType:'json',
-               success:function(json){
-                   if(json.code == 0){
-                       rep["numsubs"] = json.data.numsubs;
-                   }
-               }
-           });
-           //获取下载量
-           $.ajax({
-               url: ngUrl+"/transaction_stat/"+rep.repname,
-               type: "get",
-               cache:false,
-               data:{},
-               async:false,
-               dataType:'json',
-               success:function(json){
-                   if(json.code == 0){
-                       rep["numpulls"] = json.data.numpulls;
-                   }
-               }
-           });
-       }
-   }
-    getrepcomment();
-    function gonextpage(nextpages){
-        getreps(nextpages+1);
-        getrepcomment();
-        writeDom(nextpages+1);
-    }
-    writeDom("-1");
-    //折叠筐：显示和隐藏每个rep的item列表
-    $(document).on('click','#publish-body .repolist .describe',function () {
-        var thos = $(this);
-        //获取仓库名
-        var repname = $(this).find(".head .head-text").text();
-        //请求item详情
-        var rep = getRep(reps, repname);
-        //没有item就不请求，直接返回，也不折叠items列表
-        if(rep.items == 0 || rep.dataitems == undefined) {
-            rep.dataitems = [];
-        }
-        //如果没有请求过dataitems就请求，已经请求过就跳过
-        if((rep.dataitems.length > 0 && rep.dataitems[0].name == undefined) ||
-            (rep.dataitems.length == 0 && thos.next(".tablelist").length == 0)) {
-            $("#loaddiv").css({
-                top:thos.offset().top+"px",
-                left:thos.offset().left+"px",
-                width:thos.width()+40,
-                height:(thos.height()+43)+"px",
-                lineHeight:(thos.height()+40)+"px",
-            }).slideToggle("fast",function() {
-                for (var j in rep.dataitems) {
-                    var item = rep.dataitems[j];
-                    $.ajax({
-                        url: ngUrl + "/repositories/" + rep.repname + "/" + item,
-                        type: "get",
-                        cache: false,
-                        data: {items: 1},
-                        async: false,
-                        dataType: 'json',
-                        headers: {Authorization: "Token " + $.cookie("token")},
-                        success: function (json) {
-                            if (json.code == 0) {
-                                rep.dataitems[j] = json.data;
-                            }
-                        }
-                    });
-                    rep.dataitems[j]["name"] = item;
+/////////////////////////////////////删除repo/////////////////////////////////////////////
+    $('.del_rep_btn').click(function(){
+        var divlist = $('.repList>div');
+        var reponamearr = [];
+        for(var i = 0;i<divlist.length;i++){
+            if($(divlist).eq(i).find('.checkrepo').is(':checked')==true){
+                var delreponame = $(divlist).eq(i).find('.checkrepo').attr('datareponame');
+                var datarepoisxiezuo  = $(divlist).eq(i).find('.checkrepo').attr('datarepoisxiezuo');
+                if(datarepoisxiezuo > 0){
+                    alert(delreponame+'下有下有您的协助者创建的DataItem，协助者删除DataItem之后，您才可以删除'+delreponame);
+                    return false;
                 }
-                if(thos.next(".tablelist").length == 0) {
-                    //创建tablelist
-                    var tablelist = $("<div></div>").addClass("tablelist").css("display", "none").appendTo(thos.parent());
-                    var dtable = $("<div></div>").addClass("dtable").appendTo(tablelist);
-                    var dhead = $("<div></div>").addClass("dhead").appendTo(dtable);
-                    dhead.append($("<span><b>DateItem name</b></span>").addClass("col1"));
-                    dhead.append($("<span><b>更新时间</b></span>").addClass("col2"));
-                    dhead.append($("<span><b>属性</b></span>").addClass("col3"));
-                    dhead.append($("<span><b>Tag数量</b></span>").addClass("col4"));
-                    var dbody = $("<div></div>").addClass("dbody").appendTo(dtable);
-                    for(var i in rep.dataitems) {
-                        var item = rep.dataitems[i];
-                        var row = $("<div></div>").addClass("row").appendTo(dbody);
-                        row.append($("<span></span>").addClass("col1").append($("<a></a>").text(item.name).attr("href", "myItemDetails.html?repname="+rep.repname+"&itemname="+item.name)));
-                        var showtime = item.optime.substring(item.optime.indexOf("|")+1,item.optime.length);
-                        var titletime = item.optime.substring(0,item.optime.indexOf("."));
-                        row.append($("<span></span>").addClass("col2").text(showtime).attr("title", titletime));
-                        row.append($("<span></span>").addClass("col3").text(item.itemaccesstype == "private" ? "私有":"开放"));
-                        row.append($("<span></span>").addClass("col4").text(item.tags));
-                    }
-                    var dtail = $("<div></div>").addClass("dtail").appendTo(dtable);
-                    var icons = $("<span></span>").appendTo(dtail);
-//							icons.append($("<span></span>").addClass("icon1"));
-                    icons.append($("<span></span>").addClass("icon2").append($("<a href='myItems.html?repname="+rep.repname+"'style='display:block;width:100%;height:100%;'></a>")));
-                    if(rep.dataitems.length == 0) {
-                        tablelist.children().hide();
-                        var noitem = $("<div id='noitem'></div>").css({width:"100%", height:"50px",lineHeight:"50px", textAlign:"center", color:"gray", fontSize:"14px"})
-                            .html('Repository下暂时没有发布DataItem，请下载<a href="clientDownload.html">Client</a>端新增DataItem')
-                            .appendTo(tablelist);
-                    }else {
-                        tablelist.children().show();
-                        if($("noitem").length > 0){
-                            $("noitem").remove();
-                        }
-
-                    }
-                }
-                //动画
-                var o = thos.next();
-                o.toggle("fast");//垂直加水平动画
-                $("#loaddiv").slideToggle("slow");
-            });
-
+                reponamearr.push(delreponame);
+            }
         }
-        //动画
-        thos.next().toggle("fast");//垂直加水平动画
-
-    });
-    //把数据写入页面
-    function writeDom(num) {
-        $('.repolist').empty();
-        //写仓库数量
-        if(reps.length == 0){
-           $('.norepnum').show();
+        var rechekcissubs = chekcissubs(reponamearr);
+        if(rechekcissubs == true){
+            isyesornodel(reponamearr);
+        }else if(rechekcissubs == false){
+            return false;
         }else{
-            $('.norepnum').hide();
-        }
-        if(num==-1){
-           // $("#publish-body .repocount span").text(reps.length);
-        	$("#publish-body .repocount span").text(allrepnums);
-        }
-
-        //写rep列表
-        for(var i in reps) {
-            var rep = reps[i];
-            //创建reporecord
-            var reporecord = $("<div></div>").addClass("reporecord").appendTo($("#publish-body .repolist"));
-            //创建describe，并追加到reporecord
-            var describe = $("<div></div>").addClass("describe").appendTo(reporecord);
-            //创建head并追加到describe
-            var head = $("<div></div>").addClass("head").appendTo(describe);
-            head.append($("<span></span>").addClass("head-text").text(rep.repname));
-//					head.append($("<span></span>").addClass("head-icon1"));
-            head.append($("<span></span>").addClass("head-icon2"));
-            //创建body，并追加到describe
-            var body = $("<div></div>").addClass("body").text(rep.comment).appendTo(describe);
-            //创建tail并追加到describe
-            var tail = $("<div></div>").addClass("tail").appendTo(describe);
-            //创建左侧icon并追加到tail
-            var left = $("<span></span>").addClass("left").appendTo(tail);
-            left.append($("<span></span>").addClass("left1-icon icon").attr("title", "更新时间"));
-            var showtime = rep.optime.substring(rep.optime.indexOf("|")+1,rep.optime.length);
-            var titletime = rep.optime.substring(0,rep.optime.indexOf("|"));
-            left.append($("<span></span>").addClass("left1-value val").text(showtime).attr("title", titletime));
-            left.append($("<span></span>").addClass("left2-icon icon").attr("title", "属性"));
-            left.append($("<span></span>").addClass("left2-value val").text(rep.repaccesstype == "private" ? "私有":"开放"));
-            left.append($("<span></span>").addClass("left3-icon icon").attr("title", "托管状态"));
-            left.append($("<span></span>").addClass("left3-value val").text("非托管"));/*TODO 需要托管状态，暂时没有获取到*/
-            left.append($("<span></span>").addClass("left4-icon icon").attr("title", "DataItem"));
-            left.append($("<span></span>").addClass("left4-value val").text(rep.items));
-            //创建右侧icon并追加到tail
-            var right = $("<span></span>").addClass("right").appendTo(tail);
-            right.append($("<span></span>").addClass("right1-icon icon").attr("title", "star量"));
-            right.append($("<span></span>").addClass("right1-value val").text(rep.numstars));
-            right.append($("<span></span>").addClass("right2-icon icon").attr("title", "订阅量"));
-            right.append($("<span></span>").addClass("right2-value val").text(rep.numsubs));
-            right.append($("<span></span>").addClass("right3-icon icon").attr("title", "pull量"));
-            right.append($("<span></span>").addClass("right2-value val").text(rep.numpulls));
-        }
-        $("<div id='loaddiv'></div>").css({
-            display:"none",
-            position:"absolute",
-            backgroundColor:"#fff",
-            textAlign:"center",
-            backgroundImage:"url('../images/loadingMd.gif')",
-            backgroundPosition:"50% 50%",
-            backgroundRepeat:"no-repeat",
-            opacity:"0.7"
-        }).appendTo($("#publish-body .repolist"));
-    }
-    //修改rep
-
-    $(document).on('click','.reporecord .head .head-icon2',function(e) {
-        $("#addRep .submit input").attr("repevent", "edit");
-        $("#addRep .head .title").text("修改Repository");
-        $("#addRep .repname .value input").attr("disabled", "disabled");
-        $("#addRep .repname .key .promt").hide();
-        var repname = $(this).parent().find(".head-text:first").text();
-        $("#addRep .repname .value input").val(repname);
-        $.ajax({
-            url: ngUrl+"/repositories/"+repname,
-            type: "GET",
-            cache:false,
-            data:{},
-            async:false,
-            dataType:'json',
-            headers:{ Authorization:"Token "+$.cookie("token") },
-            success:function(json){
-                if(json.code == 0){
-                    //转换中英私有和开放
-                    if(json.data.repaccesstype=="public")
-                    {
-                        $("#addRep .property .value p").text("开放");
-                        $("#ListManagement").css("display","none");
-                    }
-                    if(json.data.repaccesstype=="private")
-                    {
-                        $("#addRep .property .value p").text("私有");
-                        $("#ListManagement").css("display","block");
-                    }
-                    $("#addRep .repcomment .value textarea").val(json.data.comment);
-                    $("#ListManagement p span:first").empty();
-
-                }
-                $.ajax({
-                    url: ngUrl + "/permission/" + repname,
-                    type: "GET",
-                    cache: false,
-                    async: false,
-                    dataType: 'json',
-                    headers: {Authorization: "Token " + $.cookie("token")},
-                    success:function(json){
-                       var totalNumber=json.data.total;
-                        $("#ListManagement p span:first").text(totalNumber);
-                    },
-                    error:function(json) {
-                        if ($.parseJSON(json.responseText).code == 1009) {
-                            $("#ListManagement p span:first").text("0");
-                        }
-                    }
-
-                });
-
+            var tu = confirm("您确认删除已选Repository吗？");
+            if(tu == true){
+                isyesornodel(reponamearr);
+            }else{
+                return false;
             }
-        });
-        $('#addRep').modal('toggle');
-        stopEventStrans(e);
-    });
-});
+        }
+
+
+    })
+    function chekcissubs(reponamearr){
+        if(reponamearr.length>0){
+            var isdelropmsg = 'trueorfalse';
+            for(var j = 0; j < reponamearr.length; j++){
+                $.ajax({
+                    url: ngUrl+"/subscription_stat/"+reponamearr[j]+"?phase=1",
+                    type:"get",
+                    cache:false,
+                    data:{},
+                    async:false,
+                    dataType:'json',
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success:function(json){
+                        if(json.data.numsubs>0){
+                            isdelropmsg = confirm(reponamearr[j]+"下有未完成的订单，如果删除，未完成订单将全额退回给数据订购方。");
+                            return isdelropmsg;
+                        }
+
+                    }
+                });
+                return isdelropmsg;
+            }
+        }
+    }
+    function isyesornodel(reponamearr){
+        if(reponamearr.length>0){
+            for(var k = 0; k<reponamearr.length;k++){
+                $.ajax({
+                    url: ngUrl+"/repositories/"+reponamearr[k],
+                    type:"DELETE",
+                    cache:false,
+                    data:{},
+                    async:false,
+                    dataType:'json',
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success:function(json){
+
+                    }
+                });
+            }
+        }
+    }
+
+
+})
+
+//请求每个rep的详情
+
+
+
+//把数据写入页面
+
+//修改rep
+
+
 function stopEventStrans(e) {
     e = e || window.event;
     if (e.stopPropagation) {
@@ -508,392 +1131,6 @@ function getRep(reps,repname) {
 }
 
 
-$(document).ready(function() {
-    //白名单初始化函数
-function uuuuuuu(){
-    var repname=$("#repnameInput").val();
-    var total = "";
-    $("#emailTest").val("");
-    $("#modalRep_list").empty();
-    //定义数组存储所有的白名单记录
-/*    var i = 10;
-    timer = setInterval(function() {
-        i--;
-        if(i == 0){
-            clearInterval(timer);
-        }
-    },1000);*/
-    setTimeout(function (){
-        //something you want delayed
-        $.ajax({
-            url: ngUrl + "/permission/"+repname,
-            type: "get",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (json) {
-                total=json.data.total;
-                if (json.code == 0) {
-                    var len = json.data.permissions.length;
-                    for (var i = 0; i < len; i++) {
-                        $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                    }
-                }
-            },
-            error:function(json) {
-                if ($.parseJSON(json.responseText).code == 1009) {
 
-                }
-            }
-        });
-        //分页
-        $(".pagesPer").pagination(total, {
-            items_per_page: 6,
-            num_display_entries: 3,
-            num_edge_entries: 5,
-            prev_text: "上一页",
-            next_text: "下一页",
-            ellipse_text: "...",
-            link_to: "javascript:void(0)",
-            callback: nextpageadd,
-            load_first_page: false
-        });
-    }, 200);
-
-}
-    var totalPer = [];
-
-    //新增白名单按钮
-    $("#insert").click(function () {
-        uuuuuuu();
-        $('#myModalTest').on('hidden.bs.modal', function (e) {
-        	$("body").addClass("modal-open");
-        });
-        
-        $('#myModalTest').modal('toggle');
-        window.repoName=$("#repnameInput").val();
-    });
-    function nextpageadd(nextpages) {
-        var repname=$("#repnameInput").val();
-        var nextpages = nextpages + 1;
-        $("#modalRep_list").empty();
-        $.ajax({
-            url: ngUrl + "/permission/"+repname+"?page="+nextpages,
-            type: "get",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (json) {
-                if (json.code == 0) {
-                    var len = json.data.permissions.length;
-                    for (var i = 0; i < len; i++) {
-                        $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + json.data.permissions[i].username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                    }}
-            },
-            error:function(json) {
-                if ($.parseJSON(json.responseText).code == 1009) {
-
-                }
-            }
-        });
-
-    }
-    //新增白名单
-    $("#inList").click(function () {
-        var username = $("#emailTest").val();
-        var repname=$("#repnameInput").val();
-        //判断用户名是否为空
-            if (username != "") {
-                var username = $("#emailTest").val();
-                var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                if (!reg.test(username) ){
-                    $("#mess").removeClass("successMess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("邮箱格式不正确").fadeIn();
-                    $(".errorMess").fadeOut(3000);
-                }
-                else {
-                    var b=false;
-                    //判断名称是否注册
-                    $.ajax({
-                        url: ngUrl + "/users/" + username,
-                        type: "get",
-                        cache: false,
-                        async: false,
-                        headers: {Authorization: "Token " + $.cookie("token")},
-                        datatype: 'json',
-                        success: function (json) {
-                            if (json.code== 0) {
-                                b = true;
-                            }
-                        }
-                    });
-                    if (b){
-                        //说明已经注册了，判断是否重复
-                        //var username=$("#emailTest").val();
-                        //var indexof=totalPer.indexOf(username);
-                        //alert(indexof);
-                        //if(indexof<0){
-                        //$(".modal-body").empty();
-                        //$(".modal-body").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>"+username+"</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                        var username = $("#emailTest").val();
-                        var repname = $("#repnameInput").val();
-                        $.ajax({
-                            url: ngUrl + "/permission/" + repname + "?username=" + username,
-                            type: "GET",
-                            cache: false,
-                            async: false,
-                            dataType: 'json',
-                            headers: {Authorization: "Token " + $.cookie("token")},
-                            success: function (json) {
-                                //判断加的是不是自己
-                                console.log("success"+json.code);
-                                    $("#mess").addClass("errorMess").css({
-                                        "visibility": "visible",
-                                        "background-color": "#ffd1d1",
-                                        "color": "#ff0000"
-                                    }).text("白名单已有此用户").fadeIn();
-                                    $(".errorMess").fadeOut(3000);
-
-                              /*
-                                    }*/
-                            },
-                            error:function(json){
-                                if($.parseJSON(json.responseText).code==1009){
-                                    if ($.cookie("tname") != username) {
-                                        $.ajax({
-                                            url: ngUrl + "/permission/" + repname,//加入白名单
-                                            type: "PUT",
-                                            cache: false,
-                                            //  data:{username:emailTest},
-                                            data: JSON.stringify({"username": username}),
-                                            async: false,
-                                            dataType: 'json',
-                                            headers: {Authorization: "Token " + $.cookie("token")},
-                                            success: function (json) {
-                                                if (json.code == 0) {
-                                                    $("#modalRep_list").prepend("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                                                    $("#emailTest").val("");
-                                                    $("#mess").addClass("successMess").css({
-                                                        "visibility": "visible",
-                                                        "background-color": "#e8f7e6",
-                                                        "color": "#1bd506"
-                                                    }).text("添加白名单成功").fadeIn();
-                                                    uuuuuuu();
-                                                    $(".successMess").fadeOut(3000);
-                                                    var total=$("#icon_list").text();
-                                                    total++;
-                                                    $("#icon_list").text(total);
-                                                }
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        $("#mess").addClass("errorMess").css({
-                                            "visibility": "visible",
-                                            "background-color": "#ffd1d1",
-                                            "color": "#ff0000"
-                                        }).text("不能添加您自己").fadeIn();
-                                        $(".errorMess").fadeOut(3000);
-                                }
-                            }
-                            }
-                        });
-                    }
-                    else {
-
-                        $("#mess").addClass("errorMess").css({
-                            "visibility": "visible",
-                            "background-color": "#ffd1d1",
-                            "color": "#ff0000"
-                        }).text("名称未注册").fadeIn();
-                        $(".errorMess").fadeOut(3000);
-                    }
-                }
-            }
-            else{
-                $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("名称不能为空").fadeIn();
-                $(".errorMess").fadeOut(3000);
-        }
-        });
-    //返回键
-    $(document).on('click', '#back_icon', function () {
-        uuuuuuu();
-        var repoName=$("#repnameInput").val();
-        getAjax(ngUrl + "/permission/" + repoName,function(){
-            $("#ListManagement p span:first").text(json.data.total);
-        });
-    });
-
-//删除单个记录
-    $(document).on('click', '.deleteTest', function () {
-        var username = $(this).parent().siblings().text();
-        var repname=$("#repnameInput").val();
-        $(this).parent().parent().remove();
-        $.ajax({
-            url: ngUrl + "/permission/"+repname+"?username=" + username,
-            type: "DELETE",
-            cache: false,
-            //data:JSON.stringify({"username":username}),
-            async: false,
-            dataType: 'json',
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (json) {
-                if (json.code == 0) {
-                    $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("删除成功").fadeIn();
-                    $(".successMess").fadeOut(3000);
-                    //uuuuuuu();
-                    var total=$("#icon_list").text();
-                    total--;
-                    $("#icon_list").text(total);
-
-                    //$("#modalRep_list").opener.location.reload();
-                    //$("#modalRep_list").reset();
-                }
-                else
-                {
-                    $("#mess").addClass("errorMess").css({"visibility": "visible","background-color":"#ffd1d1","color":"#ff0000"}).text("删除失败").fadeIn();
-                    $(".errorMess").fadeOut(3000);
-
-                }
-            }
-        });
-    });
-$(document).ready(function(){
-    //清空全部
-    $("#delAll").click(function () {
-        var repname=$("#repnameInput").val();
-        $.ajax({
-         url: ngUrl + "/permission/"+repname+"?delall=1",
-         type: "DELETE",
-         cache: false,
-         async: false,
-         dataType: 'json',
-         headers: {Authorization: "Token " + $.cookie("token")},
-         success: function (json) {
-             if (json.code == 0) {
-                 $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("清空成功").fadeIn();
-                 $(".successMess").fadeOut(3000);
-                 $("#modalRep_list div").remove();
-                 $("#modalRep_list").empty();
-                 $("#icon_list").text(0);
-                 uuuuuuu();
-            /*     $.ajax({
-                     url:ngUrl + "/permission/" + repoName,
-                     type: "GET",
-                     cache: false,
-                     async: false,
-                     dataType: 'json',
-                     headers: {Authorization: "Token " + $.cookie("token")},
-                     success:function(msg){
-                         $("#icon_list").text(msg.data.total);
-                     }
-                 });*/
-             }
-
-         }
-         });
-    });
-    //删除部分
-    $(document).on('click', '#delCurrent', function() {
-            var surl="";
-            var x;
-            //var user_zu=[];
-            var repname=$("#repnameInput").val();
-
-            $('input:checkbox[name=users]:checked').each(function (i) {
-                var users = $(this).parent().text();
-
-                if(i==0){
-                    surl="?username="+users;
-                    x=0
-                }else{
-                    surl+="&username="+users;
-                    x++;
-                }
-                //if($('#modalRep_list div').eq(i).children('.users').is(':checked')==true){
-                //    user_zu[i] = $('#modalRep_list div').eq(i).index();
-                //}
-            });
-        var checkbox_length=$("input:checkbox[name=users]:checked").length;
-        if(checkbox_length!=0){
-            $.ajax({
-                url: ngUrl + "/permission/"+repname+surl,
-                type: "DELETE",
-                cache: false,
-                async: false,
-                dataType: 'json',
-                headers: {Authorization: "Token " + $.cookie("token")},
-                success: function (json) {
-                    $("#mess").addClass("successMess").css({"visibility":"visible","background-color":"#e8f7e6","color":"#1bd506"}).text("删除成功").fadeIn();
-                    $(".successMess").fadeOut(3000);
-                    var total=$("#icon_list").text();
-                    total=total-x-1;
-                    $("#icon_list").text(total);
-                    if(json.code==0){
-                        uuuuuuu();
-                    }
-                }
-            });
-        }else{
-            //alert("请选择要删除的用户");
-            $("#mess").addClass("errorMess").css({
-                "visibility": "visible",
-                "background-color": "#ffd1d1",
-                "color": "#ff0000"
-            }).text("请选择要删除的用户").fadeIn();
-            $(".errorMess").fadeOut(3000);
-        }
-    });
-    //查询
-    $("#seList").click(function () {
-       // var username = $(this).parent().siblings().text();
-        var username=$("#emailTest").val();
-        var repname=$("#repnameInput").val();
-        if(username.length>0){
-        $.ajax({
-            url: ngUrl + "/permission/" + repname+"?username="+username,
-            type: "GET",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: {Authorization: "Token " + $.cookie("token")},
-            success: function (json) {
-                var total = json.data.total;
-                    if (total != 0) {
-                        $("#modalRep_list").empty();
-                        $("#modalRep_list").append("<div style='float:left;height:30px;background:#e5e5e5;margin-bottom:10px;width:100%;'><div style='float:left;height:30px;line-height:30px;'><input style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + username + "</input></div><div style='float:right;height:30px;line-height:30px;'><a class='deleteTest' href='javaScript:void(0);'>[删除]</a></div></div>");
-                        $("#modalRep_list").append("<div id='back_icon'><p ><a href='javascript:void(0);' class='back_icon_a' style='color:#0077aa;'>[返回]</a></p></div>");
-                        $(".pagesPer").empty();
-                    }
-            },
-            error:function(json) {
-                if ($.parseJSON(json.responseText).code == 1009) {
-                    //alert("查不到此用户！");
-                    $("#mess").addClass("errorMess").css({
-                        "visibility": "visible",
-                        "background-color": "#ffd1d1",
-                        "color": "#ff0000"
-                    }).text("查不到此用户").fadeIn();
-                    $(".errorMess").fadeOut(3000);
-
-                }
-            }
-        });
-        }
-        else{
-            //alert("您的输入为空！");
-            $("#mess").addClass("errorMess").css({
-                "visibility": "visible",
-                "background-color": "#ffd1d1",
-                "color": "#ff0000"
-            }).text("您的输入为空").fadeIn();
-            $(".errorMess").fadeOut(3000);
-        }
-    });
-
-
-});
-});
 
 

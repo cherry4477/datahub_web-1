@@ -699,7 +699,7 @@ function hurry_buy(){
                 }
             });
             //获取subscriptionid+time
-
+            var myself=true;
             $.ajax({
                 url: ngUrl+"/subscription/"+repoName+"/"+itemName,
                 type: "post",
@@ -714,18 +714,15 @@ function hurry_buy(){
                         subcreateTimes=json.data.signtime.substring(0,10);
                         $(".dvalue").text(subcreateTimes);
                     }
+                },
+                error:function(json){
+                    if ($.parseJSON(json.responseText).code == 5008) {
+                        $("#myself_alert").show().fadeOut(3000);
+                        myself=false;
+                    }
                 }
             });
-            //if(prices == undefined || prices == 0||subType==false)
-            //{
-            //    //$("#authority-dialog .down .email").text("datahub@asiainfo.com");
-            //    //var off = $(this).closest("#dataitem-head-right").offset();
-            //    //$("#authority-dialog")
-            //    //    .css({'top':off.top+30,'left':off.left-100})
-            //    //    .show();
-            //    //return;
-            //    alert("权限不够");
-            //}
+
             //------------------------订购合同------------------------
             //设置甲方乙方
             var usera = $.cookie("tname");//获取当前用户，甲方
@@ -822,8 +819,9 @@ function hurry_buy(){
                 $("#subscriptDialog .subafterprocess .successed").hide();
                 $("#subscriptDialog .subafterprocess .failed").hide();
             });
+        if(myself==true){
             $("#subscriptDialog").modal('toggle');
-
+        }
     });
 
 
@@ -1008,9 +1006,16 @@ function apply_buy(){
                         prices = json.data.price;
                         supplyStyle = json.data.label.supply_style;
                     }
+                },
+                error:function(){
+                    if ($.parseJSON(json.responseText).code == 5008) {
+                        $("#myself_alert").show().fadeOut(3000);
+
+                    }
                 }
             });
             //获取subscriptionid+time
+        var myself=true;
             $.ajax({
                 url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
                 type: "post",
@@ -1026,6 +1031,12 @@ function apply_buy(){
                         subcreateTimes=json.data.applytime.substring(0,10);
                         $(".dvalue").text(subcreateTimes);
 
+                    }
+                },
+                error:function(json){
+                    if ($.parseJSON(json.responseText).code == 5008) {
+                        $("#myself_alert").show().fadeOut(3000);
+                        myself=false;
                     }
                 }
             });
@@ -1102,13 +1113,7 @@ function apply_buy(){
                             append($("<span class='moneyu2'></span>").text(units+"次")).
                             append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
                             append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
-
                     }
-
-                        //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
-                        //charegeitem.append($("<span class='cdvalue'></span>").
-                        //append($("<span class='vexpire'></span>").text(1)).
-                        //append($("<span class='uexpire'></span>").text(" 天")));
                     }
                 }
             });
@@ -1128,7 +1133,10 @@ function apply_buy(){
                 $("#subscriptDialog .subafterprocess .successed").hide();
                 $("#subscriptDialog .subafterprocess .failed").hide();
             });
+        if(myself==true){
             $("#subscriptDialog").modal('toggle');
+        }
+
     });
 
 
@@ -1165,6 +1173,7 @@ function apply_buy(){
         //申请订购
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
         var price_array;
+
 //        Array.prototype.max = function(){   //最大值
 //            return Math.max.apply({},this)
 //        };
@@ -1273,10 +1282,17 @@ function cancel_buy(){
                     headers: header,
                     success: function (json) {
                         if (json.code == 0) {
+                            $("#cance_alert").text("您已取消成功!");
                             $("#apply_buy").show();
                             $("#hurry_buy").hide();
                             $("#cancel_buy").hide();
                             $("#cance_alert").show();
+                            location.reload();
+                        }
+                    },
+                    error:function(){
+                        if ($.parseJSON(json.responseText).code == 5008) {
+                            $("#myself_alert").show().fadeOut(3000);
                             location.reload();
                         }
                     }

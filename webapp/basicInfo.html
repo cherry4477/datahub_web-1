@@ -360,11 +360,11 @@ $(document).ready(function(){
 
 				headers:{Authorization:"Token "+$.cookie("token")},
 				datatype:'json',
+				contentType:"application/json",
 				data: JSON.stringify(mydata),
 
 				success:function(data){
 					if(data.code==0){
-
 							$("#exampleInputName").attr("disabled","disabled");
 							$("#exampleInputName2").attr("disabled","disabled");
 							$("#textComment").attr("disabled","disabled");
