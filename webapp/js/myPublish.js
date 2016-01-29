@@ -260,7 +260,7 @@ $(function() {
                                         thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
                                     }
                                     itemstr += ' <div class="row">' +
-                                        ' <span class="col1"><a href="#">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col1"><a href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
                                         ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
                                         ' <span class="col3">' + ispublic + '</span>' +
                                         ' <span class="col4">' + json.data.tags + '</span>' +
