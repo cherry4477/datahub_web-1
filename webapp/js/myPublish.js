@@ -519,6 +519,7 @@ $(function() {
                     }else{
                         $(errorobj).html('成功添加白名单').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(tihsreponame,1,0);
+
                     }
                 }
             });
@@ -685,7 +686,7 @@ $(function() {
             for(var j in namejson){
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/repository/"+thisrepoName+"/whitelist?username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/whitelist/username="+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -704,8 +705,8 @@ $(function() {
             }
         }
     })
-////////////////////////////////////////////////////////////////批量删除协作者
-    $('#delCurrent').click(function(){
+////////////////////////////////////////////////////////////////批量删私有除协作者
+    $('#cooperatordelCurrent').click(function(){
         var thisrepoName =  $('.cooperator_list').attr('modal-repoName');
         var thisusername = [];
         var isdele = false;
@@ -722,16 +723,51 @@ $(function() {
             for(var j in namejson){
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/repository/"+thisrepoName+"/cooperator?username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
                     success: function(deluser){
                         if(deluser.code == 0){
-                            $('#modalRep_list').empty();
-                            isdele = true;
-                            $('.gobackbtnwrop').hide();
-                            getpagesF(thisrepoName,1,0);
+                            $('.privatecooperList').empty();
+                            var thiscooperatorcon = getcooperator(thisrepoName);
+                             addcooperatorhtml(thiscooperatorcon);
+                        }
+                    }
+                })
+            };
+            if(isdele = true){
+                //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+            }
+        }
+    })
+    ////////////////////////////////////////////////////////////////批量删开放除协作者
+    $('#cooperatordelCurrentpublic').click(function(){
+        var thisrepoName =  $('.cooperator_list').attr('modal-repoName');
+        var thisusername = [];
+        var isdele = false;
+        var namejson = {}
+        var lilist = $('.cooperator_listpublic>div');
+        for(var i = 0;i<lilist.length;i++){
+            if($('.cooperator_listpublic>div').eq(i).find('.ischeck').is(':checked')==true){
+                var thisval = $(lilist[i]).attr("datareponame");
+                namejson[$('.cooperator_listpublic>div').eq(i).index()] = thisval;
+                thisusername.push(thisval);
+            }
+        }
+        if(thisusername.length>0){
+            for(var j in namejson){
+                $.ajax({
+                    type:"DELETE",
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
+                    cache:false,
+                    dataType:'json',
+                    headers:{ Authorization:"Token "+$.cookie("token") },
+                    success: function(deluser){
+                        if(deluser.code == 0){
+                            $('.cooperator_listpublic').empty();
+                            var thiscooperatorcon = getcooperator(thisrepoName);
+                            addcooperatorhtml(thiscooperatorcon);
                         }
                     }
                 })
@@ -745,7 +781,7 @@ $(function() {
     function delallpomitionorcoop(repname,iscoo,boxobj,pagesobj){
         $.ajax({
             type:"DELETE",
-            url:ngUrl+"/permission/repository/"+iscoo+'/'+repname+"/username?delall=1",
+            url:ngUrl+"/permission/"+repname+'/'+iscoo+"/username?delall=1",
             cache:false,
             dataType:'json',
             headers:{ Authorization:"Token "+$.cookie("token") },
@@ -781,11 +817,16 @@ $(function() {
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
     })
+    //////////////////////////////////////////清空公开协作者
+    $('#cooperatordelAll').click(function(){
+        var thisrepoame = $('.cooperator_list').attr('modal-repoName');
+        delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+    })
 ////////////////////////////////////////////////////////////////单个删除白名单
     function delonepomitionorcoo(thisrepoName,thisusername,iscoo){
         $.ajax({
             type:"DELETE",
-            url:ngUrl+"/permission/repository/"+thisrepoName+"/"+iscoo+"/"+thisusername,
+            url:ngUrl+"/permission/"+thisrepoName+"/"+iscoo+"/"+thisusername,
             cache:false,
             headers:{ Authorization:"Token "+$.cookie("token") },
             success: function(deluser){
