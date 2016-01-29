@@ -34,9 +34,8 @@ $(function(){
 
     closewrap();//关闭弹窗s
 
-
-
-
+    hot();//the hottest items 
+    
 });
 $(document).ready(function(){
     $("#LT_left_icon .alert_login p a").click(function() {
@@ -86,13 +85,12 @@ function request(){
 }
 //请求每一页的数据
 function gonextpage(nextpages){
-        var repoName = getParam("repname");
-        var itemName = getParam("itemname");
-        var nextpages = nextpages + 1;
-       $("#left_content .left_content_con").empty();
-        yes_no_login();
-        var headerToken={};
-
+    var repoName = getParam("repname");
+    var itemName = getParam("itemname");
+    var nextpages = nextpages + 1;
+    $("#left_content .left_content_con").empty();
+    yes_no_login();
+    var headerToken={};
 
         //登陆后
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
@@ -1175,6 +1173,29 @@ function apply_buy(){
         //申请订购
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
         var price_array;
+
+//        Array.prototype.max = function(){   //最大值
+//            return Math.max.apply({},this)
+//        };
+//        $.ajax({
+//            url: ngUrl + "/repositories/" + repoName + "/" + itemName,
+//            type: "GET",
+//            cache: false,
+//            async: false,
+//            dataType: 'json',
+//            headers: header,
+//            success: function (json) {
+//                var price_length = json.data.price.length;
+//                price_array = new Array();
+//                var price = json.data.price;//计费方式
+//                for (var i = 0; i < price_length; i++) {
+//                    price_array.push(price[i].money);
+//                }
+//            }
+//        });
+
+        //
+
         $.ajax({
             url: ngUrl + "/bill/" + $.cookie("tname") + "/info",
             type: "GET",
@@ -1233,9 +1254,7 @@ function apply_buy(){
                 }
             }
             });
-
     });
-
 }
 
 function cancel_buy(){
@@ -1280,5 +1299,129 @@ function cancel_buy(){
                 });
             }
         });
+    });
+}
+//the amount of like:star
+function subscription(){
+    var starAmount = '';
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+             $.ajax({
+                url: ngUrl + "/star_stat/" + repoName + "/" + itemName,
+                type: "GET",
+                cache: false,
+                async: false,
+                dataType: 'json',
+                //headers: {Authorization: "Token " + $.cookie("token")},
+                success: function (json) {
+                    if(json.code == 0){
+                        var len=json.data.items;
+                        for (i=0;i<len;i++){
+                            starAmount = json.data.numstars;
+                        }
+                    }
+                    return starAmount;
+                 }
+            });
+        return starAmount;
+}
+//the amount of purchase icon cart
+function purchase(){
+    var purchaseAmount = '';
+        var repoName=getParam("repname");
+        var itemName=getParam("itemname");
+            $.ajax({
+                url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
+                type: "GET",
+                cache:false,
+                async:false,
+                dataType:'json',
+                //headers:{Authorization:"Token "+$.cookie("token")},
+                success:function(json){
+                    if(json.code == 0){
+                        //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
+                        purchaseAmount=json.data.numsubs;
+                    }
+                    return purchaseAmount;
+                 }
+             });
+    return purchaseAmount;
+ }
+//the amount of download the icon download
+ function download_icon(){
+     var downloadAmount ='';
+     var repoName=getParam("repname");
+     var itemName=getParam("itemname");
+     $.ajax({
+         url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
+         type: "GET",
+         cache:false,
+         async:false,
+         dataType:'json',
+         //headers:{Authorization:"Token "+$.cookie("token")},
+         success:function(json){
+             if(json.code == 0){
+                 downloadAmount = json.data.numpulls;
+             }return downloadAmount;
+         }
+     });
+     return downloadAmount;
+}
+//the amount of comment
+function getComment(){
+    var commentAmount='';
+    var repoName=getParam("repname");
+    var itemName=getParam("itemname");
+    $.ajax({
+         url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
+         type: "GET",
+         cache:false,
+         async:false,
+         dataType:'json',
+         success:function(json){
+             if(json.code == 0){
+                commentAmount=json.data.numcomments;
+             }return commentAmount;
+        }
+    });
+    return commentAmount;
+}
+
+function hot(){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+            headerToken={Authorization:"Token "+$.cookie("token")};
+        }
+    var repoName=getParam("repname");
+    var itemName=getParam("itemname");
+    var $place=$("<div></div>").appendTo($("#hot"));
+    $.ajax({
+                url: ngUrl+"/repositories/"+repoName+"?items=1&size=3",
+                type: "GET",
+                cache:false,
+                async:false,
+                dataType:'json',
+                //headers:headerToken,
+                success:function(json) {
+                    var iname=json.data.dataitems;
+                    console.log(iname);
+                    var len=json.data.items;
+                     for (i=0;i<len;i++){
+                       var pnum = purchase();
+                       var dnum = download_icon();
+                       var starnum = subscription();
+                       var commentnum = getComment();
+                        $place.append(""+
+                            "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p>"+
+                            "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
+                            "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
+                            +"</div>"
+                            +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_10.png' style='padding-right: 15px;'>"+"<span>"+pnum+"</span>"
+                            +"</div>"
+                            +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width:50%'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+dnum+"</span>"
+                            +"</div>"
+                            +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
+                            +"</div>"+"</div>"+"</div>");                            
+                    }    
+                }
     });
 }

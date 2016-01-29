@@ -113,6 +113,9 @@ tbody tr td{
     width: 164px;
     padding-left: 0px; padding-right: 30px;
 }
+#accountRecord .table_title tr th:nth-child(5){
+    padding-right: 25px;
+}
 #accountRecord .table_main tr{
     border-bottom: 1px solid #8c8c8c;
 }

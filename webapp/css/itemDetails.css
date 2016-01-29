@@ -618,6 +618,70 @@
     padding-right: 3px;
 
 }
+#hot{
+    margin-top:78px;
+}
+#place{
+    border-top:1px solid #8c97cb;
+    cursor: pointer;
+}
+#place:hover{
+    background-color: #f3fbfe;
+    border-top:1px solid #f3fbfe;
+    cursor: pointer;
+}   
+
+#title {
+    font:16px #333333;
+    padding-bottom: 20px;
+    border-bottom:1px solid #8c97cb;
+}
+#subtitle{
+    padding-top: 20px;
+    font:20px bold #43609f;
+}
+#subtitle p:hover{
+    color:#395289;
+}
+
+#like{
+    margin-top: 25px;
+    width:50%;
+    float:left;
+}
+#like_pic{
+    margin-left: 10px;
+    padding-right: 15px; 
+}
+#cart{
+    float:left;
+    width: 50%;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+#cart_pic{
+    padding-right: 15px;
+}
+#download{
+    float:left;
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+#download_pic{
+    background-image: url('/images/icon_download.png');
+    padding-right: 15px; 
+}
+#comment{
+    float:left;
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#comment_pic{
+   padding-right: 15px; 
+}
+
 /*----------订购-------------*/
 #subscriptDialog .modal-dialog {
     width: 758px;
