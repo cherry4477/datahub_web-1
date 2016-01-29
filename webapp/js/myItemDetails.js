@@ -279,6 +279,7 @@ $(function(){
     metadatabox();
 ////////////////////////////////////////////////////////查看价格
     $('.chekcprice').click(function(){
+        $('.allpriceList').empty();
         var limitstr = '';
         var str = ''
         if(allpricecon.length == 0){

@@ -156,6 +156,9 @@
     overflow: hidden;
     padding:30px 0px;
 }
+.tagListcon:hover{
+    background: #f4fbfe;
+}
 .tagName{
     width: 50%;
     overflow: hidden;
