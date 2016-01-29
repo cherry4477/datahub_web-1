@@ -198,7 +198,6 @@ $(function(){
                     var ptags = msg.data.label.owner;
                     var labelstr = '';
                     for(var j in ptags) {
-
                         labelstr+='<span class="personaltag">'+ptags[j]+'</span>';
                     }
                 }
@@ -518,6 +517,11 @@ $(function(){
     $('.baimingdan').click(function(){
         $('.namelist').empty();
         getpagesF();
+        //$('#editItem').modal('toggle');
+        // $('#editBox').on('hidden.bs.modal', function (e) {
+        //     $("body").addClass("modal-open");
+        // })
+
         $('#editBox').modal('toggle');
 
 
@@ -556,6 +560,7 @@ $(function(){
         });
     }
     function getpermissions(pages){
+
         $.ajax({
             type: "get",
             url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page='+pages,
