@@ -104,10 +104,17 @@ tbody tr td{
 }
 #accountRecord .table_title tr{
     border-top: 1px solid #8c8c8c;
+    border-bottom: 1px solid #8c8c8c;
+}
+#accountRecord .table_title tr th:first-child{
+    width: 164px;
+}
+#accountRecord .table_title tr th:last-child {
+    width: 164px;
+    padding-left: 0px; padding-right: 30px;
 }
 #accountRecord .table_main tr{
     border-bottom: 1px solid #8c8c8c;
-    border-top: 1px solid #8c8c8c;
 }
 #accountRecord .table_main {
     width: 1130px;
@@ -119,7 +126,7 @@ tbody tr td{
 #accountRecord .table_content{
     width: 1130px;
 }
+#accountRecord .table_content:hover{
+    background-color: #f2fafe;
+}
 
-/*#accountRecord .table_content .count_num{
-    color:#d68d00;
-}*/

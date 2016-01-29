@@ -17,7 +17,13 @@ $(document).ready(function(){
     select_item();
 
     del_item();
+
+    sss();
 });
+
+
+
+
 
 function getitemlist(){
     $("#list_title").text(repoName);
