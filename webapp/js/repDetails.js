@@ -337,6 +337,9 @@ function apendBigbox(apendjson,i,labelstr){
 
 }
 
+
+
+
 //获取reponame,itemname
 function getParam(key) {
     var value='';
@@ -347,33 +350,35 @@ function getParam(key) {
     return value;
 }
 //the amount of like:star
-function subscription(){
+function subscription(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var starAmount = '';
-    var repoName=getParam("repname");
         $.ajax({
-            url: ngUrl + "/star_stat/" +"?size=3&username="+repoName,
+            url: ngUrl + "/star_stat/"+repoName,
             type: "GET",
             cache: false,
             async: false,
             dataType: 'json',
             //headers: {Authorization: "Token " + $.cookie("token")},
             success: function (json) {
-                if(json.code == 0){
+                if(json.code == 0) {
                     starAmount = json.data.numstars;
                 }
-                return starAmount;
             }
         });
         return starAmount;
 }
 
 //the amount of purchase icon cart
-function purchase(){
+function purchase(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var purchaseAmount = '';
-        var repoName=getParam("repname");
-        var itemName=getParam("itemname");
             $.ajax({
-                url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
+                url: ngUrl+"/subscription_stat/"+repoName,
                 type: "GET",
                 cache:false,
                 async:false,
@@ -384,18 +389,18 @@ function purchase(){
                         //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
                         purchaseAmount=json.data.numsubs;
                     }
-                    return purchaseAmount;
                  }
              });
     return purchaseAmount;
  }
 //the amount of download the icon download
- function download_icon(){
+ function download_icon(repoName){
+     if($.cookie("token")!=null&&$.cookie("token")!="null"){
+         headerToken={Authorization:"Token "+$.cookie("token")};
+     }
      var downloadAmount ='';
-     var repoName=getParam("repname");
-     var itemName=getParam("itemname");
      $.ajax({
-         url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
+         url: ngUrl+"/transaction_stat/"+repoName,
          type: "GET",
          cache:false,
          async:false,
@@ -404,34 +409,52 @@ function purchase(){
          success:function(json){
              if(json.code == 0){
                  downloadAmount = json.data.numpulls;
-             }return downloadAmount;
+             }
          }
      });
      return downloadAmount;
 }
 //the amount of comment
-function getComment(){
-    var commentAmount='';
-    var repoName=getParam("repname");
-    var itemName=getParam("itemname");
+function getComment(repoName){
+    var commentAmount=0;
+    var allCommentAmount=0;
     $.ajax({
-         url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
-         type: "GET",
-         cache:false,
-         async:false,
-         dataType:'json',
-         success:function(json){
-             if(json.code == 0){
-                commentAmount=json.data.numcomments;
-             }return commentAmount;
+        url: ngUrl+"/repositories/"+repoName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json){
+            if(json.code == 0){
+                if(json.data.dataitems!=null){
+                    var dataItem=json.data.dataitems;
+                    var len=json.data.items;
+                    for(var i=0;i<len;i++){
+                        var itemName=dataItem[i];
+                        $.ajax({
+                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            type: "GET",
+                            cache:false,
+                            async:false,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.code == 0){
+                                    commentAmount=json.data.numcomments;
+                                }
+                            }
+                        });
+                        allCommentAmount+=commentAmount;
+                    }
+                }
+            }
         }
     });
-    return commentAmount;
+    return allCommentAmount;
 }
 
 $(document).ready(function(){
     getUserEmail();
-})
+});
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
@@ -442,8 +465,7 @@ function getUserEmail(){
             cache: false,
             async: false,
             success: function (jsons) {   
-                loginEmail = jsons.data.create_user;  
-                 
+                loginEmail = jsons.data.create_user;
                 //get username
                     var userName = '';
                     $.ajax({
@@ -452,7 +474,6 @@ function getUserEmail(){
                         cache: false,
                         async: false,
                         success: function (jsons){
-                        
                             //get reponame
                             var repoName = '';
                             $.ajax({
@@ -460,18 +481,14 @@ function getUserEmail(){
                                 type: "get",
                                 cache: false,
                                 async: false,
-                                success: function (jsons) {     
-                                    var like = subscription();
-                                    var cart = '';
-                                    var download = '';
-                                    var comment = '';
-                                    //alert(jsons.data);
+                                success: function (jsons) {
                                     var length = jsons.data.length;
-                                    //$('.starnum').html(msg.data.numstars);
-                                    //alert(length);
                                     for (i=0;i<length;i++){
                                         repoName=jsons.data[i].repname;
-                                        console.log(repoName);
+                                        var like = subscription(repoName);
+                                        var cart =purchase(repoName);
+                                        var download =download_icon(repoName);
+                                        var comment = getComment(repoName);
                                         $place.append(""+
                                         "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p>"+
                                         "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+

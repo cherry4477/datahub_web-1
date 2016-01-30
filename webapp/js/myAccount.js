@@ -2,11 +2,8 @@
  * Created by Max cheng on 2016/1/21.
  */
 $(document).ready(function(){
-
     account();
     accountDetailes();
-
-
 });
 
 function  account(){
@@ -156,3 +153,9 @@ function gonextpage(next_pages){
     });
 
 }
+
+
+
+
+
+
