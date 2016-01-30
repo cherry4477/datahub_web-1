@@ -1,0 +1,169 @@
+﻿.title{
+	float:left;
+	margin-top: 40px;
+	width:100%;
+}
+.title p{
+	padding-left: 10px;
+	padding-bottom: 40px;
+	font-size: 27px;
+	color: #333333;
+	border-bottom: 1px solid #8c97cd;
+}
+.tabs{
+	float:left;
+	width:1170px;
+	height:50px;
+	border-bottom: 1px solid #8c97cd;
+	margin-bottom: 30px;
+}
+
+.request {
+	float:left;
+	width:25%;
+	padding-top: 15px;
+	padding-left: 122px;
+	font: 20px bold;
+	height:50px;
+	color: #43609f;
+}
+.request sup span{
+	color: #e60012;
+	font:12px bold;
+	margin-left: 10px;
+	border:1px solid #e60012;
+	padding:3px 5px;
+	border-radius: 10px;
+}
+.request:hover{
+	border-bottom:4px solid #43609f;
+	cursor: pointer;
+}
+.ortherMessage {
+color: #43609f;
+    float: left;
+    font: 20px bold;
+    height: 50px;
+    padding-left: 105px;
+    padding-top: 15px;
+    width: 25%;
+}
+.ortherMessage:hover{
+	border-bottom:4px solid #43609f;
+	cursor: pointer;
+}
+
+.ortherMessage sup span{
+	color: #e60012;
+	font:12px bold;
+	margin-left: 10px;
+	border:1px solid #e60012;
+	padding:3px 7px;
+	border-radius: 100%;
+}
+.info {
+	width:100%;
+	border:1px solid #bfbfbf;
+	border-radius: 5px;
+	position:relative;
+	box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);
+}
+.info-other {
+	width:100%;
+	border:1px solid #bfbfbf;
+	border-radius: 5px;
+	position:relative;
+	box-shadow:0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 箭头 - :before and :after, 一起组成了好看的气泡小箭头 */ 
+.info:before { 
+	position: absolute; 
+	display: inline-block; 
+	border-top: 7px solid transparent; 
+	border-right: 7px solid #bfbfbf; 
+	border-bottom: 7px solid transparent; 
+	border-right-color: rgba(0, 0, 0, 0.2); 
+	left: -8px; 
+	top: 10px; 
+	content: ''; 
+} 
+
+.info-other:before { 
+	position: absolute; 
+	display: inline-block; 
+	border-top: 8px solid transparent; 
+	border-right: 8px solid #bfbfbf; 
+	border-bottom: 8px solid transparent; 
+	border-right-color: rgba(242,250,254, 0.2); 
+	left: -8px; 
+	top: 10px; 
+	content: ''; 
+} 
+
+/* 背景阴影*/ 
+.info:after { 
+	position: absolute; 
+	display: inline-block; 
+	border-top: 6px solid transparent; 
+	border-right: 6px solid #fff; 
+	border-bottom: 6px solid transparent; 
+	left: -6px; 
+	top: 11px; 
+	content: ''; 
+} 
+
+.info-other:after { 
+	position: absolute; 
+	display: inline-block; 
+	border-top: 6px solid transparent; 
+	border-right: 6px solid #f2fafe; 
+	border-bottom: 6px solid transparent; 
+	left: -6px; 
+	top: 11px; 
+	content: ''; 
+} 
+	
+.point{
+	float:left;
+	margin-left: 10px;
+	margin-right: 45px;
+}
+.dot{
+	float:left;
+	height:15px;
+	width:15px;
+	border:1px solid #e60012;
+	border-radius: 100%;
+	color:#43609f;
+}
+.line{
+	float:left;
+	height:120px;
+	border:1px solid #666666;
+	width:2px;
+	margin-left: -9px;
+	margin-top: 15px;
+	color:#bfbfbf;	
+}
+.box{
+	width:100%;
+	padding-left:25px;
+	margin-right:25px;
+}
+
+.info:visited{
+	border:1px solid #e60012;
+	border-radius: 5px;
+}
+
+.messMark{
+	border-bottom:4px solid #43609f;
+	cursor: pointer;
+	color: #23527c;
+}
+
+#allmess:hover{
+	cursor: pointer;
+}
+

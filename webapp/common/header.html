@@ -62,7 +62,6 @@
 	    white-space: nowrap;
 	    display: none;
 	}
-
 	 @media (max-width: 768px) {
 	 
 		#col-left{
@@ -135,8 +134,6 @@
 		}
  
   }
-
-
 	
 </style>
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
@@ -188,7 +185,7 @@
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
                   </li>                       
                   <li>
-                  	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                  	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
                         		-->
@@ -301,18 +298,13 @@
 <script src="../js/lib/terminal.js"></script>
 
 <script>
-
 	var pcorphone =  browserRedirect();
-
 	if(pcorphone == 'pc'){
 		$('.selectbtn').attr('href','selects.html')
 	}
 	if(pcorphone == 'phone'){
 		$('.selectbtn').attr('href','selectsPhone.html')
 	}
-
-
-
 	$(document).on('keydown',"#headerInput",function (e) {
 	  if (e.keyCode == 13) {
 		  var vals=$(this).val();
@@ -328,7 +320,6 @@
 	$(document).on('click',".hSearchBtn",function (e) {
 		
 		  var vals=$(".headerInput").val();
-
 		  if(pcorphone == 'pc'){
 			  location.href="search.html?rtext="+vals;
 		  }
@@ -413,15 +404,18 @@
 			  app_id: "cd9644b0"
 		});
 	}
-
-
 	daovoice('update');
-
-/* 	if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
+	
+	if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
 		$(".badgeHeader").show();
 	}else{
 		$(".badgeHeader").hide();
-	} */
+	} 
+	
+ 	$(".badgeHeader").click(function(e){
+ 		e.stopPropagation();
+ 		location.href="messageRequired.html";
+ 	});
 	
 	
 	
