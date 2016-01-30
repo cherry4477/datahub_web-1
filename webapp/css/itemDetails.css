@@ -838,3 +838,6 @@
     height: 26px;
     margin-left: 135px; margin-right: -135px; margin-top: 0px;
 }
+#completeDiv:hover{
+    background-color:#f3fbfe;
+}

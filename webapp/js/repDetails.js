@@ -490,7 +490,8 @@ function getUserEmail(){
                                         var download =download_icon(repoName);
                                         var comment = getComment(repoName);
                                         $place.append(""+
-                                        "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p>"+
+                                        "<div id='completeDiv'  style='float: left'>"+
+                                        "<p ID='subtitle' style='padding-top: 20px; padding-left:15px;  padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p>"+
                                         "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
                                         "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+like+"</span>"
                                         +"</div>"
@@ -499,7 +500,7 @@ function getUserEmail(){
                                         +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width:50%'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+download+"</span>"
                                         +"</div>"
                                         +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+comment+"</span>"
-                                        +"</div>"+"</div>"+"</div>"); 
+                                        +"</div>"+"</div>"+"</div>"+"</div>");
                                     }
                         }
                     });

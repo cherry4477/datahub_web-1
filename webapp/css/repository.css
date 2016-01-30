@@ -386,6 +386,9 @@
     margin-right: 25px !important;
 
 }
+#completeDiv:hover{
+    background-color:#f3fbfe;
+}
 
 
 

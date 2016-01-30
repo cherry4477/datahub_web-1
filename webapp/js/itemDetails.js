@@ -1418,16 +1418,17 @@ function hot(){
                      var starnum = subscription(iname[i]);
                      var commentnum = getComment(iname[i]);
                         $place.append(""+
+                                "<div id='completeDiv'  style='float: left'>"+
                             "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p>"+
-                            "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
-                            "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
+                            "<div ID='icons' style='float:left;'>"+
+                            "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 90px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
                             +"</div>"
                             +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_10.png' style='padding-right: 15px;'>"+"<span>"+pnum+"</span>"
                             +"</div>"
-                            +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width:50%'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+dnum+"</span>"
+                            +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width: 113px;'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+dnum+"</span>"
                             +"</div>"
                             +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
-                            +"</div>"+"</div>"+"</div>");                            
+                            +"</div>"+"</div>"+"</div>"+"</div>");
                     }
                 }
     });
