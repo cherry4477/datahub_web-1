@@ -1301,87 +1301,95 @@ function cancel_buy(){
         });
     });
 }
+
+
+
+
 //the amount of like:star
-function subscription(){
+function subscription(itemName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var starAmount = '';
         var repoName=getParam("repname");
-        var itemName=getParam("itemname");
              $.ajax({
                 url: ngUrl + "/star_stat/" + repoName + "/" + itemName,
                 type: "GET",
                 cache: false,
                 async: false,
                 dataType: 'json',
-                //headers: {Authorization: "Token " + $.cookie("token")},
+                headers: headerToken,
                 success: function (json) {
                     if(json.code == 0){
-                        var len=json.data.items;
-                        for (i=0;i<len;i++){
-                            starAmount = json.data.numstars;
+                        starAmount = json.data.numstars;
                         }
                     }
-                    return starAmount;
-                 }
             });
         return starAmount;
 }
 //the amount of purchase icon cart
-function purchase(){
+function purchase(itemName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var purchaseAmount = '';
         var repoName=getParam("repname");
-        var itemName=getParam("itemname");
             $.ajax({
                 url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
                 type: "GET",
                 cache:false,
                 async:false,
                 dataType:'json',
-                //headers:{Authorization:"Token "+$.cookie("token")},
+                headers:headerToken,
                 success:function(json){
                     if(json.code == 0){
                         //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
                         purchaseAmount=json.data.numsubs;
                     }
-                    return purchaseAmount;
                  }
              });
     return purchaseAmount;
  }
 //the amount of download the icon download
- function download_icon(){
+ function download_icon(itemName){
+     if($.cookie("token")!=null&&$.cookie("token")!="null"){
+         headerToken={Authorization:"Token "+$.cookie("token")};
+     }
      var downloadAmount ='';
      var repoName=getParam("repname");
-     var itemName=getParam("itemname");
      $.ajax({
          url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
          type: "GET",
          cache:false,
          async:false,
          dataType:'json',
-         //headers:{Authorization:"Token "+$.cookie("token")},
+         headers:headerToken,
          success:function(json){
              if(json.code == 0){
                  downloadAmount = json.data.numpulls;
-             }return downloadAmount;
+             }
          }
      });
      return downloadAmount;
 }
 //the amount of comment
-function getComment(){
+function getComment(itemName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var commentAmount='';
     var repoName=getParam("repname");
-    var itemName=getParam("itemname");
     $.ajax({
          url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
          type: "GET",
          cache:false,
          async:false,
          dataType:'json',
+        headers:headerToken,
          success:function(json){
              if(json.code == 0){
                 commentAmount=json.data.numcomments;
-             }return commentAmount;
+             }
         }
     });
     return commentAmount;
@@ -1400,16 +1408,15 @@ function hot(){
                 cache:false,
                 async:false,
                 dataType:'json',
-                //headers:headerToken,
+                headers:headerToken,
                 success:function(json) {
                     var iname=json.data.dataitems;
-                    console.log(iname);
                     var len=json.data.items;
-                     for (i=0;i<len;i++){
-                       var pnum = purchase();
-                       var dnum = download_icon();
-                       var starnum = subscription();
-                       var commentnum = getComment();
+                    for (i=0;i<len;i++){
+                     var pnum = purchase(iname[i]);
+                     var dnum = download_icon(iname[i]);
+                     var starnum = subscription(iname[i]);
+                     var commentnum = getComment(iname[i]);
                         $place.append(""+
                             "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p>"+
                             "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
@@ -1421,7 +1428,7 @@ function hot(){
                             +"</div>"
                             +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
                             +"</div>"+"</div>"+"</div>");                            
-                    }    
+                    }
                 }
     });
 }
