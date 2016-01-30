@@ -31,8 +31,6 @@ $(function(){
 				
 	});
 	
-
-
 	$(document).on('click','#signs',function(){
         var exampleInputEmail1 = $('#exampleInputEmail1').val();
         var exampleInputPassword1 = $('#exampleInputPassword1').val();
@@ -166,4 +164,12 @@ function formatSeconds(value) {
         }
     return result;
 }
+
+	//make the origin login hide and the forget psd show
+	$(function () { $('#myModal').on('hide.bs.modal', function () {
+      $('#Modal').modal('show');
+ 		 })
+   	});
+ 	      
+	 	
 
