@@ -2,6 +2,24 @@
  * Created by Max cheng on 2016/1/21.
  */
 $(document).ready(function(){
+    $("#recharge_btn").click(function(){
+        $(".window").css("display","block");
+    });
+    $(document).bind("click", function (e) {
+        if ((e.target.className.indexOf("window")<0 && e.target.id != "recharge_btn")) {
+            $(".window").css("display","none");
+        }
+    });
+    $("#reflect_btn").click(function(){
+        $(".window1").css("display","block");
+    });
+    $(document).bind("click", function (e) {
+        if ((e.target.className.indexOf("window1")<0 && e.target.id != "reflect_btn")) {
+            $(".window1").css("display","none");
+        }
+    });
+
+
     account();
     accountDetailes();
 });
@@ -153,6 +171,8 @@ function gonextpage(next_pages){
     });
 
 }
+
+
 
 
 

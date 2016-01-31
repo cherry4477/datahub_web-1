@@ -1411,8 +1411,8 @@ function hot(){
                 headers:headerToken,
                 success:function(json) {
                     var iname=json.data.dataitems;
-                    var len=json.data.items;
-                    for (i=0;i<len;i++){
+                    //var len=json.data.items;
+                    for (i=0;i<3;i++){
                      var pnum = purchase(iname[i]);
                      var dnum = download_icon(iname[i]);
                      var starnum = subscription(iname[i]);
