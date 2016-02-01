@@ -163,9 +163,7 @@ function gonextpage(nextpages){
                                 headers:headerToken,
                                 success: function (json) {
                                     if (json.code == 0) {
-
                                         $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
-
                                         $(".content .content1_download>p").text(json.data.numpulls);
                                     }
                                 }
@@ -1302,9 +1300,6 @@ function cancel_buy(){
     });
 }
 
-
-
-
 //the amount of like:star
 function subscription(itemName){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
@@ -1399,6 +1394,10 @@ function hot(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
+    //get current reponame
+    var repoName=getParam("repname");
+    $("#titleName .itemname").text(itemName);
+
     var repoName=getParam("repname");
     var itemName=getParam("itemname");
     var $place=$("<div></div>").appendTo($("#hot"));
@@ -1411,15 +1410,17 @@ function hot(){
         headers:headerToken,
         success:function(json) {
             var iname=json.data.dataitems;
-            var len=json.data.items;
-            for (i=0;i<3;i++){
+            console.log();
+            for (i=0;i<json.data.dataitems.length;i++){
+                 //alert(json.data.length)
                 var pnum = purchase(iname[i]);
                 var dnum = download_icon(iname[i]);
                 var starnum = subscription(iname[i]);
                 var commentnum = getComment(iname[i]);
+                var url ="itemDetails.html?repname="+repoName+"&itemname="+iname[i];
                 $place.append(""+
                     "<div id='completeDiv'  style='float: left'>"+
-                    "<p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p>"+
+                    "<a href='"+url+"'><p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p></a>"+
                     "<div ID='icons' style='float:left;'>"+
                     "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 90px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
                     +"</div>"
