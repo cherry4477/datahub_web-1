@@ -153,9 +153,9 @@ $(function() {
             var permissioncon = getpermission(iscooperatestate.repname,1,0);
             // console.log(permissioncon)
             if(permissioncon == 'null' || permissioncon == '' || permissioncon == 'undefined'){
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（0）</p>';
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>0</span>）</p>';
             }else{
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（'+permissioncon.total+'）</p>';
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>'+permissioncon.total+'</span>）</p>';
             }
             ispublic = '私有';
 
@@ -166,13 +166,13 @@ $(function() {
         }else{
             dataitemsalllist = 'itemdata=""';
         }
-        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         var cooperator = getcooperator(iscooperatestate.repname);
         if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined'){
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         }else{
 
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（'+cooperator.total+'）</p>';
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
         }
         var repotiems = getTimes(repocon.optime);
         
@@ -354,7 +354,7 @@ $(function() {
             success: function (json) {
                 if (json.code == 0) {
                     permission = json.data;
-                    addcooperatorhtml(permission);
+                    //addcooperatorhtml(permission);
                 }
                 return permission;
             },
@@ -528,7 +528,7 @@ $(function() {
                     }else{
                         $(errorobj).html('成功添加白名单').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(tihsreponame,1,0);
-
+                        perTong(tihsreponame,"add",1); //同步数字
                     }
                 }
             });
@@ -656,8 +656,10 @@ $(function() {
 
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j = 0; j<thisusername.length;j++){
-                alert(j)
+               // alert(j)
+            	count++;
                 $.ajax({
                     type:"put",
                     url:ngUrl+"/permission/"+thisrepoName,
@@ -669,10 +671,14 @@ $(function() {
                         if(deluser.code == 0){
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            
                         }
                     }
                 })
             };
+            
+            perTongXie(thisrepoName,"add",count);
+            
         }
 
     })
@@ -692,10 +698,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var perCount=0;
             for(var j in namejson){
+            	perCount++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/whitelist/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/whitelist/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -711,6 +719,7 @@ $(function() {
             };
             if(isdele = true){
                 $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+                perTong(thisrepoName,"del",perCount);
             }
         }
     })
@@ -729,10 +738,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j in namejson){
+            	count++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -740,13 +751,14 @@ $(function() {
                         if(deluser.code == 0){
                             $('.privatecooperList').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
-                             addcooperatorhtml(thiscooperatorcon);
+                            addcooperatorhtml(thiscooperatorcon);
                         }
                     }
                 })
             };
             if(isdele = true){
                 //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+            	 perTongXie(thisrepoName,"del",count);
             }
         }
     })
@@ -765,10 +777,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j in namejson){
+            	count++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -782,6 +796,7 @@ $(function() {
                 })
             };
             if(isdele = true){
+            	perTongXie(thisrepoName,"del",count);
                 //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
             }
         }
@@ -820,16 +835,19 @@ $(function() {
     $('#delAll').click(function(){
         var thisrepoame = $('#myModalTest').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'whitelist','.namelist','.pagesPer');
+        perTong(thisrepoame,"del",0);
     })
     //////////////////////////////////////////清空私有协作者
     $('#cooperatordelAllpri').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        perTongXie(thisrepoame,"del",0);
     })
     //////////////////////////////////////////清空公开协作者
     $('#cooperatordelAll').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        perTongXie(thisrepoame,"del",0);
     })
 ////////////////////////////////////////////////////////////////单个删除白名单
     function delonepomitionorcoo(thisrepoName,thisusername,iscoo){
@@ -844,9 +862,11 @@ $(function() {
                         $('.gobackbtnwrop').hide();
                         $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(thisrepoName,1,0);
+                        perTong(thisrepoName,"del",1); //同步数字
                     }else{
                         var thiscooperatorcon = getcooperator(thisrepoName)
-                        addcooperatorhtml(thiscooperatorcon);
+                        perTongXie(thisrepoName,"del",1);
+                       // addcooperatorhtml(thiscooperatorcon);
                     }
                 }
             }
@@ -1229,6 +1249,50 @@ function getRep(reps,repname) {
             return reps[i];
         }
     }
+}
+
+//白名单数量同步
+function perTong(repname,type,num){
+    $("p[datareponame="+repname+"]").each(function(){
+    	if($(this).hasClass("baimingdan")){
+    		if(type=="add"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+    				$(this).children().text(parseInt($(this).children().text())+num);
+    			}        		
+    		}
+    		if(type=="del"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+            		$(this).children().text(parseInt($(this).children().text())-num);
+    			}
+    		}
+    	} 	
+    });
+}
+
+//白名单数量同步
+function perTongXie(repname,type,num){
+    $("p[datareponame="+repname+"]").each(function(){
+    	if($(this).hasClass("xiezuozhe")){
+    		if(type=="add"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+    				$(this).children().text(parseInt($(this).children().text())+num);
+    			}        		
+    		}
+    		if(type=="del"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+            		$(this).children().text(parseInt($(this).children().text())-num);
+    			}
+    		}
+    	} 	
+    });
 }
 
 
