@@ -73,30 +73,82 @@ function  accountDetailes(){
                 var detail_len=json.data.result[i].detail.length;
                     for(var j=0;j<detail_len;j++){
                         var opTime=json.data.result[i].detail[j].opTime;//时间
-                        var planId=json.data.result[i].detail[j].planId;//流水号
+                        var id=json.data.result[i].detail[j].id;//流水号
+                        //var planId=json.data.result[i].detail[j].planId;//流水号
                         var orderId=json.data.result[i].detail[j].orderId;//账单号
                         var tradeAmount=json.data.result[i].detail[j].tradeAmount;//交易总额
-                        var channel=json.data.result[i].detail[j].channel;//类型
+                        //var channel=json.data.result[i].detail[j].channel;//渠道
+                        var opType=json.data.result[i].detail[j].opType;//类型
                         var tradeUser=json.data.result[i].detail[j].tradeUser;//出入账方
                         var availableAmount=json.data.result[i].detail[j].availableAmount;//可用额度
                         var actualAmount=json.data.result[i].detail[j].actualAmount;//总额度
-                        $table_main.append("" +
-                            "<tr class='table_content'>"+
-                            "<td>"+opTime+"</td>"+
-                            "<td>"+planId+"</td>"+
-                            "<td>"+orderId+"</td>"+
-                            "<td class='count_num"+i+"'>"+tradeAmount+"</td>"+
-                            "<td>"+channel+"</td>"+
-                            "<td>"+tradeUser+"</td>"+
-                            "<td>"+availableAmount+"</td>"+
-                            "<td>"+actualAmount+"</td>"+
-                            "</tr>");
-
-                        if(tradeAmount<0){
-                            $('#accountRecord .table_content .count_num'+i+'').css("color","#d68d00");
-                        }else{
-                            $('#accountRecord .table_content .count_num'+i+'').css("color","#00a162");
+                        var count_num="";
+                        switch(opType){
+                            case 1:
+                                opType = "充值";
+                                tradeAmount=(+tradeAmount);
+                                count_num="count_num1";
+                                break;
+                            case 2:
+                                opType = "提现";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
+                            case 3:
+                                opType = "扣年费";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
+                            case 4:
+                                opType = "购买待生效";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
+                            case 5:
+                                opType = "购买生效";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
+                            case 6:
+                                opType = "购买失效";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
+                            case 7:
+                                opType = "购买后退款";
+                                tradeAmount=(+tradeAmount);
+                                count_num="count_num1";
+                                break;
+                            case 8:
+                                opType = "售出交易成功";
+                                tradeAmount=(+tradeAmount);
+                                count_num="count_num1";
+                                break;
+                            case 9:
+                                opType = "售出交易生效";
+                                tradeAmount=(+tradeAmount);
+                                count_num="count_num1";
+                                break;
+                            case 10 :
+                                opType = "售出退款";
+                                tradeAmount=(-tradeAmount);
+                                count_num="count_num2";
+                                break;
                         }
+                        var str=opTime;
+                        opTime=str.substr(str.length-9);
+
+                        $table_main.append("" +
+                            "<tr class='table_content'>" +
+                            "<td>" + opTime + "</td>" +
+                            "<td>" + id + "</td>" +
+                            "<td>" + orderId + "</td>" +
+                            "<td class="+count_num+">" + tradeAmount + "</td>" +
+                            "<td>" + opType + "</td>" +
+                            "<td>" + tradeUser + "</td>" +
+                            "<td>" + availableAmount + "</td>" +
+                            "<td>" + actualAmount + "</td>" +
+                            "</tr>");
                     }
             }
 
@@ -122,52 +174,108 @@ function gonextpage(next_pages){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     $.ajax({
-        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail"+"?page="+next_pages+"&size=8",
+        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail" + "?page=" + next_pages + "&size=8",
         type: "GET",
         cache: false,
         async: false,
         dataType: 'json',
         headers: headerToken,
         success: function (json) {
-            len=json.data.result.length;
-            for(var i=0;i<len;i++){
-                var date=json.data.result[i].date;
+            total = json.data.total;
+            if (total == 0) {
+                $("#emptyData").show();
+            }
+            len = json.data.result.length;
+            for (var i = 0; i < len; i++) {
+                var date = json.data.result[i].date;
 
-                $table_main=$(".table_main");
+                $table_main = $(".table_main");
                 $table_main.append("" +
-                    "<tr class='Record_time_title'>"+
-                    "<td>"+date+"</td>"+
+                    "<tr class='Record_time_title'>" +
+                    "<td>" + date + "</td>" +
                     "</tr>");
-                var detail_len=json.data.result[i].detail.length;
-                for(var j=0;j<detail_len;j++){
-                    var opTime=json.data.result[i].detail[j].opTime;//时间
-                    var planId=json.data.result[i].detail[j].planId;//流水号
-                    var orderId=json.data.result[i].detail[j].orderId;//账单号
-                    var tradeAmount=json.data.result[i].detail[j].tradeAmount;//交易总额
-                    var channel=json.data.result[i].detail[j].channel;//类型
-                    var tradeUser=json.data.result[i].detail[j].tradeUser;//出入账方
-                    var availableAmount=json.data.result[i].detail[j].availableAmount;//可用额度
-                    var actualAmount=json.data.result[i].detail[j].actualAmount;//总额度
-                    $table_main.append("" +
-                        "<tr class='table_content'>"+
-                        "<td>"+opTime+"</td>"+
-                        "<td>"+planId+"</td>"+
-                        "<td>"+orderId+"</td>"+
-                        "<td class='count_num"+i+"'>"+tradeAmount+"</td>"+
-                        "<td>"+channel+"</td>"+
-                        "<td>"+tradeUser+"</td>"+
-                        "<td>"+availableAmount+"</td>"+
-                        "<td>"+actualAmount+"</td>"+
-                        "</tr>");
-
-                    if(tradeAmount<0){
-                        $('#accountRecord .table_content .count_num'+i+'').css("color","#d68d00");
-                    }else{
-                        $('#accountRecord .table_content .count_num'+i+'').css("color","#00a162");
+                var detail_len = json.data.result[i].detail.length;
+                for (var j = 0; j < detail_len; j++) {
+                    var opTime = json.data.result[i].detail[j].opTime;//时间
+                    var id = json.data.result[i].detail[j].id;//流水号
+                    //var planId=json.data.result[i].detail[j].planId;//流水号
+                    var orderId = json.data.result[i].detail[j].orderId;//账单号
+                    var tradeAmount = json.data.result[i].detail[j].tradeAmount;//交易总额
+                    //var channel=json.data.result[i].detail[j].channel;//渠道
+                    var opType = json.data.result[i].detail[j].opType;//类型
+                    var tradeUser = json.data.result[i].detail[j].tradeUser;//出入账方
+                    var availableAmount = json.data.result[i].detail[j].availableAmount;//可用额度
+                    var actualAmount = json.data.result[i].detail[j].actualAmount;//总额度
+                    var count_num="";
+                    switch(opType){
+                        case 1:
+                            opType = "充值";
+                            tradeAmount=(+tradeAmount);
+                            count_num="count_num1";
+                            break;
+                        case 2:
+                            opType = "提现";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
+                        case 3:
+                            opType = "扣年费";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
+                        case 4:
+                            opType = "购买待生效";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
+                        case 5:
+                            opType = "购买生效";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
+                        case 6:
+                            opType = "购买失效";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
+                        case 7:
+                            opType = "购买后退款";
+                            tradeAmount=(+tradeAmount);
+                            count_num="count_num1";
+                            break;
+                        case 8:
+                            opType = "售出交易成功";
+                            tradeAmount=(+tradeAmount);
+                            count_num="count_num1";
+                            break;
+                        case 9:
+                            opType = "售出交易生效";
+                            tradeAmount=(+tradeAmount);
+                            count_num="count_num1";
+                            break;
+                        case 10 :
+                            opType = "售出退款";
+                            tradeAmount=(-tradeAmount);
+                            count_num="count_num2";
+                            break;
                     }
+                    var str=opTime;
+                    opTime=str.substr(str.length-9);
+
+
+                    $table_main.append("" +
+                        "<tr class='table_content'>" +
+                        "<td>" + opTime + "</td>" +
+                        "<td>" + id + "</td>" +
+                        "<td>" + orderId + "</td>" +
+                        "<td class="+count_num+">" + tradeAmount + "</td>" +
+                        "<td>" + opType + "</td>" +
+                        "<td>" + tradeUser + "</td>" +
+                        "<td>" + availableAmount + "</td>" +
+                        "<td>" + actualAmount + "</td>" +
+                        "</tr>");
                 }
             }
-
         }
     });
 
