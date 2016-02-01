@@ -110,11 +110,11 @@ tbody tr td{
     width: 164px;
 }
 #accountRecord .table_title tr th:last-child {
-    width: 164px;
-    padding-left: 0px; padding-right: 30px;
+    width: 170px;
+    padding-left: 0px; padding-right: 22px;
 }
 #accountRecord .table_title tr th:nth-child(5){
-    padding-right: 25px;
+    padding-right: 10px;
 }
 #accountRecord .table_main tr{
     border-bottom: 1px solid #8c8c8c;
@@ -179,4 +179,10 @@ tbody tr td{
 }
 .window1 p:nth-child(2) {
     color: #29abe2;
+}
+.count_num1{
+    color:#00a162;
+}
+.count_num2{
+    color:#d68d00;
 }
