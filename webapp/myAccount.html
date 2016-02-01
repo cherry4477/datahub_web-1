@@ -55,7 +55,7 @@
        <div id="accountBalance">
             <div class="total_balance">
                 <p class="account_text">账户总余额</p>
-                <p class="account_num"><span id="total_balance_span" >12233.11 </span><span class="yuan">元</span></p>
+                <p class="account_num"><span id="total_balance_span" >0 </span><span class="yuan">元</span></p>
                 <button id="recharge_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">充值</button>
             </div>
            <div class="window">
@@ -65,11 +65,11 @@
            </div>
            <div class="usable_balance">
                <p class="account_text">可用余额</p>
-               <p class="account_num"><span id="usable_balance_span" >12233.11</span><span class="yuan">元</span></p>
+               <p class="account_num"><span id="usable_balance_span" >0</span><span class="yuan">元</span></p>
            </div>
            <div class="cash_balance">
                <p class="account_text">可提现余额</p>
-               <p class="account_num"><span id="cash_balance_span">12233.11</span><span class="yuan">元</span></p>
+               <p class="account_num"><span id="cash_balance_span">0</span><span class="yuan">元</span></p>
                <button id="reflect_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">提现</button>
                 <p class="get_cash" >设置提现密码</p>
            </div>
@@ -93,6 +93,7 @@
                </tr>
            </table>
            <table class="table_main">
+               <p id="emptyData" style="text-align: center;font-size: 16px;line-height: 150px;display: none;">暂无请求数据</p>
             <!--   <tr class="Record_time_title">
                    <td> 2015-12-25</td>
                </tr>
