@@ -19,7 +19,6 @@ $(document).ready(function(){
         }
     });
 
-
     account();
     accountDetailes();
 });
@@ -51,7 +50,6 @@ function  accountDetailes(){
     }
     var total=0;
     $.ajax({
-        //GET /bill/:loginname/detail
     url: ngUrl + "/bill/" + $.cookie("tname") + "/detail",
         type: "GET",
         cache: false,
@@ -60,6 +58,9 @@ function  accountDetailes(){
         headers: headerToken,
         success: function (json) {
             total=json.data.total;
+            if(total==0){
+                $("#emptyData").show();
+            }
             len=json.data.result.length;
             for(var i=0;i<len;i++){
                 var date=json.data.result[i].date;
