@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
+	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。"/>
+	<title>重置登陆密码_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
+	<!--css-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/command.css">
+	<link rel="stylesheet" href="css/loader.css">
+	<link rel="stylesheet" href="css/resetpw.css">
+</head>
+<style>
+</style>
+<body>
+<div class="be-loader" style="display: block;">
+		<div class="spinner">
+			<div class="spinner-container container1">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container2">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+			<div class="spinner-container container3">
+				<div class="circle1"></div>
+				<div class="circle2"></div>
+				<div class="circle3"></div>
+				<div class="circle4"></div>
+			</div>
+		</div>
+	</div>
+	<!--头部导航-->
+	<header></header>
+	<!--内容-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div class="infoBox">
+			<div ID="title">
+				<p>重设密码登录</p>
+			</div>
+			<div class="labelBox">
+				<p id="label_one" style="display:none;"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">信息不能为空</p>
+				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符</p>
+				<p id="label_three" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">两次密码输入不一致</p>
+				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">重置密码链接已失效。请点击<a>这里</a>生成新的链接</p>
+			</div>
+		<form class="form-inline">
+  			<div class="input-group">
+    			<input type="password" class="form-control" id="ps" placeholder="请输入新密码">
+   				<input type="password" class="form-control" id="rps" placeholder="请再次输入新密码">
+   				
+			</div>
+		</form> 
+			<button class="btn btn-primary btn-lg" ID="registration" role="button" HREF="javaScript:void(0);" style="float:left">
+				发送密码重置邮件
+			</button>
+		</div>
+	</div>
+
+	<!--reset before 24 hrs-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div ID="successed" style="display:none" >
+			<div ID="reset">
+				<p>重设登陆密码</p>
+			</div>
+			<div ID="info">
+				<p style="font:16px;"><!--image src="images02_125.png"-->登陆设置成功</p>
+			</div>
+		</div>
+	</div>
+	<!--reset agter 24 hrs-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div ID="failed" style="display:none" >
+			<div ID="reset">
+				<p>重设登陆密码</p>
+			</div>
+			<div ID="info">
+				<p style="font:16px;"><!--image src="images02_125.png"-->重置密码链接已失效。请点击<a>这里</a>生成新的链接。</p>
+			</div>
+		</div>
+	</div>
+	<div id="loginTem"></div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/base64.js"></script>
+	<script src="js/md5.js"></script>
+	<script src="js/ajaxSetup.js"></script>
+	<script src='js/errorDialog.js'></script>
+	<script src="js/jquery.pagination.js"></script>
+	<script src='js/clipboard.min.js'></script>
+	<script src="js/jquery.SuperSlide.2.1.1.js"></script>
+	<script src='js/marked.js'></script>
+	<script src="js/ngUrl.js"></script>
+	<script>
+	$("a").focus(function(){this.blur()});
+		$("header").load("common/header.html");
+		$("footer").load("common/footer.html");
+		$("#loginTem").load("common/login.html");
+		$(window).load(function(){
+			$(".be-loader").fadeOut("slow");
+		});
+		
+		function getParam(key) {
+			var value='';
+			var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+			if (itemid.test(decodeURIComponent(window.location.href))) {
+				value = itemid.exec(decodeURIComponent(window.location.href))[1];
+			}
+			return value;
+		}
+		</script>
+		<script>
+		$("#ps").blur(function(){
+				if (($("#ps").val())==""){
+					$("#label_four").css("display","block");
+					$("#label_four").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_three").css("display","none");
+				}
+				if(($("#ps").val()).length<8){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+				}
+		});
+		$("#rps").blur(function(){
+				if (($("#rps").val())==""){
+					$("#label_four").css("display","block");
+					$("#label_four").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_two").css("display","none");
+					$("#label_three").css("display","none");
+				}
+				if(($("#rps").val()).length<8){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+				}
+		});
+		
+		//判断密码是否相同
+		if (($("#ps").val())!=($("#rps").val())){
+				$("#label_three").css("display","block");	
+				$("#label_three").fadeOut(4000);
+				$("#label_one").css("display","none");
+				$("#label_two").css("display","none");
+				$("#label_four").css("display","none");
+		}
+
+		$("#registration").click(function(){
+			var myps = $.md5($("#ps").val());
+			var sid = getParam("sid");
+			$.ajax({
+            		//sending email 
+            		url: ngUrl+"/users/"+loginname+"/pwd/reset",
+            		type: "PUT",
+            		contentType:"application/json",
+            		cache:false,
+            		data:{"passwd":myps,"sid":sid},
+            		async:false,
+            		dataType:'json',
+            		success:function(json){
+            			if (json.code==0){
+				 			$('#successed').show();
+            				$('.infoBox').hide();
+				 		}
+				 		else{
+				 			$('#failed').show();
+            				$('.infoBox').hide();
+				 		}
+            		},
+            		error:function(){
+            				$('#failed').show();
+            				$('.infoBox').hide();
+            		}
+           });
+		});
+			
+	</script>
+		}
+<body>

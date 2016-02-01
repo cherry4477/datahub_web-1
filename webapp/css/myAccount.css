@@ -132,4 +132,51 @@ tbody tr td{
 #accountRecord .table_content:hover{
     background-color: #f2fafe;
 }
-
+.window {
+    background-color: white;
+    border: 5px solid #e5e5e5;
+    /*display: none;*/
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    display: none;
+    margin-top:0px;
+    width: 245px;
+    height: 100px;
+    margin-left: 2px;
+    top: 288px;
+    left: 167px;
+}
+.window p {
+    color: #000;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+}
+.window p:nth-child(2) {
+    color: #29abe2;
+}
+.window1 {
+    background-color: white;
+    border: 5px solid #e5e5e5;
+    /*display: none;*/
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    width: 245px;
+    height: 100px;
+    margin-left: 2px;
+    left: 941px;
+    top: 288px;
+}
+.window1 p {
+    color: #000;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+}
+.window1 p:nth-child(2) {
+    color: #29abe2;
+}
