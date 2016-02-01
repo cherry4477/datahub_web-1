@@ -134,10 +134,15 @@ $(function() {
         })
         ////////////是否协作
         var thisiscooperatestat = ''
+        //协作显示
+        var ifcooper=true;
         if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null){
             thisiscooperatestat = '';
         }else{
-            thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>'
+            thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>';
+            if(iscooperatestate.cooperatestate=="协作中"){
+            	ifcooper=false;
+            }
         }
         ////////是否开放;
         var ispublic = '';
@@ -169,7 +174,14 @@ $(function() {
 
             xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（'+cooperator.total+'）</p>';
         }
-        var repotiems = getTimes(repocon.optime)
+        var repotiems = getTimes(repocon.optime);
+        
+        //右侧rep
+        var repright="";
+        if(ifcooper){
+        	repright="<div class='repright'>"+baimingdan+xizuozhe+"<p class='xiugairep' datareponame="+iscooperatestate.repname+">Repository修改</p></div>";
+        }
+        
         var repostr = '<div class="repo" >'+
             '<div class="describe" '+dataitemsalllist+'>'+
             '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'+
@@ -205,10 +217,7 @@ $(function() {
             '</div>'+
             '</div>'+
             '</div>'+
-            '<div class="repright">'+
-            baimingdan+xizuozhe+
-            '<p class="xiugairep" datareponame="'+iscooperatestate.repname+'">Repository修改</p>'+
-            '</div>'+
+            repright
             '</div>'+
             '</div>';
         $('.repList').append(repostr);
