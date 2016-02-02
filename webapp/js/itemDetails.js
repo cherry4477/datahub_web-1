@@ -1188,14 +1188,14 @@ function apply_buy(){
                                     $("#myModalLabel").text("申请签约结果");
                                     $("#subscriptDialog .modal-header").show();
                                     $("#subscriptDialog .subprocess").hide();
-                                    $("#subscriptDialog .subafterprocess .successed").show();
+                                    $("#subscriptDialog .subafterprocess .successed_apply").show();
                                     $("#subscriptDialog .subafterprocess .failed").hide();
                                     var stars = parseInt($("#dataitem-head-right .subscript .value").text());
                                     $("#dataitem-head-right .subscript .value").text(stars+1);
                                     $("#apply_buy").hide();
                                     $("#hurry_buy").hide();
                                     $("#cancel_buy").show();
-                                    location.reload();
+                                    //location.reload();
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
