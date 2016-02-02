@@ -133,10 +133,6 @@
 	$(window).load(function(){
 		$(".be-loader").fadeOut("slow");
 	});
-
-	$(document).ready(function(){
-
-	});
 </script>
 <script>
 /*	$(document).ready(function(){
@@ -152,7 +148,9 @@
 		});
 	});*/
 	$(document).ready(function(){
-
+		$("#oldpwd").val("");
+		$("#passwd").val("");
+		$("#headerInput").val("");
 		$("#btn01").click(function(){
 			$(".form-control-00").val("");
 		});
@@ -245,7 +243,7 @@
 						$("#label_fail").fadeOut(3000);
 					}
 
-				}/*,
+				}/*
 				error:function(data){
 					if(data.code!=0){
 						$("#alert-fail").css("display","inline");
@@ -255,10 +253,5 @@
 			});
 			}
 		});
-
-
-
 	});
-
-
 </script>
