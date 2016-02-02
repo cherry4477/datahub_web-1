@@ -302,6 +302,8 @@
 			        			typeText="订购申请事件";
 			        			var receiver=json.data.results[i].receiver; //用户
 			        			receiver=ajaxReUser(receiver);
+			        			var buyername=json.data.results[i].data.buyername;
+			        			buyername=ajaxReUser(buyername);
 			        			var qtime=json.data.results[i].time; //签订时间
 			        			qtime=qtime.substr(0,10)+"&nbsp;"+qtime.substr(11,8);
 			        			var repname=json.data.results[i].data.repname; //rep名称
@@ -322,7 +324,7 @@
 			                    }
 			                    
 			                    if(phase==7){
-			                    	s="管理员："+receiver+"申请加入"+repname+"/"+itemname+"白名单，并签订“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同。"+qtime+"”。点击<a target='_blank' href='myPublish.html'>我的订单</a>查看和处理。";		
+			                    	s="管理员："+buyername+"申请加入"+repname+"/"+itemname+"白名单，并签订“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同。"+qtime+"”。点击<a target='_blank' href='myPublish.html'>我的订单</a>查看和处理。";		
 			                    	$("#terminal-content-body").append(""+
 					    	        		"<div class='record'>"+
 					    	        			"<div class='head'>"+
