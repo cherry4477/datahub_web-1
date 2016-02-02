@@ -48,9 +48,8 @@
 				<p>注册DataHub账号</p>
 			</div>
 			<div class="labelBox">
-
 				<p id="label_one" style="display:none;"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱格式不正确</p>
-				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符</p>
+				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符，或者多于32个字符</p>
 				<p id="label_three" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">两次密码输入不一致</p>
 				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">您还没有接受《DataHub服务协议》</p>
 				<p id="label_five" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱不能为空</p>
@@ -61,9 +60,9 @@
 				<label for="exampleEmail" ID="label1">邮箱地址</label>
     			<input type="text" class="form-control" id="email" placeholder="请填写正确的邮箱，以便接收账号">
     			<label for="examplePs" ID="label2">输入密码</label>
-   				<input type="password" class="form-control" id="ps" placeholder="最少8个字符">
+   				<input type="password" class="form-control" id="ps" style=" maxlength=32" placeholder="最少8个字符">
    				<label for="examplePs2" ID="label3">确认密码</label>
-   				<input type="password" class="form-control" ID="psr" placeholder="再次输入密码">
+   				<input type="password" class="form-control" style=" maxlength=32" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
 				<div ID="accept">
@@ -90,7 +89,17 @@
 			</div>
 		</div>
 	</div>
-
+	<!--user already registered-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div ID="cannotreg" style="display:none" >
+			<div ID="failed">
+				<p>注册DataHub账号</p>
+			</div>
+			<div ID="info">
+				<p ID="wrongmes" style="font:16px;">对不起！您的邮箱已经注册过！请返回登陆页面。</p>
+			</div>
+		</div>
+	</div>
 	 <!--服务条约-->
     <div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
@@ -300,6 +309,16 @@
 					$("#label_four").css("display","none");
 					$("#label_six").css("display","none");
 				}
+
+				if(($("#ps").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
@@ -313,6 +332,16 @@
 				} 
 
 				if(($("#psr").val()).length<8){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
+
+				if(($("#psr").val()).length>32){
 					$("#label_two").css("display","block");	
 					$("#label_two").fadeOut(4000);
 					$("#label_one").css("display","none");
@@ -386,6 +415,16 @@
 					return;
 				}
 
+				if(($("#ps").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
+
 				if( $("#psr").val() == ''){
 					$("#psr").focus();
 					$("#label_two").css("display","block");
@@ -411,6 +450,16 @@
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
+				}
+
+				if(($("#psr").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 
 				if (($("#ps").val())!=($("#psr").val())){
@@ -445,12 +494,11 @@
 				}
 					$(".infoBox").hide();
 					$("#checkEmail").show();
-					
 
 				var loginname=$("#email").val();
 				var	myps=$.md5($("#ps").val());
+	 		 	//var sid=getParam("sid");
 				$.ajax({
-            		//loginname email and get the text after @
             		url: ngUrl+"/users/"+loginname,
             		type: "POST",
             		cache:false,
@@ -458,15 +506,34 @@
             		async:false,
             		dataType:'json',
             		success:function(json){
-            			var ss=loginname;
-            			var start=ss.indexOf("@")+1;
-    					var end=start+ss.length;
-    					var strtext="http://mail."+ss.substring(start,end);
-				 		$("#info a").text(strtext).attr("href",strtext);
-            		}
-            	});
-            
-			});
+            			//check the user status registered or not
+ 
+            				var ss=loginname;
+            				var start=ss.indexOf("@")+1;
+    						var end=start+ss.length;
+    						var strtext="http://mail."+ss.substring(start,end);
+				 			$("#info a").text(strtext).attr("href",strtext);
+            			},
+			       	error:function(json){
+			       		if($.parseJSON(json.responseText).code==8002){
+			       			$("#cannotreg").show();
+			        		$(".infoBox").hide();
+			        		$("#checkEmail").hide();
+
+			       		}
+			       		
+			       }
+            		     
+				});
+			function getParam(key) {
+		    	var value='';
+		    	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		    	if (itemid.test(decodeURIComponent(window.location.href))) {
+		        	value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		   		}
+		    	return value;
+		    }
+		});
 		});
 	</script>
 

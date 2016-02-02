@@ -60,7 +60,7 @@
 			</div>
 		</form> 
 			<button class="btn btn-primary btn-lg" ID="registration" role="button" HREF="javaScript:void(0);" style="float:left">
-				发送密码重置邮件
+				设置新的密码
 			</button>
 		</div>
 	</div>
@@ -165,6 +165,17 @@
 		$("#registration").click(function(){
 			var myps = $.md5($("#ps").val());
 			var sid = getParam("sid");
+			var loginname=getParam("regname");
+
+			function getParam(key) {
+		    var value='';
+		    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		    if (itemid.test(decodeURIComponent(window.location.href))) {
+		        value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		    }
+		    return value;
+		}
+			//var loginname = 
 			$.ajax({
             		//sending email 
             		url: ngUrl+"/users/"+loginname+"/pwd/reset",
