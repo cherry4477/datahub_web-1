@@ -839,7 +839,8 @@
     background-position: -44px 0px;
     width: 26px;
     height: 26px;
-    margin-left: 180px; margin-right: -180px; margin-top: 0px;
+     margin-top: 0px;
+    margin-left: 168px; margin-right: -136px;
 }
 
 #subscriptDialog .subafterprocess .failed .head .icon {
@@ -849,6 +850,7 @@
     width: 26px;
     height: 26px;
     margin-left: 135px; margin-right: -135px; margin-top: 0px;
+
 }
 #subscriptDialog .subafterprocess .failed2{
     height: 90px;

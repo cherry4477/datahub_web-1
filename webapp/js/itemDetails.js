@@ -1195,7 +1195,7 @@ function apply_buy(){
                                     $("#apply_buy").hide();
                                     $("#hurry_buy").hide();
                                     $("#cancel_buy").show();
-                                    //location.reload();
+                                    location.reload();
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
