@@ -164,8 +164,6 @@ function gonextpage(nextpages){
                                 success: function (json) {
                                     if (json.code == 0) {
                                         $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
-                                      /*  alert(json.data.numpulls);
-                                        $(".content .content1_download>p").text();*/
                                         content1_download.append("<p>"+json.data.numpulls+"</p>");
                                     }
                                 }
