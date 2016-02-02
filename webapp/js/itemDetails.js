@@ -955,6 +955,7 @@ function hurry_buy(){
 
 //申请订购
 function apply_buy(){
+
     $("#apply_buy").click(function(e){
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
@@ -1171,41 +1172,6 @@ function apply_buy(){
         //申请订购
         var header = login=="true" ? {Authorization:"Token "+$.cookie("token")}:"";
         var price_array;
-
-//        Array.prototype.max = function(){   //最大值
-//            return Math.max.apply({},this)
-//        };
-//        $.ajax({
-//            url: ngUrl + "/repositories/" + repoName + "/" + itemName,
-//            type: "GET",
-//            cache: false,
-//            async: false,
-//            dataType: 'json',
-//            headers: header,
-//            success: function (json) {
-//                var price_length = json.data.price.length;
-//                price_array = new Array();
-//                var price = json.data.price;//计费方式
-//                for (var i = 0; i < price_length; i++) {
-//                    price_array.push(price[i].money);
-//                }
-//            }
-//        });
-
-        //
-
-        $.ajax({
-            url: ngUrl + "/bill/" + $.cookie("tname") + "/info",
-            type: "GET",
-            cache: false,
-            async: false,
-            dataType: 'json',
-            headers: header,
-            success: function (json) {
-                //console.log(price_array.max());价格的最大值
-                var actualBalance = json.data.actualBalance;
-                var availableBalance = json.data.availableBalance;
-                if (availableBalance >= (sel_price1)) {
                     $.ajax({
                         url: ngUrl+"/subscription/"+repoName+"/"+itemName+"/apply",
                         type: "PUT",
@@ -1219,7 +1185,7 @@ function apply_buy(){
                             if(json.code == 0){
                                 setTimeout(function() {
                                     clearInterval(timer);
-                                    $("#myModalLabel").text("签约结果");
+                                    $("#myModalLabel").text("申请签约结果");
                                     $("#subscriptDialog .modal-header").show();
                                     $("#subscriptDialog .subprocess").hide();
                                     $("#subscriptDialog .subafterprocess .successed").show();
@@ -1233,26 +1199,27 @@ function apply_buy(){
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
-                                $("#myModalLabel").text("签约结果");
+                                $("#myModalLabel").text("申请签约结果");
                                 $("#subscriptDialog .modal-header").show();
                                 $("#subscriptDialog .subprocess").hide();
                                 $("#subscriptDialog .subafterprocess .successed").hide();
-                                $("#subscriptDialog .subafterprocess .failed").show();
+                                $("#subscriptDialog .subafterprocess .failed2").show();
+                                location.reload();
                             }
+                        },
+                        error:function(){
+                            clearInterval(timer);
+                            //if ($.parseJSON(json.responseText).code == 5026) {
+                                $("#myModalLabel").text("申请签约结果");
+                                $("#subscriptDialog .modal-header").show();
+                                $("#subscriptDialog .subprocess").hide();
+                                $("#subscriptDialog .subafterprocess .successed").hide();
+                                $("#subscriptDialog .subafterprocess .failed2").show();
+                                location.reload();
+                            //}
                         }
                     });
-                }
-                else{
-                    clearInterval(timer);
-                    $("#myModalLabel").text("签约结果");
-                    $("#subscriptDialog .modal-header").show();
-                    $("#subscriptDialog .subprocess").hide();
-                    $("#subscriptDialog .subafterprocess .successed").hide();
-                    $("#subscriptDialog .subafterprocess .failed").show();
-                }
-            }
             });
-    });
 }
 
 function cancel_buy(){

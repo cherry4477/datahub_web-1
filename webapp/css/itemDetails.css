@@ -838,6 +838,20 @@
     height: 26px;
     margin-left: 135px; margin-right: -135px; margin-top: 0px;
 }
+#subscriptDialog .subafterprocess .failed2{
+    height: 90px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 26px;
+    height: 26px;
+    margin-left: 135px; margin-right: -135px; margin-top: 0px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .text{
+    color:#ec6467;
+}
 #completeDiv:hover{
     background-color:#f3fbfe;
 }
