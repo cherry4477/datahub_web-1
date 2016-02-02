@@ -83,6 +83,7 @@ function  accountDetailes(){
                         var availableAmount=json.data.result[i].detail[j].availableAmount;//可用额度
                         var actualAmount=json.data.result[i].detail[j].actualAmount;//总额度
                         var count_num="";
+                        tradeUser=getName(tradeUser);
                         switch(opType){
                             case 1:
                                 opType = "充值";
@@ -207,6 +208,8 @@ function gonextpage(next_pages){
                     var availableAmount = json.data.result[i].detail[j].availableAmount;//可用额度
                     var actualAmount = json.data.result[i].detail[j].actualAmount;//总额度
                     var count_num="";
+                    tradeUser=getName(tradeUser);
+
                     switch(opType){
                         case 1:
                             opType = "充值";
@@ -261,8 +264,6 @@ function gonextpage(next_pages){
                     }
                     var str=opTime;
                     opTime=str.substr(str.length-9);
-
-
                     $table_main.append("" +
                         "<tr class='table_content'>" +
                         "<td>" + opTime + "</td>" +
@@ -281,8 +282,22 @@ function gonextpage(next_pages){
 
 }
 
+function getName(tname){
+    var names="";
+    $.ajax({
+        type: "get",
+        url: ngUrl + "/users/" +tname,
+        dataType: "json",
+        cache : false,
+        async : false,
+        success: function(d){
+            names= d.data.userName;
+        }
+    });
 
+    return names;
 
+}
 
 
 

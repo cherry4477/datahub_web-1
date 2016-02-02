@@ -227,6 +227,7 @@ $(function() {
     }
     //////////////查看repo下的item
     $(document).on('click','.describe',function (e) {
+    	var thisrepName = $(this).find('.curreoName').html();
         if ((e.target.className.indexOf("checkrepo")<0 && e.target.className.indexOf("baimingdan")<0 && e.target.className.indexOf("xiezuozhe")<0 && e.target.className.indexOf("xiugairep")<0)) {
             if ($(this).siblings('.tablelist').length <= 0) {
                 var thisitems = $(this).attr('itemdata');
@@ -272,7 +273,7 @@ $(function() {
                                         thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
                                     }
                                     itemstr += ' <div class="row">' +
-                                        ' <span class="col1"><a href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
                                         ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
                                         ' <span class="col3">' + ispublic + '</span>' +
                                         ' <span class="col4">' + json.data.tags + '</span>' +
@@ -1173,6 +1174,15 @@ $(function() {
             var tu = confirm("您确认删除已选Repository吗？");
             if(tu == true){
                 isyesornodel(reponamearr);
+            	//新增删除
+            	var divlist = $('.repList>div');
+                var reponamearr = [];
+                for(var i = 0;i<divlist.length;i++){
+                    if($(divlist).eq(i).find('.checkrepo').is(':checked')==true){
+                        var delreponame = $(divlist).eq(i).find('.checkrepo').attr('datareponame');
+                        $(divlist).eq(i).remove();
+                    }
+                }
             }else{
                 return false;
             }
