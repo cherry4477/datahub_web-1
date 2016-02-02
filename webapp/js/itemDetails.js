@@ -152,7 +152,7 @@ function gonextpage(nextpages){
 
                         var content1_download = $("<div></div>").addClass("content1_download").appendTo($content);
                         content1_download.append("<span></span>");
-                        content1_download.append("<p>890266</p>");
+
                         //获取tag的pull量
                             $.ajax({
                                 url: ngUrl + "/transaction_stat/" + repoName + "/" + itemName + "/" + tag_tag,
@@ -164,7 +164,9 @@ function gonextpage(nextpages){
                                 success: function (json) {
                                     if (json.code == 0) {
                                         $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
-                                        $(".content .content1_download>p").text(json.data.numpulls);
+                                      /*  alert(json.data.numpulls);
+                                        $(".content .content1_download>p").text();*/
+                                        content1_download.append("<p>"+json.data.numpulls+"</p>");
                                     }
                                 }
                             });
