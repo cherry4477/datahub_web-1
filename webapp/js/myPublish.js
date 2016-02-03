@@ -1053,7 +1053,8 @@ $(function() {
             }, error:function (XMLHttpRequest, textStatus, errorThrown)
             {
                 if(XMLHttpRequest.status == 400){
-                   alert('您可新增的'+thisispublic+'Repository资源不足');
+                   //alert('您可新增的'+thisispublic+'Repository资源不足');
+                    alert("您创建的"+repname+"有误,请重新创建。");
                 }
 
             }
