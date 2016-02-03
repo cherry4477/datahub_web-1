@@ -192,7 +192,7 @@ $(function() {
             '<div class="icon">'+
             '<img data-original-title="更新时间" class="iconiamg1 iconiamg2" src="images/newpic004.png" data-toggle="tooltip" datapalecement="top">'+
             '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
-            '<img data-original-title="titem量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
+            '<img data-original-title="item量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
             '<span>'+repocon.items+'</span>'+
             '<img  class="iconiamg1" src="images/sx.png">'+
             '<span>'+ispublic+'</span>'+
@@ -270,7 +270,12 @@ $(function() {
                                     if (json.data.pricestate == 'null' || json.data.pricestate == null || json.data.pricestate == '') {
                                         thisispricestate = '';
                                     } else {
-                                        thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
+                                    	if(json.data.pricestate=='付费'){
+                                    		thisispricestate = '<strong class="pricetype freetype" style="color:red;border:1px solid red">' + json.data.pricestate + '</strong>'
+                                    	}else{
+                                    		thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
+                                    	}
+                                       
                                     }
                                     itemstr += ' <div class="row">' +
                                         ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
