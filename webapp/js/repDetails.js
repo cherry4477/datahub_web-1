@@ -223,7 +223,7 @@ $(function() {
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",
         next_text:"下一页",

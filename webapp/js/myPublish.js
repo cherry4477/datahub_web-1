@@ -101,8 +101,8 @@ $(function() {
     $(".repopages").pagination(allrepnums, {
         maxentries: allrepnums,
         items_per_page: 6,
-        num_display_entries: 1,
-        num_edge_entries: 5,
+        num_display_entries: 3,
+        num_edge_entries: 2,
         prev_text: "上一页",
         next_text: "下一页",
         ellipse_text: "...",
@@ -422,7 +422,7 @@ $(function() {
         $(".pagesPer").pagination(total, {
             items_per_page: 6,
             num_display_entries: 3,
-            num_edge_entries: 3,
+            num_edge_entries:2,
             prev_text: "上一页",
             next_text: "下一页",
             ellipse_text: "...",
@@ -432,8 +432,8 @@ $(function() {
         });
         $(".pagescooperator").pagination(total, {
             items_per_page: 6,
-            num_display_entries: 1,
-            num_edge_entries: 1,
+            num_display_entries: 3,
+            num_edge_entries: 2,
             prev_text: "上一页",
             next_text: "下一页",
             ellipse_text: "...",
@@ -573,8 +573,8 @@ $(function() {
                         $('.gobackbtnwrop').show();
                         $(".pagesPer").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 3 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
@@ -618,8 +618,8 @@ $(function() {
                         $('.gobackbtnwropcoo').show();
                         $(".pagescooperator").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 3 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
@@ -816,8 +816,8 @@ $(function() {
                         $(boxobj).empty();
                         $(pagesobj).pagination(0, {
                             items_per_page: 6,
-                            num_display_entries: 1,
-                            num_edge_entries: 5 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
