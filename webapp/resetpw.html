@@ -186,6 +186,7 @@
             		async:false,
             		dataType:'json',
             		success:function(json){
+            			alert("111");
             			if (json.code==0){
 				 			$('#successed').show();
             				$('.infoBox').hide();
@@ -196,6 +197,7 @@
 				 		}
             		},
             		error:function(){
+            			alert("122");
             				$('#failed').show();
             				$('.infoBox').hide();
             		}
