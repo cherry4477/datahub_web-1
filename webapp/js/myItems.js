@@ -26,7 +26,8 @@ $(document).ready(function(){
 
 
 function getitemlist(){
-    $("#list_title").text(repoName);
+    var url="myPublish.html";
+    $("#list_title a").text(repoName).attr("href",url);
     var len=0;
     $.ajax({
         url: ngUrl + "/repositories/" + repoName+"?items=1&size=6",

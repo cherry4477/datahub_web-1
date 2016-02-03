@@ -186,7 +186,7 @@ $(function() {
             '<div class="describe" '+dataitemsalllist+'>'+
             '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'+
             '<div class="left">'+
-            '<div class="subtitle">"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
+            '<div class="subtitle"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
             '<div class="description"><p>'+repocon.comment+'</p></div>'+
             '<div class="subline">'+
             '<div class="icon">'+
