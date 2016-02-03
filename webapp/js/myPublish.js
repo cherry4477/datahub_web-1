@@ -1055,11 +1055,15 @@ $(function() {
                 if(json.code == 0){
                     location.reload();
                 }
-            }, error:function (XMLHttpRequest, textStatus, errorThrown)
+            }, error:function (json)
             {
-                if(XMLHttpRequest.status == 400){
-                   //alert('您可新增的'+thisispublic+'Repository资源不足');
-                    alert("您创建的"+repname+"有误,请重新创建。");
+                if(json.status == 400){
+                    if($.parseJSON(json.responseText).code==1012){
+                        //alert('您可新增的'+thisispublic+'Repository资源不足');
+                        alert("可用资源不足,请通过会员升级获取更多资源。");
+                    }else{
+                        alert("您创建的"+repname+"有误,请重新创建。");
+                    }
                 }
 
             }
