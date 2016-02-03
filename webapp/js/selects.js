@@ -375,15 +375,15 @@ function addhtml(){
                "</div>"+
                 "<div class='iconGroup'>"+
                     "<div class='like'>"+
-                    "<img style='margin-left: 20px;' src='images/selects/images_08.png' data-toggle='tooltip' datapalecement='top' title='点赞量'>"+
+                    "<img style='margin-left: 20px;' src='../images/selects/like.png' data-toggle='tooltip' datapalecement='top' title='点赞量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdstarNum[j]+"</span>"+
                     "</div>"+
                     "<div class='cart'>"+
-                    "<img style='margin-left: 20px;'src='images/selects/images_10.png' data-toggle='tooltip' datapalecement='top' title='订购量'>"+
+                    "<img style='margin-left: 20px;'src='../images/selects/buy.png' data-toggle='tooltip' datapalecement='top' title='订购量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemd[j]+"</span>"+
                     "</div>"+
                     "<div class='download'>"+
-                    "<img style='margin-left: 20px' src='images/selects/images_12.png' data-toggle='tooltip' datapalecement='top' title='下载量'>"+
+                    "<img style='margin-left: 20px' src='../images/selects/down.png' data-toggle='tooltip' datapalecement='top' title='下载量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
                     "</div>"+
                     "</div>");
