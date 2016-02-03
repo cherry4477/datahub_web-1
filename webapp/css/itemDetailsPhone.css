@@ -258,7 +258,8 @@ a:hover{
     color: #29abe2;
 }
 #cur_user{
-    color: #333;.
+   color: #337ab7;
+   text-decoration: underline;
 }
 .curtagnum{
     color: #29abe2;

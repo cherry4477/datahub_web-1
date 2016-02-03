@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的账户_DataHub阳光下的数据流通平台</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/command.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/editormd.css">
+    <link rel="stylesheet" href="css/itemList.css">
+</head>
+<style>
+    .nav > li > a:hover{
+        background-color:rgba(31,154,218,0.7);
+    }
+    .navbar-toggle .icon-bar {
+        background-color: #fff;
+    }
+    .navbar-nav > li > a:focus{
+        background:none;
+    }
+</style>
+<body>
+<div class="be-loader" style="display: block;">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header></header>
+<div class="container">
+    <div id="itemList">
+        <div id="list_title">RepositoryName</div>
+        <div id="sel_item">
+            <input type="checkbox" id="all_select" >
+            <span>全选</span>
+            <span class="del_bg"></span>
+        </div>
+        <div id="list_details"></div>
+            <table class="table_title">
+                <tr class="item_con_title">
+                    <th>DataItem名称</th>
+                    <th>更新时间</th>
+                    <th>属性</th>
+                    <th>Tag数量</th>
+                </tr>
+            </table>
+             <table class="table_content">
+<!--                <tr class="item_con_line">
+                    <td><input type="checkbox" class="item_check"><span class="item_name">DataItemDataItemDataItem</span><span class="item_lable">协作</span><span class="item_lable">付费</span></td>
+                    <td>1小时以前</td>
+                    <td>私有</td>
+                    <td>12345</td>
+                </tr>-->
+<!--                <tr class="item_con_line">
+                    <td><input type="checkbox" class="item_check"><span class="item_name">DataItemDataItemDataItem</span><span class="item_lable">免费</span></td>
+                    <td>1小时以前</td>
+                    <td>私有</td>
+                    <td>12345</td>
+                </tr>
+                <tr class="item_con_line">
+                    <td><input type="checkbox" class="item_check"><span class="item_name">DataItemDataItemDataItem</span><span class="item_lable">限量试用</span></td>
+                    <td>1小时以前</td>
+                    <td>私有</td>
+                    <td>12345</td>
+                </tr>-->
+            </table>
+            <div class="pages"></div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/jquery.zclip.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<script src='js/clipboard.min.js'></script>
+<script src='js/errorDialog.js'></script>
+<script src='js/itemList.js'></script>
+<script>
+
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+
+    var repos=[];
+
+    $(window).load(function(){
+        $(".be-loader").fadeOut("slow");
+    });
+
+    $(document).ready(function(){
+
+    });
+</script>
+</html>

@@ -669,7 +669,7 @@ function ajaxTotal(type,size){
 	    });
 	}
 	if(type=="6"){
-		url=ngUrl+"/notifications?size="+window.size+"&type=item_event";
+		url=ngUrl+"/notifications?size="+window.size+"&level=0";
 	    $.ajax({
 	        url: url,
 	        type: "get",
@@ -680,54 +680,102 @@ function ajaxTotal(type,size){
 	        success:function(json){
 	        	allrepnum =json.data.total;
 	        	$(".zongNums").text(allrepnum);
-	        	var len=json.data.results.length;        	
-	        	for(var i=0;i<len;i++){    		
-	        		var type=json.data.results[i].type;
-	        		var typeText="";
-	        		if(type=="subsapply_event"){
-	        			typeText="订购申请事件";
-	        		}
-	        		if(type=="item_event"){
-	        			typeText="data item事件";
-	        			
-	        			
-	        			for(var p in json.data.results[i].data){
-			        		//totalnum=totalnum+json.data[p];
-	        				if(p=="event"){
-	        					alert(json.data[p]);
-	        				}
-			        	}
-	        			
-	        		}
-	        		if(type=="subs_event"){
-	        			typeText="订购事件";
-	        		}
-	        		if(type=="vip_remind"){
-	        			typeText="会员续费提醒";
-	        		}
-	        		if(type=="apply_whitelist"){
-	        			typeText="申请白名单";
-	        		}
-	        		if(type=="admin_message"){
-	        			typeText="管理员消息";
-	        		}
-	        		$("#terminal-content-body").append(""+
-    	        		"<div class='record'>"+
-    	        			"<div class='head'>"+
-    	        				"<span class='icon'></span>"+
-    	        				"<span class='date'>"+json.data.results[i].time+"</span>"+	
-    	        			"</div>"+
-    	        			"<div class='body'>"+
-    	        				"<div class='info'>"+
-    	        					"<div class='box'>"+
-    									"<p ID='title' style='font-size:16px; color: #000000;padding-top:20px;'>"+typeText+"</p>"+
-    									"<p ID='description' style='font:12px; color: #666666;padding-top:15px; padding-bottom:15px'>管理员<a style='font:14px bold;color:#43609f;'>****(用户真实姓名)申请加入repo名／item名白名单，并以“＊元＝＊条，有效期＊天 的价格订购。”</a></p>"+
-    								"</div>"+
-    							"</div>"+
-    	        			"</div>"+
-    	        		"</div>"	    	        	
-	                 ); 
+	        	var len=json.data.results.length;  
+        		var typeEvent="";
+        		var typeTime="";
+        		var typeRep="";
+        		var typeItem="";
+        		var typeTag="";
+        		var typeText="";
+        		var s="";
+	        	if(len!=0){
+	        		for(var i=0;i<len;i++){    		
+		        		var type=json.data.results[i].type;
+		        		if(type=="subsapply_event"){
+		        			typeText="订购申请事件";
+		        		}
+		        		if(type=="item_event"){   			
+		        			for(var p in json.data.results[i].data){
+		        				if(p=="event"){
+		        					typeEvent=json.data.results[i].data[p];
+		        					if(typeEvent=="tag_added"){
+		        						typeText="tag添加事件";
+		        					}
+									if(typeEvent=="tag_deleted"){
+										typeText="tag删除事件";
+									}
+									if(typeEvent=="item_deleted"){
+										typeText="item删除事件";
+									}
+									if(typeEvent=="repo_deleted"){
+										typeText="repo删除事件";
+									}	
+		        				}
+		        				if(p=="repname"){
+		        					typeRep=json.data.results[i].data[p];
+		        				}
+								if(p=="itemname"){
+									typeItem=json.data.results[i].data[p];       					
+								}
+								if(p=="eventtime"){
+									typeTime=json.data.results[i].data[p]; 
+									typeTime=typeTime.substr(0,10)+"&nbsp;"+typeTime.substr(11,8);
+								}
+								if(p=="tag"){
+									typeTag=json.data.results[i].data[p];   
+								}
+								
+								if(typeEvent=="tag_added"){
+									s="管理员：您订购的<a class='acomRe' target='_blank' href='itemDetails.html?repname="+typeRep+"&itemname="+typeItem+"'>"+typeRep+"/"+typeItem+"</a>新增了一个tag："+typeTag+"。时间为："+typeTime;
+	        					}
+								if(typeEvent=="tag_deleted"){
+									s="管理员：您订购的<a class='acomRe' target='_blank' href='itemDetails.html?repname="+typeRep+"&itemname="+typeItem+"'>"+typeRep+"/"+typeItem+"</a>删除一个tag："+typeTag+"。时间为："+typeTime;				
+								}
+								if(typeEvent=="item_deleted"){
+									s="管理员：您订购的"+typeRep+"/"+typeItem+"被删除。您本次定购的费用将在本月返还给您。用户可点击<a href='javaScript:void(0);'></a>进入billing中心查看。";										
+								}
+								if(typeEvent=="repo_deleted"){
+									s="管理员：您订购的"+typeRep+"被删除。";										
+								}
+								
+		        				
+				        	}
+		        		}
+		        		if(type=="subs_event"){
+		        			typeText="订购事件";
+		        		}
+		        		if(type=="vip_remind"){
+		        			typeText="会员续费提醒";
+		        			s="管理员：您购买的金牌会员服务，将于30天后到期，请及时续费。<a href='javaScript:void(0);'>点击此处</a>进行续费。";
+		        		}
+		        		if(type=="apply_whitelist"){
+		        			typeText="申请白名单";
+		        		}
+		        		if(type=="admin_message"){
+		        			typeText="管理员消息";
+		        		}		        			        		
+		        		
+		        		$("#terminal-content-body").append(""+
+	    	        		"<div class='record'>"+
+	    	        			"<div class='head'>"+
+	    	        				"<span class='icon'></span>"+
+	    	        				"<span class='date'>"+json.data.results[i].time+"</span>"+	
+	    	        			"</div>"+
+	    	        			"<div class='body'>"+
+	    	        				"<div class='info'>"+
+	    	        					"<div class='box'>"+
+	    									"<p ID='title' style='font-size:16px; color: #000000;padding-top:20px;'>"+typeText+"</p>"+
+	    									"<p ID='description' style='font:12px; color: #666666;padding-top:15px; padding-bottom:15px'>"+s+"</p>"+
+	    								"</div>"+
+	    							"</div>"+
+	    	        			"</div>"+
+	    	        		"</div>"	    	        	
+		                 ); 
+		        	}
+	        	}else{
+	        		$("#terminal-content-body").append("<p class='text-center'>暂无请求数据</p>");
 	        	}
+	        	
 	    	        	      	
 	        }
 	    });
@@ -772,11 +820,11 @@ function ajaxReUser(){
 
 //获取url参数
 function getParam(key) {
-    var value='';
-    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-    if (itemid.test(decodeURIComponent(window.location.href))) {
-        value = itemid.exec(decodeURIComponent(window.location.href))[1];
-    }
-    return value;
+	var value='';
+	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+	if (itemid.test(decodeURIComponent(window.location.href))) {
+		value = itemid.exec(decodeURIComponent(window.location.href))[1];
+	}
+	return value;
 }
 

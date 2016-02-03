@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>设置提现密码_DataHub阳光下的数据流通平台</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/command.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="css/editormd.css">
+    <link rel="stylesheet" href="css/withdraw.css">
+</head>
+<style>
+    .nav > li > a:hover{
+        background-color:rgba(31,154,218,0.7);
+    }
+    .navbar-toggle .icon-bar {
+        background-color: #fff;
+    }
+    .navbar-nav > li > a:focus{
+        background:none;
+    }
+</style>
+<body>
+<div class="be-loader" style="display: block;">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header></header>
+<div class="container">
+    <div id="withdraw">
+        <p class="wdTitle">设置提现密码</p>
+        <div id="alertBox">
+            <p id="label_zero" class="failAlert" style="display: none"><span class="span_icon"></span>新密码不能为空</p>
+            <p id="label_one" class="failAlert" style="display: none"><span class="span_icon"></span>密码格式不正确，请重新输入</p>
+            <p id="label_two"  class="failAlert"  style="display: none"><span class="span_icon"></span>不能少于8位字符，请重新输入</p>
+            <p id="label_four" class="failAlert" style="display: none"><span class="span_icon"></span>确认密码不能为空</p>
+            <p id="label_five" class="failAlert" style="display: none"><span class="span_icon"></span>两次密码输入不一致</p>
+            <!--<p id="label_success" style="display:none ; color: #1db506;"><span class="success_icon"></span>修改成功!</p>-->
+        </div>
+        <div id="pwdInput">
+            <input id="newPWD" type="password" class="form-control"placeholder="请输入由英文和数字组成的8-16位新密码">
+            <input id="refPWD" type="password" class="form-control"placeholder="请再次输入密码">
+        </div>
+        <button href="javaScript:void(0);" role="button" id="resetPwd" class="btn btn-primary btn-lg">提交</button>
+    </div>
+</div>
+
+
+<footer></footer>
+<div id="loginTem"></div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script src="js/ngUrl.js"></script>
+<script src="js/login.js"></script>
+<script src="js/base64.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/jquery.zclip.js"></script>
+<script src="js/jquery.pagination.js"></script>
+<script src='js/clipboard.min.js'></script>
+<script src='js/errorDialog.js'></script>
+<script src='js/withdraw.js'></script>
+<script>
+
+    $("a").focus(function(){this.blur()});
+    $("header").load("common/header.html");
+    $("footer").load("common/footer.html");
+    $("#loginTem").load("common/login.html");
+
+    var repos=[];
+
+    $(window).load(function(){
+        $(".be-loader").fadeOut("slow");
+    });
+
+    $(document).ready(function(){
+
+    });
+</script>
+</html>

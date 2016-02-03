@@ -215,6 +215,32 @@
     border: 1px solid #666666;
     display: none;
 }
+#cance_alert{
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    top: 230px;
+    left: 830px;
+    color:#3bcb6e;
+    background-image: url('../images/images02_125.png');
+    background-repeat: no-repeat;
+    height: 18px;
+    display: none ;
+    width: 150px;
+    text-align: center;
+}
+#myself_alert{
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    top: 230px;
+    left: 830px;
+    color:#ea0c1d;
+    height: 18px;
+    display: none ;
+    width: 150px;
+    text-align: center;
+}
 #cancel_buy:hover{
     background-image: linear-gradient(to bottom, #666666 0%, #666666 100%) !important;
     background-color:#666666 ;
@@ -592,6 +618,70 @@
     padding-right: 3px;
 
 }
+#hot{
+    margin-top:78px;
+}
+#place{
+    border-top:1px solid #8c97cb;
+    cursor: pointer;
+}
+#place:hover{
+    background-color: #f3fbfe;
+    border-top:1px solid #f3fbfe;
+    cursor: pointer;
+}   
+
+#title {
+    font:16px #333333;
+    padding-bottom: 20px;
+    border-bottom:1px solid #8c97cb;
+}
+#subtitle{
+    padding-top: 20px;
+    font:20px bold #43609f;
+}
+#subtitle p:hover{
+    color:#395289;
+}
+
+#like{
+    margin-top: 25px;
+    width:50%;
+    float:left;
+}
+#like_pic{
+    margin-left: 10px;
+    padding-right: 15px; 
+}
+#cart{
+    float:left;
+    width: 50%;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+#cart_pic{
+    padding-right: 15px;
+}
+#download{
+    float:left;
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+#download_pic{
+    background-image: url('/images/icon_download.png');
+    padding-right: 15px; 
+}
+#comment{
+    float:left;
+    width: 50%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#comment_pic{
+   padding-right: 15px; 
+}
+
 /*----------订购-------------*/
 #subscriptDialog .modal-dialog {
     width: 758px;
@@ -726,6 +816,9 @@
 #subscriptDialog .subafterprocess .successed .head {
     color: #1db506;
 }
+#subscriptDialog .subafterprocess .successed_apply .head {
+    color: #1db506;
+}
 #subscriptDialog .subafterprocess .failed .head {
     color: #ec6467;
 }
@@ -740,6 +833,16 @@
     height: 26px;
     margin-left: 180px; margin-right: -180px; margin-top: 0px;
 }
+#subscriptDialog .subafterprocess .successed_apply .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: -44px 0px;
+    width: 26px;
+    height: 26px;
+     margin-top: 0px;
+    margin-left: 168px; margin-right: -136px;
+}
+
 #subscriptDialog .subafterprocess .failed .head .icon {
     background-image: url("../images/buy_icon.png");
     background-repeat: no-repeat;
@@ -747,4 +850,22 @@
     width: 26px;
     height: 26px;
     margin-left: 135px; margin-right: -135px; margin-top: 0px;
+
+}
+#subscriptDialog .subafterprocess .failed2{
+    height: 90px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 26px;
+    height: 26px;
+    margin-left: 135px; margin-right: -135px; margin-top: 0px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .text{
+    color:#ec6467;
+}
+#completeDiv:hover{
+    background-color:#f3fbfe;
 }

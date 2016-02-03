@@ -62,7 +62,6 @@
 	    white-space: nowrap;
 	    display: none;
 	}
-
 	 @media (max-width: 768px) {
 	 
 		#col-left{
@@ -135,8 +134,6 @@
 		}
  
   }
-
-
 	
 </style>
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
@@ -188,7 +185,7 @@
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
                   </li>                       
                   <li>
-                  	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                  	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
                         		-->
@@ -239,7 +236,7 @@
                   	</a>
                   </li> 
                   <li>
-					<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+					<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->
@@ -250,7 +247,7 @@
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
                   		<img src="images/fl3.png" />
-                  		-->个人中心<span class="badgeHeader" style="display: none;">&nbsp;</span>
+                  		-->个人中心<span class="badgeHeader">&nbsp;</span>
                   	</a>
 					  <ul class="dropdown-menu">
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
@@ -259,6 +256,8 @@
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
 					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
+						<li><a href="myAccount.html" target="_blank">查询账单</a></li>
+						<li><a href="messageRequired.html" target="_blank">消息中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>
@@ -301,18 +300,13 @@
 <script src="../js/lib/terminal.js"></script>
 
 <script>
-
 	var pcorphone =  browserRedirect();
-
 	if(pcorphone == 'pc'){
 		$('.selectbtn').attr('href','selects.html')
 	}
 	if(pcorphone == 'phone'){
 		$('.selectbtn').attr('href','selectsPhone.html')
 	}
-
-
-
 	$(document).on('keydown',"#headerInput",function (e) {
 	  if (e.keyCode == 13) {
 		  var vals=$(this).val();
@@ -328,7 +322,6 @@
 	$(document).on('click',".hSearchBtn",function (e) {
 		
 		  var vals=$(".headerInput").val();
-
 		  if(pcorphone == 'pc'){
 			  location.href="search.html?rtext="+vals;
 		  }
@@ -413,15 +406,18 @@
 			  app_id: "cd9644b0"
 		});
 	}
-
-
 	daovoice('update');
-
-/* 	if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
+	
+	if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
 		$(".badgeHeader").show();
 	}else{
 		$(".badgeHeader").hide();
-	} */
+	} 
+	
+ 	$(".badgeHeader").click(function(e){
+ 		e.stopPropagation();
+ 		location.href="messageRequired.html";
+ 	});
 	
 	
 	

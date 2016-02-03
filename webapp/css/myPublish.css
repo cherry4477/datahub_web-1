@@ -1,5 +1,496 @@
-body{
-	background-color: #f5f5f5;
+
+strong{
+	font-weight: normal;
+}
+.selects_rep_top{
+	width: 100%;
+	line-height: 24px;
+	padding-top:40px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #c8c8c8;
+	position: relative;
+}
+.del_rep_btn{
+	margin-left: 10px;
+	padding :4px  12px;
+	cursor: pointer;
+	background: url("../images/delete.png") 0 0 no-repeat;
+}
+.pricetype{
+	border-radius: 3px;
+	display: inline;
+	font-size: 12px;
+	padding:2px 5px;
+	margin-left:5px;
+}
+.del_rep_btn:hover{
+	background: url("../images/delete_hover.png") 0 0 no-repeat;
+}
+#select_all_rep{
+	margin-right: 10px;
+}
+.godeldata{
+	position: absolute;
+	top:38px;
+	right: 0px;
+	color: #43609f;
+	cursor: pointer;
+}
+.godeldata:hover{
+	color:#395289;
+}
+.repList{
+	width: 100%;
+	overflow: hidden;
+}
+
+.repo {
+	border-bottom: 1px solid #c8c8c8;
+	/*border-top: 1px solid #c8c8c8;*/
+	float: left;
+	margin-bottom: 60px;
+	width: 100%;
+	position: relative;
+}
+.left {
+	float: left;
+	width: 590px;
+
+}
+.subtitle {
+	float: left;
+	overflow: hidden;
+	width: 100%;
+}
+.subtitle span.curreoName {
+	color: #43609f;
+	float: left;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-left: 30px;
+	margin-top: 21px;
+}
+.description {
+	float: left;
+	overflow: hidden;
+	width: 100%;
+}
+.description p {
+	color: #333333;
+	float: left;
+	font-size: 14px;
+	line-height: 20px;
+	margin-left: 30px;
+}
+.subline {
+	float: left;
+	width: 100%;
+}
+.icon {
+	float: left;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	overflow: hidden;
+	width: 100%;
+}
+.iconiamg1 {
+	margin-left: 60px;
+	margin-right: 15px;
+}
+.icon span {
+	color: #b5b5b5;
+}
+.supplier {
+	color: #666666;
+	float: left;
+	font-size: 12px;
+	margin-bottom: 22px;
+	margin-left: 30px;
+	overflow: hidden;
+	width: 100%;
+}
+.supplier a {
+	color: #43609f;
+	font-size: 12px;
+}
+.repcenter {
+	float: left;
+	margin-left: 97px;
+	margin-right: 20px;
+	overflow: hidden;
+	width: 160px;
+	margin-top: 10px;
+}
+.price {
+	float: left;
+	height: 25px;
+	margin-bottom: 29px;
+	margin-top: 30px;
+	width: 180px;
+}
+.price p {
+	border-radius: 3px;
+	display: inline;
+	font-size: 16px;
+	padding: 0 10px;
+}
+
+.freetype {
+	border: 1px solid #f49f12;
+	color: #f49f12;
+}
+.chargetype {
+	border: 1px solid #e5004f;
+	color: #e5004f;
+}
+.limitedfreetype {
+	border: 1px solid #e60012;
+	color: #e60012;
+}
+.iconGroup {
+	/*border-top: 1px solid #c8c8c8;*/
+	color: #b5b5b5;
+	float: left;
+	font-size: 12px;
+	width: 160px;
+}
+.like {
+	float: left;
+	margin-top: 20px;
+	padding-right: 20px;
+	width: 50%;
+}
+.like span, .cart span, .download span {
+	margin-left: 20px;
+}
+.cart {
+	float: left;
+	margin-top: 20px;
+	padding-right: 20px;
+	width: 50%;
+}
+.download {
+	float: left;
+	padding-right: 20px;
+	padding-top: 15px;
+}
+.repright{
+	float: right;
+	width: 200px;
+	overflow: hidden;
+	margin-top:25px;
+}
+.repright p{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: #b5b5b5;
+	padding-left:28px;
+	cursor: pointer;
+}
+.baimingdan{
+	background:url("../images/as_user.png") left 5px no-repeat;
+}
+.baimingdan:hover{
+	background:url("../images/as_user_hover.png") left 5px no-repeat;
+	color: #395289;
+}
+.xiezuozhe{
+	background:url("../images/delete.png") left 5px no-repeat;
+}
+.xiezuozhe:hover{
+	background:url("../images/delete_hover.png") left 5px no-repeat;
+	color: #395289;
+}
+.xiugairep{
+	background:url("../images/edit.png") left 5px no-repeat;
+}
+.xiugairep:hover{
+	background:url("../images/edit_hover.png") left 5px no-repeat;
+	color: #395289;
+}
+.iconiamg2{
+	margin-left:30px;
+}
+.checkrepo{
+	position: absolute;
+	top:25px;
+	left:0px;
+}
+.tablelist {
+	/* -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        border-color: -moz-use-text-color #e5e5e5 #e5e5e5;
+        border-image: none;
+        border-style: none solid solid;
+        border-width: medium 1px 1px;*/
+	width: 95%;
+	margin:0 auto;
+	overflow: hidden;
+}
+.dhead {
+	padding:20px 0px;
+	overflow: hidden;
+	width: 100%;
+	border-bottom: 1px solid #c8c8c8;
+	color: #666;
+}
+.dhead span,.dbody span {
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 20%;
+	word-break: keep-all;
+	float: left;
+
+}
+.dhead span.col1,.dbody span.col1{
+	width: 48%;
+	padding-left:30px;
+	height: 30px;
+	padding-top:2px;
+
+}
+.dhead span.col4,.dbody span.col4{
+	width: 12%;
+	padding-right:30px;
+	text-align: right;
+}
+.dhead span.col2,.dbody span.col2{
+	width: 22%;
+}
+.dhead span.col3,.dbody span.col3{
+	width: 17%;
+}
+.tablelist span {
+	display: inline-block;
+}
+.dbody div{
+	width: 100%;
+	overflow: hidden;
+	margin:0px;
+}
+.dbody .row{
+	padding:40px 0px;
+	border-bottom: 1px solid #c8c8c8;
+
+}
+.describe{
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.dtail{
+	padding-top:20px;
+	padding-bottom: 60px;
+}
+
+.icon2wrop{
+	height: 24px;
+	width: 75px;
+	float: right;
+	line-height: 24px;
+	background:url("../images/more.png") right center no-repeat;
+	color: #43609f;
+	font-size: 12px;
+}
+.icon2wrop:hover{
+	background:url("../images/more_hover.png") right center no-repeat;
+	color: #395289;
+	text-decoration: none;
+}
+
+.xzbox{
+	border: 1px solid #faaa68;
+	padding:3px 5px;
+	color: #faaa68;
+	font-size: 12px;
+	border-radius: 3px;
+	margin-left:5px;
+}
+
+.reptoppr{
+	float: left;
+	margin-top:26px;
+}
+/****************************修改部分**********************************************/
+.mypushcomment li{
+	display: none;
+}
+.top_nav {
+	border-bottom: 1px solid #c8c8c8;
+	font-size: 27px;
+	overflow: hidden;
+	padding-top: 40px;
+	width: 100%;
+}
+.topanvcon {
+	border-bottom: 4px solid #fff;
+	color: #43609f;
+	cursor: pointer;
+	float: left;
+	overflow: hidden;
+	padding-bottom: 40px;
+	width: 50%;
+}
+.cur {
+	border-bottom: 4px solid #43609f;
+}
+.add-icon {
+	background-image: url("../images/myPublish.png");
+	background-position: -91px -28px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	display: inline-block;
+	height: 18px;
+	margin-bottom: -2px;
+	margin-top: 2px;
+	position: relative;
+	width: 18px;
+}
+#judgment {
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	display: none;
+	margin: -40px 0 10px 125px;
+	position: absolute;
+	width: 140px;
+}
+#judgment p {
+	color: #333;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 26px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding: 0 15px;
+}
+#judgment_number {
+	background-color: #ffffff;
+	border: 5px solid #e5e5e5;
+	display: none;
+	height: 108px;
+	padding: 25px 0;
+	position: absolute;
+	width: 290px;
+}
+#p1 {
+	color: #000;
+	font-size: 16px;
+	line-height: 23px;
+	text-align: center;
+}
+#p2 {
+	color: #666;
+	font-size: 16px;
+	text-align: center;
+}
+#p1 > span {
+	background-image: url("../images/emo.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 23px;
+	margin-bottom: -6px;
+	margin-right: 8px;
+	width: 23px;
+}
+#p2 {
+	color: #666;
+	font-size: 16px;
+	text-align: center;
+}
+#p2 span {
+	color: #29abe2;
+}
+
+
+/*********************白名单弹窗************************/
+#cooperatordelCurrent,#cooperatordelCurrentpublic,#delCurrent,#cooperatordelAll,#cooperatordelAllpri,#delAll {
+	color: #0077aa;
+	font-size: 14px;
+	cursor: pointer;
+}
+#cooperatordelCurrent:hover,#cooperatordelCurrentpublic:hover,#delCurrent:hover, #delAll:hover{
+	text-decoration: underline;
+}
+#cooperatordelCurrent,#cooperatordelCurrentpublic,#delCurrent{
+	float:left;
+	margin-right:10px;
+	margin-bottom: 10px;
+}
+#cooperatordelAll,#cooperatordelAllpri,#delAll{
+	float:left;
+	margin-bottom: 10px;
+}
+#cooperatorinList,#inList{
+	height:30px;
+	width:110px;
+	float:left;
+	margin-right:5px;
+	background-color: #29abe2;border: none;
+}
+#cooperatorseList,#seList{
+	height:30px;
+	width:110px;
+	float:left;
+	background-color: #29abe2;border:none;
+}
+
+.pomisiondelwrop{
+	float: left;
+	border-top: 1px solid #e5e5e5;
+	width: 100%;margin:20px 0px;
+}
+#cooperatoremailTest,#emailTest{
+	width:220px;
+	height:30px;
+	float:left;
+	margin-right:10px;
+}
+.pomosionList{
+	float:left;
+	height:30px;
+	background:#e5e5e5;
+	margin-bottom:10px;
+	width:100%;
+}
+.pomosionListcon{
+	float:left;
+	height:30px;
+	line-height:30px;
+}
+.delthispomition{
+	float:right;
+	height:30px;
+	line-height:30px;
+}
+.delecooperator,.deleteTest {
+	margin-right: 10px;
+}
+.modal-dialog{
+	width: 520px;
+}
+
+.errorMess{
+	text-align:center;
+	background-color: #ffd1d1;
+	font-size: 14px;
+	color: #ff0000;
+	width:300px;
+}
+.successMess{
+	text-align:center;
+	background-color: #e8f7e6;
+	font-size: 14px;
+	color: #1bd506;
+	width:200px;
+	margin-bottom:15px;
 }
 .pagination {
 	text-align: right;
@@ -21,623 +512,166 @@ body{
 .pagination a, .pagination span {
 	padding: 0.5em 1em;
 }
-#publish {
-	padding: 22px 0px;
-	margin-top: 50px;
-}
-#publish-head {
-	margin-bottom: 25px;
-}
-#publish-head>span {
-	display: inline-block;
-}
-#publish-head .name {
-	font-size: 20px;
-	margin-right: 11px;
-}
-#publish-head .add-icon {
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -91px -28px;
-	width: 18px;
-	height: 18px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	cursor: pointer;
-	position: relative;
-}
-#judgment{
-	width: 140px;
-	background-color:#FFFFFF;
-	border: 1px solid #CCCCCC;
-	margin:-40px 0 10px 125px ;
-	position: absolute;
+.gobackbtnwrop,.privategobackbtnwrop,.gobackbtnwropcoo {
 	display: none;
+	float: left;
 }
-#judgment p{
-	line-height: 26px;
-	color:#333;
-	font-size: 14px;
-	padding:0px 15px 0px 15px  ;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-weight: bold;
-}
-#judgment p:hover{
-	color:#0077aa;
-	text-decoration:underline;
-	cursor: pointer;
-}
-#judgment_number{
-	border: 5px solid #e5e5e5;
-	position: absolute;
-	width: 290px;
-	height: 108px;
-	padding:25px 0px;
-	background-color: #ffffff;
-	display: none;
-
-}
-#p1{
-	font-size: 16px;
-	color:#000;
-	text-align: center;
-	line-height: 23px;
-}
-#p1>span{
-	background-image: url("../images/emo.png");
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
-	width: 23px;
-	height: 23px;
-	display: inline-block;
-	margin-bottom: -6px;
-	margin-right: 8px;
-}
-#p2{
-	font-size: 16px;
-	color:#666;
-	text-align: center;
-
-
-}
-#p2 span{
-	color:#29abe2;
-}
-#p2 span:hover{
-	text-decoration:underline;
-}
-
-
-.norepnum{
-	width: 100%;
-	overflow: hidden;
-	text-align: center;
-	display: none;
-}
-.fabucon{
-	position: absolute;
-	padding:10px 15px;
-	line-height: 24px;
-	color: #333333;
-	background: #ffffff;
-	left:30px;
-	top:-22px;
-	display: none;
-}
-#noitem a{
-	color:#ff1c1c;
-}
-#noitem a:hover{
-	color: #ff1c1c;
-	text-decoration: underline;
-}
-.fabucon p{
-	white-space:nowrap;
-}
-.fabucon p:hover{
-	color: #0077aa;
-	text-decoration: underline;
-}
-#publish-body .repocount{
-	font-size: 14px;
-	margin-bottom: 11px;
-}
-#publish-body .repolist .reporecord {
-	margin-bottom: 25px;
-	background-color: #fff;
-}
-#publish-body .repolist .describe {
-	padding: 20px;
-	border: 1px solid #e5e5e5;
-	cursor: pointer;
-}
-#publish-body .repolist .describe .head {
-	margin-bottom: 20px;
-}
-#publish-body .repolist .reporecord .describe .head .head-text {
-	font-size: 22px;
-	color: #0077aa;
-}
-#publish-body .repolist .describe .head>span {
-	display: inline-block;
-}
-#publish-body .repolist .describe .head .head-icon1{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -20px -28px;
-	width: 40px;
-	height: 17px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	margin-left: 5px;
-}
-#publish-body .repolist .describe .head .head-icon2{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -166px -28px;
-	width: 20px;
-	height: 20px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	float: right;
-}
-#publish-body .repolist .describe .head .head-icon2:hover{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -204px -26px;
-	cursor: pointer;
-}
-#publish-body .repolist .describe .body {
-	font-size: 14px;
-	line-height: 24px;
-	color: #242424;
-	margin-bottom: 20px;
-}
-#publish-body .repolist .describe .tail>span {
-	font-size: 0px;
-}
-#publish-body .repolist .describe .tail span {
-	display: inline-block;
-}
-#publish-body .repolist .describe .tail>span span{
-	font-size: 12px;
-	color: #989898;
-}
-
-#publish-body .repolist .describe .tail .right {
-	float: right;
-}
-#publish-body .repolist .describe .tail .left .icon {
-	margin-right: 3px;
-}
-#publish-body .repolist .describe .tail .left .val {
-	margin-right: 10px;
-}
-#publish-body .repolist .describe .tail .right .icon {
-	margin-left: 10px;
-}
-#publish-body .repolist .describe .tail .right .val {
-	margin-left: 3px;
-}
-
-#publish-body .repolist .describe .tail .left .left1-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -21px -126px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .left .left2-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -113px -126px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .left .left3-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -163px -126px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .left .left4-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -223px -126px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .right .right1-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -20px -76px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .right .right2-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -65px -76px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-#publish-body .repolist .describe .tail .right .right3-icon{
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -110px -76px;
-	width: 15px;
-	height: 15px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-
-#publish-body .repolist .tablelist {
-	border: 1px solid #e5e5e5;
-	border-top: none;
-}
-#publish-body .repolist .tablelist .dhead {
-	padding: 27px 55px 16px 55px;
-	background-color: #eef8ff;
-}
-#publish-body .repolist .tablelist span {
-	display: inline-block;
-}
-#publish-body .repolist .tablelist div {
-	font-size: 0px;
-}
-#publish-body .repolist .tablelist .dhead span, #publish-body .repolist .tablelist .dbody span {
-	font-size: 14px;
-	width: 25%;
-	word-break: keep-all;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
-}
-#publish-body .repolist .tablelist .dbody .row{
-	margin:0px 55px;
-	border-bottom: 1px solid #e5e5e5;
-}
-#publish-body .repolist .tablelist .dbody span{
-	height: 36px;
-	line-height: 36px;
-}
-#publish-body .repolist .reporecord .tablelist .dtable .dbody .row .col1 a:hover{
-	text-decoration: underline;
-	color: #666;
-}
-#publish-body .repolist .tablelist .dbody .col1, #publish-body .repolist .tablelist .dhead .col1 {
-	padding-left: 41px;
-	text-align: left;
-}
-#publish-body .repolist .tablelist .dbody .col2, #publish-body .repolist .tablelist .dbody .col3,
-#publish-body .repolist .tablelist .dhead .col2, #publish-body .repolist .tablelist .dhead .col3 {
-	text-align: center;
-}
-#publish-body .repolist .tablelist .dbody .col4, #publish-body .repolist .tablelist .dhead .col4 {
-	padding-right: 41px;
-	text-align: right;
-}
-#publish-body .repolist .tablelist .dtail {
-	padding: 15px 62px 15px 0px;
-	overflow:hidden;
-}
-#publish-body .repolist .tablelist .dtail span {
-	display: inline-block;
-}
-#publish-body .repolist .tablelist .dtail>span {
-	float: right;
-}
-#publish-body .repolist .tablelist .dtail>span span{
-	cursor: pointer;
-}
-#publish-body .repolist .tablelist .dtail .icon1 {
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -92px -28px;
-	width: 18px;
-	height: 18px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-	margin-right: 19px;
-}
-#publish-body .repolist .tablelist .dtail .icon2 {
-	background-image: url("../images/myPublish.png");
-	background-repeat: no-repeat;
-	background-position: -127px -28px;
-	width: 18px;
-	height: 18px;
-	margin-top: 2px;
-	margin-bottom: -2px;
-}
-.addcontent{
-	width: 100%;
-	height: 30px;
-	margin-top:40px;
-}
-#addvalue{
-	width: 295px;
-	height: 30px;
-	line-height: 30px;
-	border: 1px solid #c7c7c7;
-	border-radius: 4px;
-}
-.addcontent span{
-	width: 110px;
-	height: 30px;
-	line-height: 30px;
-	text-align: center;
-	color: #ffffff;
-	display: inline-block;
-	background: #0077aa;
-	border-radius: 4px;
-	margin-left:10px;
-	cursor: pointer;
-}
-.addcontent h1{
-	width: 100%;
-	height: 1px;
-	background: #e5e5e5;
-}
-.guanlilist{
-	width: 100%;
-	height: 20px;
-}
-.guanlilist span{
+.gobackcooperator,.gobackbtn ,.gobackcooperatorpomition,.gobackprivatecooperList{
 	color: #0077aa;
 	cursor: pointer;
 }
-.guanlilist span:hover{
+.gobackcooperator:hover,.gobackbtn:hover,.gobackcooperatorpomition:hover,.gobackprivatecooperList:hover{
 	text-decoration: underline;
 }
-.guanlilist span.emptylist{
-	margin-left:10px;
-}
-.namelist{
-	width: 100%;
-	overflow: hidden;
-}
-.namelist li{
-	width: 100%	;
-	height: 30px;
-	line-height: 30px;
-	background: #e5e5e5;
-	padding: 0px 10px;
-	margin-top:10px;
+
+/*********修改新增repo弹窗*********/
+#addRep .head span {
 	color: #333;
-}
-.namelistdel{
-	float: right;
-}
-.namelistcon{
-	margin-left: 6px;
-}
-/*添加仓库*/
-#addRep .modal-dialog{
-	width: 520px;
-}
-#editBox .modal-dialog{
-	width: 600px;
-	background: #fff;
- border-radius: 5px;
-}
-#editBox .modal-dialog .modal-content .modal-body{
-	min-height: 550px;
-}
-#addRep .head{
-	margin-bottom: 30px;
-}
-#addRep .head span  {
 	font-size: 20px;
-	color: #333;
 }
-#addRep .repname .key,#addRep .repcomment .key,#addRep .property .key,.managename{
-	font-size: 14px;
+#addRep .repname .key, #addRep .repcomment .key, #addRep .property .key, .managename {
 	color: #29abe2;
+	font-size: 14px;
 	margin-bottom: 10px;
 }
-.namenum{
-	color: #333;
-	margin-left: 5px;
-}
-.editicon{
-	margin-left: 10px;
-	cursor: pointer;
-	padding:3px 10px;
-	background: url("../images/allow_icon.png") no-repeat;
-	background-position: 3px 5px;
-}
-.editicon:hover{
-	background-position: -21px 5px;
-}
-#addRep .repname .value input{
-	width: 458px;
+#addRep .repname .value input {
+	background-color: #fff;
+	border: 1px solid #c7c7c7;
+	border-radius: 5px;
+	color: #666;
+	font-size: 14px;
 	height: 38px;
-	padding: 0px 10px;
-	border: 1px solid #c7c7c7;
-	border-radius: 5px;
-	background-color: #fff;
-	font-size: 14px;
-	color: #666;
 	margin-bottom: 30px;
-}
-#addRep .repcomment .value textarea{
+	padding: 0 10px;
 	width: 458px;
-	height: 112px;
-	padding: 0px 10px;
+}
+#addRep .repcomment .value textarea {
+	background-color: #fff;
 	border: 1px solid #c7c7c7;
 	border-radius: 5px;
-	background-color: #fff;
-	font-size: 14px;
 	color: #666;
-	margin-bottom: 30px;
-}
-#addRep .property .value p{
-	width: 92px;
-	height: 24px;
 	font-size: 14px;
-	color: #666;
+	height: 112px;
 	margin-bottom: 30px;
-	border-radius: 5px;
-	text-align:center;
-	border: 1px solid #666;
-	letter-spacing: 3px;
+	padding: 0 10px;
+	width: 458px;
 }
-#ListManagement p{
-	color:#29abe2;
-	letter-spacing: 0.2em;
-	margin-bottom: 25px;
-	line-height: 20px;
-}
-#ListManagement p span:first-child{
-	color:#000000;
-}
-#ListManagement p span:last-child{
-	background-image: url("/images/allow_icon.png");
-	background-repeat: no-repeat;
-	background-position:-29% 71%;
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	margin-bottom:-3px;
-}
-.property{
+.property {
 	margin-bottom: 20px;
 }
-#addRep .submit input{
-	width: 458px;
-	height: 40px;
+#ListManagement p {
+	color: #29abe2;
+	letter-spacing: 0.2em;
+	line-height: 20px;
+	margin-bottom: 25px;
+}
+#ListManagement p span:first-child {
+	color: #000000;
+}
+#addRep .submit input {
 	background-color: #29abe2;
+	border: 0 none;
+	border-radius: 5px;
 	color: #fff;
 	font-size: 18px;
+	height: 40px;
 	text-align: center;
-	border-radius: 5px;
-	border:0 none;
+	width: 458px;
 }
-#addRep .submit input:hover {
-	background-color: #1998ce;
+/*******************************私有协作者弹窗**********************************/
+#privatealertbox .modal-dialog{
+	width: 800px;
 }
+.ListboxLeft,.ListboxCenter,.ListboxRight{
+	overflow: hidden;
+	float: left;
+}
+.ListboxLeft,.ListboxRight{
+	width: 300px;
 
-.shuxing{
-	padding:3px 20px;
-	border: 1px solid #cccccc;
+}
+.ListboxCenter{
+	min-height: 200px;
+}
+#addpricoo{
+	width: 80%;
+	height: 25px;
+	line-height: 25px;
+	background: #29ABE2;
 	border-radius: 3px;
+	color: #fff;
+	margin:0 auto;
+	margin-top:80px;
+	text-align: center;
+	cursor: pointer;
 }
+.privatelistboxwrop{
+	width: 100%;
+	overflow: hidden;
+	border: 1px solid #c8c8c8;
+	padding:20px;
+	float: left;
+}
+.privatecooperList{
+	width: 100%;
 
-@media screen and (max-width: 768px) {
-	#publish-body .repolist .describe .tail {
-		overflow: hidden;
-	}
-	#publish-body .repolist .describe .tail .left {
-		float: left;
-	}
-	#publish-body .repolist .describe .tail .right {
-		float: left;
-		clear: left;
-	}
-	#publish-body .repolist .describe .tail .right .right1-icon:nth-child(1) {
-		margin-left: 0px;
-	}
-	#publish-body .repolist .tablelist .dhead{
-		display: none;
-	}
-	#publish-body .repolist .tablelist .dbody .row > span{
-		text-align: left;
-		float: left;
-		padding-left: 20px;
-		width: 50%;
-	}
-	#publish-body .repolist .tablelist .dbody .row > span:nth-child(2n+1) {
-		clear: left;
-	}
-	#publish-body .repolist .tablelist .dbody .row{
-		margin: 0px 0px 0px 0px;
-	}
+	overflow: hidden;
 }
-@media screen and (max-width: 420px) {
-	#publish-body .repolist .describe .tail > span span {
-		margin-bottom: 5px;
-		float: left;
-	}
-	#publish-body .repolist .describe .tail > span span:nth-child(2n+1) {
-		clear: left;
-	}
-	#publish-body .repolist .describe .tail .left {
-		margin-bottom: 20px;
-	}
-	#publish-body .repolist .describe .tail .right .icon {
-		margin-left: 0px;
-	}
-	#publish-body .repolist .tablelist .dbody .row > span {
-		width: 100%;
-		display: block;
-		float: none;
-	}
-
-
+.pomisionesearchwrop{
+	width: 100%;
+	overflow: hidden;
 }
-/*白名单*/
-#delCurrent, #delAll{
-    color: #0077aa;
-    font-size: 14px;
+#privatepomisionemailTest{
+	width: 80%;
+	height: 30px;
+	float: left;
+	border-right: none;
+	border-radius:0px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	box-shadow:none;
 }
-
-#delCurrent:hover, #delAll:hover{
-    text-decoration: underline;
-    cursor: pointer;
+#privatecooperatoremailTest{
+	width: 80%;
+	height: 30px;
+	float: left;
+	border-right: none;
+	border-radius:0px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	box-shadow:none;
 }
-
-#modalRep a{
-    font-size: 12px;
-    color:#333;
-    margin-right: 10px;
+#privatepomisionemailTest:focus{
+	border:1px solid #ccc;
+	border-right: none;
 }
-
-#modalRep a:hover{
-    font-size: 12px;
-    color:#333;
-    text-decoration: underline;
+.searchpomisione{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	float: left;
+	height: 30px;
+	width: 18%;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	background-image: url("../images/lens.png");
+	background-position: 53% 48%;
+	background-repeat: no-repeat;
+	border-left:none;
+	box-shadow: 0;
+	cursor: pointer;
 }
-
-.successMess{
-    text-align:center;
-    background-color: #e8f7e6;
-    font-size: 14px;
-    color: #1bd506;
-    width:200px;
-    margin-bottom:15px;
+.ListboxCenter{
+	width: 130px;
 }
-
-.errorMess{
-    text-align:center;
-    background-color: #ffd1d1;
-    font-size: 14px;
-    color: #ff0000;
-    width:200px;
-    margin-bottom:15px;
+.cooperatorpomitionList{
+	height: 245px;
+	width: 100%;
 }
-.deleteTest{
-	margin-right: 10px;
+.cooperator_list{
+	width: 100%;
+	height: 250px;
+	overflow-y: auto;
 }
-.deleteTest:hover{
-	text-decoration:underline;
-	color:black;
-}
-.back_icon_a:hover{
-	text-decoration:underline;
+.pagescooperator a ,.pagescooperator span{
+	padding: 0.2em 0.5em;
 }

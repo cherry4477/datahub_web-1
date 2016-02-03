@@ -185,8 +185,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
+                  //  apendjson.dataitemd = dataitemd;
+                  //  apendjson.dataitemdpullNum = dataitemdpullNum;
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -199,7 +223,7 @@ $(function() {
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",
         next_text:"下一页",
@@ -255,8 +279,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    //apendjson.dataitemd = dataitemd;
+                    //apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -276,7 +324,6 @@ $(function() {
     })
 
 });
-
 
 function apendBigbox(apendjson,i,labelstr){
     var thispricestate = '';
@@ -325,11 +372,11 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="cart">'+
         '<img style=""src="images/newpic002.png" data-toggle="tooltip" datapalecement="top" title="订购量">'+
-        '<span>'+apendjson.dataitemd[i]+'</span>'+
+        '<span>'+apendjson.dataitemd+'</span>'+
         '</div>'+
         '<div class="download">'+
         '<img style=""src="images/newpic003.png" data-toggle="tooltip" datapalecement="top" title="下载量">'+
-        '<span>'+apendjson.dataitemdpullNum[i]+'</span>'+
+        '<span>'+apendjson.dataitemdpullNum+'</span>'+
         '</div>'+
         '</div>'+
         '</div>';
@@ -337,3 +384,178 @@ function apendBigbox(apendjson,i,labelstr){
     $('[data-toggle="tooltip"]').tooltip();
 
 }
+
+
+
+
+//获取reponame,itemname
+function getParam(key) {
+    var value='';
+    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+        value = itemid.exec(decodeURIComponent(window.location.href))[1];
+    }
+    return value;
+}
+//the amount of like:star
+function subscription(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var starAmount = '';
+        $.ajax({
+            url: ngUrl + "/star_stat/"+repoName,
+            type: "GET",
+            cache: false,
+            async: false,
+            dataType: 'json',
+            //headers: {Authorization: "Token " + $.cookie("token")},
+            success: function (json) {
+                if(json.code == 0) {
+                    starAmount = json.data.numstars;
+                }
+            }
+        });
+        return starAmount;
+}
+
+//the amount of purchase icon cart
+function purchase(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var purchaseAmount = '';
+            $.ajax({
+                url: ngUrl+"/subscription_stat/"+repoName,
+                type: "GET",
+                cache:false,
+                async:false,
+                dataType:'json',
+                //headers:{Authorization:"Token "+$.cookie("token")},
+                success:function(json){
+                    if(json.code == 0){
+                        //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
+                        purchaseAmount=json.data.numsubs;
+                    }
+                 }
+             });
+    return purchaseAmount;
+ }
+//the amount of download the icon download
+ function download_icon(repoName){
+     if($.cookie("token")!=null&&$.cookie("token")!="null"){
+         headerToken={Authorization:"Token "+$.cookie("token")};
+     }
+     var downloadAmount ='';
+     $.ajax({
+         url: ngUrl+"/transaction_stat/"+repoName,
+         type: "GET",
+         cache:false,
+         async:false,
+         dataType:'json',
+         //headers:{Authorization:"Token "+$.cookie("token")},
+         success:function(json){
+             if(json.code == 0){
+                 downloadAmount = json.data.numpulls;
+             }
+         }
+     });
+     return downloadAmount;
+}
+//the amount of comment
+function getComment(repoName){
+    var commentAmount=0;
+    var allCommentAmount=0;
+    $.ajax({
+        url: ngUrl+"/repositories/"+repoName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json){
+            if(json.code == 0){
+                if(json.data.dataitems!=null){
+                    var dataItem=json.data.dataitems;
+                    var len=json.data.items;
+                    for(var i=0;i<len;i++){
+                        var itemName=dataItem[i];
+                        $.ajax({
+                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            type: "GET",
+                            cache:false,
+                            async:false,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.code == 0){
+                                    commentAmount=json.data.numcomments;
+                                }
+                            }
+                        });
+                        allCommentAmount+=commentAmount;
+                    }
+                }
+            }
+        }
+    });
+    return allCommentAmount;
+}
+
+$(document).ready(function(){
+    getUserEmail();
+});
+var $place=$("<div></div>").appendTo($("#hot"));
+//get currently user's loginname(email)
+function getUserEmail(){
+        var loginEmail = '';
+        $.ajax({
+            url: ngUrl +"/repositories/"+repname,
+            type: "get",
+            cache: false,
+            async: false,
+            success: function (jsons) {   
+                loginEmail = jsons.data.create_user;
+                //get username
+                    var userName = '';
+                    $.ajax({
+                        url: ngUrl +"/users/"+loginEmail,
+                        type: "get",
+                        cache: false,
+                        async: false,
+                        success: function (jsons){
+                            //get reponame
+                            var repoName = '';
+                            $.ajax({
+                                url: ngUrl +"/repositories/"+"?size=3&username="+loginEmail,
+                                type: "get",
+                                cache: false,
+                                async: false,
+                                success: function (jsons) {                                
+                                    for (i=0;i<jsons.data.length;i++){
+                                        repoName=jsons.data[i].repname;
+                                        var like = subscription(repoName);
+                                        var cart =purchase(repoName);
+                                        var download =download_icon(repoName);
+                                        var comment = getComment(repoName);
+                                        var url ="repDetails.html?repname="+repoName
+                                        $place.append(""+
+                                        "<div id='completeDiv'  style='float: left'>"+
+                                        "<a href='"+url+"'> <p ID='subtitle' style='padding-top: 20px; padding-left:15px;  padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p></a>"+
+                                        "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
+                                        "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+like+"</span>"
+                                        +"</div>"
+                                        +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_10.png' style='padding-right: 15px;'>"+"<span>"+cart+"</span>"
+                                        +"</div>"
+                                        +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width:50%'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+download+"</span>"
+                                        +"</div>"
+                                        +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+comment+"</span>"
+                                        +"</div>"+"</div>"+"</div>"+"</div>");
+                                    }
+                        }
+                    });
+                           
+            }
+        }); 
+    }
+});
+    }
+

@@ -25,15 +25,58 @@ $(function(){
 					$("#messageModa3").css("display","none");
 					$("#messageModa4").css("display","none");			
 					$("#messageModa2").fadeOut(4000);
-　					}
-				
-				});
-				
+　					}		
+				});	
+				$("#exampleInputPassword1").blur(function(){
+					if (($("#exampleInputPassword1").val())==""){
+						$("#messageModa4").css("display","block");			
+						$("#messageModa4").fadeOut(4000);
+						$("#messageModal").css("display","none");
+						$("#messageModal2").css("display","none");
+						$("#messageModal3").css("display","none");
+					}
+					if(($("#exampleInputPassword1").val()).length<8){
+						$("#messageModa4").css("display","block");			
+						$("#messageModa4").fadeOut(4000);
+						$("#messageModal").css("display","none");
+						$("#messageModal2").css("display","none");
+						$("#messageModal3").css("display","none");
+					}
+
+					if(($("#exampleInputPassword1").val()).length>32){
+						$("#messageModa4").css("display","block");			
+						$("#messageModa4").fadeOut(4000);
+						$("#messageModal").css("display","none");
+						$("#messageModal2").css("display","none");
+						$("#messageModal3").css("display","none");
+					}
+				});		
 	});
 	
-
-
 	$(document).on('click','#signs',function(){
+		if (($("#exampleInputPassword1").val())==""){
+			$("#messageModa4").css("display","block");			
+			$("#messageModa4").fadeOut(4000);
+			$("#messageModal").css("display","none");
+			$("#messageModal2").css("display","none");
+			$("#messageModal3").css("display","none");
+		}
+
+		if(($("#exampleInputPassword1").val()).length<8){
+			$("#messageModa4").css("display","block");			
+			$("#messageModa4").fadeOut(4000);
+			$("#messageModal").css("display","none");
+			$("#messageModal2").css("display","none");
+			$("#messageModal3").css("display","none");
+		}
+
+		if(($("#exampleInputPassword1").val()).length>32){
+			$("#messageModa4").css("display","block");			
+			$("#messageModa4").fadeOut(4000);
+			$("#messageModal").css("display","none");
+			$("#messageModal2").css("display","none");
+			$("#messageModal3").css("display","none");
+		}
         var exampleInputEmail1 = $('#exampleInputEmail1').val();
         var exampleInputPassword1 = $('#exampleInputPassword1').val();
         var mdpass =  $.md5(exampleInputPassword1);
@@ -166,4 +209,12 @@ function formatSeconds(value) {
         }
     return result;
 }
+
+	//make the origin login hide and the forget psd show
+	$(function () { $('#myModal').on('hide.bs.modal', function () {
+      $('#Modal').modal('show');
+ 		 })
+   	});
+ 	      
+	 	
 
