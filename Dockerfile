@@ -1,4 +1,4 @@
-FROM cherry4477/nodejs_web
+FROM index.alauda.cn/asiainfoldp/baseimage-web-nodejs
 #COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh /start.sh
 
