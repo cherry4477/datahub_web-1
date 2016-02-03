@@ -131,10 +131,7 @@ function gonextpage(nextpages){
                         $content1_time.append($("<span>2分钟以前</span>").text(arry[1]).attr({"data-toggle":"tooltip","datapalecement":"top","title":arry[0]}));
 
                         var $content1_pullNumber = $("<div></div>").addClass("content1_pullNumber").appendTo($content);
-                        if(login=="true"){
-                            $content1_pullNumber.append("<span></span>");
-                            $content1_pullNumber.append("<span>Pull:0</span>");
-                        }
+
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
                         $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i).attr("readonly","readonly"));
@@ -152,22 +149,28 @@ function gonextpage(nextpages){
 
                         var content1_download = $("<div></div>").addClass("content1_download").appendTo($content);
                         content1_download.append("<span></span>");
-
                         //获取tag的pull量
-                            $.ajax({
-                                url: ngUrl + "/transaction_stat/" + repoName + "/" + itemName + "/" + tag_tag,
-                                type: "GET",
-                                cache: false,
-                                async: false,
-                                dataType: 'json',
-                                headers:headerToken,
-                                success: function (json) {
-                                    if (json.code == 0) {
-                                        $(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
-                                        content1_download.append("<p>"+json.data.numpulls+"</p>");
-                                    }
+                        var numMyPulls=0;
+                        $.ajax({
+                            url: ngUrl + "/transaction_stat/" + repoName + "/" + itemName + "/" + tag_tag,
+                            type: "GET",
+                            cache: false,
+                            async: false,
+                            dataType: 'json',
+                            headers:headerToken,
+                            success: function (json) {
+                                if (json.code == 0) {
+                                    //$(".content1_pullNumber span:nth-child(2)").text("pull:" + json.data.nummypulls);
+                                    numMyPulls=json.data.nummypulls;
+                                    content1_download.append("<p>"+json.data.numpulls+"</p>");
                                 }
-                            });
+                            }
+                        });
+                        if(login=="true"){
+                            $content1_pullNumber.append("<span></span>");
+                            $content1_pullNumber.append("<span>Pull:"+numMyPulls+"</span>");
+                        }
+
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
 
