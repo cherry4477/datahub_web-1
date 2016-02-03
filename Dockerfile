@@ -1,4 +1,4 @@
-FROM daocloud.io/asiainfo_dev/datahub_middle_web:develop-0b6f4f5
+FROM cherry4477/nodejs_web
 #COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh /start.sh
 
