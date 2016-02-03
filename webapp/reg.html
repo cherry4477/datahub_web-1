@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
 	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。"/>
-	<title>注册Datahub账号_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
+	<title>reg.DataHub</title>
 
 	<!--css-->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -48,9 +48,8 @@
 				<p>注册DataHub账号</p>
 			</div>
 			<div class="labelBox">
-
 				<p id="label_one" style="display:none;"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱格式不正确</p>
-				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符</p>
+				<p id="label_two" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">密码不能少于8个字符，或者多于32个字符</p>
 				<p id="label_three" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">两次密码输入不一致</p>
 				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">您还没有接受《DataHub服务协议》</p>
 				<p id="label_five" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱不能为空</p>
@@ -58,12 +57,12 @@
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
-				<label for="exampleEmail" ID="label1">邮箱地址</label>
-    			<input type="text" class="form-control" id="email" placeholder="请填写正确的邮箱，以便接收账号">
+				<label for="exampleEmail" ID="label1" >邮箱地址</label>
+    			<input type="text" class="form-control" id="email" maxlength="32" placeholder="请填写正确的邮箱，以便接收账号">
     			<label for="examplePs" ID="label2">输入密码</label>
-   				<input type="password" class="form-control" id="ps" placeholder="最少8个字符">
+   				<input type="password" class="form-control" id="ps" maxlength="32" placeholder="最少8个字符">
    				<label for="examplePs2" ID="label3">确认密码</label>
-   				<input type="password" class="form-control" ID="psr" placeholder="再次输入密码">
+   				<input type="password" class="form-control" maxlength="32" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
 				<div ID="accept">
@@ -90,7 +89,17 @@
 			</div>
 		</div>
 	</div>
-
+	<!--user already registered-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div ID="cannotreg" style="display:none" >
+			<div ID="failed">
+				<p>注册DataHub账号</p>
+			</div>
+			<div ID="info">
+				<p ID="wrongmes" style="font:16px;">对不起！您的邮箱已经注册过！请返回登陆页面。</p>
+			</div>
+		</div>
+	</div>
 	 <!--服务条约-->
     <div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
@@ -103,7 +112,7 @@
                 <div class="subcontent" >
                     <div class="modal-body">
                     	<div class="des">
-                                <p class="note">欢迎使用DataHub平台（http://hub.dataos.io，以下简称DataHub），本协议是您与DataHub之间就服务等相关内容所订立的契约，请您仔细阅读本注册协议，当您按照注册页面提示填写信息、同意并接受本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与DataHub达成一致，成为DataHub平台的用户。
+                                <p class="note">欢迎使用DataHub平台（https://hub.dataos.io，以下简称DataHub），本协议是您与DataHub之间就服务等相关内容所订立的契约，请您仔细阅读本注册协议，当您按照注册页面提示填写信息、同意并接受本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与DataHub达成一致，成为DataHub平台的用户。
 								</p>
                         </div>
                     	<div class="sub1">
@@ -300,6 +309,16 @@
 					$("#label_four").css("display","none");
 					$("#label_six").css("display","none");
 				}
+
+				if(($("#ps").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
@@ -313,6 +332,16 @@
 				} 
 
 				if(($("#psr").val()).length<8){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
+
+				if(($("#psr").val()).length>32){
 					$("#label_two").css("display","block");	
 					$("#label_two").fadeOut(4000);
 					$("#label_one").css("display","none");
@@ -386,6 +415,16 @@
 					return;
 				}
 
+				if(($("#ps").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
+				}
+
 				if( $("#psr").val() == ''){
 					$("#psr").focus();
 					$("#label_two").css("display","block");
@@ -411,6 +450,16 @@
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
+				}
+
+				if(($("#psr").val()).length>32){
+					$("#label_two").css("display","block");	
+					$("#label_two").fadeOut(4000);
+					$("#label_one").css("display","none");
+					$("#label_five").css("display","none");
+					$("#label_three").css("display","none");
+					$("#label_four").css("display","none");
+					$("#label_six").css("display","none");
 				}
 
 				if (($("#ps").val())!=($("#psr").val())){
@@ -445,12 +494,11 @@
 				}
 					$(".infoBox").hide();
 					$("#checkEmail").show();
-					
 
 				var loginname=$("#email").val();
 				var	myps=$.md5($("#ps").val());
+	 		 	//var sid=getParam("sid");
 				$.ajax({
-            		//loginname email and get the text after @
             		url: ngUrl+"/users/"+loginname,
             		type: "POST",
             		cache:false,
@@ -458,15 +506,34 @@
             		async:false,
             		dataType:'json',
             		success:function(json){
-            			var ss=loginname;
-            			var start=ss.indexOf("@")+1;
-    					var end=start+ss.length;
-    					var strtext="http://mail."+ss.substring(start,end);
-				 		$("#info a").text(strtext).attr("href",strtext);
-            		}
-            	});
-            
-			});
+            			//check the user status registered or not
+ 
+            				var ss=loginname;
+            				var start=ss.indexOf("@")+1;
+    						var end=start+ss.length;
+    						var strtext="http://mail."+ss.substring(start,end);
+				 			$("#info a").text(strtext).attr("href",strtext);
+            			},
+			       	error:function(json){
+			       		if($.parseJSON(json.responseText).code==8002){
+			       			$("#cannotreg").show();
+			        		$(".infoBox").hide();
+			        		$("#checkEmail").hide();
+
+			       		}
+			       		
+			       }
+            		     
+				});
+			function getParam(key) {
+		    	var value='';
+		    	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+		    	if (itemid.test(decodeURIComponent(window.location.href))) {
+		        	value = itemid.exec(decodeURIComponent(window.location.href))[1];
+		   		}
+		    	return value;
+		    }
+		});
 		});
 	</script>
 

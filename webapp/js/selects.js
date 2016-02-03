@@ -134,6 +134,7 @@ function appendList(pages){
     pages=pages+1;
     ajaxRe(pages);
     addhtml();
+    $('[data-toggle="tooltip"]').tooltip();
 }
 //按左侧导航分类发送请求加载数据；
 function appendList2(pages){
@@ -141,6 +142,7 @@ function appendList2(pages){
     pages=pages+1;
     hanvelables(pages);
     addhtml();
+    $('[data-toggle="tooltip"]').tooltip();
 }
 //  点击分类按分类发送请求
 function hanvelables(pages){
@@ -305,9 +307,9 @@ function addhtml(){
 
                 var $repo_left_subline_icon=$("<div></div>").addClass("icon").appendTo($repo_left_subline);
                 $repo_left_subline_icon.append("" +
-                "<img style='margin-right:15px;margin-left:60px' src='images/selects/images_17.png'/>"+
+                "<img style='margin-right:15px;margin-left:60px' src='images/selects/images_17.png' data-toggle='tooltip' datapalecement='top' title='更新时间'>"+
                 " <span class='showtime'>"+showtime[1]+"</span>"+
-                "<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='Paste'/>"+
+                "<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='Tag量'/>"+
                 " <span>"+json.data.tags+"</span>");
 
                 var label_style=json.data.label.sys.supply_style;
@@ -373,15 +375,15 @@ function addhtml(){
                "</div>"+
                 "<div class='iconGroup'>"+
                     "<div class='like'>"+
-                    "<img style='margin-left: 20px;' src='images/selects/images_08.png'>"+
+                    "<img style='margin-left: 20px;' src='../images/selects/like.png' data-toggle='tooltip' datapalecement='top' title='点赞量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdstarNum[j]+"</span>"+
                     "</div>"+
                     "<div class='cart'>"+
-                    "<img style='margin-left: 20px;'src='images/selects/images_10.png'>"+
+                    "<img style='margin-left: 20px;'src='../images/selects/buy.png' data-toggle='tooltip' datapalecement='top' title='订购量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemd[j]+"</span>"+
                     "</div>"+
                     "<div class='download'>"+
-                    "<img style='margin-left: 20px' src='images/selects/images_12.png'>"+
+                    "<img style='margin-left: 20px' src='../images/selects/down.png' data-toggle='tooltip' datapalecement='top' title='下载量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
                     "</div>"+
                     "</div>");

@@ -1,0 +1,62 @@
+.infoBox{
+	float: left;
+	margin-top: 40px;
+	border-top:5px solid #c8c8c8;
+	border-bottom: 1px solid #c8c8c8;
+	border-left: 1px solid #c8c8c8;
+	border-right: 1px solid #c8c8c8;
+	width:740px;
+	height:500px;
+}
+#title p{
+	font-size:27px;
+	color: #333333;
+	margin-left: 50px;
+	margin-top: 40px;
+}
+.labelBox{
+	
+	margin-top: 40px;
+	text-align: left;
+	color: #FF0000;
+	height: 20px;
+}
+.labelBox p{
+	
+	font:14px #ea0c1d;
+}
+.input-group{
+	float: left;
+	margin-top:20px;
+	margin-left: 60px;
+	margin-right: 90px;
+	display: inline;
+	left: -31px;
+}
+.input-group input{
+	margin-top: 35px;
+	float: right !important;
+	height:50px;
+	width:450px !important;
+	border:1px solid;
+	border-radius: 5px 5px 6px 6px !important;
+	padding: 15px;
+	display: inline;
+	font-size: 14px;
+	color: #c8c8c8;
+}
+#registration{	
+	margin-top: 30px;
+	margin-left: 245px;
+	margin-bottom: 30px;
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+}
+#registration:hover{
+	background-image: linear-gradient(to bottom, #265a88 0%, #337ab7 100%) !important;
+	background-color:#337ab7;
+	color:#ffffff;
+}

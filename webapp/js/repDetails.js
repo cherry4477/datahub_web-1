@@ -185,8 +185,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
+                  //  apendjson.dataitemd = dataitemd;
+                  //  apendjson.dataitemdpullNum = dataitemdpullNum;
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -199,7 +223,7 @@ $(function() {
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",
         next_text:"下一页",
@@ -255,8 +279,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    //apendjson.dataitemd = dataitemd;
+                    //apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -324,11 +372,11 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="cart">'+
         '<img style=""src="images/newpic002.png" data-toggle="tooltip" datapalecement="top" title="订购量">'+
-        '<span>'+apendjson.dataitemd[i]+'</span>'+
+        '<span>'+apendjson.dataitemd+'</span>'+
         '</div>'+
         '<div class="download">'+
         '<img style=""src="images/newpic003.png" data-toggle="tooltip" datapalecement="top" title="下载量">'+
-        '<span>'+apendjson.dataitemdpullNum[i]+'</span>'+
+        '<span>'+apendjson.dataitemdpullNum+'</span>'+
         '</div>'+
         '</div>'+
         '</div>';
@@ -481,17 +529,17 @@ function getUserEmail(){
                                 type: "get",
                                 cache: false,
                                 async: false,
-                                success: function (jsons) {
-                                    var length = jsons.data.length;
-                                    for (i=0;i<length;i++){
+                                success: function (jsons) {                                
+                                    for (i=0;i<jsons.data.length;i++){
                                         repoName=jsons.data[i].repname;
                                         var like = subscription(repoName);
                                         var cart =purchase(repoName);
                                         var download =download_icon(repoName);
                                         var comment = getComment(repoName);
+                                        var url ="repDetails.html?repname="+repoName
                                         $place.append(""+
                                         "<div id='completeDiv'  style='float: left'>"+
-                                        "<p ID='subtitle' style='padding-top: 20px; padding-left:15px;  padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p>"+
+                                        "<a href='"+url+"'> <p ID='subtitle' style='padding-top: 20px; padding-left:15px;  padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+repoName+"</p></a>"+
                                         "<div ID='icons' style='float:left; margin-left:20px; margin-bottom:15px'>"+
                                         "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 66px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+like+"</span>"
                                         +"</div>"

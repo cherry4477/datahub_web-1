@@ -816,6 +816,9 @@
 #subscriptDialog .subafterprocess .successed .head {
     color: #1db506;
 }
+#subscriptDialog .subafterprocess .successed_apply .head {
+    color: #1db506;
+}
 #subscriptDialog .subafterprocess .failed .head {
     color: #ec6467;
 }
@@ -830,6 +833,16 @@
     height: 26px;
     margin-left: 180px; margin-right: -180px; margin-top: 0px;
 }
+#subscriptDialog .subafterprocess .successed_apply .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: -44px 0px;
+    width: 26px;
+    height: 26px;
+     margin-top: 0px;
+    margin-left: 168px; margin-right: -136px;
+}
+
 #subscriptDialog .subafterprocess .failed .head .icon {
     background-image: url("../images/buy_icon.png");
     background-repeat: no-repeat;
@@ -837,6 +850,21 @@
     width: 26px;
     height: 26px;
     margin-left: 135px; margin-right: -135px; margin-top: 0px;
+
+}
+#subscriptDialog .subafterprocess .failed2{
+    height: 90px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .icon {
+    background-image: url("../images/buy_icon.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 26px;
+    height: 26px;
+    margin-left: 135px; margin-right: -135px; margin-top: 0px;
+}
+#subscriptDialog .subafterprocess .failed2 .head .text{
+    color:#ec6467;
 }
 #completeDiv:hover{
     background-color:#f3fbfe;

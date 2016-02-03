@@ -147,8 +147,8 @@ $(function(){
     $(".tagpages").pagination(tagallnums, {
         maxentries:tagallnums,
         items_per_page: 10,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_display_entries: 3,
+        num_edge_entries: 2 ,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -180,6 +180,15 @@ $(function(){
             headers:{Authorization: "Token "+account},
             url:ngUrl+'/repositories/'+repname+"/"+itemname+'?size=10&page='+pages,
             success: function(msg) {
+            	//添加状态开始
+            	var thisispricestatenew="";
+            	if(msg.data.pricestate=='付费'){
+            		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:red;border:1px solid red;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+            	}else{
+            		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:#f49f12;border:1px solid #f49f12;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+            	}
+            	$(".itemnameitem").append(thisispricestatenew);
+            	//添加状态结束
                 allpricecon = msg.data.price;
                 tagallnum = msg.data.tags;
                 $('.alltagnums').html(tagallnum);
@@ -252,8 +261,8 @@ $(function(){
     $(".pages").pagination(paegetags, {
         maxentries:paegetags,
         items_per_page: 10,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_display_entries: 3,
+        num_edge_entries: 2 ,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -548,7 +557,7 @@ $(function(){
         getpermissions(1);
         $(".baipages").pagination(totals, {
             items_per_page: 6,
-            num_edge_entries:3,
+            num_edge_entries:2,
             num_display_entries:3,
             prev_text:"上一页",
             next_text:"下一页",
@@ -640,8 +649,8 @@ $(function(){
                     $('.namelist').empty();
                     $(".baipages").pagination(0, {
                         items_per_page: 6,
-                        num_display_entries: 1,
-                        num_edge_entries: 5 ,
+                        num_display_entries: 3,
+                        num_edge_entries:2,
                         prev_text:"上一页",
                         next_text:"下一页",
                         ellipse_text:"...",
@@ -733,8 +742,8 @@ $(function(){
                         $('.gobackbtnwrop').show();
                         $(".baipages").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 5 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",

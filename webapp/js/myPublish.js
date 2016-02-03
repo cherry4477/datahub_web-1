@@ -101,8 +101,8 @@ $(function() {
     $(".repopages").pagination(allrepnums, {
         maxentries: allrepnums,
         items_per_page: 6,
-        num_display_entries: 1,
-        num_edge_entries: 5,
+        num_display_entries: 3,
+        num_edge_entries: 2,
         prev_text: "上一页",
         next_text: "下一页",
         ellipse_text: "...",
@@ -134,10 +134,15 @@ $(function() {
         })
         ////////////是否协作
         var thisiscooperatestat = ''
+        //协作显示
+        var ifcooper=true;
         if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null){
             thisiscooperatestat = '';
         }else{
-            thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>'
+            thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>';
+            if(iscooperatestate.cooperatestate=="协作中"){
+            	ifcooper=false;
+            }
         }
         ////////是否开放;
         var ispublic = '';
@@ -148,9 +153,9 @@ $(function() {
             var permissioncon = getpermission(iscooperatestate.repname,1,0);
             // console.log(permissioncon)
             if(permissioncon == 'null' || permissioncon == '' || permissioncon == 'undefined'){
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（0）</p>';
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>0</span>）</p>';
             }else{
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（'+permissioncon.total+'）</p>';
+                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>'+permissioncon.total+'</span>）</p>';
             }
             ispublic = '私有';
 
@@ -161,26 +166,33 @@ $(function() {
         }else{
             dataitemsalllist = 'itemdata=""';
         }
-        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         var cooperator = getcooperator(iscooperatestate.repname);
         if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined'){
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（0）</p>';
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         }else{
 
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（'+cooperator.total+'）</p>';
+            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
         }
-        var repotiems = getTimes(repocon.optime)
+        var repotiems = getTimes(repocon.optime);
+        
+        //右侧rep
+        var repright="";
+        if(ifcooper){
+        	repright="<div class='repright'>"+baimingdan+xizuozhe+"<p class='xiugairep' datareponame="+iscooperatestate.repname+">Repository修改</p></div>";
+        }
+        
         var repostr = '<div class="repo" >'+
             '<div class="describe" '+dataitemsalllist+'>'+
             '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'+
             '<div class="left">'+
-            '<div class="subtitle"><span class="curreoName">'+iscooperatestate.repname+'</span>'+thisiscooperatestat+'</div>'+
+            '<div class="subtitle"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
             '<div class="description"><p>'+repocon.comment+'</p></div>'+
             '<div class="subline">'+
             '<div class="icon">'+
             '<img data-original-title="更新时间" class="iconiamg1 iconiamg2" src="images/newpic004.png" data-toggle="tooltip" datapalecement="top">'+
             '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
-            '<img data-original-title="titem量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
+            '<img data-original-title="item量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
             '<span>'+repocon.items+'</span>'+
             '<img  class="iconiamg1" src="images/sx.png">'+
             '<span>'+ispublic+'</span>'+
@@ -205,10 +217,7 @@ $(function() {
             '</div>'+
             '</div>'+
             '</div>'+
-            '<div class="repright">'+
-            baimingdan+xizuozhe+
-            '<p class="xiugairep" datareponame="'+iscooperatestate.repname+'">Repository修改</p>'+
-            '</div>'+
+            repright
             '</div>'+
             '</div>';
         $('.repList').append(repostr);
@@ -218,6 +227,7 @@ $(function() {
     }
     //////////////查看repo下的item
     $(document).on('click','.describe',function (e) {
+    	var thisrepName = $(this).find('.curreoName').html();
         if ((e.target.className.indexOf("checkrepo")<0 && e.target.className.indexOf("baimingdan")<0 && e.target.className.indexOf("xiezuozhe")<0 && e.target.className.indexOf("xiugairep")<0)) {
             if ($(this).siblings('.tablelist').length <= 0) {
                 var thisitems = $(this).attr('itemdata');
@@ -260,10 +270,15 @@ $(function() {
                                     if (json.data.pricestate == 'null' || json.data.pricestate == null || json.data.pricestate == '') {
                                         thisispricestate = '';
                                     } else {
-                                        thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
+                                    	if(json.data.pricestate=='付费'){
+                                    		thisispricestate = '<strong class="pricetype freetype" style="color:red;border:1px solid red">' + json.data.pricestate + '</strong>'
+                                    	}else{
+                                    		thisispricestate = '<strong class="pricetype freetype">' + json.data.pricestate + '</strong>'
+                                    	}
+                                       
                                     }
                                     itemstr += ' <div class="row">' +
-                                        ' <span class="col1"><a href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
                                         ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
                                         ' <span class="col3">' + ispublic + '</span>' +
                                         ' <span class="col4">' + json.data.tags + '</span>' +
@@ -345,7 +360,7 @@ $(function() {
             success: function (json) {
                 if (json.code == 0) {
                     permission = json.data;
-                    addcooperatorhtml(permission);
+                    //addcooperatorhtml(permission);
                 }
                 return permission;
             },
@@ -412,7 +427,7 @@ $(function() {
         $(".pagesPer").pagination(total, {
             items_per_page: 6,
             num_display_entries: 3,
-            num_edge_entries: 3,
+            num_edge_entries:2,
             prev_text: "上一页",
             next_text: "下一页",
             ellipse_text: "...",
@@ -422,8 +437,8 @@ $(function() {
         });
         $(".pagescooperator").pagination(total, {
             items_per_page: 6,
-            num_display_entries: 1,
-            num_edge_entries: 1,
+            num_display_entries: 3,
+            num_edge_entries: 2,
             prev_text: "上一页",
             next_text: "下一页",
             ellipse_text: "...",
@@ -519,7 +534,7 @@ $(function() {
                     }else{
                         $(errorobj).html('成功添加白名单').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(tihsreponame,1,0);
-
+                        perTong(tihsreponame,"add",1); //同步数字
                     }
                 }
             });
@@ -563,8 +578,8 @@ $(function() {
                         $('.gobackbtnwrop').show();
                         $(".pagesPer").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 3 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
@@ -608,8 +623,8 @@ $(function() {
                         $('.gobackbtnwropcoo').show();
                         $(".pagescooperator").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 3 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
@@ -647,8 +662,10 @@ $(function() {
 
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j = 0; j<thisusername.length;j++){
-                alert(j)
+               // alert(j)
+            	count++;
                 $.ajax({
                     type:"put",
                     url:ngUrl+"/permission/"+thisrepoName,
@@ -660,10 +677,14 @@ $(function() {
                         if(deluser.code == 0){
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            
                         }
                     }
                 })
             };
+            
+            perTongXie(thisrepoName,"add",count);
+            
         }
 
     })
@@ -683,10 +704,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var perCount=0;
             for(var j in namejson){
+            	perCount++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/whitelist/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/whitelist/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -702,6 +725,7 @@ $(function() {
             };
             if(isdele = true){
                 $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+                perTong(thisrepoName,"del",perCount);
             }
         }
     })
@@ -720,10 +744,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j in namejson){
+            	count++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -731,13 +757,14 @@ $(function() {
                         if(deluser.code == 0){
                             $('.privatecooperList').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
-                             addcooperatorhtml(thiscooperatorcon);
+                            addcooperatorhtml(thiscooperatorcon);
                         }
                     }
                 })
             };
             if(isdele = true){
                 //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
+            	 perTongXie(thisrepoName,"del",count);
             }
         }
     })
@@ -756,10 +783,12 @@ $(function() {
             }
         }
         if(thisusername.length>0){
+        	var count=0;
             for(var j in namejson){
+            	count++;
                 $.ajax({
                     type:"DELETE",
-                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/username="+namejson[j],
+                    url:ngUrl+"/permission/"+thisrepoName+"/cooperator/"+namejson[j],
                     cache:false,
                     dataType:'json',
                     headers:{ Authorization:"Token "+$.cookie("token") },
@@ -773,6 +802,7 @@ $(function() {
                 })
             };
             if(isdele = true){
+            	perTongXie(thisrepoName,"del",count);
                 //$('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
             }
         }
@@ -791,8 +821,8 @@ $(function() {
                         $(boxobj).empty();
                         $(pagesobj).pagination(0, {
                             items_per_page: 6,
-                            num_display_entries: 1,
-                            num_edge_entries: 5 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
@@ -811,16 +841,19 @@ $(function() {
     $('#delAll').click(function(){
         var thisrepoame = $('#myModalTest').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'whitelist','.namelist','.pagesPer');
+        perTong(thisrepoame,"del",0);
     })
     //////////////////////////////////////////清空私有协作者
     $('#cooperatordelAllpri').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        perTongXie(thisrepoame,"del",0);
     })
     //////////////////////////////////////////清空公开协作者
     $('#cooperatordelAll').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        perTongXie(thisrepoame,"del",0);
     })
 ////////////////////////////////////////////////////////////////单个删除白名单
     function delonepomitionorcoo(thisrepoName,thisusername,iscoo){
@@ -835,9 +868,11 @@ $(function() {
                         $('.gobackbtnwrop').hide();
                         $('#mess').html('删除成功').addClass('successMess').removeClass('errorMess').show().fadeOut(800);
                         getpagesF(thisrepoName,1,0);
+                        perTong(thisrepoName,"del",1); //同步数字
                     }else{
                         var thiscooperatorcon = getcooperator(thisrepoName)
-                        addcooperatorhtml(thiscooperatorcon);
+                        perTongXie(thisrepoName,"del",1);
+                       // addcooperatorhtml(thiscooperatorcon);
                     }
                 }
             }
@@ -1020,10 +1055,15 @@ $(function() {
                 if(json.code == 0){
                     location.reload();
                 }
-            }, error:function (XMLHttpRequest, textStatus, errorThrown)
+            }, error:function (json)
             {
-                if(XMLHttpRequest.status == 400){
-                   alert('您可新增的'+thisispublic+'Repository资源不足');
+                if(json.status == 400){
+                    if($.parseJSON(json.responseText).code==1012){
+                        //alert('您可新增的'+thisispublic+'Repository资源不足');
+                        alert("可用资源不足,请通过会员升级获取更多资源。");
+                    }else{
+                        alert("您创建的"+repname+"有误,请重新创建。");
+                    }
                 }
 
             }
@@ -1144,6 +1184,15 @@ $(function() {
             var tu = confirm("您确认删除已选Repository吗？");
             if(tu == true){
                 isyesornodel(reponamearr);
+            	//新增删除
+            	var divlist = $('.repList>div');
+                var reponamearr = [];
+                for(var i = 0;i<divlist.length;i++){
+                    if($(divlist).eq(i).find('.checkrepo').is(':checked')==true){
+                        var delreponame = $(divlist).eq(i).find('.checkrepo').attr('datareponame');
+                        $(divlist).eq(i).remove();
+                    }
+                }
             }else{
                 return false;
             }
@@ -1220,6 +1269,50 @@ function getRep(reps,repname) {
             return reps[i];
         }
     }
+}
+
+//白名单数量同步
+function perTong(repname,type,num){
+    $("p[datareponame="+repname+"]").each(function(){
+    	if($(this).hasClass("baimingdan")){
+    		if(type=="add"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+    				$(this).children().text(parseInt($(this).children().text())+num);
+    			}        		
+    		}
+    		if(type=="del"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+            		$(this).children().text(parseInt($(this).children().text())-num);
+    			}
+    		}
+    	} 	
+    });
+}
+
+//白名单数量同步
+function perTongXie(repname,type,num){
+    $("p[datareponame="+repname+"]").each(function(){
+    	if($(this).hasClass("xiezuozhe")){
+    		if(type=="add"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+    				$(this).children().text(parseInt($(this).children().text())+num);
+    			}        		
+    		}
+    		if(type=="del"){
+    			if(num==0){
+    				$(this).children().text(num);
+    			}else{
+            		$(this).children().text(parseInt($(this).children().text())-num);
+    			}
+    		}
+    	} 	
+    });
 }
 
 

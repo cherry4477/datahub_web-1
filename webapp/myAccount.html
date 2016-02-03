@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的账户_DataHub阳光下的数据流通平台</title>
+    <title>bill.DataHub</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/command.css">
     <link rel="stylesheet" href="css/loader.css">
@@ -55,18 +55,28 @@
        <div id="accountBalance">
             <div class="total_balance">
                 <p class="account_text">账户总余额</p>
-                <p class="account_num"><span id="total_balance_span" >12233.11 </span><span class="yuan">元</span></p>
+                <p class="account_num"><span id="total_balance_span" >0 </span><span class="yuan">元</span></p>
                 <button id="recharge_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">充值</button>
             </div>
+           <div class="window">
+               <p>请发送您的充值需求到</p>
+               <p class="p2">datahub@asiainfo.com</p>
+               <p>我们会在三个工作日内回复您</p>
+           </div>
            <div class="usable_balance">
                <p class="account_text">可用余额</p>
-               <p class="account_num"><span id="usable_balance_span" >12233.11</span><span class="yuan">元</span></p>
+               <p class="account_num"><span id="usable_balance_span" >0</span><span class="yuan">元</span></p>
            </div>
            <div class="cash_balance">
                <p class="account_text">可提现余额</p>
-               <p class="account_num"><span id="cash_balance_span">12233.11</span><span class="yuan">元</span></p>
+               <p class="account_num"><span id="cash_balance_span">0</span><span class="yuan">元</span></p>
                <button id="reflect_btn" role="button" class="btn btn-primary btn-lg" href="javascript:void(0)">提现</button>
-                <p class="get_cash" >设置提现密码</p>
+               <a href="withdraw.html"><p class="get_cash"style="display: none">设置提现密码</p></a>
+           </div>
+           <div class="window1">
+               <p>请发送您的提现需求到</p>
+               <p class="p3">datahub@asiainfo.com</p>
+               <p>我们会在三个工作日内回复您</p>
            </div>
        </div>
        <div id="accountRecord">
@@ -83,6 +93,7 @@
                </tr>
            </table>
            <table class="table_main">
+               <p id="emptyData" style="text-align: center;font-size: 16px;line-height: 150px;display: none;">暂无请求数据</p>
             <!--   <tr class="Record_time_title">
                    <td> 2015-12-25</td>
                </tr>

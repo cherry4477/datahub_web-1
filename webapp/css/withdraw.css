@@ -1,0 +1,56 @@
+#withdraw{
+    width: 565px;
+    height: 400px;
+    border-top: 5px solid #c8c8c8 ;
+    border-bottom: 1px solid  #c8c8c8;
+    border-right: 1px solid  #c8c8c8;
+    border-left: 1px solid  #c8c8c8;
+    padding:40px 50px 0px 50px;
+    margin-top: 100px;
+    MARGIN-RIGHT: auto;
+    MARGIN-LEFT: auto;
+}
+.wdTitle{
+    font-size: 27px;
+    color: #333333;
+}
+#alertBox{
+    height: 50px;
+}
+#pwdInput input{
+    width: 450px;
+    height: 40px;
+    margin-top: 20px;
+}
+#resetPwd{
+    width:255px;
+    height:40px;
+    margin:40px 97px;
+    padding: 0;
+    font-weight: bold;
+    background-image: linear-gradient(to bottom, #43609f 0%, #265a88 100%);
+    background-image: -webkit-linear-gradient(bottom, #43609f 0%, #265a88 100%);
+    background-image:      -o-linear-gradient(bottom, #43609f 0%, #265a88 100%);
+}
+#resetPwd:hover,
+#resetPwd:focus{
+    background-image: linear-gradient(to bottom, #265a88 0%, #43609f 100%);
+    background-image: -webkit-linear-gradient(bottom, #265a88 0%, #43609f 100%);
+    background-image:      -o-linear-gradient(bottom, #265a88 0%, #43609f 100%);
+}
+.span_icon {
+    background-image: url('../images/modify_icon.png');
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    margin-top: 4px;
+    margin-bottom: -4px;
+}
+.failAlert{
+    font-size: 16px;
+    color: #ea0c1d;
+    line-height: 50px;
+}

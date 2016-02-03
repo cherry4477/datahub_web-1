@@ -110,11 +110,11 @@ tbody tr td{
     width: 164px;
 }
 #accountRecord .table_title tr th:last-child {
-    width: 164px;
-    padding-left: 0px; padding-right: 30px;
+    width: 170px;
+    padding-left: 0px; padding-right: 22px;
 }
 #accountRecord .table_title tr th:nth-child(5){
-    padding-right: 25px;
+    padding-right: 10px;
 }
 #accountRecord .table_main tr{
     border-bottom: 1px solid #8c8c8c;
@@ -132,4 +132,57 @@ tbody tr td{
 #accountRecord .table_content:hover{
     background-color: #f2fafe;
 }
-
+.window {
+    background-color: white;
+    border: 5px solid #e5e5e5;
+    /*display: none;*/
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    display: none;
+    margin-top:0px;
+    width: 245px;
+    height: 100px;
+    margin-left: 2px;
+    top: 288px;
+    left: 167px;
+}
+.window p {
+    color: #000;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+}
+.window p:nth-child(2) {
+    color: #29abe2;
+}
+.window1 {
+    background-color: white;
+    border: 5px solid #e5e5e5;
+    /*display: none;*/
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    display: none;
+    margin-top: 0px;
+    width: 245px;
+    height: 100px;
+    margin-left: 2px;
+    left: 941px;
+    top: 288px;
+}
+.window1 p {
+    color: #000;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+}
+.window1 p:nth-child(2) {
+    color: #29abe2;
+}
+.count_num1{
+    color:#00a162;
+}
+.count_num2{
+    color:#d68d00;
+}

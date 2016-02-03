@@ -80,6 +80,7 @@
 	margin-bottom:40px;
 }
 #pic{
+	background-image: url('/images/wei1.png');
 	float:left;
 	width:30%;
 }
