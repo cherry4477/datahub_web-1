@@ -185,8 +185,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
+                  //  apendjson.dataitemd = dataitemd;
+                  //  apendjson.dataitemdpullNum = dataitemdpullNum;
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -199,7 +223,7 @@ $(function() {
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
         items_per_page: 6,
-        num_display_entries: 1,
+        num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",
         next_text:"下一页",
@@ -255,8 +279,32 @@ $(function() {
                     apendjson.tagss = msg.data.tags;
                     apendjson.labelV = labeldatas.labelV;
                     apendjson.vvclass = labeldatas.vvclass;
-                    apendjson.dataitemd = dataitemd;
-                    apendjson.dataitemdpullNum = dataitemdpullNum;
+                    //apendjson.dataitemd = dataitemd;
+                    //apendjson.dataitemdpullNum = dataitemdpullNum;
+                    $.ajax({
+                        url: ngUrl+"/subscription_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){     
+                            	apendjson.dataitemd = json.data.numsubs;
+                            }
+                        }
+                    });
+                    $.ajax({
+                        url: ngUrl+"/transaction_stat/"+repname+"/"+datas[i],
+                        type: "GET",
+                        cache:false,
+                        async:false,
+                        dataType:'json',
+                        success:function(json){
+                            if(json.code == 0){
+                            	apendjson.dataitemdpullNum=json.data.numpulls;
+                            }
+                        }
+                    });
                     apendjson.dataitemstarNum = dataitemstarNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
@@ -324,11 +372,11 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="cart">'+
         '<img style=""src="images/newpic002.png" data-toggle="tooltip" datapalecement="top" title="订购量">'+
-        '<span>'+apendjson.dataitemd[i]+'</span>'+
+        '<span>'+apendjson.dataitemd+'</span>'+
         '</div>'+
         '<div class="download">'+
         '<img style=""src="images/newpic003.png" data-toggle="tooltip" datapalecement="top" title="下载量">'+
-        '<span>'+apendjson.dataitemdpullNum[i]+'</span>'+
+        '<span>'+apendjson.dataitemdpullNum+'</span>'+
         '</div>'+
         '</div>'+
         '</div>';

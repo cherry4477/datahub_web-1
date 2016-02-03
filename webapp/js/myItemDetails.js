@@ -147,8 +147,8 @@ $(function(){
     $(".tagpages").pagination(tagallnums, {
         maxentries:tagallnums,
         items_per_page: 10,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_display_entries: 3,
+        num_edge_entries: 2 ,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -252,8 +252,8 @@ $(function(){
     $(".pages").pagination(paegetags, {
         maxentries:paegetags,
         items_per_page: 10,
-        num_display_entries: 1,
-        num_edge_entries: 5 ,
+        num_display_entries: 3,
+        num_edge_entries: 2 ,
         prev_text:"上一页",
         next_text:"下一页",
         ellipse_text:"...",
@@ -548,7 +548,7 @@ $(function(){
         getpermissions(1);
         $(".baipages").pagination(totals, {
             items_per_page: 6,
-            num_edge_entries:3,
+            num_edge_entries:2,
             num_display_entries:3,
             prev_text:"上一页",
             next_text:"下一页",
@@ -640,8 +640,8 @@ $(function(){
                     $('.namelist').empty();
                     $(".baipages").pagination(0, {
                         items_per_page: 6,
-                        num_display_entries: 1,
-                        num_edge_entries: 5 ,
+                        num_display_entries: 3,
+                        num_edge_entries:2,
                         prev_text:"上一页",
                         next_text:"下一页",
                         ellipse_text:"...",
@@ -733,8 +733,8 @@ $(function(){
                         $('.gobackbtnwrop').show();
                         $(".baipages").pagination(0, {
                             items_per_page:6,
-                            num_display_entries: 1,
-                            num_edge_entries: 5 ,
+                            num_display_entries: 3,
+                            num_edge_entries: 2 ,
                             prev_text:"上一页",
                             next_text:"下一页",
                             ellipse_text:"...",
