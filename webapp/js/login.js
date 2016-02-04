@@ -148,7 +148,7 @@ $(function(){
     					var times=$.parseJSON(XMLHttpRequest.responseText).data.retry_times;
         				if(times<5){
         					var timesnumLogin=5-times;
-        					$("#messageModa4").text("用户名，密码不匹配，还有"+timesnumLogin+"次机会");
+        					$("#messageModa4").text("用户名、密码不匹配，还有"+timesnumLogin+"次机会。");
         				}else{
         					var timenumLogin=formatSeconds($.parseJSON(XMLHttpRequest.responseText).data.ttl_times);
         					$("#messageModa4").html("<span class='back_icon'></span>登录密码错误次数已达上限<br/><div style='margin-left:28px;color:#ea0c1d;'>账号将在："+timenumLogin+"后自动解锁</div>");
