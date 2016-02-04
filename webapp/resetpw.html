@@ -182,11 +182,10 @@
             		type: "PUT",
             		contentType:"application/json",
             		cache:false,
-            		data:{"passwd":myps,"sid":sid},
+            		data:JSON.stringify({"passwd":myps,"sid":sid}),
             		async:false,
             		dataType:'json',
-            		success:function(json){
-            			alert("111");
+            		success:function(json){     			
             			if (json.code==0){
 				 			$('#successed').show();
             				$('.infoBox').hide();
@@ -197,9 +196,8 @@
 				 		}
             		},
             		error:function(){
-            			alert("122");
-            				$('#failed').show();
-            				$('.infoBox').hide();
+            			$('#failed').show();
+            			$('.infoBox').hide();
             		}
            });
 		});
