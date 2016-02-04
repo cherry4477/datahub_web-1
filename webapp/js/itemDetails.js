@@ -595,8 +595,7 @@ function closewrap(){
                 success: function (json) {
                    var tags=json.data.tags;
                     var price=json.data.price;
-                    console.log();
-                    if(tags==0||price==null||price=="undefined"|| price==undefined)
+                    if(tags==0||price==null||price=="undefined"|| price==undefined||price=="")
                     {
                         $("#cancel_buy").hide();
                         $("#hurry_buy").hide();
@@ -1272,6 +1271,7 @@ function cancel_buy(){
 
 //the amount of like:star
 function subscription(itemName){
+	var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
@@ -1294,6 +1294,7 @@ function subscription(itemName){
 }
 //the amount of purchase icon cart
 function purchase(itemName){
+	var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
@@ -1317,6 +1318,7 @@ function purchase(itemName){
 }
 //the amount of download the icon download
 function download_icon(itemName){
+	var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
@@ -1339,6 +1341,7 @@ function download_icon(itemName){
 }
 //the amount of comment
 function getComment(itemName){
+	var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
@@ -1361,6 +1364,7 @@ function getComment(itemName){
 }
 
 function hot(){
+	var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
