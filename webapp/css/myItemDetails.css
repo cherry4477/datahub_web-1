@@ -178,8 +178,11 @@
     text-align: center;
     line-height: 25px;
 }
+.tagpullNum{
+    float: right;
+}
 .tagpullNum p{
-    text-align: right;
+    text-align: center;
     line-height: 24px;
 }
 .pullListcon,.pullListconwrop{
@@ -345,6 +348,9 @@
     margin-top: 3px;
     width: 16px;
 }
+.delitemlabelicon:hover{
+    background-image: url("../images/delete_hover1.png");
+}
 .errorMesslabels {
     background-color: #ffd1d1;
     color: #ff0000;
@@ -398,6 +404,9 @@
     margin-left: 10px;
     margin-top: 3px;
     width: 16px;
+}
+#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon:hover{
+    background-image: url("../images/delete_hover1.png");
 }
 #editItem .submit {
     padding-top: 30px;
@@ -592,6 +601,7 @@
 .allpriceList{
     width: 100%;
     overflow: hidden;
+    margin-top: 24px;
 }
 .allpriceList li{
     background: #e5e5e5 none repeat scroll 0 0;

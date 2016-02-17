@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="./css/myItemDetails.css">
     <link rel="stylesheet" href="css/editormd.css">
     <link rel="stylesheet" href="css/replyto.css">
+    <style>
+        .promptbox{
+            left:auto;
+        }
+        .myreplyList{
+            min-height: 300px;
+        }
+    </style>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -39,7 +47,7 @@
         <div class="modal-content">
             <div class="modal-body" style="padding: 30px 30px 45px 30px">
                 <div class="head">
-                    <span>查看价格</span>
+                    <span style="font-size: 20px;">查看价格</span>
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                 </div>
                 <ul class="allpriceList">
@@ -102,7 +110,7 @@
                         </div>
 
                         <div class="addbtnmoney">
-                            <span class="btntextmoney">数据需求方pull Item下的tag需要支付的费用，不填价格默认数据免费，最多添加6个</span>
+                            <span class="btntextmoney" style="color:#666666">数据需求方pull Item下的tag需要支付的费用，不填价格默认数据免费，最多添加6个</span>
 
                         </div>
                     </div>
@@ -187,11 +195,11 @@
             <span id="supply_style" class=""></span>
         </div>
         <div class="topbtright">
-            <img data-original-title="点赞量" class="iconiamg1 iconiamg2" src="images/newpic008.png" data-toggle="tooltip" datapalecement="top">
+            <img data-original-title="点赞量" class="iconiamg1 iconiamg2" src="images/newpic001.png" data-toggle="tooltip" datapalecement="top">
             <span   data-original-title=" 18:57:39" data-toggle="tooltip" datapalecement="top"  class="myitemstar"></span>
-            <img data-original-title="订购量" class="iconiamg1" src="images/newpic006.png" data-toggle="tooltip" datapalecement="top"/>
+            <img data-original-title="订购量" class="iconiamg1" src="images/newpic002.png" data-toggle="tooltip" datapalecement="top"/>
             <span class="myitemdy"></span>
-            <img data-original-title="下载量" class="iconiamg1" src="images/newpic007.png" data-toggle="tooltip" datapalecement="top">
+            <img data-original-title="下载量" class="iconiamg1" src="images/newpic003.png" data-toggle="tooltip" datapalecement="top">
             <span class="myitempull"></span>
         </div>
 
@@ -200,7 +208,7 @@
         <ul class="itembtNav">
             <li class="borderBt">Tag<sup><span class="alltagnums">0</span></sup></li>
             <li>Pull记录</li>
-            <li>样例/元数据</li>
+            <li>样例&nbsp;/&nbsp;元数据</li>
             <li>评论<sup><span class="commentallnum">0</span></sup></li>
         </ul>
         <ol class="itembottomcon">

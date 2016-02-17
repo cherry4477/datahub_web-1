@@ -22,7 +22,7 @@ $(function(){
     })
     function addprompt(thisobj,thiscon){
         $('.promptbox').remove();
-        var promptbox = '<div class="promptbox" style="display: block; left: 706px;">'+
+        var promptbox = '<div class="promptbox" style="display: block; right: 0px;">'+
             thiscon
             '</div>';
         $(thisobj).siblings('.conmentbt').append(promptbox);
