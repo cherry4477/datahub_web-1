@@ -686,13 +686,14 @@ $(function() {
                         if(deluser.code == 0){
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            $('.'+thisrepoName).html('协作者管理（'+thiscooperatorcon.total +'）');
                             
                         }
                     }
                 })
             };
-            
-            perTongXie(thisrepoName,"add",count);
+
+            //perTongXie(thisrepoName,"add",count);
             
         }
 
@@ -767,6 +768,7 @@ $(function() {
                             $('.privatecooperList').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            $('.'+thisrepoName).html('协作者管理（'+thiscooperatorcon.total +'）');
                         }
                     }
                 })
