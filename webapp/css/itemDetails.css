@@ -483,6 +483,8 @@
     height:45px;
     border: 1px solid;
     border-right-width: 0px;
+    font-size: 12px;
+    padding-top: 3px;
 }
 .content .content1_copy button{
     height:45px;
