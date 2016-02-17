@@ -4,6 +4,12 @@
 
 
 $(function() {
+    $(document).on('mouseover','.repo',function (e) {
+        $(this).children('.describe').css("background-color", "#f4fbfe");
+    });
+    $(document).on('mouseout','.repo',function (e) {
+        $(this).children('.describe').css("background-color", "#ffffff");
+    });
     function getAjax(url,fun){
         $.ajax({
             type: "get",
@@ -166,13 +172,13 @@ $(function() {
         }else{
             dataitemsalllist = 'itemdata=""';
         }
-        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
+        var xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         var cooperator = getcooperator(iscooperatestate.repname);
         if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined'){
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
+            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         }else{
 
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
+            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
         }
         var repotiems = getTimes(repocon.optime);
         
@@ -194,7 +200,7 @@ $(function() {
             '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
             '<img data-original-title="item量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
             '<span>'+repocon.items+'</span>'+
-            '<img  class="iconiamg1" src="images/sx.png">'+
+            '<img  class="iconiamg1" data-original-title="属性" src="images/sx.png" data-toggle="tooltip" datapalecement="top">'+
             '<span>'+ispublic+'</span>'+
                 //'<img data-original-title="tag量" class="iconiamg1" src="images/tg.png" data-toggle="tooltip" datapalecement="top"/>'+
                 //'<span>4</span>'+
@@ -528,7 +534,9 @@ $(function() {
                 data:JSON.stringify(userjson),
                 success: function(adduser){
                     if(ispublic == 'public'){
-                        var thiscooperatorcon = getcooperator(tihsreponame)
+                        var thiscooperatorcon = getcooperator(tihsreponame);
+                        console.log(thiscooperatorcon)
+                        $("."+tihsreponame).html("协作者管理("+thiscooperatorcon.total+")");
                         addcooperatorhtml(thiscooperatorcon);
 
                     }else{
@@ -551,7 +559,8 @@ $(function() {
     $('#cooperatorinList').click(function(){
         var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
         var username = $.trim($('#cooperatoremailTest').val());
-        addpomitionorcoo(username,'#messcooperator',thisrepoName,'public')
+        addpomitionorcoo(username,'#messcooperator',thisrepoName,'public');
+
     })
 
 //////////////////搜索白名单//////////////////////////////////////////////////
@@ -796,6 +805,7 @@ $(function() {
                         if(deluser.code == 0){
                             $('.cooperator_listpublic').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
+                            $("."+thisrepoName).html("协作者管理("+thiscooperatorcon.total+")");
                             addcooperatorhtml(thiscooperatorcon);
                         }
                     }
@@ -853,6 +863,7 @@ $(function() {
     $('#cooperatordelAll').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        $("."+thisrepoame).html("协作者管理(0)");
         perTongXie(thisrepoame,"del",0);
     })
 ////////////////////////////////////////////////////////////////单个删除白名单
@@ -870,7 +881,8 @@ $(function() {
                         getpagesF(thisrepoName,1,0);
                         perTong(thisrepoName,"del",1); //同步数字
                     }else{
-                        var thiscooperatorcon = getcooperator(thisrepoName)
+                        var thiscooperatorcon = getcooperator(thisrepoName);
+                        $("."+thisrepoName).html("协作者管理("+thiscooperatorcon.total+")");
                         perTongXie(thisrepoName,"del",1);
                        // addcooperatorhtml(thiscooperatorcon);
                     }
@@ -1004,6 +1016,9 @@ $(function() {
     });
 
 ////////////////////////提交修改//////////////////////////////
+function postrepo(){
+
+}
     $("#addRep .submit input").click(function(){
         var method = "POST";
         var data = {};
@@ -1059,8 +1074,8 @@ $(function() {
             {
                 if(json.status == 400){
                     if($.parseJSON(json.responseText).code==1012){
-                        //alert('您可新增的'+thisispublic+'Repository资源不足');
-                        alert("可用资源不足,请通过会员升级获取更多资源。");
+                        $('.ispublicrepo').html(thisispublic);
+                        $('.xiugaireperror').show();
                     }else{
                         alert("您创建的"+repname+"有误,请重新创建。");
                     }
@@ -1069,7 +1084,42 @@ $(function() {
             }
         });
         $('#addRep').modal('toggle');
+        $('.xiugaireperror').hide();
     });
+    $('#ispublic').change(function(){
+        var thisloginname = $.cookie("tname");
+        var thisval = $(this).val();
+        $.ajax({
+            url: ngUrl+"/quota/"+thisloginname+"/repository",
+            type:"get",
+            cache:false,
+            data:{},
+            async:false,
+            dataType:'json',
+            ContentType: 'application/json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
+                if(thisval == 1){
+                    if(json.data.quotaPublic <= json.data.usePublic){
+                       $('.ispublicrepo').html('开放');
+                        $('.xiugaireperror').show();
+                        $('#ispublic').val(1);
+                    }else{
+                        $('.xiugaireperror').hide();
+                    }
+                }else if(thisval == 2){
+                    if(json.data.quotaPrivate <= json.data.usePrivate){
+                        $('.ispublicrepo').html('私有');
+                        $('.xiugaireperror').show();
+                        $('#ispublic').val(0);
+                    }else{
+                        $('.xiugaireperror').hide();
+                    }
+                }
+
+            }
+        });
+    })
 
 
 /////////////////添加repo按钮///////////////////

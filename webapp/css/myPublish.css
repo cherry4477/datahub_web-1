@@ -7,7 +7,6 @@ strong{
 	line-height: 24px;
 	padding-top:40px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #c8c8c8;
 	position: relative;
 }
 .del_rep_btn{
@@ -46,11 +45,23 @@ strong{
 
 .repo {
 	border-bottom: 1px solid #c8c8c8;
-	/*border-top: 1px solid #c8c8c8;*/
+	border-top: 1px solid #c8c8c8;
 	float: left;
 	margin-bottom: 60px;
 	width: 100%;
 	position: relative;
+}
+.repo:hover{
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #fff;
+}
+.xiugaireperror{
+	width: 100%;
+	line-height: 24px;
+	color: red;
+}
+.xiugaireperror{
+	display: none;
 }
 .left {
 	float: left;
@@ -70,6 +81,9 @@ strong{
 	margin-bottom: 20px;
 	margin-left: 30px;
 	margin-top: 21px;
+}
+.subtitle span.curreoName:hover{
+	color:#395289;
 }
 .description {
 	float: left;
