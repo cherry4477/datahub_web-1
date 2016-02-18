@@ -60,7 +60,15 @@
 		background: none;
 		color:#fff;
 	}
-
+	.navbar-nav > li > a{
+		padding-top: 25px;
+	}
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.55); 
+	}	
+	.navbar-fixed-top{
+		border-bottom: 0px;
+	}
 
 </style>
 </head>
@@ -99,8 +107,8 @@
 <div id="header" style="position:relative;display:table;table-layout:fixed;width:100%" class="section-header">
 		
         <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:rgba(41,171,226,0.55); '>
-            <div class="container-fluid" style="width:100%;padding: 10px 40px 0px 40px;">
-                <div class="navbar-header">  
+            <div class="container-fluid" style="width:100%;padding: 0px 40px 0px 40px;">
+                <div class="navbar-header" style="padding-top:10px;">  
                 <a id="phoneSelect" class="selectbtn" href="selects.html" style='position: absolute;right: 90px;top: 25px;color: #fff;font-size: 1em;'>数据精选</a>          	
                     <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
                         <span class="sr-only">切换导航</span>
