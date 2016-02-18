@@ -97,6 +97,21 @@ $(function(){
         var replytostr = '';
         var replythisname = '';
         var myitemcolor = '';
+        var thisuertype = 0;
+        $.ajax({
+            url: ngUrl+"/users/"+loginitemname,
+            type: "GET",
+            cache:false,
+            async:false,
+            headers:headerToken,
+            dataType:'json',
+            success:function(json) {
+                if(json.code==0){
+                    thisuertype = json.data.userType;
+
+                }
+            }
+        });
         if(thistname == listcon.username){
             //$.ajax({
             //    url: ngUrl+"/users/"+thistname,
@@ -119,7 +134,7 @@ $(function(){
         }
         var delstr = '';
         var replytousername = ''
-        if(loginitemname == listcon.username){
+        if(loginitemname == listcon.username || thisuertype == 2){
             delstr = '<span class="delcommentbtn">删除</span>';
         }
         if(listcon.replyto){

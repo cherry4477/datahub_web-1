@@ -182,12 +182,22 @@ $(function(){
             success: function(msg) {
             	//添加状态开始
             	var thisispricestatenew="";
+                ////////////是否协作
+                var thisiscooperatestat = ''
+                if(msg.data.cooperatestate == 'null' || msg.data.cooperatestate == null || msg.data.cooperatestate == ''){
+                    thisiscooperatestat = '';
+                }else{
+                    thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+msg.data.cooperatestate+'</span>';
+                }
+                $(".itemnameitem").after(thisiscooperatestat);
             	if(msg.data.pricestate=='付费'){
             		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:red;border:1px solid red;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+            	}else if(msg.data.pricestate==''){
+                    thisispricestatenew="";
             	}else{
-            		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:#f49f12;border:1px solid #f49f12;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
-            	}
-            	$(".itemnameitem").append(thisispricestatenew);
+                    thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:#f49f12;border:1px solid #f49f12;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+                }
+            	$(".itemnameitem").after(thisispricestatenew);
             	//添加状态结束
                 allpricecon = msg.data.price;
                 tagallnum = msg.data.tags;
@@ -280,7 +290,7 @@ $(function(){
         $('.metaList').empty();
         var str =  '<div class="metatitle">样例 <div class="editmeta"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" >修改</a></div></div>'+
             '<div class="metabox" id="metadata">'+marked(sample)+'</div>'+
-            '<div class="metatitle">元数据<div class="editsample"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" >修改</a></div></div>'+
+            '<div class="metatitle" style="margin-top:20px;">元数据<div class="editsample"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" >修改</a></div></div>'+
             '<div class="metabox metadata-con markdown-body" id="sampledata">'+marked(meta)+'</div>';
         $('.metaList').append(str);
     }
@@ -539,7 +549,7 @@ $(function(){
             url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page=1',
             cache:false,
             async:false,
-            headers:{Authorization: "Token "+account},
+            headers:{ Authorization:"Token "+$.cookie("token") },
             success: function(msg){
                 $('.baimingdan').html('白名单管理('+msg.data.total+')');
             },
