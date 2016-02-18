@@ -614,6 +614,7 @@ function closewrap(){
                             dataType:'json',
                             success:function(json){
                                 var permission=json.data.permission;
+                                //alert("permission:"+permission);
                                 if(permission==false||permission=="false")
                                 {
                                     $.ajax({
@@ -625,6 +626,7 @@ function closewrap(){
                                         dataType:'json',
                                         success:function(json){
                                             if(json.code==0){
+                                                //alert("json.data:"+json.data);
                                                 if(json.data=="undefined"||json.data==undefined||json.data==null||json.data=="null")
                                                 {
                                                     $("#apply_buy").show();
@@ -1232,7 +1234,9 @@ function apply_buy(){
                                     $("#apply_buy").hide();
                                     $("#hurry_buy").hide();
                                     $("#cancel_buy").show();
-                                    location.reload();
+                                    $('#subscriptDialog').on('hide.bs.modal', function () {
+                                        location.reload();
+                                    });
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
@@ -1252,7 +1256,9 @@ function apply_buy(){
                                 $("#subscriptDialog .subprocess").hide();
                                 $("#subscriptDialog .subafterprocess .successed").hide();
                                 $("#subscriptDialog .subafterprocess .failed2").show();
-                                location.reload();
+                                $('#subscriptDialog').on('hide.bs.modal', function () {
+                                    location.reload();
+                                });
                             //}
                         }
                     });
