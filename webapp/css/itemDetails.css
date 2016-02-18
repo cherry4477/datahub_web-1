@@ -560,6 +560,7 @@ word-break: break-all;*/
     width: 100%;
     padding-bottom: 20px;
     border-bottom: 1px solid #8c97cb;
+    word-wrap:break-word;
 }
 #main-right h3{
     font-size: 16px;
