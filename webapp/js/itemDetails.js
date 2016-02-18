@@ -43,6 +43,17 @@ $(document).ready(function(){
         $('#myModal').modal('toggle');
     });
     $('[data-toggle="tooltip"]').tooltip();
+
+    var item=$("#titleName .itemname").text();
+    if(item.length>45){
+        var subitem=item.substring(0,42)+"...";
+        $("#titleName .itemname").text(subitem);
+    }
+    var repo=$("#titleName .reponame").text();
+    if(repo.length>45){
+        var subrepo=repo.substring(0,45);
+        $("#titleName .itemname").text(subrepo);
+    }
 });
 
 
