@@ -98,20 +98,24 @@ $(function(){
         var replythisname = '';
         var myitemcolor = '';
         var thisuertype = 0;
-        $.ajax({
-            url: ngUrl+"/users/"+loginitemname,
-            type: "GET",
-            cache:false,
-            async:false,
-            headers:headerToken,
-            dataType:'json',
-            success:function(json) {
-                if(json.code==0){
-                    thisuertype = json.data.userType;
+        if(loginitemname != '' && loginitemname !=null && loginitemname != 'null'){
+            $.ajax({
+                url: ngUrl+"/users/"+loginitemname,
+                type: "GET",
+                cache:false,
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json) {
+                    if(json.code==0){
+                        thisuertype = json.data.userType;
 
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
         if(thistname == listcon.username){
             //$.ajax({
             //    url: ngUrl+"/users/"+thistname,
