@@ -98,21 +98,21 @@ $(function(){
         var replythisname = '';
         var myitemcolor = '';
         if(thistname == listcon.username){
-            $.ajax({
-                url: ngUrl+"/users/"+thistname,
-                type: "GET",
-                cache:false,
-                async:false,
-                headers:headerToken,
-                dataType:'json',
-                success:function(json) {
-                    if(json.code==0){
-                        commentthisname= json.data.userName;
-
-                    }
-                }
-            });
-            replythisname = commentthisname;
+            //$.ajax({
+            //    url: ngUrl+"/users/"+thistname,
+            //    type: "GET",
+            //    cache:false,
+            //    async:false,
+            //    headers:headerToken,
+            //    dataType:'json',
+            //    success:function(json) {
+            //        if(json.code==0){
+            //            commentthisname= json.data.userName;
+            //
+            //        }
+            //    }
+            //});
+            replythisname = '我';
             myitemcolor = 'myitemcolor';
         }else{
             replythisname = listcon.nickname

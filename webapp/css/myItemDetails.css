@@ -376,6 +376,10 @@
     margin-top: 4px;
     width: 18px;
 }
+#editItem .itemtag .key .addbtn .btnicon:hover{
+    background-image: url("../images/add_hover.png");
+    background-position: 1px 0px;
+}
 #editItem .itemtag .key .addbtn > span {
     display: inline-block;
     font-size: 12px;
@@ -471,6 +475,10 @@
     margin-left: 5px;
     margin-top: 4px;
     width: 18px;
+}
+#editItem .itemtagmoney .keymoney .divmoney .btniconmoney:hover{
+    background-image: url("../images/add_hover.png");
+    background-position: 1px 0px;
 }
 #editItem .itemtagmoney .keymoney .divmoney > span {
     display: inline-block;
