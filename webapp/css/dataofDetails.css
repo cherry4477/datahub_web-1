@@ -183,7 +183,7 @@
 .like #like>span:nth-child(1){
 	height:20px; 
 	width:20px;
-	background-image: url('images/selects/images_39.png');
+	background-image: url('images/selects/like.png');
 	background-repeat: no-repeat;
     background-position: 0px 0px;
     display: inline-block;
@@ -257,5 +257,67 @@
 	border-top-color:#43609f;
 }
 
+/*最热rep*/
 
+#subtitle{
+	padding-top: 20px !important; 
+	padding-left:30px !important;  
+	font-size:20px !important; 
+	font-weight: bold !important; 
+	color:#43609f !important; 
+	float:left !important;
+}
+.iconss{
+	float:left !important; 
+	width: 233px !important; 
+	margin-left: 30px;
+}
+#hot{
+	float:left !important;
+	width: 159px !important;
+}
+
+.likes{
+	margin-top: 24px !important;
+	float:left !important; 
+	/*margin-left: 30px !important;*/ 
+	display: inline !important;
+}
+.likes>span{
+	margin-left: 14px !important;
+    width: 30px !important;
+    display: inline-block !important;
+}
+
+.carts{
+	float: left !important;  
+	margin-top: 24px !important;
+	margin-left: 49px !important;
+	display: inline !important;
+}
+.carts>span{
+	margin-left: 15px !important;
+    width: 30px !important;
+}
+
+.downloads{
+	float:left !important; 
+	/*margin-left: 30px !important;*/
+	margin-top:15px !important; 
+	width:50% !important;
+}
+
+.downloads>span{
+	margin-left: 15px !important;
+    width: 30px !important;
+}
+.comments{
+	float: left !important; 
+	width:100px !important;
+	margin-top: 18px !important;
+}
+.comments>span{
+	margin-left: 15px !important;
+    width: 30px !important;
+}
 

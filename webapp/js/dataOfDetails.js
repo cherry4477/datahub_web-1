@@ -217,7 +217,7 @@ $(document).ready(function(){
 
 });
 
-//////、、、、、、、、、、、、、、获取数据拥有方详情
+//////获取数据拥有方详情
 function ajaxRe(){
     var username = getParam("username");
     $.ajax({
