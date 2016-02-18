@@ -188,7 +188,7 @@ $(document).ready(function(){
                         "<div class='repo-body-tail'>"+
                         "<div class='repo-body-tail-left'>"+
                         "<div class='updatetime-icon' title='更新时间'></div>"+
-                        "<div class='updatetime-value' title='"+jdTime+"'>"+showTime+"</div>"+
+                        "<div class='updatetime-value'  title='"+jdTime+"'>"+showTime+"</div>"+
                         "<div class='tag-iconItem' title='item数量'></div>"+
                         "<div class='tag-value'>"+json.data.items+"</div>"+
                         "</div>"+

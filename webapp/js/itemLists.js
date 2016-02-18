@@ -383,6 +383,9 @@ function forList(list,type){
 	            		
 	            	}
 	            	if(type=="4"){
+	            		var arry=new Array();
+                        arry=times.split("|");
+                        
 	            		 $("#terminal-content-body").append(""+
 	                     		
 	                         	"<div class='repo'>"+
@@ -399,7 +402,7 @@ function forList(list,type){
 	     	    					"<div class='subline'>"+  	
 	     	    						"<div class='icon'>"+
 	     	    							"<img style='margin-right:15px;margin-left:30px' src='images/selects/images_17.png' data-toggle='tooltip' datapalecement='top' title='更新时间'/>"+
-	     	    							"<span title='"+jdTime+"'>"+showTime+"<span>"+
+	     	    							"<span data-toggle='tooltip' datapalecement='top' title='"+arry[0]+"'>"+showTime+"</span>"+
 	     	    							"<img style='margin-right:15px;margin-left:50px' src='images/selects/images_19.png' data-toggle='tooltip' datapalecement='top' title='item数量' />"+
 	     	    							"<span>"+json.data.items+"</span>"+
 	     	    						"</div>"+
@@ -408,7 +411,7 @@ function forList(list,type){
 	     	    				"</div>"+	
 
 	         				"<div class='data_right' style='height:auto;margin-bottom:30px;'>"+	
-	         					"<div class='iconGroup' style='margin-right:0px;float:right;border-top:0px;margin-top:60px;'>"+
+	         					"<div class='iconGroup' style='float:right;border-top:0px;margin-top:60px;'>"+
 	         						"<div class='like'>"+
 	         							"<img src='images/newpic001.png' data-toggle='tooltip' datapalecement='top' title='star数量'>"+
 	         							"<span style='margin-left: 20px;'>"+starsnum+"</span>"+
