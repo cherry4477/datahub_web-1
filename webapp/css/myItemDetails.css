@@ -42,10 +42,10 @@
     padding-left: 28px;
     width: 100%;
 }
-.baimingdan{
+.chakanbaimingdan,.baimingdan{
     background:url(../images/as_user.png) left 5px no-repeat;
 }
-.baimingdan:hover{
+.baimingdan:hover,.chakanbaimingdan:hover{
     background:url(../images/as_user_hover.png) left 5px no-repeat;
     color: #395289;
 }
@@ -475,6 +475,18 @@
     margin-left: 5px;
     margin-top: 4px;
     width: 18px;
+}
+
+.freetype {
+    border: 1px solid #f49f12;
+    color: #f49f12;
+}
+.pricetype {
+    border-radius: 3px;
+    display: inline;
+    font-size: 12px;
+    margin-left: 5px;
+    padding: 2px 5px;
 }
 #editItem .itemtagmoney .keymoney .divmoney .btniconmoney:hover{
     background-image: url("../images/add_hover.png");

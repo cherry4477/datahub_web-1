@@ -535,7 +535,7 @@ $(function() {
                 success: function(adduser){
                     if(ispublic == 'public'){
                         var thiscooperatorcon = getcooperator(tihsreponame);
-                        console.log(thiscooperatorcon)
+
                         $("."+tihsreponame).html("协作者管理("+thiscooperatorcon.total+")");
                         addcooperatorhtml(thiscooperatorcon);
 
@@ -984,6 +984,7 @@ $(function() {
         $("#addRep .repname .value input").attr("disabled", "disabled");
         $("#addRep .repname .key .promt").hide();
         $("#addRep .repname .value input").val(thisusername);
+        $('.xiugaireperror').hide();
         $.ajax({
             url: ngUrl+"/repositories/"+thisusername,
             type: "GET",
