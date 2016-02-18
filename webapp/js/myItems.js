@@ -17,8 +17,6 @@ $(document).ready(function(){
     select_item();
 
     del_item();
-
-    sss();
 });
 
 
@@ -63,7 +61,7 @@ function getitemlist(){
 
                         switch(itemaccesstype){
                             case "private":itemaccesstype="私有"; break;
-                            case "public":itemaccesstype="公共"; break;
+                            case "public":itemaccesstype="开放"; break;
                         }
 
                         if(cooperatestate=="协作")
@@ -167,7 +165,7 @@ function getnextpage(nextpages){
 
                         switch(itemaccesstype){
                             case "private":itemaccesstype="私有"; break;
-                            case "public":itemaccesstype="公共"; break;
+                            case "public":itemaccesstype="开放"; break;
                         }
 
                         if(cooperatestate=="协作")

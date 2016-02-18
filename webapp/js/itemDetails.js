@@ -72,7 +72,7 @@ function yes_no_login(){
 function request(){
     $(".left_content_page").pagination(tagNum, {
         maxentries:tagNum,
-        items_per_page: 6,
+        items_per_page: 30,
         num_display_entries: 5,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -99,7 +99,7 @@ function gonextpage(nextpages){
 
         //tag信息
         $.ajax({
-            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages+"&size=6",
+            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages+"&size=30",
             type: "GET",
             cache: false,
             async: false,
@@ -614,6 +614,7 @@ function closewrap(){
                             dataType:'json',
                             success:function(json){
                                 var permission=json.data.permission;
+                                //alert("permission:"+permission);
                                 if(permission==false||permission=="false")
                                 {
                                     $.ajax({
@@ -625,6 +626,7 @@ function closewrap(){
                                         dataType:'json',
                                         success:function(json){
                                             if(json.code==0){
+                                                //alert("json.data:"+json.data);
                                                 if(json.data=="undefined"||json.data==undefined||json.data==null||json.data=="null")
                                                 {
                                                     $("#apply_buy").show();
@@ -661,12 +663,64 @@ function closewrap(){
 
 //立即订购
 function hurry_buy(){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var limitBoo=false;
     $("#hurry_buy").click(function(e){
-
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
         $(".repnamePm").text(repoName);
         $(".itemnamePm").text(itemName);
+        var price_plan=$("#price_plan").text();
+        $.ajax({
+            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+            type: "get",
+            cache:false,
+            async:false,
+            headers:headerToken,
+            dataType:'json',
+            success:function(json){
+                if(json.code == 0){
+                   var  prices= json.data.price;
+                    if(prices!=null||prices!=""){
+                        var sel_options=$("#LT-right .form-control").find("option:selected").val();
+                        var limitNum=prices[sel_options].limit;//限制订购的次数
+                        var planId=prices[sel_options].plan_id;
+                            if(limitNum==null||limitNum==""||limitNum==undefined){
+                                limitNum=0;
+                            }
+                            if(limitNum!=null||limitNum!=""||limitNum!=undefined){
+                            $.ajax({
+                                url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName+"/"+planId,
+                                type: "get",
+                                cache:false,
+                                async:false,
+                                headers:{Authorization:"Token "+$.cookie("token")},
+                                dataType:'json',
+                                success:function(json){
+                                    if(json.code==0){
+                                        var numsigns=json.data.numsigns;//订购次数
+                                        if(numsigns>=limitNum&&price_plan=="限量试用"){
+                                            alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            limitBoo=false
+                                        }
+                                        else{
+                                            limitBoo=true;
+                                        }
+                                    }
+                                },
+                                error:function(){
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+
+if(limitBoo){
         var create_user;
         var subscripted;
         var supplyStyle;
@@ -674,7 +728,7 @@ function hurry_buy(){
         var subType=true;
 
 
-            var headerToken={};
+        var headerToken={};
         $("#myModalLabel").text("数据订购合约");
             //登陆后
             if($.cookie("token")!=null&&$.cookie("token")!="null"){
@@ -822,6 +876,7 @@ function hurry_buy(){
         if(myself==true){
             $("#subscriptDialog").modal('toggle');
         }
+}
     });
 
 
@@ -866,22 +921,6 @@ function hurry_buy(){
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
-//        $.ajax({
-//            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
-//            type: "GET",
-//            cache:false,
-//            async:false,
-//            dataType:'json',
-//            headers:headerToken,
-//            success:function(json) {
-//                var pricestate = json.data.pricestate;//获取付费状态
-//                var price = json.data.price;//计费方式
-//                var price_length=json.data.price.length;
-//                var price_array=new Array();
-//                for(var i=0;i<price_length;i++)
-//                {
-//                    price_array.push(price[i].money);
-//                }
                 var sel_price1= $("input:radio[charge_hurry=charge_hurry]:checked").parent().siblings().find(".moneyv").text();
                 sel_price1=sel_price1.substring(0,sel_price1.length-1);
                 $.ajax({
@@ -907,6 +946,7 @@ function hurry_buy(){
                                 dataType:'json',
                                 headers:header,
                                 success:function(json){
+                                    $("#myModalLabel").text("签约结果");
                                     if(json.code == 0){
                                         setTimeout(function() {
                                             clearInterval(timer);
@@ -944,13 +984,9 @@ function hurry_buy(){
                         }
                     }
                 });
-
-
-//            }
-//        });
-
     });
 }
+
 
 //申请订购
 function apply_buy(){
@@ -1181,6 +1217,7 @@ function apply_buy(){
                         dataType:'json',
                         headers:header,
                         success:function(json){
+                            $("#myModalLabel").text("申请签约结果");
                             if(json.code == 0){
                                 setTimeout(function() {
                                     clearInterval(timer);
@@ -1194,7 +1231,9 @@ function apply_buy(){
                                     $("#apply_buy").hide();
                                     $("#hurry_buy").hide();
                                     $("#cancel_buy").show();
-                                    location.reload();
+                                    $('#subscriptDialog').on('hide.bs.modal', function () {
+                                        location.reload();
+                                    });
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
@@ -1214,7 +1253,9 @@ function apply_buy(){
                                 $("#subscriptDialog .subprocess").hide();
                                 $("#subscriptDialog .subafterprocess .successed").hide();
                                 $("#subscriptDialog .subafterprocess .failed2").show();
-                                location.reload();
+                                $('#subscriptDialog').on('hide.bs.modal', function () {
+                                    location.reload();
+                                });
                             //}
                         }
                     });

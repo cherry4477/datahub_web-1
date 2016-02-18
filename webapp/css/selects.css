@@ -144,9 +144,10 @@
 .price .xianliang_sheet{
 	color: #e60012;
 	border:2px solid #e60012;
+	width: 88px;
 }
 .price .fufei_sheet{
-	color: #e60012;
+	color: #e5004f;
 	border:2px solid #e5004f;
 }
 .price .wu_sheet{
