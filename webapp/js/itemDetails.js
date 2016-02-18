@@ -34,7 +34,7 @@ $(function(){
 
     closewrap();//关闭弹窗s
 
-    hot();//the hottest items 
+    //hot();//the hottest items 
     
 });
 $(document).ready(function(){
