@@ -1052,9 +1052,10 @@ function apply_buy(){
                         supplyStyle = json.data.label.supply_style;
                     }
                 },
-                error:function(){
+                error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008) {
                         $("#myself_alert").show().fadeOut(3000);
+
 
                     }
                 }
@@ -1306,7 +1307,7 @@ function cancel_buy(){
                             location.reload();
                         }
                     },
-                    error:function(){
+                    error:function(json){
                         if ($.parseJSON(json.responseText).code == 5008) {
                             $("#myself_alert").show().fadeOut(3000);
                             location.reload();

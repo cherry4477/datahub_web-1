@@ -265,11 +265,11 @@ word-break: break-all;*/
     font-size: 16px;
     font-weight: bold;
     top: 230px;
-    left: 830px;
+    left: 818px;
     color:#ea0c1d;
     height: 18px;
     display: none ;
-    width: 150px;
+    width: 180px;
     text-align: center;
 }
 #cancel_buy:hover{
