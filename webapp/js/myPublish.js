@@ -535,8 +535,7 @@ $(function() {
                 success: function(adduser){
                     if(ispublic == 'public'){
                         var thiscooperatorcon = getcooperator(tihsreponame);
-
-                        $("."+tihsreponame).html("协作者管理("+thiscooperatorcon.total+")");
+                        $("."+tihsreponame).html("协作者管理（"+thiscooperatorcon.total+"）");
                         addcooperatorhtml(thiscooperatorcon);
 
                     }else{
@@ -559,7 +558,7 @@ $(function() {
     $('#cooperatorinList').click(function(){
         var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
         var username = $.trim($('#cooperatoremailTest').val());
-        addpomitionorcoo(username,'#messcooperator',thisrepoName,'public');
+        addpomitionorcoo(username,'#messcooperatorpublic',thisrepoName,'public');
 
     })
 
@@ -609,7 +608,7 @@ $(function() {
         });
 
     })
-//////////////////////////私有repo协作者白名单收索
+//////////////////////////私有repo白名单收索
     $('#searchpomisionemailTest').click(function(){
         var curusername = $.trim($('#privatepomisionemailTest').val());
         var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
@@ -653,6 +652,92 @@ $(function() {
             }
         });
 
+    })
+    /////////////////////////////////开放协作者搜索//////////////////////////////////////////////////
+    $('#cooperatorseList').click(function(){
+        var curusername = $.trim($('#cooperatoremailTest').val());
+        var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
+        if(curusername == ''){
+            return;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername+'&cooperator=1',
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            '<div class="delthispomition"><a class="delecooperator" href="javaScript:void(0)"; datareponame="'+ datas.data.permissions[0].username +'">[删除]</a></div>'+
+                            "</div>"
+                        $(".cooperator_listpublic").empty().append(thisstr);
+                        $('.publicgobackbtnwrop').show();
+                        $('.gobackcooperator').show();
+                    }else{
+                        $('#messcooperatorpublic').html('该用户不在协作者名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#messcooperatorpublic').html('该用户不在协作者名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+    })
+    $('.publicgobackbtnwrop').click(function(){
+        $('.cooperator_listpublic').empty();
+        var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
+        var thiscooperatorcon = getcooperator(thisrepoName);
+        addcooperatorhtml(thiscooperatorcon);
+        $(this).hide();
+
+    })
+    /////////////////////////////////私有协作者搜索//////////////////////////////////////////////////
+    $('#searchcooperatoremailTest').click(function(){
+        var curusername = $.trim($('#privatecooperatoremailTest').val());
+        var thisrepoName =  $('.privatecooperList').attr('modal-repoName');
+        if(curusername == ''){
+            return;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername+'&cooperator=1',
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            "</div>"
+                        $(".privatecooperList").empty().append(thisstr);
+                        $('.privategobackbtnwrop').show();
+                        $('.gobackprivatecooperList').show();
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    //$('#messcooperatorpublic').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+    })
+    $('.gobackprivatecooperList').click(function(){
+        $('.privatecooperList').empty();
+        var thisrepoName =  $('.privatecooperList').attr('modal-repoName');
+        var thiscooperatorcon = getcooperator(thisrepoName);
+        addcooperatorhtml(thiscooperatorcon);
+        $(this).hide();
     })
 //////////////////////////////批量添加协作者/////////////////////////////////////////////////
     $('#addpricoo').click(function(){
@@ -884,7 +969,7 @@ $(function() {
                         perTong(thisrepoName,"del",1); //同步数字
                     }else{
                         var thiscooperatorcon = getcooperator(thisrepoName);
-                        $("."+thisrepoName).html("协作者管理("+thiscooperatorcon.total+")");
+                        $("."+thisrepoName).html("协作者管理（"+thiscooperatorcon.total+"）");
                         perTongXie(thisrepoName,"del",1);
                        // addcooperatorhtml(thiscooperatorcon);
                     }

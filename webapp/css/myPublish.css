@@ -374,6 +374,7 @@ strong{
 	margin: -40px 0 10px 125px;
 	position: absolute;
 	width: 140px;
+	z-index: 100;
 }
 #judgment p {
 	color: #333;
@@ -392,6 +393,7 @@ strong{
 	padding: 25px 0;
 	position: absolute;
 	width: 290px;
+	z-index: 100;
 }
 #p1 {
 	color: #000;
@@ -526,7 +528,7 @@ strong{
 .pagination a, .pagination span {
 	padding: 0.5em 1em;
 }
-.gobackbtnwrop,.privategobackbtnwrop,.gobackbtnwropcoo {
+.gobackbtnwrop,.privategobackbtnwrop,.gobackbtnwropcoo,.publicgobackbtnwrop{
 	display: none;
 	float: left;
 }
