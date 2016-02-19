@@ -486,7 +486,7 @@ function company(){
             {
                 $("#button_buy>p").text("免费").css({"height":"2.1em","margin-top":"40px","border":"1px solid #f49f12","color":"#f49f12"});
             }
-            if(pricestate=="限量免费")
+            if(pricestate=="限量试用")
             {
                 $("#button_buy>p").text("限量试用").css({"height":"3.2em","margin-top":"30px"});
             }
@@ -1052,9 +1052,10 @@ function apply_buy(){
                         supplyStyle = json.data.label.supply_style;
                     }
                 },
-                error:function(){
+                error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008) {
                         $("#myself_alert").show().fadeOut(3000);
+
 
                     }
                 }
@@ -1306,7 +1307,7 @@ function cancel_buy(){
                             location.reload();
                         }
                     },
-                    error:function(){
+                    error:function(json){
                         if ($.parseJSON(json.responseText).code == 5008) {
                             $("#myself_alert").show().fadeOut(3000);
                             location.reload();
