@@ -352,9 +352,9 @@ function addhtml(){
                     price_style="免费";
                     price_sheet ="mianfei_sheet";
                 }
-                else if(pricestate=="限量免费")
+                else if(pricestate=="限量试用")
                 {
-                    price_style="限量免费";
+                    price_style="限量试用";
                     price_sheet ="xianliang_sheet";
                 }
                 else if(pricestate=="付费")
