@@ -988,7 +988,7 @@ function getUserEmail(){
                     						+"</div>"
                     						+"<div class='downloads' >"+"<img src='images/newpic003.png'>"+"<span>"+download+"</span>"
                     						+"</div>"
-                    						+"<div class='comments' >"+"<img src='images/selects/images_14.png'>"+"<span>"+comment+"</span>"
+                    						+"<div class='comments' >"+" <img src='images/selects/images_14.png'>"+"<span>"+comment+"</span>"
                     						+"</div>"+"</div>"+"</div>"+"</div>");
                                     }
                         }
