@@ -1099,6 +1099,7 @@ $(function() {
                 }
             }
         });
+        $('#ispublic').attr("disabled",false);
         $('#addRep').modal('toggle');
         stopEventStrans(e);
     });
@@ -1248,6 +1249,7 @@ function postrepo(){
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("开放");
                     $("#ispublic").val(1);
@@ -1283,6 +1285,7 @@ function postrepo(){
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("私有");
                     $("#ispublic").val(2)
