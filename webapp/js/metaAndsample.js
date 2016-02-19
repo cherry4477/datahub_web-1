@@ -18,6 +18,11 @@ $(function(){
     var repname = getParam("repname");
     var itemname = getParam("itemname");
     var datas = getParam("datas");
+    if(datas == 'Sample'){
+        $('.contop').html('样例数据');
+    }else{
+        $('.contop').html('元数据');
+    }
     $.ajax({
         url:  ngUrl+"/repositories/"+repname+"/"+itemname,
         type: "get",
