@@ -39,13 +39,13 @@
 							<span class="title">Repository 名称</span>
 							<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
 						<div class="value">
-							<input id="repnameInput" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
+							<input id="repnameInput" maxlength="52" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
 						</div>
 					</div>
 					<div class="repcomment">
 						<div class="key">Repository 描述</div>
 						<div class="value">
-							<textarea placeholder='200字以内'></textarea>
+							<textarea placeholder='200字以内' maxlength="200"></textarea>
 						</div>
 					</div>
 					<div class="xiugaireperror">您可新增的<span class="ispublicrepo">开放</span>Repository资源不足，<a class="viplinks" href="memberUpgrade.html" target="_blank">升级会员</a>获取更多资源</div>

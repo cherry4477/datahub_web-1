@@ -32,7 +32,7 @@ $(function(){
     switchover();//切换
     tablesheet();//表格样式
 
-    closewrap();//关闭弹窗s
+    closewrap();//关闭弹窗
 
     //hot();//the hottest items 
     
@@ -44,6 +44,7 @@ $(document).ready(function(){
     });
     $('[data-toggle="tooltip"]').tooltip();
 
+    //标题长度过长时省略号代替
     var item=$("#titleName .itemname").text();
     if(item.length>45){
         var subitem=item.substring(0,42)+"...";
@@ -590,6 +591,18 @@ function closewrap(){
             }
         });
         if(login=="false") {
+            //登录前进行正在发布情况的判断
+            var tagNum=$("#nav1>sup>span").text();
+            var priceIndex=$("#LT-right .form-control option").val();
+            if(tagNum==0||priceIndex==undefined||priceIndex==""){
+                $("#cancel_buy").hide();
+                $("#hurry_buy").hide();
+                $("#apply_buy").hide();
+                $("#price_plan").hide();
+                $("#upcoming_release").show();
+            }
+            //$("#hurry_buy").text("登录后订购");
+
             $("#hurry_buy").click(function(){
                 $(".alert_login").css({"display": "block", "left": "706px"}).show();
             });
