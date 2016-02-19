@@ -48,7 +48,8 @@ function ajaxFunHtml(type,size,page){
 	if(type=="3"){
 		
 	}
-	if(type=="4"){	
+	if(type=="4"){
+		getUserEmail();
 	    $("#terminal-content-body").empty();
 		url=ngUrl+"/repositories?username="+getParam("username")+"&size="+size+"&page="+page;
 		$.ajax({
@@ -933,7 +934,7 @@ function getComment(repoName){
 }
 
 $(document).ready(function(){
-    getUserEmail();
+   // getUserEmail();
 });
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
@@ -950,7 +951,6 @@ function getUserEmail(){
                 //get username
                     var userName = '';*/
                     var username = getParam("username");
-
                     $.ajax({
                         url: ngUrl +"/users/"+username,
                         type: "get",
