@@ -100,6 +100,17 @@
 			</div>
 		</div>
 	</div>
+	<!--user active after 24hr-->
+	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+		<div ID="after24" style="display:none" >
+			<div ID="after">
+				<p>注册DataHub账号</p>
+			</div>
+			<div ID="w_info">
+				<p ID="wrongmes" style="font:16px;">对不起！您的注册时间超过24小时！请返回注册页面重新注册。</p>
+			</div>
+		</div>
+	</div>
 	 <!--服务条约-->
     <div id="subscriptDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
@@ -519,12 +530,15 @@
 			       			$("#cannotreg").show();
 			        		$(".infoBox").hide();
 			        		$("#checkEmail").hide();
-
 			       		}
-			       		
+			       		if ($.parseJSON(json.responseText).code == 8012) {
+    						$("#after24").show();
+   						}
 			       }
             		     
 				});
+				
+
 			function getParam(key) {
 		    	var value='';
 		    	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
