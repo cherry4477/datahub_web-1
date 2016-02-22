@@ -150,9 +150,9 @@ function hanvelables(pages){
     repos = [];
     var url = '';
     if(lablename == '全部精选'){
-        url = ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
-        url = ngUrl+"/selects?select_labels="+lablename+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels="+lablename+"&size=10&page="+pages;
     }
 
     $.ajax({
@@ -181,7 +181,7 @@ function hanvelables(pages){
 function pages2(){
     $("#pages").pagination(window.paegeitems2, {
         maxentries:window.paegeitems2,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries:5,
         prev_text:"上一页",
@@ -199,7 +199,7 @@ function ajaxRe(pages){
     $(".container .title p").text("全部精选");
     var urlt="";
     repos = [];
-    urlt=ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+    urlt=ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     $.ajax({
         url: urlt,
         type: "get",
@@ -224,7 +224,7 @@ function ajaxRe(pages){
 function pages(){
     $("#pages").pagination(window.paegeitems, {
         maxentries:window.paegeitems,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries: 5,
         prev_text:"上一页",
