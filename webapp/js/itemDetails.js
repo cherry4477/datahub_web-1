@@ -395,15 +395,16 @@ function about_item(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
-    
+
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName,
+        url: ngUrl+"/repositories/"+repoName+"/"+itemName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
         headers:headerToken,
         success:function(json){
+            console.log(json);
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
