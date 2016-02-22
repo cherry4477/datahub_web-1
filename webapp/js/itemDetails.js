@@ -118,9 +118,8 @@ function gonextpage(nextpages){
             headers:headerToken,
             dataType: 'json',
             success: function (json) {
-
                 if (json.code == 0) {
-                    tagNum = json.data.tags;
+                     tagNum = json.data.tags;
                     $("#nav1 > sup > span").text(tagNum);
                     var list_length = json.data.taglist.length;
                     var taglist = json.data.taglist;
@@ -186,6 +185,11 @@ function gonextpage(nextpages){
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
 
+                }
+            },
+            error:function(json){
+                if ($.parseJSON(json.responseText).code == 1006) {
+                   alert("100");
                 }
             }
         });
@@ -391,15 +395,16 @@ function about_item(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
-    
+
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName,
+        url: ngUrl+"/repositories/"+repoName+"/"+itemName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
         headers:headerToken,
         success:function(json){
+            console.log(json);
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);

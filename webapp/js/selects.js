@@ -69,8 +69,9 @@ function changebg(index){
 var lablename={};
 
 $("body").on("click","#navigator_ul li",function(){
+    $(".be-loader").show();
     window.clickindex = $(this).index();
-    $(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
+    //$(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
     lablename=$(this).text();
     $(".container .title p").text(lablename);
     changebg(clickindex);
@@ -149,9 +150,9 @@ function hanvelables(pages){
     repos = [];
     var url = '';
     if(lablename == '全部精选'){
-        url = ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
-        url = ngUrl+"/selects?select_labels="+lablename+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels="+lablename+"&size=10&page="+pages;
     }
 
     $.ajax({
@@ -180,7 +181,7 @@ function hanvelables(pages){
 function pages2(){
     $("#pages").pagination(window.paegeitems2, {
         maxentries:window.paegeitems2,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries:5,
         prev_text:"上一页",
@@ -198,7 +199,7 @@ function ajaxRe(pages){
     $(".container .title p").text("全部精选");
     var urlt="";
     repos = [];
-    urlt=ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+    urlt=ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     $.ajax({
         url: urlt,
         type: "get",
@@ -223,7 +224,7 @@ function ajaxRe(pages){
 function pages(){
     $("#pages").pagination(window.paegeitems, {
         maxentries:window.paegeitems,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries: 5,
         prev_text:"上一页",
@@ -334,13 +335,14 @@ function addhtml(){
                     window.company_name=msg.data.userName;
                 });
                 $repo_left_subline_lable.append($("<span></span>").text(labelV));
-
+                var url="dataOfDetails.html?username="+create_user;
                 $repo_left.append("" +
                     "<div class='supplier'>"+
-                "<p> 本数据由 <a> "+company_name+"</a> 提供</p></div>");
+                "<p> 本数据由 <a href='"+url+"'> "+company_name+"</a> 提供</p></div>");
 
-                var url="dataOfDetails.html?username="+create_user;
-                $(".supplier p a").attr("href",url);
+
+                //$(".supplier p a").attr("href",url);
+
 
 
                 //右边部分
@@ -390,4 +392,6 @@ function addhtml(){
             }
         });
     }
+
+    $(".be-loader").fadeOut(1000);
 }

@@ -304,3 +304,10 @@
 	color:#29abe2;
 
 }
+
+.pageLoading{
+	width: 100%;
+	height:100%;
+	position: fixed;
+	background-color: #00a8c6;
+}
