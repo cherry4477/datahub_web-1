@@ -118,9 +118,8 @@ function gonextpage(nextpages){
             headers:headerToken,
             dataType: 'json',
             success: function (json) {
-
                 if (json.code == 0) {
-                    tagNum = json.data.tags;
+                     tagNum = json.data.tags;
                     $("#nav1 > sup > span").text(tagNum);
                     var list_length = json.data.taglist.length;
                     var taglist = json.data.taglist;
@@ -186,6 +185,11 @@ function gonextpage(nextpages){
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
 
+                }
+            },
+            error:function(json){
+                if ($.parseJSON(json.responseText).code == 1006) {
+                   alert("100");
                 }
             }
         });
