@@ -69,8 +69,9 @@ function changebg(index){
 var lablename={};
 
 $("body").on("click","#navigator_ul li",function(){
+    $(".be-loader").show();
     window.clickindex = $(this).index();
-    $(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
+    //$(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
     lablename=$(this).text();
     $(".container .title p").text(lablename);
     changebg(clickindex);
@@ -391,4 +392,6 @@ function addhtml(){
             }
         });
     }
+
+    $(".be-loader").fadeOut(1000);
 }
