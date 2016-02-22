@@ -28,6 +28,7 @@ function pagechange(new_page_index){
 
 //获取列表集合 1.rep 2.item 3.tag 4.user 5.我的订购
 
+
 function ajaxFunHtml(type,size,page){
 	
 	var list=[];

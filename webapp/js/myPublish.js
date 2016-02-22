@@ -1084,12 +1084,14 @@ $(function() {
                     if(json.data.repaccesstype=="public")
                     {
                         // $("#addRep .property .value p").text("开放");
+                        $("#ispublic").attr('data-tagle',1)
                         $("#ispublic").val(1);
                         // $("#ListManagement").css("display","none");
                     }
                     if(json.data.repaccesstype=="private")
                     {
                         // $("#addRep .property .value p").text("私有");
+                        $("#ispublic").attr('data-tagle',2)
                         $("#ispublic").val(2);
                         // $("#ListManagement").css("display","block");
                     }
@@ -1099,6 +1101,7 @@ $(function() {
                 }
             }
         });
+        $('#ispublic').attr("disabled",false);
         $('#addRep').modal('toggle');
         stopEventStrans(e);
     });
@@ -1175,6 +1178,7 @@ function postrepo(){
         $('.xiugaireperror').hide();
     });
     $('#ispublic').change(function(){
+        var dataTagle = $(this).attr('data-tagle');
         var thisloginname = $.cookie("tname");
         var thisval = $(this).val();
         $.ajax({
@@ -1188,7 +1192,7 @@ function postrepo(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 if(thisval == 1){
-                    if(json.data.quotaPublic <= json.data.usePublic){
+                    if(parseInt(json.data.quotaPublic) <= parseInt(json.data.usePublic) && thisval != dataTagle){
                        $('.ispublicrepo').html('开放');
                         $('.xiugaireperror').show();
                         $('#ispublic').val(1);
@@ -1196,7 +1200,7 @@ function postrepo(){
                         $('.xiugaireperror').hide();
                     }
                 }else if(thisval == 2){
-                    if(json.data.quotaPrivate <= json.data.usePrivate){
+                    if(parseInt(json.data.quotaPrivate) <= parseInt(json.data.usePrivate) && thisval != dataTagle){
                         $('.ispublicrepo').html('私有');
                         $('.xiugaireperror').show();
                         $('#ispublic').val(0);
@@ -1248,6 +1252,7 @@ function postrepo(){
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("开放");
                     $("#ispublic").val(1);
@@ -1283,6 +1288,7 @@ function postrepo(){
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("私有");
                     $("#ispublic").val(2)
