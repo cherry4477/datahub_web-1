@@ -52,25 +52,6 @@ $(function(){
             }
         }
     });
-
-    /////////////登录用户的真实姓名
-   //if(loginitemname != 'null' && loginitemname != null){
-   //    $.ajax({
-   //        url: ngUrl+"/users/"+loginitemname,
-   //        type: "GET",
-   //        cache:false,
-   //        async:false,
-   //        headers:headerToken,
-   //        dataType:'json',
-   //        success:function(json) {
-   //            if(json.code==0){
-   //                commentthisname= json.data.userName;
-   //            }
-   //        }
-   //    });
-   //}
-
-
     function addcommenthtml(towho){
         var thisstr = '<div class="commentwrop replycboxbg" id="replyCommnet">'+
             '<textarea name="" id="replycommentcon" datatowho="回复'+towho+'">回复'+towho+'</textarea>'+
@@ -92,13 +73,12 @@ $(function(){
     };
     ///////////////////////展示评论列表
     function addreplyhtml(listcon){
-        //alert('listcon.username-----'+listcon.username);
-        //alert('thistname-----'+thistname);
         var replytostr = '';
         var replythisname = '';
         var myitemcolor = '';
         var thisuertype = 0;
         if(loginitemname != '' && loginitemname !=null && loginitemname != 'null'){
+            //////////////查询用户会员级别
             $.ajax({
                 url: ngUrl+"/users/"+loginitemname,
                 type: "GET",
@@ -113,26 +93,25 @@ $(function(){
                     }
                 }
             });
-
         }
-
-        if(thistname == listcon.username){
-            //$.ajax({
-            //    url: ngUrl+"/users/"+thistname,
-            //    type: "GET",
-            //    cache:false,
-            //    async:false,
-            //    headers:headerToken,
-            //    dataType:'json',
-            //    success:function(json) {
-            //        if(json.code==0){
-            //            commentthisname= json.data.userName;
-            //
-            //        }
-            //    }
-            //});
+        if(loginitemname == listcon.username){
             replythisname = '我';
             myitemcolor = 'myitemcolor';
+        }else if(thistname == listcon.username){
+            //////////////查询用户真实姓名
+            $.ajax({
+                url: ngUrl+"/users/"+listcon.username,
+                type: "GET",
+                cache:false,
+                async:false,
+                headers:headerToken,
+                dataType:'json',
+                success:function(json) {
+                    if(json.code==0){
+                        replythisname= json.data.userName;
+                    }
+                }
+            });
         }else{
             replythisname = listcon.nickname
         }
