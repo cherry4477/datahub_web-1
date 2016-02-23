@@ -88,54 +88,63 @@ function get_type(){
         lablename2=$("#navigator_ul li:eq(0)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =0;
     }
     if(type=="终端专题"){
         changebg(1);
         lablename2=$("#navigator_ul li:eq(1)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =1;
     }
     if(type=="互联网专题"){
         changebg(2);
         lablename2=$("#navigator_ul li:eq(2)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =2;
     }
     if(type=="征信专题"){
         changebg(3);
         lablename2=$("#navigator_ul li:eq(3)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =3;
     }
     if(type=="运营商专题"){
         changebg(4);
         lablename2=$("#navigator_ul li:eq(4)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =4;
     }
-    if(type=="位置专题"){
+    if(type=="位置专题") {
         changebg(5);
-        lablename2=$("#navigator_ul li:eq(5)").text();
+        lablename2 = $("#navigator_ul li:eq(5)").text();
         $(".container .title p").text(lablename2);
-        appendList3(0,lablename2);
+        appendList3(0, lablename2);
+        window.clickindex = 5;
     }
     if(type=="北京公共专题"){
         changebg(6);
         lablename2=$("#navigator_ul li:eq(6)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =6;
     }
     if(type=="上海公共专题"){
         changebg(7);
         lablename2=$("#navigator_ul li:eq(7)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =7;
     }
     if(type=="空气质量专题"){
         changebg(8);
         lablename2=$("#navigator_ul li:eq(8)").text();
         $(".container .title p").text(lablename2);
         appendList3(0,lablename2);
+        window.clickindex =8;
     }
 }
 //  加载全部数据
