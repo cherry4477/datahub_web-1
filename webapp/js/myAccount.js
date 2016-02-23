@@ -50,7 +50,7 @@ function  accountDetailes(){
     }
     var total=0;
     $.ajax({
-    url: ngUrl + "/bill/" + $.cookie("tname") + "/detail",
+    url: ngUrl + "/bill/" + $.cookie("tname") + "/detail"+"?&size=50",
         type: "GET",
         cache: false,
         async: false,
@@ -58,6 +58,7 @@ function  accountDetailes(){
         headers: headerToken,
         success: function (json) {
             total=json.data.total;
+            console.log(json.data);
             if(total==0){
                 $("#emptyData").show();
             }
@@ -157,7 +158,7 @@ function  accountDetailes(){
     });
     $(".accountPages").pagination(total,{
         maxentries:total,
-        items_per_page: 8,
+        items_per_page: 50,
         num_display_entries: 3,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -175,7 +176,7 @@ function gonextpage(next_pages){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     $.ajax({
-        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail" + "?page=" + next_pages + "&size=8",
+        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail" + "?page=" + next_pages + "&size=50",
         type: "GET",
         cache: false,
         async: false,
