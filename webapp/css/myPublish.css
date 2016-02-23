@@ -627,6 +627,7 @@ strong{
 	border: 1px solid #c8c8c8;
 	padding:20px;
 	float: left;
+	padding-top:0px;
 }
 .privatecooperList{
 	width: 100%;
