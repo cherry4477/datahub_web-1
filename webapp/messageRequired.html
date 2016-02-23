@@ -278,13 +278,18 @@
 		        		$(".zongOtherNums").text(allrepnum);
 		        	} */
 		        	allrepnum =json.data.total;
-		        	if(level==50&&levelnum==0){
+		        	
+		        	/* if(level==50&&levelnum==0){
 		        		if(window.messlevel==50){
 			        		$(".zongReqNums").text(allrepnum);
 			        	}else{
 			        		$(".zongOtherNums").text(allrepnum);
 			        	}
-		        	}
+		        		alert("!23123");
+		        	}  */
+		        	
+				 //   reqNums();
+				 //   otherNums();				 
 		        	
 		        	var len=json.data.results.length;  
 	        		var typeEvent="";
@@ -324,7 +329,7 @@
 			                    }
 			                    
 			                    if(phase==7){
-			                    	s="管理员："+buyername+"申请加入"+repname+"/"+itemname+"白名单，并签订“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同。"+qtime+"”。点击<a target='_blank' href='myPublish.html'>我的订单</a>查看和处理。";		
+			                    	s="管理员："+buyername+"申请加入"+repname+"/"+itemname+"白名单，并签订“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同。"+qtime+"”。点击<a target='_blank' href='myPublish.html?order=order'>我的订单</a>查看和处理。";		
 			                    	$("#terminal-content-body").append(""+
 					    	        		"<div class='record'>"+
 					    	        			"<div class='head'>"+
@@ -538,6 +543,7 @@
 			        		
 			        		
 			        	}
+					 	newnums();
 		        	}else{
 		        		$("#terminal-content-body").append("<p class='text-center'>暂无请求数据</p>");
 		        	}        	      	
@@ -575,49 +581,9 @@
 			ss(50,0,0);
 			
 			
-			var headerToken={};
-		    //登陆后
-		    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-		        headerToken={Authorization:"Token "+$.cookie("token")};
-		    }
 			
-		    //请求总数
-			$.ajax({
-		        url: ngUrl+"/notifications?size=1&level=50",
-		        type: "get",
-		        cache:false,
-		        async:false,
-		        headers:headerToken,
-		        dataType:'json',
-		        success:function(json){
-		        	allrepnum =json.data.total;
-		        	if(allrepnum>0){
-		        		$(".zongReqNums").show().text(allrepnum);
-		        	}else{
-		        		$(".zongReqNums").hide();  
-		        	}     	   	      	
-		        }
-		    });
-		    //其他总数
-		    $.ajax({
-		        url: ngUrl+"/notifications?size=1&level=0",
-		        type: "get",
-		        cache:false,
-		        async:false,
-		        headers:headerToken,
-		        dataType:'json',
-		        success:function(json){
-		        	allrepnum =json.data.total;
-		        	$(".zongOtherNums").text(allrepnum);
-		        	if(allrepnum>0){
-		        		$(".zongOtherNums").show().text(allrepnum);
-		        	}else{
-		        		$(".zongOtherNums").hide();  
-		        	} 
-		        }
-		    });
-
-
+		 //   reqNums();
+		 //   otherNums();
 		
 			$(document).on('click','.head',function(){
 				var body = $(this).closest(".record").children("div[class=body]:first");
@@ -717,6 +683,103 @@
 			});
 			
 		});
+		
+		function reqNums(){
+			var headerToken={};
+		    //登陆后
+		    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+		        headerToken={Authorization:"Token "+$.cookie("token")};
+		    }
+			//请求总数
+			$.ajax({
+		        url: ngUrl+"/notifications?size=1&level=50&status=0",
+		        type: "get",
+		        cache:false,
+		        async:false,
+		        headers:headerToken,
+		        dataType:'json',
+		        success:function(json){
+		        	allrepnum =json.data.total;
+		        	if(allrepnum>0){
+		        		$(".zongReqNums").show().text(allrepnum);
+		        	}else{
+		        		$(".zongReqNums").hide();  
+		        	}     	   	      	
+		        }
+		    });
+		}
+		function otherNums(){
+			var headerToken={};
+		    //登陆后
+		    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+		        headerToken={Authorization:"Token "+$.cookie("token")};
+		    }
+			//其他总数
+		    $.ajax({
+		        url: ngUrl+"/notifications?size=1&level=0&status=0",
+		        type: "get",
+		        cache:false,
+		        async:false,
+		        headers:headerToken,
+		        dataType:'json',
+		        success:function(json){
+		        	allrepnum =json.data.total;
+		        	$(".zongOtherNums").text(allrepnum);
+		        	if(allrepnum>0){
+		        		$(".zongOtherNums").show().text(allrepnum);
+		        	}else{
+		        		$(".zongOtherNums").hide();  
+		        	} 
+		        }
+		    });
+		}
+		
+		
+		function newnums(){
+			var headerToken={};
+		    //登陆后
+		    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+		        headerToken={Authorization:"Token "+$.cookie("token")};
+		    }
+			$.ajax({
+				url: ngUrl+"/notification_stat?category=level",
+		        type: "get",
+		        cache:false,
+		        async:false,
+		        headers:headerToken,
+		        dataType:'json',
+		        success:function(json){
+		        	if(json.data!=null){
+		        		$(".zongReqNums").hide();  
+		        		$(".zongOtherNums").hide(); 
+		        		for(var p in json.data){
+			        		if(p=="50"){
+			        			allrepnum = json.data[p];
+			        			if(allrepnum>0){
+					        		$(".zongReqNums").show().text(allrepnum);
+					        	}else{
+					        		$(".zongReqNums").hide();  
+					        	} 
+			        		}
+			        		if(p=="0"){
+			        			allrepnum = json.data[p];
+			        			if(allrepnum>0){
+					        		$(".zongOtherNums").show().text(allrepnum);
+					        	}else{
+					        		$(".zongOtherNums").hide();  
+					        	} 
+			        		}
+			        	}
+		        	}else{
+		        		$(".zongReqNums").hide();  
+		        		$(".zongOtherNums").hide();  
+		        	}	        
+		        }
+			});
+		}
+		
+		//newnums();
+		
 	</script>
 	
 </body>

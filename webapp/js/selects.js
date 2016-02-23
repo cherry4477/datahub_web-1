@@ -87,46 +87,55 @@ function get_type(){
         changebg(0);
         lablename2=$("#navigator_ul li:eq(0)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="终端专题"){
         changebg(1);
         lablename2=$("#navigator_ul li:eq(1)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="互联网专题"){
         changebg(2);
         lablename2=$("#navigator_ul li:eq(2)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="征信专题"){
         changebg(3);
         lablename2=$("#navigator_ul li:eq(3)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="运营商专题"){
         changebg(4);
         lablename2=$("#navigator_ul li:eq(4)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="位置专题"){
         changebg(5);
         lablename2=$("#navigator_ul li:eq(5)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="北京公共专题"){
         changebg(6);
         lablename2=$("#navigator_ul li:eq(6)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="上海公共专题"){
         changebg(7);
         lablename2=$("#navigator_ul li:eq(7)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
     if(type=="空气质量专题"){
         changebg(8);
         lablename2=$("#navigator_ul li:eq(8)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
     }
 }
 //  加载全部数据
@@ -142,6 +151,14 @@ function appendList2(pages){
     $(".repoAll").empty();
     pages=pages+1;
     hanvelables(pages);
+    addhtml();
+    $('[data-toggle="tooltip"]').tooltip();
+}
+//按左侧导航分类发送请求加载数据；
+function appendList3(pages,lab){
+    $(".repoAll").empty();
+    pages=pages+1;
+    hanvelables3(pages,lab);
     addhtml();
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -175,8 +192,48 @@ function hanvelables(pages){
             }
         }
     });
+}
+function hanvelables3(pages,lab){
+    repos= [];
+    var paegeitems3;
+    var url = '';
+    if(lab == '全部精选'){
+        url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
+    }else{
+        url = ngUrl+"/selects?select_labels="+lab+"&size=10&page="+pages;
+    }
 
-
+    $.ajax({
+        url: url,
+        type: "get",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json){
+            if(json.data.select.length!=0){
+               paegeitems3=json.data.total;
+                var pages=json.data.select.length;
+                for(var i=0;i<pages;i++){
+                    repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
+                }
+            }else{
+                paegeitems3=0;
+            }
+        }
+    });
+    $("#pages").pagination(paegeitems3, {
+        maxentries:paegeitems3,
+        items_per_page:10,
+        num_display_entries:5,
+        num_edge_entries:5,
+        prev_text:"上一页",
+        next_text:"下一页",
+        ellipse_text:"...",
+        link_to:"javascript:void(0)",
+        callback:appendList3,
+        load_first_page:false
+    });
 }
 function pages2(){
     $("#pages").pagination(window.paegeitems2, {

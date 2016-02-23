@@ -60,11 +60,13 @@
 	border-radius: 3px;
 	margin-right: 8px;
 }
-.item_con_line  .item_name{
+.item_con_line  .item_name a{
 	font: 14px bold;
 	color:#43609f;
 }
-
+.item_con_line  .item_name a:hover{
+	color:#395289;
+}
 .item_con_line .mianfei_sheet{
 	color: #f49f12;
 	border:2px solid #f49f12;

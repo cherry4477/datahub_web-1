@@ -97,11 +97,10 @@ function getitemlist(){
                             price_style="暂无";
                             price_sheet="wu_sheet";
                         }
-
                         $table_content.append("" +
                             "<tr class='item_con_line'>"+
                             "<td><input type='checkbox' class='item_check' name='list_check'>" +
-                            "<span class='item_name'>"+item_Arr[i]+"</span>" +
+                            '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>'+
                             "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                             "<span class="+price_sheet+">"+price_style+"</span>"+
                             "</td>"+
@@ -205,7 +204,7 @@ function getnextpage(nextpages){
                         $table_content.append("" +
                             "<tr class='item_con_line'>"+
                             "<td><input type='checkbox' class='item_check' name='list_check'>" +
-                            "<span class='item_name'>"+item_Arr[i]+"</span>" +
+                            '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>' +
                             "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                             "<span class="+price_sheet+">"+price_style+"</span>"+
                             "</td>"+
