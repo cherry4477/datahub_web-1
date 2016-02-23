@@ -67,9 +67,10 @@ function ajaxFunHtml(type,size,page){
 	                }
 	            }else{
 	                console.log("报错");
+	                list=null;
 	            }
 	        }
-	    });				
+	    });	
 		forList(list,4);			
 	}
 	
@@ -445,7 +446,9 @@ function forList(list,type){
 	        });
 	    }
 	}else{
-	
+		if(type=="4"){
+    		 $("#terminal-content-body").append("<div style='float:left;margin-top:30px;'>开放Repository数量为0。</div>");
+		}
 	}
 
 	
