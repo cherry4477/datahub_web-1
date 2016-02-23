@@ -224,7 +224,7 @@ function ajaxFunHtml(type,size,page){
 		    						"</div>"+
 		    		
 		    						"<div class='price'>"+
-		    							"<p>价格:"+json.data.results[i].plan.money+"/"+json.data.results[i].plan.units+supply_style+" 有效期"+json.data.results[i].plan.expire+"天</p>" +
+		    							"<p>价格:"+json.data.results[i].plan.money+"元/"+json.data.results[i].plan.units+supply_style+" 有效期"+json.data.results[i].plan.expire+"天</p>" +
 		    							"<p>失效日期："+expiretimeOrder+"</p>" +
 		    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 		    						"</div>"+
@@ -647,7 +647,7 @@ function ajaxTotal(type,size){
 	    						"</div>"+
 	    		
 	    						"<div class='price'>"+
-	    							"<p>价格:"+json.data.results[i].plan.money+"/"+json.data.results[i].plan.units+supply_style+" 有效期"+json.data.results[i].plan.expire+"天</p>" +
+	    							"<p>价格:"+json.data.results[i].plan.money+"元/"+json.data.results[i].plan.units+supply_style+" 有效期"+json.data.results[i].plan.expire+"天</p>" +
 	    							"<p>失效日期："+expiretimeOrder+"</p>" +
 	    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 	    						"</div>"+
