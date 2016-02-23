@@ -189,7 +189,8 @@ function gonextpage(nextpages){
             },
             error:function(json){
                 if ($.parseJSON(json.responseText).code == 1006) {
-                   alert("100");
+                    alert("信息已过期，访问首页!");
+                    window.location.href="https://hub.dataos.io/";
                 }
             }
         });
@@ -470,7 +471,7 @@ function company(){
 
 
             var Sample=json.data.Sample;//样例数据
-            $("#left_exam p:nth-child(2)").text(Sample);
+            $("#left_exam p:nth-child(2)").html(marked(Sample));
             var Meta=json.data.Meta;//元数据
             $("#left_unit p:nth-child(2)").html(marked(Meta));
 

@@ -378,14 +378,14 @@ word-break: break-all;*/
     word-break:break-all;
     display: none;
 }
-#left_exam p:nth-child(1){
+#left_exam>p:first-child{
     padding:15px 0px 15px 15px;
     border-bottom: 1px solid #666666;
     font-size: 20px;
     font-weight: 700;
     color: #666666;
 }
-#left_exam p:nth-child(2){
+#left_exam>p:nth-child(2){
     padding:15px 0px 15px 15px;
     font-size: 12px;
     width: 876px;
