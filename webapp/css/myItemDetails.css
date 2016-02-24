@@ -49,6 +49,9 @@
     background:url(../images/as_user_hover.png) left 5px no-repeat;
     color: #395289;
 }
+.baimingdan{
+    display: none;
+}
 .xiezuozhe{
     background:url(../images/delete.png) left 5px no-repeat;
 }
@@ -280,13 +283,26 @@
     color: #333;
     font-size: 20px;
 }
-#editItem .itemname .key, #editItem .itemcomment .key, #editItem .itempro .key, #editItem .itemtag .key {
+#editItem .itemname .key, #editItem .itemcomment .key, #editItem .itemtag .key {
+
+}
+#editItem .itempro .key span{
     color: #29abe2;
     font-size: 14px;
     margin-bottom: 10px;
+    float: left;
+}
+#editItem .itempro .key{
+    width: 100%;
+    overflow: hidden;
+}
+#messcooperatorpublic{
+    float: left;
+    width: 90%;
+    display: none;
 }
 #editItem .itemname .value input {
-    background-color: #fff;
+    background-color: #f5f5f5;
     border: 1px solid #c7c7c7;
     border-radius: 5px;
     color: #666;

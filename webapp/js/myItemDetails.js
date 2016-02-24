@@ -170,6 +170,7 @@ $(function(){
     var itemaccesstype;
     var supply_style;
     var allpricecon;
+    var thisitemispublic
     function tagbox(pages){
         $(".filletspan .personaltag").remove();
         var ispagetags = 0;
@@ -236,9 +237,13 @@ $(function(){
                 var jsonTime = getTimes(msg.data.optime);
                 itemaccesstype = msg.data.itemaccesstype;
                 if (itemaccesstype == 'public') {
+                    thisitemispublic = 'public';
+                    $('.baimingdan').hide();
                     $('.itemaccesstype').html('公开');
                 } else if (itemaccesstype == 'private') {
+                    thisitemispublic = 'private';
                     $('.itemaccesstype').html('私有');
+                    $('.baimingdan').show();
                 }
                 $('.itemoptime').html(jsonTime.showTime);
                 $('.itemoptime').attr('data-original-title', jsonTime.jdTime);
@@ -298,13 +303,13 @@ $(function(){
 ////////////////////////////////////////////////////////查看价格
     $('.chekcprice').click(function(){
         $('.allpriceList').empty();
-        var limitstr = '';
         var str = ''
         if(allpricecon.length == 0){
             str = '<div style="text-align:center">暂时没有价格计划</div>'
             $('.allpriceList').append(str);
         }else{
             for(var i = 0; i < allpricecon.length;i++){
+                var limitstr = '';
                 if(allpricecon[i].limit){
                     limitstr = '每个用户限购&nbsp;'+allpricecon[i].limit+'&nbsp;次';
                 }
@@ -332,17 +337,21 @@ $(function(){
                 if(json.code == 0){
                     var itemaccesstype = '开放';
                     if(json.data.itemaccesstype == 'private'){
-                        itemaccesstype = '私有'
+                        //itemaccesstype = '私有'
+                        $("#ispublic").attr('data-tagle',2);
+                        $("#ispublic").val(2);
                     }else{
-                        itemaccesstype = '开放'
+                        //itemaccesstype = '开放'
+                        $("#ispublic").attr('data-tagle',1);
+                        $("#ispublic").val(1);
                     }
                     var itemNameInput = $("#editItem .itemname .value input");
                     var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
-                    var itemProSelect = $("#editItem .itempro .value span");
+                    //var itemProSelect = $("#editItem .itempro .value span");
                     var itemtagDiv = $("#editItem .itemtag .value");
                     itemNameInput.val(itemname).attr("disabled", "disabled");
                     itemCommentTextArea.val(json.data.comment);
-                    itemProSelect.html(itemaccesstype);
+                    //itemProSelect.html(itemaccesstype);
                     if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
                         json.data.label.owner != undefined && json.data.label.owner != null && json.data.label.owner != "null") {
                         var lables = json.data.label.owner;
@@ -385,6 +394,13 @@ $(function(){
         var reg = new RegExp("^[0-9]*$");
         //var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
         var itemtagDiv = $("#editItem .itemtag .value");
+        var thisitemtypes = $('#ispublic').val();
+        var itemaccesstypes = '';
+        if(thisitemtypes == 1){
+            itemaccesstypes = 'public';
+        }else{
+            itemaccesstypes = 'private';
+        }
         var labels = itemtagDiv.children(".persontag");
         var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
         var moneydivs = itemtagDivmoney.children(".persontag");
@@ -467,6 +483,7 @@ $(function(){
         }
         dataitem.price = dataarr ;
         dataitem.comment = $.trim($("#editItem .itemcomment .value textarea").val());
+        dataitem.itemaccesstype = itemaccesstypes;
         if(dataitem.comment.length > 200) {
             alert('"DataItem 描述"太长！');
             return;
@@ -521,10 +538,16 @@ $(function(){
                         }
                     });
                 }
+                location.reload();
             }
         });
 
     });
+    $('#ispublic').change(function(){
+        if($(this).val() ==2){
+            $('#messcooperatorpublic').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+        }
+    })
     $(document).on('blur','.tagkey',function(){
         var tagval = $(this).val();
         var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
@@ -544,7 +567,8 @@ $(function(){
 
 
     })
-    $.ajax({
+    if(thisitemispublic == 'private'){
+        $.ajax({
             type: "get",
             url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page=1',
             cache:false,
@@ -561,6 +585,7 @@ $(function(){
 
             }
         });
+    }
     ////////修改白名单/////////////////////////////////////////////
     var totals = 0;
     function getpagesF(){
