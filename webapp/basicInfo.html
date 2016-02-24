@@ -138,8 +138,8 @@
 				<div  class="under_main">
 					<div  class="p_progress">
 						<p>Pull量：<span>2000次/天</span></p>
-						<div class="progress">
-						  <div id="pullNum" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
+						<div class="pn_progress">
+						  <div id="pullNum" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" data-toggle='tooltip' data-placement="top">
 							<span class="sr-only">40% Complete (success)</span>
 						  </div>
 						</div>
@@ -241,9 +241,13 @@ $(document).ready(function(){
 					var invalidTime=data.data.invalidTime;
 					$("#exampleInputTime").val(registTime);
 					$("#exampleStopTime").val(invalidTime);
+
+
+
 //输入框有数据
                     if (nickName.length>0||comment.length>0||userName.length>0)
                     {
+
 						$("#exampleInputName").attr("disabled",true);
 						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
@@ -256,7 +260,7 @@ $(document).ready(function(){
 //                        $("#button01").css("display","none");
                     }
 					//输入框无数据
-                    if (nickName.length==0||comment==null||userName.length==0)
+                    if (nickName.length==0||comment==null||userName==null||userName=="")
                     {
                         $("#exampleInputName").val(userName);
 						$("#exampleInputName2").val(nickName);
@@ -415,6 +419,7 @@ $(document).ready(function(){
 
 //pull量
 	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip();
 		$.ajax({
 			url:ngUrl+"/quota/"+$.cookie("tname")+"/pullnum",
 			type:"get",
@@ -532,7 +537,24 @@ $(document).ready(function(){
                 }
             }
 	    });
+		//GET /quota/:loginname/pullnum
+		$.ajax({
+			url: ngUrl + "/quota/" + $.cookie("tname") + "/pullnum",
+			type: "get",
+			cache: false,
+			async: false,
+			headers: {Authorization: "Token " + $.cookie("token")},
+			ContentType:"application/json",
+			success: function (json) {
+				var quota=json.data.quota;
+				$(".p_progress>p>span").html(quota+"次/天");
+				var use=json.data.use;
+				var quotaPercect=(((use/quota))*100)+'%';
+				$("#pullNum").css("width",quotaPercect);
+//				$("#pullNum").attr("data-original-title","今天已Pull:"+use+"次");
 
+			}
+		})
     });
 
 </script>
