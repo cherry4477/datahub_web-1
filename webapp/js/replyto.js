@@ -94,11 +94,15 @@ $(function(){
                 }
             });
         }
+        if(thistname == listcon.username){
+            myitemcolor = 'myitemcolor';
+        }
         if(loginitemname == listcon.username){
             replythisname = '我';
-            myitemcolor = 'myitemcolor';
+
         }else if(thistname == listcon.username){
             //////////////查询用户真实姓名
+
             $.ajax({
                 url: ngUrl+"/users/"+listcon.username,
                 type: "GET",
