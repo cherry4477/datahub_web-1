@@ -69,7 +69,7 @@ $(function() {
         $('.repList').empty();
         reps = null;
         $.ajax({
-            url: ngUrl + "/repositories?size=6&page=" + nextpages,
+            url: ngUrl + "/repositories?size=10&page=" + nextpages,
             type: "get",
             cache: false,
             data: {},
@@ -114,7 +114,7 @@ $(function() {
     ////////////////////////////////repo分页
     $(".repopages").pagination(allrepnums, {
         maxentries: allrepnums,
-        items_per_page: 6,
+        items_per_page: 10,
         num_display_entries: 3,
         num_edge_entries: 2,
         prev_text: "上一页",
@@ -1221,6 +1221,7 @@ function postrepo(){
             $('#addalertbox').html('Repository描述太长').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return;
         }
+        var isreturnback = true;
         $.ajax({
             url: ngUrl+"/repositories/"+repname,
             type: method,
@@ -1240,21 +1241,30 @@ function postrepo(){
             },
             success:function(json){
                 if(json.code == 0){
+                    isreturnback = true;
                     location.reload();
                 }
             }, error:function (json)
             {
+                isreturnback = false;
                 if(json.status == 400){
                     if($.parseJSON(json.responseText).code==1012){
                         $('.ispublicrepo').html(thisispublic);
                         $('.xiugaireperror').show();
+                    }else if($.parseJSON(json.responseText).code==1008){
+                        $('#addalertbox').html('Repository名称重复').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                        return;
                     }else{
-                        alert("您创建的"+repname+"有误,请重新创建。");
+                        $('#addalertbox').html("您创建的"+repname+"有误,请重新创建").addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                        return;
                     }
                 }
 
             }
         });
+        if(isreturnback == false){
+            return;
+        }
         $('#addRep').modal('toggle');
         $('.xiugaireperror').hide();
     });

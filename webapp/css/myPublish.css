@@ -81,6 +81,11 @@ strong{
 	margin-bottom: 20px;
 	margin-left: 30px;
 	margin-top: 21px;
+	display: inline-block;
+	max-width: 460px;
+	overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
 }
 .subtitle span.curreoName:hover{
 	color:#395289;
@@ -96,6 +101,9 @@ strong{
 	font-size: 14px;
 	line-height: 20px;
 	margin-left: 30px;
+	word-wrap:break-word;
+	width: 100%;
+	overflow: hidden;
 }
 .subline {
 	float: left;
