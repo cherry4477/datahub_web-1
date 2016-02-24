@@ -507,13 +507,13 @@ $(function() {
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var userjson = {};
         if(username == ''){
-            $(errorobj).html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $(errorobj).html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(username)){
-            $(errorobj).html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $(errorobj).html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(username) == 1){
-            $(errorobj).html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $(errorobj).html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == username){
             $(errorobj).html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -581,10 +581,10 @@ $(function() {
         var thisrepoName =  $('#myModalTest').attr('modal-repoName');
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            $('#mess').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $('#mess').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(curusername)){
-            $('#mess').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#mess').html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(curusername) == 1){
             return false;
@@ -637,13 +637,13 @@ $(function() {
         var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            $('#messcooperatorprivate').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $('#messcooperatorprivate').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(curusername)){
-            $('#messcooperatorprivate').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorprivate').html('您输入的邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(curusername) == 1){
-            $('#messcooperatorprivate').html('该用户为注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorprivate').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == curusername){
             $('#messcooperatorprivate').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -693,13 +693,13 @@ $(function() {
         var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            $('#messcooperatorpublic').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $('#messcooperatorpublic').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(curusername)){
-            $('#messcooperatorpublic').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorpublic').html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(curusername) == 1){
-            $('#messcooperatorpublic').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorpublic').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == curusername){
             $('#messcooperatorpublic').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -749,13 +749,13 @@ $(function() {
         var thisrepoName =  $('.privatecooperList').attr('modal-repoName');
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            $('#messcooperatorprivate1').html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $('#messcooperatorprivate1').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(curusername)){
-            $('#messcooperatorprivate1').html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorprivate1').html('您输入的邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(curusername) == 1){
-            $('#messcooperatorprivate1').html('该用户为注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $('#messcooperatorprivate1').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == curusername){
             $('#messcooperatorprivate1').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -1126,7 +1126,7 @@ $(function() {
             error:function (json)
             {
                 if(json.status == 400){
-                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                    $('#mess').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
                 }
 
             }
