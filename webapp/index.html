@@ -69,7 +69,23 @@
 	.navbar-fixed-top{
 		border-bottom: 0px;
 	}
-
+.badgeHeader{
+		background-color: red;
+	    border-radius: 5px;
+	    color: #fff;
+	    font-size: 5px;
+	    font-weight: 700;
+	    line-height: 1;
+	    margin-left: -3px;
+	    margin-top: 0;
+	    min-width: 0;
+	    padding: 2px 4px;
+	    position: absolute;
+	    text-align: left;
+	    vertical-align: middle;
+	    white-space: nowrap;
+	    display: none;
+	}
 </style>
 </head>
 
@@ -206,6 +222,7 @@
                   		<img src="images/fl3.png" />
                   		-->
                   		个人中心
+                  		<span class="badgeHeader" style="display: inline;">&nbsp;</span>
                   	</a>
 					  <ul class="dropdown-menu">
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
@@ -698,7 +715,16 @@
 		 });
    		
    		
-    	
+   		if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
+   			$(".badgeHeader").show();
+   		}else{
+   			$(".badgeHeader").hide();
+   		} 
+   		
+   	 	$(".badgeHeader").click(function(e){
+   	 		e.stopPropagation();
+   	 		location.href="messageRequired.html";
+   	 	});
 
 		
 		
