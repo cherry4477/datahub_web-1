@@ -235,6 +235,7 @@
 		
 		
 		function addHtml(level,page,levelnum){
+    		newnums();
 			$("#terminal-content-body").empty();
 			$("#pull-body").hide();
 			$("#pull-body").fadeIn(1000);
@@ -299,7 +300,9 @@
 	        		var typeTag="";
 	        		var typeText="";
 	        		var s="";
+
 		        	if(len!=0){
+		        		
 		        		for(var i=0;i<len;i++){    		
 			        		var type=json.data.results[i].type;
 			        		var tTime=json.data.results[i].time.substr(0,10)+"&nbsp;"+json.data.results[i].time.substr(11,8);
@@ -543,7 +546,7 @@
 			        		
 			        		
 			        	}
-					 	newnums();
+					 	
 		        	}else{
 		        		$("#terminal-content-body").append("<p class='text-center'>暂无请求数据</p>");
 		        	}        	      	
@@ -749,6 +752,7 @@
 		        headers:headerToken,
 		        dataType:'json',
 		        success:function(json){
+		        	console.log(json.data);
 		        	if(json.data!=null){
 		        		$(".zongReqNums").hide();  
 		        		$(".zongOtherNums").hide(); 
@@ -758,7 +762,7 @@
 			        			if(allrepnum>0){
 					        		$(".zongReqNums").show().text(allrepnum);
 					        	}else{
-					        		$(".zongReqNums").hide();  
+					        		$(".zongReqNums").hide(); 		
 					        	} 
 			        		}
 			        		if(p=="0"){
@@ -766,13 +770,14 @@
 			        			if(allrepnum>0){
 					        		$(".zongOtherNums").show().text(allrepnum);
 					        	}else{
-					        		$(".zongOtherNums").hide();  
+					        		$(".zongOtherNums").hide();
 					        	} 
 			        		}
 			        	}
 		        	}else{
 		        		$(".zongReqNums").hide();  
-		        		$(".zongOtherNums").hide();  
+		        		$(".zongOtherNums").hide(); 
+		        		$.cookie("badgeHeader",null,{path:"/"}); //新消息提示
 		        	}	        
 		        }
 			});
