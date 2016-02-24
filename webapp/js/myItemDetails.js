@@ -886,6 +886,8 @@ $(function(){
                     $(this).parent().remove();
                 }
             }));
+        }else{
+            $('#itemmess').html('最多添加6个价格属性').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
         }
     }
 //////////////////////////////////////////////////////添加自定义标签
@@ -925,6 +927,8 @@ $(function(){
                     $(this).parent().remove();
                 }
             }));
+        }else{
+            $('#errlabels').html('最多添加5个标签').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
         }
     }
 
