@@ -190,7 +190,7 @@ function gonextpage(nextpages){
             error:function(json){
                 if ($.parseJSON(json.responseText).code == 1006) {
                     alert("信息已过期，访问首页!");
-                    window.location.href="https://hub.dataos.io/";
+                    window.location.href="/";
                 }
             }
         });
