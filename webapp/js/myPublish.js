@@ -513,6 +513,7 @@ $(function() {
             $(errorobj).html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(username) == 1){
+            $(errorobj).html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == username){
             $(errorobj).html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);

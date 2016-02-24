@@ -228,6 +228,7 @@
     width: 100%;
     overflow: hidden;
     border:1px dashed #c8c8c8;
+    word-break: break-all;
 }
 .editmeta,.editsample{
     width: 70px;
