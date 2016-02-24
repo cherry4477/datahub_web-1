@@ -125,7 +125,7 @@ $(function(){
             delstr = '<span class="delcommentbtn">删除</span>';
         }
         if(listcon.replyto){
-            replytousername = '回复'+listcon.replyto.username;
+            replytousername = '回复'+listcon.replyto.nickname;
         }
         var createtime = listcon.createtime.replace(/[A-Z]/g, " ");
         var aplystr = '<div class="comListconwrop" datacomid="'+listcon.commentid+'">'+
