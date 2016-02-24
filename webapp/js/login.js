@@ -177,7 +177,7 @@ $(function(){
 		var href=location.href;
 		var htmlnum=href.indexOf(".html");
 		var strHref=href.substring(href.lastIndexOf("/")+1,htmlnum);
-		if(strHref=="selects"||strHref=="search"||strHref=="itemDetails"||strHref=="repDetails"||strHref=="dataOfDetails"){
+		if(strHref=="selects"||strHref=="search"||strHref=="repDetails"||strHref=="dataOfDetails"){
 			location.href=window.location.href
 		}else{
 			location.href="/";

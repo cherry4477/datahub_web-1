@@ -29,9 +29,12 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body" style="padding: 30px 30px 45px 30px">
-					<div class="head">
+					<div class="head" style="margin-bottom: 0px;">
 						<span class="title">新增Repository</span>
 						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					</div>
+					<div style="height: 30px;">
+						<div id="addalertbox" class='container' style="width:100%;"></div>
 					</div>
 					<div class="repname">
 						<div class="key">
@@ -44,7 +47,7 @@
 					<div class="repcomment">
 						<div class="key">Repository 描述</div>
 						<div class="value">
-							<textarea placeholder='200字以内' maxlength="200"></textarea>
+							<textarea placeholder='200字以内'></textarea>
 						</div>
 					</div>
 					<div class="xiugaireperror">您可新增的<span class="ispublicrepo">开放</span>Repository资源不足，<a class="viplinks" href="memberUpgrade.html" target="_blank">升级会员</a>获取更多资源</div>
@@ -115,7 +118,11 @@
 							<div id="cooperatordelCurrent" >[删除]</div>
 							<div id="cooperatordelAllpri">[清空协作者]</div>
 						</div>
+
 						<div class="privatelistboxwrop">
+							<div style="height: 30px;margin-top:10px;">
+								<div id="messcooperatorprivate1" class='container' style="width:250px"></div>
+							</div>
 							<div class="pomisionesearchwrop"><input type="text" class="form-control" id="privatecooperatoremailTest"  placeholder="请输入协作者的注册邮箱"><div id="searchcooperatoremailTest" class="searchpomisione"></div></div>
 							<div class="privatecooperList cooperator_list" style="margin-top:15px;"></div>
 							<div style="margin-top: 5px;" class="privategobackbtnwrop"><span class="gobackprivatecooperList">[返回]</span></div>
@@ -127,6 +134,9 @@
 					<div class="ListboxRight">
 						<div style="width:100%;margin-bottom:10px;">白名单</div>
 						<div class="privatelistboxwrop">
+							<div style="height: 30px;margin-top:10px;">
+								<div id="messcooperatorprivate" class='container' style="width:250px"></div>
+							</div>
 							<div class="modal-body" style="padding: 0px;width:100%;">
 								<div class="pomisionesearchwrop"><input type="text" class="form-control" id="privatepomisionemailTest"  placeholder="请输入白名单用户的注册邮箱"><div id="searchpomisionemailTest" class="searchpomisione"></div></div>
 								<div class="cooperatorpomitionList" style="margin-top:15px;"></div>
