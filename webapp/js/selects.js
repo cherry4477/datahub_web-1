@@ -178,6 +178,7 @@ function hanvelables(pages){
     if(lablename == '全部精选'){
         url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
+        lablename=encodeURIComponent(lablename);
         url = ngUrl+"/selects?select_labels="+lablename+"&size=10&page="+pages;
     }
 
@@ -209,6 +210,7 @@ function hanvelables3(pages,lab){
     if(lab == '全部精选'){
         url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
+        lab=encodeURIComponent(lab);
         url = ngUrl+"/selects?select_labels="+lab+"&size=10&page="+pages;
     }
 
