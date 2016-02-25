@@ -26,6 +26,8 @@
 	.navbar-nav > li > a:focus{
 		background:none;
 	}
+
+
 </style>
 
 <body>
@@ -419,7 +421,15 @@ $(document).ready(function(){
 
 //pull量
 	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').tooltip({
+			placement:function(){
+				return "top";
+			}
+		});
+//		$('[data-toggle="tooltip"]').tooltip();
+//		$('[data-toggle="tooltip"]').on("shown.bs.tooltip",function(){
+//			$(this).siblings().css("right","0px").css("left","0px");
+//		});
 		$.ajax({
 			url:ngUrl+"/quota/"+$.cookie("tname")+"/pullnum",
 			type:"get",
@@ -551,7 +561,8 @@ $(document).ready(function(){
 				var use=json.data.use;
 				var quotaPercect=(((use/quota))*100)+'%';
 				$("#pullNum").css("width",quotaPercect);
-//				$("#pullNum").attr("data-original-title","今天已Pull:"+use+"次");
+//				$("#pullNum").css("width","50%");
+				$("#pullNum").attr("data-original-title","今天已Pull:"+use+"次");
 
 			}
 		})

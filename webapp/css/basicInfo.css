@@ -280,7 +280,7 @@ margin:4.5px 10px 0px 0px;
 	background-color:#f5f5f5;
 	
 }
-.pn_progress>div{
+#pullNum{
 	background-color:#ccc;
 }
 
@@ -585,10 +585,23 @@ margin:4.5px 10px 0px 0px;
 .circle2>P>span{
 	color:#0077aa;
 }
+.tooltip.top{
+	margin-right: 30%;
+}
 
+.tooltip.tests{
+	margin-right: 30%;
+}
 .tooltip-inner {
 	background-color:#43609f !important;
 }
 .tooltip.top .tooltip-arrow{
 	border-top-color:#43609f !important;
+}
+.tooltip.top .tooltip-arrow {
+	bottom: 0;
+	left: 99% !important;
+	margin-left: -5px;
+	border-width: 5px 5px 0;
+	border-top-color: #000;
 }
