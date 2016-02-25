@@ -182,7 +182,7 @@
     margin-left:97px;
     margin-right:20px;
 }
-.like span,.cart span,.download span{
+.like span,.cart span,.download span,.comment span{
     margin-left: 20px;
 }
 .icon img{
@@ -217,22 +217,25 @@
 }
 .like{
     margin-top: 20px;
-    padding-right: 20px;
     width:50%;
     float:left;
 }
 
 .cart{
     margin-top: 20px;
-    padding-right: 20px;
     width: 50%;
     float:left;
+}
+.comment{
+    padding-top: 15px;
+    float:right;
+    width: 50%;
 }
 
 .download{
     padding-top: 15px;
-    padding-right: 20px;
     float:left;
+    width: 50%;
 }
 
 #li1:hover{

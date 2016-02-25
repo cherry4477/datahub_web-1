@@ -124,10 +124,12 @@ $(function() {
     var dataitemd = [];
     var dataitemdpullNum = [];
     var dataitemstarNum= [];
+    var dataitemdcommentNum=[];
     function getitemDeteails(){
         dataitemd = [];
         dataitemdpullNum = [];
         dataitemstarNum= [];
+        dataitemdcommentNum=[];
         for(var i= 0;i<datas.length;i++) {
             //返回该DataItem的订阅量
             getAjax(ngUrl + "/subscription_stat/" +datas[i],function(msg){
@@ -140,6 +142,10 @@ $(function() {
             // 返回item的star量
             getAjax(ngUrl + "/star_stat/" +repname+"/"+datas[i],function(msg){
                 dataitemstarNum.push(msg.data.numstars);
+            });
+            //返回item的comment量
+            getAjax(ngUrl + "/comment_stat/" +repname+"/"+datas[i],function (msg) {
+                dataitemdcommentNum.push(msg.data.numcomments);
             });
         }
     }
@@ -212,6 +218,7 @@ $(function() {
                   //  apendjson.dataitemd = dataitemd;
                   //  apendjson.dataitemdpullNum = dataitemdpullNum;
                     apendjson.dataitemstarNum = dataitemstarNum;
+                    apendjson.dataitemdcommentNum = dataitemdcommentNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
             });
@@ -377,6 +384,10 @@ function apendBigbox(apendjson,i,labelstr){
         '<div class="download">'+
         '<img style=""src="images/newpic003.png" data-toggle="tooltip" datapalecement="top" title="下载量">'+
         '<span>'+apendjson.dataitemdpullNum+'</span>'+
+        '</div>'+
+        '<div class="comment">'+
+        '<img style=""src="../images/selects/comment.png" data-toggle="tooltip" datapalecement="top" title="评论量">'+
+        '<span>'+apendjson.dataitemdcommentNum[i]+'</span>'+
         '</div>'+
         '</div>'+
         '</div>';

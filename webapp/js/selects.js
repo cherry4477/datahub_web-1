@@ -325,10 +325,12 @@ function addhtml(){
     var dataitemdpullNum = [];
     //返回该DataItem的star量
     var dataitemdstarNum = [];
+    //返回该DataItem的comment量
+    var dataitemdcommentNum = [];
 
     for(var j=0;j<repos.length;j++)
     {
-        getAjax(ngUrl + "/subscription_stat/" +repos[j][0],function (msg) {
+        getAjax(ngUrl + "/subscription_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
             dataitemd.push(msg.data.numsubs);
         });
         getAjax(ngUrl + "/transaction_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
@@ -336,6 +338,9 @@ function addhtml(){
         });
         getAjax(ngUrl + "/star_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
             dataitemdstarNum.push(msg.data.numstars);
+        });
+        getAjax(ngUrl + "/comment_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
+            dataitemdcommentNum.push(msg.data.numcomments);
         });
         //填充
         direct_url="itemDetails.html?repname="+repos[j][0]+"&itemname="+repos[j][1];
@@ -455,6 +460,10 @@ function addhtml(){
                     "<div class='download'>"+
                     "<img style='margin-left: 20px' src='../images/selects/down.png' data-toggle='tooltip' datapalecement='top' title='下载量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
+                    "</div>"+
+                    "<div class='comment'>"+
+                    "<img style='margin-left: 20px' src='../images/selects/comment.png' data-toggle='tooltip' datapalecement='top' title='评论量'>"+
+                    "<span style='margin-left: 20px;'>"+dataitemdcommentNum[j]+"</span>"+
                     "</div>"+
                     "</div>");
             }
