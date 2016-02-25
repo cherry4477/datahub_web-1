@@ -105,6 +105,15 @@ strong{
 	width: 100%;
 	overflow: hidden;
 }
+.thiscoopername{
+	font-size: 12px;
+	color: #666666;
+	float: left;
+	padding-bottom: 15px;
+}
+.thiscoopername span{
+	padding-left:30px;
+}
 .subline {
 	float: left;
 	width: 100%;
@@ -273,8 +282,15 @@ strong{
 .dhead span.col1,.dbody span.col1{
 	width: 48%;
 	padding-left:30px;
-	height: 30px;
+	/*height: 30px;*/
 	padding-top:2px;
+	padding-bottom: 2px;
+
+}
+.thisiscooperatestatname{
+	font-size: 12px;
+	color: #666666;
+	font-weight: normal;
 
 }
 .dhead span.col4,.dbody span.col4{

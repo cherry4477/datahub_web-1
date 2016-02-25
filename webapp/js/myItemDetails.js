@@ -67,6 +67,40 @@ $(function(){
         }
         return labeldata
     };
+    //获取该repo发布者
+    function getrepocurname(){
+        var thisrepocurname = '';
+        $.ajax({
+            type: "get",
+            url:ngUrl+"/repositories/"+repname,
+            cache:false,
+            async:false,
+            headers:{Authorization: "Token "+account},
+            success: function(json){
+                thisrepocurname = getrealnames(json.data.create_user);
+                return thisrepocurname;
+            }
+        });
+        return thisrepocurname;
+    }
+    //得到发布者的真实姓名
+    function getrealnames(create_userrealname){
+        var thsirealname = ''
+        $.ajax({
+            url: ngUrl + "/users/"+create_userrealname ,
+            type: "get",
+            cache: false,
+            async: false,
+            datatype: 'json',
+            success:function(datas){
+                if(datas.code == 0){
+                    thsirealname = datas.data.userName;
+                    return thsirealname;
+                }
+            }
+        });
+        return thsirealname;
+    }
 //返回该DataItem的订阅量
     getAjax(ngUrl + "/subscription_stat/"+itemname,function(msg){
         $('.myitempull').html(msg.data.numsubs);
@@ -183,12 +217,20 @@ $(function(){
             success: function(msg) {
             	//添加状态开始
             	var thisispricestatenew="";
+                var thisiscooperatestatname = '';
                 ////////////是否协作
                 var thisiscooperatestat = ''
                 if(msg.data.cooperatestate == 'null' || msg.data.cooperatestate == null || msg.data.cooperatestate == ''){
                     thisiscooperatestat = '';
                 }else{
                     thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+msg.data.cooperatestate+'</span>';
+                    if(msg.data.cooperatestate == '协作'){
+                        thisiscooperatestatname = getrealnames(msg.data.create_user);
+                        $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;协作');
+                    }else if(msg.data.cooperatestate == '协作中'){
+                        thisiscooperatestatname = getrepocurname();
+                        $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;邀请协作');
+                    }
                 }
                 $(".itemnameitem").after(thisiscooperatestat);
             	if(msg.data.pricestate=='付费'){
@@ -243,7 +285,10 @@ $(function(){
                 } else if (itemaccesstype == 'private') {
                     thisitemispublic = 'private';
                     $('.itemaccesstype').html('私有');
-                    $('.baimingdan').show();
+                    if(msg.data.cooperatestate == '协作中' || msg.data.cooperatestate == ''){
+                        $('.baimingdan').show();
+                    }
+
                 }
                 $('.itemoptime').html(jsonTime.showTime);
                 $('.itemoptime').attr('data-original-title', jsonTime.jdTime);
@@ -573,7 +618,7 @@ $(function(){
             url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page=1',
             cache:false,
             async:false,
-            headers:{ Authorization:"Token "+$.cookie("token") },
+            headers: {Authorization: "Token " + $.cookie("token")},
             success: function(msg){
                 $('.baimingdan').html('白名单管理('+msg.data.total+')');
             },

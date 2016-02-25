@@ -147,7 +147,8 @@ $(function() {
             pullnum = msg.data.numpulls;
         })
         ////////////是否协作
-        var thisiscooperatestat = ''
+        var thisiscooperatestat = '';
+        var thiscoopername = '';
         //协作显示
         var ifcooper=true;
         var ischeckedbox =  '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">';
@@ -157,6 +158,22 @@ $(function() {
             thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>';
             if(iscooperatestate.cooperatestate=="协作中"){
             	ifcooper=false;
+                var thiscreate_user = '';
+                $.ajax({
+                    url: ngUrl + "/users/"+repocon.create_user ,
+                    type: "get",
+                    cache: false,
+                    async: false,
+                    headers: {Authorization: "Token " + $.cookie("token")},
+                    datatype: 'json',
+                    success:function(json){
+                        if(json.code == 0){
+                            thiscreate_user = json.data.userName;
+                        }
+                    }
+
+                });
+                thiscoopername = '<div class="thiscoopername"><span>由&nbsp;'+thiscreate_user+'&nbsp;邀请协作</span></div>';
                 ischeckedbox =  '<input type="checkbox" class="checkrepo" disabled="disabled" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'
             }
         }
@@ -201,6 +218,7 @@ $(function() {
             ischeckedbox+
             '<div class="left">'+
             '<div class="subtitle" id="'+iscooperatestate.repname+'"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
+            thiscoopername+
             '<div class="description"><p>'+repocon.comment+'</p></div>'+
             '<div class="subline">'+
             '<div class="icon">'+
@@ -274,11 +292,30 @@ $(function() {
                                     } else {
                                         ispublic = '私有';
                                     }
-                                    var thisiscooperatestat = ''
+                                    var thisiscooperatestat = '';
+                                    var thisiscooperatestatname = '';
                                     if (json.data.cooperatestate == 'null' || json.data.cooperatestate == null || json.data.cooperatestate == '') {
                                         thisiscooperatestat = '';
                                     } else {
-                                        thisiscooperatestat = '<strong class="xzbox">' + json.data.cooperatestate + '</strong>'
+                                        thisiscooperatestat = '<strong class="xzbox">' + json.data.cooperatestate + '</strong>';
+                                        if(json.data.cooperatestate == '协作'){
+                                            $.ajax({
+                                                url: ngUrl + "/users/"+json.data.create_user ,
+                                                type: "get",
+                                                cache: false,
+                                                async: false,
+                                                headers: {Authorization: "Token " + $.cookie("token")},
+                                                datatype: 'json',
+                                                success:function(json){
+                                                    if(json.code == 0){
+                                                        thisiscooperatestatname = '<br/><br/><b class="thisiscooperatestatname">由&nbsp;'+json.data.userName+'&nbsp;协作</b>'
+                                                    }
+                                                }
+
+                                            });
+                                        }
+
+
                                     }
                                     var thisispricestate = ''
                                     if (json.data.pricestate == 'null' || json.data.pricestate == null || json.data.pricestate == '') {
@@ -292,7 +329,7 @@ $(function() {
                                        
                                     }
                                     itemstr += ' <div class="row">' +
-                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate +thisiscooperatestatname+'</span>' +
                                         ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
                                         ' <span class="col3">' + ispublic + '</span>' +
                                         ' <span class="col4">' + json.data.tags + '</span>' +
