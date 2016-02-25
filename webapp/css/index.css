@@ -608,6 +608,16 @@ a:hover{
 	#phoneSelect{
 		display: none;
 	}
+	
+	#phoneshowblog{
+		display:none;
+	}
+	#phoneshowhelp{
+		display:none;
+	}
+	#phoneshowlogout{
+		display:none;
+	}
 
 @media (max-width:1200px) {
 .stopwatch .number span {
@@ -616,13 +626,13 @@ a:hover{
 .container{
 	width: 800px;
 }
-
 }
 
 @media (max-width:785px) {
 	.container{
 		width:auto;
 	}
+
 	.stopwatch .number span {
 		font-size: 2em
 	}
@@ -672,6 +682,12 @@ a:hover{
 }
 
 @media (max-width:420px) {
+	#phoneshowblog{display:block;}
+	#phoneshowhelp{display:block;}
+	#phoneshowlogout{display:block;}
+	#inLoginf li[class="inLoginfLiF"]{
+		display:none;
+	}
     #fComR{
         padding:0px;
     }

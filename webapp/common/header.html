@@ -69,6 +69,17 @@
 	    right: 5px;
   		top: 15px;
 	}
+	
+	#phoneshowblog{
+		display:none;
+	}
+	#phoneshowhelp{
+		display:none;
+	}
+	#phoneshowlogout{
+		display:none;
+	}
+	
 	 @media (max-width: 768px) {
 	 
 		#col-left{
@@ -139,7 +150,19 @@
 		#nLogosHeader{
 			display:block;
 		}
- 
+ 	#phoneshowblog{
+		display:block;
+	}
+	#phoneshowhelp{
+		display:block;
+	}
+	#phoneshowlogout{
+		display:block;
+	}
+	
+	#iLoginf li[class="inLoginfLiF"]{
+		display:none;
+	}
   }
 	
 </style>
@@ -231,7 +254,7 @@
                   </li>
                    
  
-                 <li>
+                 <li class="inLoginfLiF">
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
                   		<!--  
                   		<img src="images/fl4.png" />
@@ -240,7 +263,7 @@
                   	</a>
                   </li>
 
-                  <li>
+                  <li class="inLoginfLiF">
                   	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<!--  
                   		<img src="images/fl1.png" />
@@ -252,7 +275,7 @@
                   	<a id="sign-tool" style="color: #fff;font-size: 1em;" href="" data-toggle="modal" data-target="#about-modal">工具</a>
                   </li> 
                   -->                       
-                  <li>
+                  <li class="inLoginfLiF">
                   	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!-- 
                   		<img src="images/fl2.png" />
@@ -261,7 +284,7 @@
                   	</a>
                   </li> 
                   
-                 <li>
+                 <li class="inLoginfLiF">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
                   		<img src="images/fl3.png" />
@@ -280,7 +303,7 @@
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>	  
                  </li> 
-                 <li>
+                 <li class="inLoginfLiF">
 					<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
                   		<img src="images/fl2.png" />
@@ -288,7 +311,7 @@
                   		帮助
                   	</a>
                   </li>
-                 <li>
+                 <li class="inLoginfLiF">
                   	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
@@ -303,7 +326,30 @@
                      </a>
                   </li> 
                   -->
-                                     
+                    <li id="phoneshowhelp">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li> 
+                   <li id="phoneshowblog">
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li> 
+                   <li id="phoneshowlogout">
+                  	<a id="logout" href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		退出
+                     </a>
+                  </li>                 
               </ul>
           </div>
          </div> 
