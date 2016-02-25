@@ -1,6 +1,6 @@
 .boxwrop {
     overflow: hidden;
-    padding: 50px 20px;
+    padding: 50px 0px;
 }
 .contop {
     color: #43609f;
@@ -23,7 +23,7 @@
     overflow: hidden;
     width: 100%;
     padding:15px 0px;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
 }
 .borderbt{
 	border-bottom: 1px solid #ccc;
@@ -46,4 +46,47 @@
     height: 24px;
     background-size: contain;
     background:url('../images/0005.png') no-repeat top left;
+}
+.listbox li {
+    /*padding-left: 6%;*/
+    position: relative;
+    width: 100%;
+}
+.liconwrop {
+    padding: 15px 70px 15px 0;
+}
+.borderb {
+    border-bottom: 1px solid #e6e6e6;
+}
+.listTop {
+    color: #0077aa;
+    font-size: 1.2em;
+    line-height: 20px;
+    width: 75%;
+    word-wrap: break-word;
+}
+.listbt {
+    color: #989898;
+    font-size: 1em;
+    line-height: 25px;
+    width: 90%;
+    word-wrap: break-word;
+}
+.listicon {
+    background: rgba(0, 0, 0, 0) url("../images/phonepic1.png") no-repeat scroll right center / contain ;
+    height: 30px;
+    position: absolute;
+    right: 6%;
+    top: 34%;
+    width: 20px;
+}
+.listicon a{
+    width: 20px;
+    height: 30px;
+    display: block;
+}
+.partitionline {
+    background: #f3fefa none repeat scroll 0 0;
+    height: 30px;
+    width: 100%;
 }
