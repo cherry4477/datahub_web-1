@@ -890,8 +890,8 @@ if(limitBoo){
                 });
         //设置radio默认状态
         var sel_options=$("#LT-right .form-control").find("option:selected").val();
-        $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked");
-
+        $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked").siblings().hide();
+        $(".charge-body div:eq("+sel_options+")").siblings().hide();
             //TODO 设置订购合同日期，目前写死
             var timer;
             $('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
@@ -1186,6 +1186,7 @@ function apply_buy(){
             //设置radio默认状态
             var sel_options=$("#LT-right .form-control").find("option:selected").val();
             $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked");
+            $(".charge-body div:eq("+sel_options+")").siblings().hide();
 
             //TODO 设置订购合同日期，目前写死
             var timer;
