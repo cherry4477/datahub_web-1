@@ -46,7 +46,10 @@ HTML基础结构
 ###其他说明
 
 * 一个标签上引用的className不要过多，越少越好。
-* 比如避免这种情况频繁：<div class="class1 class2 class3 class4"></div>
+* 比如避免这种情况频繁：
+```javascript
+	<div class="class1 class2 class3 class4"></div>
+```
 
 ###说明文案的注释方法
 采用类似标签闭合的写法，与HTML统一格式；注释文案两头空格，与CSS注释统一格式。
