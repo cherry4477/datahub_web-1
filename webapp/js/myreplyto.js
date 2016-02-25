@@ -210,6 +210,7 @@ $(function(){
             addprompt(thisobj,'评论不能为空');
             return false;
         }else if(commentcon.length > 210){
+            addprompt(thisobj,'评论字数过长');
             return false;
         }else{
             var thisdatas = {
