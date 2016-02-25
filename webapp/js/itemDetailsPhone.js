@@ -67,7 +67,11 @@ $(function(){
             '</div>'+
             '</div>'+
             '<div class="isrep borderb">'+
+            '<a href="repDetailsPhone.html?repname='+repname+'">'+
             '所属Repository<span class="iscuritemname">'+currepnem+'</span>'+
+
+            '<div class="cur_link"></div>'+
+            '</a>'+
             '</div>'+
             '<div class="repcreate_user">'+
             '<a href="#">'+
