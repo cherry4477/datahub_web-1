@@ -112,7 +112,8 @@
 				<span class="span_icon"></span>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputName">名称<span>设置后不能修改</span></label>
+				<!--<label for="exampleInputName">名称<span>设置后不能修改</span></label>-->
+				<label for="exampleInputName">名称</label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
                          style="margin-bottom: 0;width:480px;">
 			</div>
@@ -441,7 +442,7 @@ $(document).ready(function(){
 				var pullNumA=data.data.use;
 				var pullNumB=(pullNumA/2000).toFixed(4);
 				var pullNumC=pullNumB.slice(2,4)+"."+pullNumB.slice(4,6)+"%";
-				$("#pullNum").css("width","pullNumC");
+				$("#pullNum").css("width",pullNumC);
 			}
 		})
 
@@ -469,6 +470,7 @@ $(document).ready(function(){
 			headers:{Authorization:"Token "+$.cookie("token")},
 			datatype:'json',
 			success:function(data){
+				console.log(data.data);
                 var usePublic=parseFloat(data.data.usePublic);
                 var usePrivate=parseFloat(data.data.usePrivate);
                 var quotaPublic=parseFloat(data.data.quotaPublic);
