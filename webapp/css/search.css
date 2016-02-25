@@ -567,6 +567,22 @@ a{
 	padding-right: 20px;
 	width: 50%;
 }
+
+*::after, *::before {
+	box-sizing: border-box;
+}
+*::after, *::before {
+	box-sizing: border-box;
+}
+.personaltag {
+	border-radius: 2px;
+	color: #666;
+	font-size: 12px;
+	margin-left: 1px;
+	padding: 1px 10px;
+	border: 1px solid #666;
+	margin-right: 5px;
+}
 .download {
 	float: left;
 	padding-right: 20px;
