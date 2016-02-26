@@ -336,7 +336,8 @@ function forList(list,type){
 						});
 					}
 
-
+					/*commentsnum.push(comments);
+					alert(commentsnum[i]);*/
 
 	                $("#loading").empty();
 	                var times=json.data.optime;
