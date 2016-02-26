@@ -82,6 +82,9 @@
 }
 .description{
 	float:left;
+	height: 40px;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 
 .description p{
@@ -210,19 +213,13 @@
 	margin-top: 20px;
 	margin-left: 20px;
 	width: 50%;
-	float: right;
+	float: left;
 }
 
 .download{
 	padding-top: 15px;
 	float: left;
 	margin-left: -30px;
-}
-.comment{
-	float: right;
-	padding-top: 15px;
-	width: 50%;
-
 }
 
 .download #download>span:nth-child(1){

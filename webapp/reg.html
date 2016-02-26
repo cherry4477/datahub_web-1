@@ -78,36 +78,14 @@
 		</div>
 	</div>
 
-	<!--check email to active account-->
+	<!--registration successed-->
 	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
 		<div ID="checkEmail" style="display:none" >
 			<div ID="successed">
 				<p>注册DataHub账号</p>
 			</div>
 			<div ID="info">
-				<p style="font:16px;">恭喜您，注册成功！请点击邮箱<a></a>中的链接完成账号激活！</p>
-			</div>
-		</div>
-	</div>
-	<!--user already registered-->
-	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
-		<div ID="cannotreg" style="display:none" >
-			<div ID="failed">
-				<p>注册DataHub账号</p>
-			</div>
-			<div ID="info">
-				<p ID="wrongmes" style="font:16px;">对不起！您的邮箱已经注册过！请返回登陆页面。</p>
-			</div>
-		</div>
-	</div>
-	<!--user active after 24hr-->
-	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
-		<div ID="after24" style="display:none" >
-			<div ID="after">
-				<p>注册DataHub账号</p>
-			</div>
-			<div ID="w_info">
-				<p ID="wrongmes" style="font:16px;">对不起！您的注册时间超过24小时！请返回注册页面重新注册。</p>
+				<p style="font:16px;">恭喜您，注册成功！请在24小时内点击邮箱<a></a>中的链接完成账号激活！</p>
 			</div>
 		</div>
 	</div>
@@ -483,7 +461,7 @@
 					$("#label_six").css("display","none");
 				return;
 				}
-
+});
 			//判断checkbox是否选中
 			// alert($("#item").is(":checked"))
 				if ($("#item").is(":checked")==false){
@@ -524,21 +502,24 @@
     						var end=start+ss.length;
     						var strtext="http://mail."+ss.substring(start,end);
 				 			$("#info a").text(strtext).attr("href",strtext);
-            			},
-			       	error:function(json){
-			       		if($.parseJSON(json.responseText).code==8002){
-			       			$("#cannotreg").show();
-			        		$(".infoBox").hide();
-			        		$("#checkEmail").hide();
-			       		}
-			       		if ($.parseJSON(json.responseText).code == 8012) {
-    						$("#after24").show();
-   						}
-			       }
+            			}
+			   //     	error:function(json){
+			   //     		if($.parseJSON(json.responseText).code==8002){
+			   //     			$("#cannotreg").show();
+			   //      		$(".infoBox").hide();
+			   //      		$("#checkEmail").hide();
+			   //      		$("#after24").hide();
+			   //     		}
+						// if ($.parseJSON(json.responseText).code == 8012) {
+    		// 				$("#after24").show();
+    		// 				$("#cannotreg").hide();
+    		// 				$("#checkEmail").hide();
+    		// 				$(".infoBox").hide();
+			   //     		}
             		     
 				});
-				
-
+			});
+			
 			function getParam(key) {
 		    	var value='';
 		    	var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
@@ -547,8 +528,7 @@
 		   		}
 		    	return value;
 		    }
-		});
-		});
+
 	</script>
 
 </body>
