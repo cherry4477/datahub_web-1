@@ -21,28 +21,52 @@ $(document).ready(function(){
 
 
 
-
-
+//得到发布者的真实姓名
+function getrealnames(create_userrealname){
+    var thsirealname = ''
+    $.ajax({
+        url: ngUrl + "/users/"+create_userrealname ,
+        type: "get",
+        cache: false,
+        async: false,
+        datatype: 'json',
+        success:function(datas){
+            if(datas.code == 0){
+                thsirealname = datas.data.userName;
+                return thsirealname;
+            }
+        }
+    });
+    return thsirealname;
+}
+var account= $.cookie('token');
 function getitemlist(){
     var url="myPublish.html";
     $("#list_title a").text(repoName).attr("href",url);
     var len=0;
+    var thiscoopername = ''
     $.ajax({
         url: ngUrl + "/repositories/" + repoName+"?items=1&size=6",
         type: "GET",
         cache: false,
         async: false,
+        headers:{Authorization: "Token "+account},
         dataType: 'json',
         success: function (json) {
+            if(json.data.cooperatestate == '协作中'){
+                thiscoopername = '<br/><span style="margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;邀请协作</span>';
+            }
+            $("#list_title").append(thiscoopername);
             len=json.data.items;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
-            for(var i=0;i<len;i++){
+            for(var i=0;i<item_Arr.length;i++){
                 $.ajax({
                     url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
                     type: "GET",
                     cache: false,
                     async: false,
+                    headers:{Authorization: "Token "+account},
                     dataType: 'json',
                     success: function (json) {
                         var cooperatestate=json.data.cooperatestate;//协作状态
@@ -55,6 +79,7 @@ function getitemlist(){
                         var cooperat_sheet="";
                         var price_sheet="";
                         var price_style="";
+                        var thisiscooperatestatname = '';
 
                         var time_arr=new Array();
                         time_arr=optime.split("|");
@@ -66,13 +91,15 @@ function getitemlist(){
 
                         if(cooperatestate=="协作")
                         {
-                            cooperat_style="免费";
+                            cooperat_style="协作";
                             cooperat_sheet ="mianfei_sheet";
+                            thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
                         }
-                        else if(pricestate=="协作中")
+                        else if(cooperatestate=="协作中")
                         {
-                            price_style="协作中";
+                            cooperat_style="协作中";
                             cooperat_sheet ="mianfei_sheet";
+
                         }else{
                             cooperat_sheet="wu_sheet";
                         }
@@ -103,6 +130,7 @@ function getitemlist(){
                             '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>'+
                             "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                             "<span class="+price_sheet+">"+price_style+"</span>"+
+                            thisiscooperatestatname+
                             "</td>"+
                             "<td>"+time_arr[1]+"</td>"+
                             "<td>"+itemaccesstype+"</td>"+
@@ -135,17 +163,19 @@ function getnextpage(nextpages){
         type: "GET",
         cache: false,
         async: false,
+        headers:{Authorization: "Token "+account},
         dataType: 'json',
         success: function (json) {
             len=json.data.items;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
-            for(var i=0;i<len;i++){
+            for(var i=0;i<item_Arr.length;i++){
                 $.ajax({
                     url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
                     type: "GET",
                     cache: false,
                     async: false,
+                    headers:{Authorization: "Token "+account},
                     dataType: 'json',
                     success: function (json) {
                         var cooperatestate=json.data.cooperatestate;//协作状态
@@ -158,6 +188,7 @@ function getnextpage(nextpages){
                         var cooperat_sheet="";
                         var price_sheet="";
                         var price_style="";
+                        var thisiscooperatestatname = '';
 
                         var time_arr=new Array();
                         time_arr=optime.split("|");
@@ -169,12 +200,13 @@ function getnextpage(nextpages){
 
                         if(cooperatestate=="协作")
                         {
-                            cooperat_style="免费";
+                            cooperat_style="协作";
                             cooperat_sheet ="mianfei_sheet";
+                            thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
                         }
-                        else if(pricestate=="协作中")
+                        else if(cooperatestate=="协作中")
                         {
-                            price_style="协作中";
+                            cooperat_style="协作中";
                             cooperat_sheet ="mianfei_sheet";
                         }else{
                             cooperat_sheet="wu_sheet";
@@ -207,6 +239,7 @@ function getnextpage(nextpages){
                             '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>' +
                             "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                             "<span class="+price_sheet+">"+price_style+"</span>"+
+                            thisiscooperatestatname+
                             "</td>"+
                             "<td>"+time_arr[1]+"</td>"+
                             "<td>"+itemaccesstype+"</td>"+
