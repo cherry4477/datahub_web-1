@@ -2,8 +2,22 @@
  * Created by Administrator on 2015/12/9.
  */
 
-
+var idorder = '';
+var itemid = /\?.*order=([^&]*).*$/;
+if (itemid.test(decodeURIComponent(window.location.href))) {
+    idorder = itemid.exec(decodeURIComponent(window.location.href))[1];
+}
 $(function() {
+    $(document).on('mouseover','.repo',function (e) {
+        $(this).children('.describe').css("background-color", "#f4fbfe");
+    });
+    $(document).on('mouseout','.repo',function (e) {
+        $(this).children('.describe').css("background-color", "#ffffff");
+    });
+    if(idorder == 'order'){
+        $('.top_nav > div').eq(1).addClass('cur').siblings().removeClass('cur');
+        $('.mypushcomment > li').eq(1).show().siblings().hide();
+    }
     function getAjax(url,fun){
         $.ajax({
             type: "get",
@@ -55,7 +69,7 @@ $(function() {
         $('.repList').empty();
         reps = null;
         $.ajax({
-            url: ngUrl + "/repositories?size=6&page=" + nextpages,
+            url: ngUrl + "/repositories?size=10&page=" + nextpages,
             type: "get",
             cache: false,
             data: {},
@@ -100,7 +114,7 @@ $(function() {
     ////////////////////////////////repo分页
     $(".repopages").pagination(allrepnums, {
         maxentries: allrepnums,
-        items_per_page: 6,
+        items_per_page: 10,
         num_display_entries: 3,
         num_edge_entries: 2,
         prev_text: "上一页",
@@ -133,15 +147,34 @@ $(function() {
             pullnum = msg.data.numpulls;
         })
         ////////////是否协作
-        var thisiscooperatestat = ''
+        var thisiscooperatestat = '';
+        var thiscoopername = '';
         //协作显示
         var ifcooper=true;
-        if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null){
+        var ischeckedbox =  '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">';
+        if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null || iscooperatestate.cooperatestate == 'undefined'){
             thisiscooperatestat = '';
         }else{
             thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+iscooperatestate.cooperatestate+'</span>';
             if(iscooperatestate.cooperatestate=="协作中"){
             	ifcooper=false;
+                var thiscreate_user = '';
+                $.ajax({
+                    url: ngUrl + "/users/"+repocon.create_user ,
+                    type: "get",
+                    cache: false,
+                    async: false,
+                    headers: {Authorization: "Token " + $.cookie("token")},
+                    datatype: 'json',
+                    success:function(json){
+                        if(json.code == 0){
+                            thiscreate_user = json.data.userName;
+                        }
+                    }
+
+                });
+                thiscoopername = '<div class="thiscoopername"><span>由&nbsp;'+thiscreate_user+'&nbsp;邀请协作</span></div>';
+                ischeckedbox =  '<input type="checkbox" class="checkrepo" disabled="disabled" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'
             }
         }
         ////////是否开放;
@@ -166,27 +199,26 @@ $(function() {
         }else{
             dataitemsalllist = 'itemdata=""';
         }
-        var xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
+        var xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         var cooperator = getcooperator(iscooperatestate.repname);
-        if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined'){
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
+        if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined' || cooperator == 'error'){
+            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
         }else{
 
-            xizuozhe = '<p class="xiezuozhe" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
+            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
         }
         var repotiems = getTimes(repocon.optime);
-        
         //右侧rep
         var repright="";
         if(ifcooper){
         	repright="<div class='repright'>"+baimingdan+xizuozhe+"<p class='xiugairep' datareponame="+iscooperatestate.repname+">Repository修改</p></div>";
         }
-        
         var repostr = '<div class="repo" >'+
             '<div class="describe" '+dataitemsalllist+'>'+
-            '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'+
+            ischeckedbox+
             '<div class="left">'+
-            '<div class="subtitle"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
+            '<div class="subtitle" id="'+iscooperatestate.repname+'"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
+            thiscoopername+
             '<div class="description"><p>'+repocon.comment+'</p></div>'+
             '<div class="subline">'+
             '<div class="icon">'+
@@ -194,7 +226,7 @@ $(function() {
             '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
             '<img data-original-title="item量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
             '<span>'+repocon.items+'</span>'+
-            '<img  class="iconiamg1" src="images/sx.png">'+
+            '<img  class="iconiamg1" data-original-title="属性" src="images/sx.png" data-toggle="tooltip" datapalecement="top">'+
             '<span>'+ispublic+'</span>'+
                 //'<img data-original-title="tag量" class="iconiamg1" src="images/tg.png" data-toggle="tooltip" datapalecement="top"/>'+
                 //'<span>4</span>'+
@@ -260,11 +292,30 @@ $(function() {
                                     } else {
                                         ispublic = '私有';
                                     }
-                                    var thisiscooperatestat = ''
+                                    var thisiscooperatestat = '';
+                                    var thisiscooperatestatname = '';
                                     if (json.data.cooperatestate == 'null' || json.data.cooperatestate == null || json.data.cooperatestate == '') {
                                         thisiscooperatestat = '';
                                     } else {
-                                        thisiscooperatestat = '<strong class="xzbox">' + json.data.cooperatestate + '</strong>'
+                                        thisiscooperatestat = '<strong class="xzbox">' + json.data.cooperatestate + '</strong>';
+                                        if(json.data.cooperatestate == '协作'){
+                                            $.ajax({
+                                                url: ngUrl + "/users/"+json.data.create_user ,
+                                                type: "get",
+                                                cache: false,
+                                                async: false,
+                                                headers: {Authorization: "Token " + $.cookie("token")},
+                                                datatype: 'json',
+                                                success:function(json){
+                                                    if(json.code == 0){
+                                                        thisiscooperatestatname = '<br/><br/><b class="thisiscooperatestatname">由&nbsp;'+json.data.userName+'&nbsp;协作</b>'
+                                                    }
+                                                }
+
+                                            });
+                                        }
+
+
                                     }
                                     var thisispricestate = ''
                                     if (json.data.pricestate == 'null' || json.data.pricestate == null || json.data.pricestate == '') {
@@ -278,7 +329,7 @@ $(function() {
                                        
                                     }
                                     itemstr += ' <div class="row">' +
-                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate + '</span>' +
+                                        ' <span class="col1"><a target="_blank" href="myItemDetails.html?repname='+thisrepName+'&itemname='+itemsarr[i]+'">' + itemsarr[i] + '</a>' + thisiscooperatestat + thisispricestate +thisiscooperatestatname+'</span>' +
                                         ' <span class="col2" title="">' + itemtimes.showTime + '</span>' +
                                         ' <span class="col3">' + ispublic + '</span>' +
                                         ' <span class="col4">' + json.data.tags + '</span>' +
@@ -367,9 +418,9 @@ $(function() {
             error:function (XMLHttpRequest, textStatus, errorThrown)
             {
                 if(XMLHttpRequest.status == 400){
-                    // $('.xiezuozhe').html('协作者管理（0）')
+                     permission = 'error';
                 }
-
+                return permission;
             }
         });
         return permission;
@@ -493,12 +544,13 @@ $(function() {
         var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var userjson = {};
         if(username == ''){
-            $(errorobj).html('用户不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            $(errorobj).html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
             return false;
         }else if(!filter.test(username)){
-            $(errorobj).html('邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            $(errorobj).html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if(checkloginusers(username) == 1){
+            $(errorobj).html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return false;
         }else if($.cookie("tname") == username){
             $(errorobj).html('不能添加自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
@@ -528,7 +580,12 @@ $(function() {
                 data:JSON.stringify(userjson),
                 success: function(adduser){
                     if(ispublic == 'public'){
-                        var thiscooperatorcon = getcooperator(tihsreponame)
+                        var thiscooperatorcon = getcooperator(tihsreponame);
+                        $("."+tihsreponame).html("协作者管理（"+thiscooperatorcon.total+"）");
+                        if($('#'+tihsreponame).find('.pricetype').length <= 0 && thiscooperatorcon.total>0){
+                            var thisiscooperatestat = '<span class="pricetype freetype reptoppr">协作</span>';
+                            $('#'+tihsreponame).append(thisiscooperatestat)
+                        }
                         addcooperatorhtml(thiscooperatorcon);
 
                     }else{
@@ -551,15 +608,26 @@ $(function() {
     $('#cooperatorinList').click(function(){
         var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
         var username = $.trim($('#cooperatoremailTest').val());
-        addpomitionorcoo(username,'#messcooperator',thisrepoName,'public')
+        addpomitionorcoo(username,'#messcooperatorpublic',thisrepoName,'public');
+
     })
 
 //////////////////搜索白名单//////////////////////////////////////////////////
     $('#seList').click(function(){
         var curusername = $.trim($('#emailTest').val());
         var thisrepoName =  $('#myModalTest').attr('modal-repoName');
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            return;
+            $('#mess').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            return false;
+        }else if(!filter.test(curusername)){
+            $('#mess').html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if(checkloginusers(curusername) == 1){
+            return false;
+        }else if($.cookie("tname") == curusername){
+            $('#mess').html('不能查找自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
         }
         $.ajax({
             type:"GET",
@@ -600,12 +668,23 @@ $(function() {
         });
 
     })
-//////////////////////////私有repo协作者白名单收索
+//////////////////////////私有repo白名单收索
     $('#searchpomisionemailTest').click(function(){
         var curusername = $.trim($('#privatepomisionemailTest').val());
         var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(curusername == ''){
-            return;
+            $('#messcooperatorprivate').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            return false;
+        }else if(!filter.test(curusername)){
+            $('#messcooperatorprivate').html('您输入的邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if(checkloginusers(curusername) == 1){
+            $('#messcooperatorprivate').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if($.cookie("tname") == curusername){
+            $('#messcooperatorprivate').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
         }
         $.ajax({
             type:"GET",
@@ -645,6 +724,114 @@ $(function() {
         });
 
     })
+    /////////////////////////////////开放协作者搜索//////////////////////////////////////////////////
+    $('#cooperatorseList').click(function(){
+        var curusername = $.trim($('#cooperatoremailTest').val());
+        var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(curusername == ''){
+            $('#messcooperatorpublic').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            return false;
+        }else if(!filter.test(curusername)){
+            $('#messcooperatorpublic').html('您输入的邮箱格式不正确，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if(checkloginusers(curusername) == 1){
+            $('#messcooperatorpublic').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if($.cookie("tname") == curusername){
+            $('#messcooperatorpublic').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername+'&cooperator=1',
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            '<div class="delthispomition"><a class="delecooperator" href="javaScript:void(0)"; datareponame="'+ datas.data.permissions[0].username +'">[删除]</a></div>'+
+                            "</div>"
+                        $(".cooperator_listpublic").empty().append(thisstr);
+                        $('.publicgobackbtnwrop').show();
+                        $('.gobackcooperator').show();
+                    }else{
+                        $('#messcooperatorpublic').html('该用户不在协作者名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    $('#messcooperatorpublic').html('该用户不在协作者名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+    })
+    $('.publicgobackbtnwrop').click(function(){
+        $('.cooperator_listpublic').empty();
+        var thisrepoName =  $('#pwublicalertbox').attr('modal-repoName');
+        var thiscooperatorcon = getcooperator(thisrepoName);
+        addcooperatorhtml(thiscooperatorcon);
+        $(this).hide();
+
+    })
+    /////////////////////////////////私有协作者搜索//////////////////////////////////////////////////
+    $('#searchcooperatoremailTest').click(function(){
+        var curusername = $.trim($('#privatecooperatoremailTest').val());
+        var thisrepoName =  $('.privatecooperList').attr('modal-repoName');
+        var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(curusername == ''){
+            $('#messcooperatorprivate1').html('请输入邮箱').addClass('errorMess').removeClass('successMess').show().fadeOut(800)
+            return false;
+        }else if(!filter.test(curusername)){
+            $('#messcooperatorprivate1').html('您输入的邮箱格式不正确').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if(checkloginusers(curusername) == 1){
+            $('#messcooperatorprivate1').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }else if($.cookie("tname") == curusername){
+            $('#messcooperatorprivate1').html('不能搜索自己').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return false;
+        }
+        $.ajax({
+            type:"GET",
+            url: ngUrl+'/permission/'+thisrepoName +'?username='+curusername+'&cooperator=1',
+            cache: false,
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success: function (datas) {
+                if(datas.code == 0){
+                    if(datas.data.permissions.length > 0){
+                        var thisstr = "<div class='pomosionList' datareponame='"+ datas.data.permissions[0].username +"'>"+
+                            "<div class='pomosionListcon'>"+
+                            "<input class='ischeck' style='margin-left:10px;margin-right:6px;' type='checkbox' name='users'>" + datas.data.permissions[0].username + "</input></div>"+
+                            "</div>"
+                        $(".privatecooperList").empty().append(thisstr);
+                        $('.privategobackbtnwrop').show();
+                        $('.gobackprivatecooperList').show();
+                    }
+                }
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 400){
+                    //$('#messcooperatorpublic').html('该用户不在白名单').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                }
+
+            }
+        });
+    })
+    $('.gobackprivatecooperList').click(function(){
+        $('.privatecooperList').empty();
+        var thisrepoName =  $('.privatecooperList').attr('modal-repoName');
+        var thiscooperatorcon = getcooperator(thisrepoName);
+        addcooperatorhtml(thiscooperatorcon);
+        $(this).hide();
+    })
 //////////////////////////////批量添加协作者/////////////////////////////////////////////////
     $('#addpricoo').click(function(){
         var thisrepoName =  $('.cooperatorpomitionList').attr('modal-repoName');
@@ -677,13 +864,14 @@ $(function() {
                         if(deluser.code == 0){
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            $('.'+thisrepoName).html('协作者管理（'+thiscooperatorcon.total +'）');
                             
                         }
                     }
                 })
             };
-            
-            perTongXie(thisrepoName,"add",count);
+
+            //perTongXie(thisrepoName,"add",count);
             
         }
 
@@ -758,6 +946,12 @@ $(function() {
                             $('.privatecooperList').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            if(thiscooperatorcon == 'error'){
+                                $("."+thisrepoName).html("协作者管理（0）");
+
+                            }else{
+                                $("."+thisrepoName).html("协作者管理（"+thiscooperatorcon.total+"）");
+                            }
                         }
                     }
                 })
@@ -796,6 +990,11 @@ $(function() {
                         if(deluser.code == 0){
                             $('.cooperator_listpublic').empty();
                             var thiscooperatorcon = getcooperator(thisrepoName);
+                            if(thiscooperatorcon == 'error'){
+                                $("."+thisrepoName).html("协作者管理（0）");
+                            }else{
+                                $("."+thisrepoName).html("协作者管理（"+thiscooperatorcon.total+"）");
+                            }
                             addcooperatorhtml(thiscooperatorcon);
                         }
                     }
@@ -853,6 +1052,7 @@ $(function() {
     $('#cooperatordelAll').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        $("."+thisrepoame).html("协作者管理(0)");
         perTongXie(thisrepoame,"del",0);
     })
 ////////////////////////////////////////////////////////////////单个删除白名单
@@ -870,7 +1070,16 @@ $(function() {
                         getpagesF(thisrepoName,1,0);
                         perTong(thisrepoName,"del",1); //同步数字
                     }else{
-                        var thiscooperatorcon = getcooperator(thisrepoName)
+                        var thiscooperatorcon = getcooperator(thisrepoName);
+                        if(thiscooperatorcon == 'error'){
+                            $("."+thisrepoName).html("协作者管理（0）");
+                            if($('#'+thisrepoName).find('.pricetype').length > 0){
+                                $('#'+thisrepoName).find('.pricetype').remove();
+                            }
+                        }else{
+                            $("."+thisrepoName).html("协作者管理（"+thiscooperatorcon.total+"）");
+                        }
+
                         perTongXie(thisrepoName,"del",1);
                        // addcooperatorhtml(thiscooperatorcon);
                     }
@@ -951,10 +1160,10 @@ $(function() {
                     isloginusers = 2;
                 }
             },
-            error:function (XMLHttpRequest, textStatus, errorThrown)
+            error:function (json)
             {
-                if(XMLHttpRequest.status == 400){
-                    $('#mess').html('该用户还未注册').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                if(json.status == 400){
+                    $('#mess').html('您输入的邮箱不存在，请重新输入').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
                 }
 
             }
@@ -970,6 +1179,7 @@ $(function() {
         $("#addRep .repname .value input").attr("disabled", "disabled");
         $("#addRep .repname .key .promt").hide();
         $("#addRep .repname .value input").val(thisusername);
+        $('.xiugaireperror').hide();
         $.ajax({
             url: ngUrl+"/repositories/"+thisusername,
             type: "GET",
@@ -984,12 +1194,14 @@ $(function() {
                     if(json.data.repaccesstype=="public")
                     {
                         // $("#addRep .property .value p").text("开放");
+                        $("#ispublic").attr('data-tagle',1)
                         $("#ispublic").val(1);
                         // $("#ListManagement").css("display","none");
                     }
                     if(json.data.repaccesstype=="private")
                     {
                         // $("#addRep .property .value p").text("私有");
+                        $("#ispublic").attr('data-tagle',2)
                         $("#ispublic").val(2);
                         // $("#ListManagement").css("display","block");
                     }
@@ -999,11 +1211,15 @@ $(function() {
                 }
             }
         });
+        $('#ispublic').attr("disabled",false);
         $('#addRep').modal('toggle');
         stopEventStrans(e);
     });
 
 ////////////////////////提交修改//////////////////////////////
+function postrepo(){
+
+}
     $("#addRep .submit input").click(function(){
         var method = "POST";
         var data = {};
@@ -1018,22 +1234,32 @@ $(function() {
             data["repaccesstype"] ="private";
             thisispublic = '私有';
         }
+
         if($(this).attr("repevent") == "add") {
+            if(repname == '' || repname == '不能为空，52个字符以内，仅限使用英文字母、数字和"_"'){
+                $('#addalertbox').html('Repository名称不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                return;
+            }
             if(repname.search(/^[a-zA-Z0-9_]+$/) < 0) {
-                alert('"Repository 名称"格式错误！');
+                $('#addalertbox').html('52个字符以内，仅限使用英文字母、数字和"_"').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
                 return;
             }else if(repname.length > 52){
-                alert('"Repository 名称"太长！');
+                $('#addalertbox').html('Repository名称太长，限制52个字符').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
                 return;
             }
             method = "POST";
         }else {
             method = "PUT";
         }
-        if(data.comment.length > 200) {
-            alert('"Repository 描述"太长！');
+        if(data.comment == '' || data.comment == '200字以内'){
+            $('#addalertbox').html('Repository描述不能为空').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
             return;
         }
+        if(data.comment.replace(/[^\x00-\xff]/g, '__').length > 400) {
+            $('#addalertbox').html('Repository描述太长').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+            return;
+        }
+        var isreturnback = true;
         $.ajax({
             url: ngUrl+"/repositories/"+repname,
             type: method,
@@ -1053,23 +1279,68 @@ $(function() {
             },
             success:function(json){
                 if(json.code == 0){
+                    isreturnback = true;
                     location.reload();
                 }
             }, error:function (json)
             {
+                isreturnback = false;
                 if(json.status == 400){
                     if($.parseJSON(json.responseText).code==1012){
-                        //alert('您可新增的'+thisispublic+'Repository资源不足');
-                        alert("可用资源不足,请通过会员升级获取更多资源。");
+                        $('.ispublicrepo').html(thisispublic);
+                        $('.xiugaireperror').show();
+                    }else if($.parseJSON(json.responseText).code==1008){
+                        $('#addalertbox').html('Repository名称重复').addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                        return;
                     }else{
-                        alert("您创建的"+repname+"有误,请重新创建。");
+                        $('#addalertbox').html("您创建的"+repname+"有误,请重新创建").addClass('errorMess').removeClass('successMess').show().fadeOut(800);
+                        return;
                     }
                 }
 
             }
         });
+        if(isreturnback == false){
+            return;
+        }
         $('#addRep').modal('toggle');
+        $('.xiugaireperror').hide();
     });
+    $('#ispublic').change(function(){
+        var dataTagle = $(this).attr('data-tagle');
+        var thisloginname = $.cookie("tname");
+        var thisval = $(this).val();
+        $.ajax({
+            url: ngUrl+"/quota/"+thisloginname+"/repository",
+            type:"get",
+            cache:false,
+            data:{},
+            async:false,
+            dataType:'json',
+            ContentType: 'application/json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
+                if(thisval == 1){
+                    if(parseInt(json.data.quotaPublic) <= parseInt(json.data.usePublic) && thisval != dataTagle){
+                       $('.ispublicrepo').html('开放');
+                        $('.xiugaireperror').show();
+                        $('#ispublic').val(1);
+                    }else{
+                        $('.xiugaireperror').hide();
+                    }
+                }else if(thisval == 2){
+                    if(parseInt(json.data.quotaPrivate) <= parseInt(json.data.usePrivate) && thisval != dataTagle){
+                        $('.ispublicrepo').html('私有');
+                        $('.xiugaireperror').show();
+                        $('#ispublic').val(0);
+                    }else{
+                        $('.xiugaireperror').hide();
+                    }
+                }
+
+            }
+        });
+    })
 
 
 /////////////////添加repo按钮///////////////////
@@ -1110,6 +1381,7 @@ $(function() {
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("开放");
                     $("#ispublic").val(1);
@@ -1145,6 +1417,7 @@ $(function() {
                     $("#addRep .repname .value input").val("");
                     $("#addRep .repcomment .value textarea").val("");
                     $("#addRep .repname .key .promt").show();
+                    $('#ispublic').attr("disabled",true);
                     $('#addRep').modal('toggle');
                     // $("#addRep .property .value p").text("私有");
                     $("#ispublic").val(2)

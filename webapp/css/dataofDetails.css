@@ -45,7 +45,7 @@
 	border-top:1px solid #c8c8c8;
 	border-bottom: 1px solid #c8c8c8;
 	margin-top: 15px;
-	margin-bottom: 60px;
+	margin-bottom: 40px;
 }
 .repo:hover{
 	background-color:#f4fbfe;
@@ -82,6 +82,9 @@
 }
 .description{
 	float:left;
+	height: 40px;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 
 .description p{
@@ -149,7 +152,6 @@
 }
 .data_right{
 	float:right;
-	margin-right: 30px;
 }
 .price{
 	float: right;
@@ -177,13 +179,14 @@
 .like{
 	margin-top: 20px;
 	padding-right: 20px;
+	margin-left: -30px;
 	width:50%;
 	float: left;
 }
 .like #like>span:nth-child(1){
 	height:20px; 
 	width:20px;
-	background-image: url('images/selects/images_39.png');
+	background-image: url('images/selects/like.png');
 	background-repeat: no-repeat;
     background-position: 0px 0px;
     display: inline-block;
@@ -208,6 +211,7 @@
 }
 .cart{
 	margin-top: 20px;
+	margin-left: 20px;
 	width: 50%;
 	float: left;
 }
@@ -215,6 +219,7 @@
 .download{
 	padding-top: 15px;
 	float: left;
+	margin-left: -30px;
 }
 
 .download #download>span:nth-child(1){
@@ -257,5 +262,66 @@
 	border-top-color:#43609f;
 }
 
+/*最热rep*/
 
+#subtitle{
+	padding-top: 20px ; 
+	padding-left:30px ;  
+	font-size:20px ; 
+	font-weight: bold; 
+	color:#43609f ; 
+	float:left ;
+}
+.iconss{
+	float:left ; 
+	width: 233px ; 
+	margin-left: 30px;
+}
+#hot{
+	float:left ;
+	width: 159px ;
+}
+
+.likes{
+	margin-top: 24px ;
+	float:left ;  
+	display: inline ;
+}
+.likes>span{
+	margin-left: 14px ;
+    width: 30px ;
+    display: inline-block ;
+}
+
+.carts{
+	float: left ;  
+	margin-top: 24px ;
+	margin-left: 49px ;
+	display: inline ;
+}
+.carts>span{
+	margin-left: 15px ;
+    width: 30px ;
+}
+
+.downloads{
+	float:left ; 
+	margin-top:15px ; 
+	width:50% ;
+}
+
+.downloads>span{
+	margin-left: 15px ;
+    width: 30px ;
+}
+.comments{
+	float: left ; 
+	width:100px ;
+	margin-left: -5px;
+	margin-top: 18px ;
+}
+.comments>span{
+	margin-left: 15px ;
+    width: 30px ;
+}
 

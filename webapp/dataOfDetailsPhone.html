@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
-	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
+	<meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
 	<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/command.css">
@@ -17,9 +17,17 @@
 </style>
 <body>
 	<div class="boxwrop">
+		<div style="padding:0px 20px">
 			<div class="contop datausername"></div>
 			<div class="contop borderbt"><div id='usertype' class=""></div></div>
 			<div class="conment"></div>
+		</div>
+
+			<div class="partitionline"></div>
+		<div style="padding:0px 20px">
+			<ul class="listbox">
+			</ul>
+		</div>
 	</div>
 	<footer></footer>
 
@@ -43,40 +51,122 @@
 			$(".be-loader").fadeOut("slow");
 		});
 
-		function getParam(key) {
-			var value='';
-			var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
-			if (itemid.test(decodeURIComponent(window.location.href))) {
-				value = itemid.exec(decodeURIComponent(window.location.href))[1];
+
+		$(function(){
+			function getParam(key) {
+				var value='';
+				var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+				if (itemid.test(decodeURIComponent(window.location.href))) {
+					value = itemid.exec(decodeURIComponent(window.location.href))[1];
+				}
+				return value;
 			}
-			return value;
+			var thisrepousername = '';
+			$.ajax({
+				//url:ngUrl+"/users/"+$.cookie("tname"),
+				url: ngUrl + "/users/" + getParam("username"),
+				type: "get",
+				cache: false,
+				async: false,
+				//	headers: {Authorization: "Token " + $.cookie("token")},
+				datatype: 'json',
+				success: function (d) {
+					thisrepousername = d.data.userName;
+					var UT = d.data.userType;
+					$(".datausername").text(d.data.userName);
+					$(".conment").text(d.data.comment);
+					if (UT == 3) {
+						$('#usertype').attr('class','vip1');
+					}
+					else if (UT == 4) {
+						$('#usertype').attr('class','vip2')
+
+					}
+					else if (UT == 5) {
+						$('#usertype').attr('class','vip3')
+
+					}
+				}
+			});
+			var headerToken={};
+			var thisrepolength = 0;
+			var pages=1;
+			//登陆后
+			if($.cookie("token")!=null&&$.cookie("token")!="null"){
+				headerToken={Authorization:"Token "+$.cookie("token")};
+			}
+			function addgatlist(reponame) {
+				var str =   '<li class="replist">'+
+						'<div class="liconwrop borderb">'+
+						'<div class="listTop"><a href="repDetails.html?repname='+reponame+'">'+reponame+'</a></div>'+
+						'<div class="listbt">本数据由：<span class="itemcur">'+thisrepousername+'</span>&nbsp;提供</div>'+
+						'<div class="listicon"><a href="repDetails.html?repname='+reponame+'"></a></div>'
+						'</div>'+
+						'</li>'
+
+				$('.listbox').append(str);
+			}
+			function getrepocon(pages){
+				$.ajax({
+					type: "get",
+					async: false,
+					headers:headerToken,
+					url: ngUrl+"/repositories?username="+getParam("username")+"&size=6&page="+pages,
+					success: function(json){
+						if(json.code == 0){
+							thisrepolength = json.data.length;
+							for(var i = 0 ;i < thisrepolength; i++){
+								addgatlist(json.data[i].repname);
+							}
+						}
+					}
+				});
+			}
+			getrepocon(1);
+			window.onscroll = function(){
+				if(getScrollTop() + getWindowHeight() == getScrollHeight()){
+					if(thisrepolength>=6){
+						pages++;
+						getrepocon(pages);
+					}
+				}
+			};
+
+		})
+		//滚动条在Y轴上的滚动距离
+		function getScrollTop(){
+			var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+			if(document.body){
+				bodyScrollTop = document.body.scrollTop;
+			}
+			if(document.documentElement){
+				documentScrollTop = document.documentElement.scrollTop;
+			}
+			scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+			return scrollTop;
 		}
-		$.ajax({
-			//url:ngUrl+"/users/"+$.cookie("tname"),
-			url: ngUrl + "/users/" + getParam("username"),
-			type: "get",
-			cache: false,
-			async: false,
-		//	headers: {Authorization: "Token " + $.cookie("token")},
-			datatype: 'json',
-			success: function (d) {
-				var UT = d.data.userType;
-				$(".datausername").text(d.data.userName);
-				$(".conment").text(d.data.comment);
-				if (UT == 3) {
-					$('#usertype').attr('class','vip1');
-				}
-				else if (UT == 4) {
-					$('#usertype').attr('class','vip2')
-
-				}
-				else if (UT == 5) {
-					$('#usertype').attr('class','vip3')
-					
-				}
+		//文档的总高度
+		function getScrollHeight(){
+			var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+			if(document.body){
+				bodyScrollHeight = document.body.scrollHeight;
 			}
-		});
-
+			if(document.documentElement){
+				documentScrollHeight = document.documentElement.scrollHeight;
+			}
+			scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
+			return scrollHeight;
+		}
+		//浏览器视口的高度
+		function getWindowHeight(){
+			var windowHeight = 0;
+			if(document.compatMode == "CSS1Compat"){
+				windowHeight = document.documentElement.clientHeight;
+			}else{
+				windowHeight = document.body.clientHeight;
+			}
+			return windowHeight;
+		}
 	</script>
 
 	

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
-<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通" />
+<meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
 <title>info.DataHub</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
@@ -26,6 +26,8 @@
 	.navbar-nav > li > a:focus{
 		background:none;
 	}
+
+
 </style>
 
 <body>
@@ -110,7 +112,8 @@
 				<span class="span_icon"></span>
 			</div>
 			<div class="form-group">
-				<label for="exampleInputName">名称<span>设置后不能修改</span></label>
+				<!--<label for="exampleInputName">名称<span>设置后不能修改</span></label>-->
+				<label for="exampleInputName">名称</label>
 				<input type="email" class="form-control " id="exampleInputName" placeholder="企业名称/个人名称"
                          style="margin-bottom: 0;width:480px;">
 			</div>
@@ -138,8 +141,8 @@
 				<div  class="under_main">
 					<div  class="p_progress">
 						<p>Pull量：<span>2000次/天</span></p>
-						<div class="progress">
-						  <div id="pullNum" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" >
+						<div class="pn_progress">
+						  <div id="pullNum" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" data-toggle='tooltip' data-placement="top">
 							<span class="sr-only">40% Complete (success)</span>
 						  </div>
 						</div>
@@ -241,9 +244,13 @@ $(document).ready(function(){
 					var invalidTime=data.data.invalidTime;
 					$("#exampleInputTime").val(registTime);
 					$("#exampleStopTime").val(invalidTime);
+
+
+
 //输入框有数据
                     if (nickName.length>0||comment.length>0||userName.length>0)
                     {
+
 						$("#exampleInputName").attr("disabled",true);
 						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
@@ -256,7 +263,7 @@ $(document).ready(function(){
 //                        $("#button01").css("display","none");
                     }
 					//输入框无数据
-                    if (nickName.length==0||comment==null||userName.length==0)
+                    if (nickName.length==0||comment==null||userName==null||userName=="")
                     {
                         $("#exampleInputName").val(userName);
 						$("#exampleInputName2").val(nickName);
@@ -415,6 +422,15 @@ $(document).ready(function(){
 
 //pull量
 	$(document).ready(function(){
+		$('[data-toggle="tooltip"]').tooltip({
+			placement:function(){
+				return "top";
+			}
+		});
+//		$('[data-toggle="tooltip"]').tooltip();
+//		$('[data-toggle="tooltip"]').on("shown.bs.tooltip",function(){
+//			$(this).siblings().css("right","0px").css("left","0px");
+//		});
 		$.ajax({
 			url:ngUrl+"/quota/"+$.cookie("tname")+"/pullnum",
 			type:"get",
@@ -426,7 +442,7 @@ $(document).ready(function(){
 				var pullNumA=data.data.use;
 				var pullNumB=(pullNumA/2000).toFixed(4);
 				var pullNumC=pullNumB.slice(2,4)+"."+pullNumB.slice(4,6)+"%";
-				$("#pullNum").css("width","pullNumC");
+				$("#pullNum").css("width",pullNumC);
 			}
 		})
 
@@ -454,11 +470,11 @@ $(document).ready(function(){
 			headers:{Authorization:"Token "+$.cookie("token")},
 			datatype:'json',
 			success:function(data){
+				console.log(data.data);
                 var usePublic=parseFloat(data.data.usePublic);
                 var usePrivate=parseFloat(data.data.usePrivate);
                 var quotaPublic=parseFloat(data.data.quotaPublic);
                 var quotaPrivate=parseFloat(data.data.quotaPrivate);
-
 				$("#usePublic").text(usePublic);
 				$("#usePrivate").text(usePrivate);
 				$(".circle p span").text(quotaPublic+"个");
@@ -532,7 +548,25 @@ $(document).ready(function(){
                 }
             }
 	    });
+		//GET /quota/:loginname/pullnum
+		$.ajax({
+			url: ngUrl + "/quota/" + $.cookie("tname") + "/pullnum",
+			type: "get",
+			cache: false,
+			async: false,
+			headers: {Authorization: "Token " + $.cookie("token")},
+			ContentType:"application/json",
+			success: function (json) {
+				var quota=json.data.quota;
+				$(".p_progress>p>span").html(quota+"次/天");
+				var use=json.data.use;
+				var quotaPercect=(((use/quota))*100)+'%';
+				$("#pullNum").css("width",quotaPercect);
+//				$("#pullNum").css("width","50%");
+				$("#pullNum").attr("data-original-title","今天已Pull:"+use+"次");
 
+			}
+		})
     });
 
 </script>

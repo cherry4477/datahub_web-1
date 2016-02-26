@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 
     <meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
-    <meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
+    <meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
     <title>我的发布_Item详情_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="./css/myItemDetails.css">
     <link rel="stylesheet" href="css/editormd.css">
     <link rel="stylesheet" href="css/replyto.css">
+    <style>
+        .promptbox{
+            left:auto;
+        }
+        .myreplyList{
+            min-height: 300px;
+        }
+    </style>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -39,7 +47,7 @@
         <div class="modal-content">
             <div class="modal-body" style="padding: 30px 30px 45px 30px">
                 <div class="head">
-                    <span>查看价格</span>
+                    <span style="font-size: 20px;">查看价格</span>
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                 </div>
                 <ul class="allpriceList">
@@ -73,9 +81,12 @@
                     </div>
                 </div>
                 <div class="itempro">
-                    <div class="key">属性</div>
+                    <div class="key"><span>属性</span><div style="" class="" id="messcooperatorpublic">已订购此Item的用户将进入Item白名单</div></div>
                     <div class="value" style="height: 30px;">
-                        <span></span>
+                        <select data-tagle="" id="ispublic" name="">
+                            <option value="1">开放</option>
+                            <option value="2">私有</option>
+                        </select>
                     </div>
                 </div>
                 <div class="itemtag">
@@ -89,7 +100,9 @@
                             <span class="btnicon"></span>
                         </div>
                     </div>
-                    <div class="value"></div>
+                    <div class="value">
+
+                    </div>
                 </div>
                 <div class="itemtagmoney">
                     <div class="keymoney">
@@ -102,7 +115,7 @@
                         </div>
 
                         <div class="addbtnmoney">
-                            <span class="btntextmoney">数据需求方pull Item下的tag需要支付的费用，不填价格默认数据免费，最多添加6个</span>
+                            <span class="btntextmoney" style="color:#666666">数据需求方pull Item下的tag需要支付的费用，不填价格默认数据免费，最多添加6个</span>
 
                         </div>
                     </div>
@@ -130,7 +143,7 @@
                     <div style="visibility: visible;" class="container errorMess" id="mess"></div>
                 </div>
                 <div class="addcontent">
-                    <input type="text" id="addvalue"/><span class="addnamebtn">添加到白名单</span><span class="selectbtn">在列表中查找</span>
+                    <input type="text" style="padding-left:10px; " placeholder="请输入白名单用户的注册邮箱" id="addvalue"/><span class="addnamebtn">添加到白名单</span><span class="selectbtn">在列表中查找</span>
                 </div>
                 <hr/>
                 <div class="guanlilist">
@@ -164,12 +177,14 @@
             <div class="itemandrepName">
                 <a href="#" class="renameitem">dadsadsadsdsdas</a><span class="itemnameitem"></span>
             </div>
+            <div class="thisiscooperatestatname"></div>
             <div class="itemComment">
-                item详情item详情item详情item详情item详情item详情
+
             </div>
         </div>
         <div class="itemtopRight">
-            <p class="baimingdan">白名单管理（34）</p>
+            <p class="baimingdan">白名单管理（0）</p>
+            <!--<p class="chakanbaimingdan">查看白名单（0）</p>-->
             <p class="xiugairep itemListName-icon">DataItem修改</p>
             <p class="chekcprice">查看价格</p>
         </div>
@@ -187,11 +202,11 @@
             <span id="supply_style" class=""></span>
         </div>
         <div class="topbtright">
-            <img data-original-title="点赞量" class="iconiamg1 iconiamg2" src="images/newpic008.png" data-toggle="tooltip" datapalecement="top">
+            <img data-original-title="点赞量" class="iconiamg1 iconiamg2" src="images/newpic001.png" data-toggle="tooltip" datapalecement="top">
             <span   data-original-title=" 18:57:39" data-toggle="tooltip" datapalecement="top"  class="myitemstar"></span>
-            <img data-original-title="订购量" class="iconiamg1" src="images/newpic006.png" data-toggle="tooltip" datapalecement="top"/>
+            <img data-original-title="订购量" class="iconiamg1" src="images/newpic002.png" data-toggle="tooltip" datapalecement="top"/>
             <span class="myitemdy"></span>
-            <img data-original-title="下载量" class="iconiamg1" src="images/newpic007.png" data-toggle="tooltip" datapalecement="top">
+            <img data-original-title="下载量" class="iconiamg1" src="images/newpic003.png" data-toggle="tooltip" datapalecement="top">
             <span class="myitempull"></span>
         </div>
 
@@ -200,7 +215,7 @@
         <ul class="itembtNav">
             <li class="borderBt">Tag<sup><span class="alltagnums">0</span></sup></li>
             <li>Pull记录</li>
-            <li>样例/元数据</li>
+            <li>样例&nbsp;/&nbsp;元数据</li>
             <li>评论<sup><span class="commentallnum">0</span></sup></li>
         </ul>
         <ol class="itembottomcon">

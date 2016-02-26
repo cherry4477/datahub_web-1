@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
-<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
+<meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
 <title>DataHub.阳光下的数据流通平台</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/command.css">
@@ -60,7 +60,39 @@
 		background: none;
 		color:#fff;
 	}
-
+	.navbar-nav > li > a{
+		padding-top: 25px;
+	}
+	.nav > li > a:hover{
+		background-color:rgba(31,154,218,0.55); 
+	}	
+	.navbar-fixed-top{
+		border-bottom: 0px;
+	}
+.badgeHeader{
+		/* background-color: red;
+	    border-radius: 5px;
+	    color: #fff;
+	    font-size: 5px;
+	    font-weight: 700;
+	    line-height: 1;
+	    margin-left: -3px;
+	    margin-top: 0;
+	    min-width: 0;
+	    padding: 2px 4px;
+	    position: absolute;
+	    text-align: left;
+	    vertical-align: middle;
+	    white-space: nowrap;
+	    display: none; */
+	   	background-color: red;
+	    border-radius: 50%;
+	    height: 10px;
+	    position: absolute;
+	    width: 10px;
+	    right: 5px;
+  		top: 25px;
+	}
 
 </style>
 </head>
@@ -99,8 +131,8 @@
 <div id="header" style="position:relative;display:table;table-layout:fixed;width:100%" class="section-header">
 		
         <div id="menu-nav" role="navigation" class="navbar navbar-fixed-top" style='background-color:rgba(41,171,226,0.55); '>
-            <div class="container-fluid" style="width:100%;padding: 10px 40px 0px 40px;">
-                <div class="navbar-header">  
+            <div class="container-fluid" style="width:100%;padding: 0px 40px 0px 40px;">
+                <div class="navbar-header" style="padding-top:10px;">  
                 <a id="phoneSelect" class="selectbtn" href="selects.html" style='position: absolute;right: 90px;top: 25px;color: #fff;font-size: 1em;'>数据精选</a>          	
                     <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
                         <span class="sr-only">切换导航</span>
@@ -125,15 +157,30 @@
                         		  -->
                         		  登录
                         	</a>
-                        </li>
+                        </li> 
                         <li style="float: left;">
-                        	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io:8999/' style='color: #fff;font-size: 1em;'>
+                        	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
                         		-->
                         		帮助
                         	</a>
                         </li>
+                        <li style="float: left;">
+                  			<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     		</a>
+                  		</li> 
+				  		<!--<li>
+                  			<a id='sign-comment' target="_blank" href='' style='color: #fff;font-size: 1em;'>
+                        		
+                        		论坛
+                    	 	</a>
+                  		</li>
+                  		-->   
                         <!--             
                         <li><a href="javaScript:void(0);" id='sign-help'  style='color: #fff;font-size: 1em;margin-top: 14px;margin-left:9px;padding: 0px 5px;margin-right: 10px'>?</a></li>
                          -->                      
@@ -149,13 +196,13 @@
                         -->
                         
                         <li class="inLoginfLiF">
-                  	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
+                  			<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
                   		<!-- 
                   		<img src="images/fl4.png" />
                   		-->
-                  		我的发布
-                  	</a>
-                  </li>
+                  			我的发布
+                  			</a>
+                  		</li>
 
                   <li class="inLoginfLiF">
                   	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
@@ -164,7 +211,8 @@
                   		-->
                   		我的订购
                   	</a>
-                  </li>                       
+                  </li>                    
+                  <li>                      
                   <li class="inLoginfLiF">
                   	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
@@ -173,14 +221,7 @@
                   		pull记录
                   	</a>
                   </li> 
-                  <li class="inLoginfLiF">
-                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
-                  		<!--
-                  		<img src="images/fl2.png" />
-                  		-->
-                  		帮助
-                  	</a>
-                  </li> 
+                  
                  
                  <!-- id="inLoginLiF" -->
                  <li class="inLoginfLiF" id="inLoginLiF" style="width: auto;">
@@ -189,6 +230,7 @@
                   		<img src="images/fl3.png" />
                   		-->
                   		个人中心
+                  		<span class="badgeHeader" style="display: inline;">&nbsp;</span>
                   	</a>
 					  <ul class="dropdown-menu">
 					    <li><a id="innames" href="javaScript:void(0);" style="cursor: default;"></a></li>
@@ -197,27 +239,62 @@
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
 					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
-						<li><a href="myAccount.html" target="_blank">查询账单</a></li>
+						<li><a href="myAccount.html" target="_blank">账务中心</a></li>
 						<li><a href="messageRequired.html" target="_blank">消息中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>
 					  
                  </li> 
-                        
-                        
-                        
-                        
-                    </ul>
+                 <li class="inLoginfLiF">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li> 
+                 <li class="inLoginfLiF">
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li>
+                  <li id="phoneshowhelp">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li> 
+                   <li id="phoneshowblog">
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li> 
+                   <li id="phoneshowlogout">
+                  	<a id="logout" href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		退出
+                     </a>
+                  </li>  
+             
+                 </ul>
                 </div>
             </div>
         </div>
         
 
   <div style="width:100%;vertical-align:middle;display:table-cell;height:300px;padding:0;border:0" class="crp-showcase"> 
-  
-  
-  
+
   		<div class="container-fluid">
         	<div class="row"> 
             	<div class="col-sm-12"> 
@@ -355,7 +432,7 @@
 		           		<a id="guanCom1" href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
 							<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
 								<div class="wobble-bottom guanDiv">
-				           			<img src="images/guan1.png" style='margin-top:30px'/>
+				           			<img src="images/guan1.png" style='margin-top:23px'/>
 				           			<div class="feature-label" style='margin-top:20px;'>
 				           				电商商品库
 				           			</div>
@@ -365,7 +442,7 @@
 		           		<a id="guanCom2" href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guandx.png"  style='margin-top:30px'/>
+			           			<img src="images/guandx.png"  style='margin-top:27px'/>
 		           				<div class="feature-label" style='margin-top:20px;'>
 		           					交通服务信息
 		           				</div>
@@ -375,7 +452,7 @@
 		           		<a id="guanCom3" href='itemDetails.html?repname=Meteorological&itemname=Synthetic_pollution_index'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd3 guanNum">
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan3.png"   style='margin-top:30px'/>
+			           			<img src="images/guan3.png"   style='margin-top:39px'/>
 		           				<div class="feature-label"   style='margin-top:20px'>
 		           					空气质量数据
 		           				</div>
@@ -395,7 +472,7 @@
 		           		<a id="guanCom5" href='itemDetails.html?repname=Financial_Statistics&itemname=Financial_Market_Statistics'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan6.png"   style='margin-top:30px'/>
+			           			<img src="images/guan6.png"   style='margin-top:34px'/>
 		           				<div class="feature-label"  style='margin-top:20px'>
 		           					股票数据
 		           				</div>
@@ -405,7 +482,7 @@
 		           		<a id="guanCom6" href='itemDetails.html?repname=Hot_searches&itemname=Hot_words'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan5.png"   style='margin-top:30px'/>
+			           			<img src="images/guan5.png"   style='margin-top:25px'/>
 		           				<div class="feature-label"  style='margin-top:20px'>
 		           					搜索热词
 		           				</div>
@@ -497,6 +574,11 @@
 							<div style='float: left;margin-left:30px;'>
 								地址：北京市海淀区中关村软件园二期西北旺东路10号院东区 亚信大厦
 							</div>
+						</div>
+					</div>
+					<div style="margin-top:29px" class="row">
+						<div style="float: left;font-size:12px;">
+							请使用IE10及以上内核浏览器，建议使用Chrome、Firfox、360最新版等。
 						</div>
 					</div>
 				</div>
@@ -594,7 +676,7 @@
 			$(this).children().removeClass().addClass("baaa");
 		});
 
-		jQuery("#changeH").slide({mainCell:"#lunCom",nextCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
+		jQuery("#changeH").slide({mainCell:"#lunCom",titCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
 
 
 		$("#sign-in").click(function(){
@@ -670,7 +752,16 @@
 		 });
    		
    		
-    	
+   		if($.cookie("badgeHeader")!=null&&$.cookie("badgeHeader")!="null"){
+   			$(".badgeHeader").show();
+   		}else{
+   			$(".badgeHeader").hide();
+   		} 
+   		
+   	 	$(".badgeHeader").click(function(e){
+   	 		e.stopPropagation();
+   	 		location.href="messageRequired.html";
+   	 	});
 
 		
 		

@@ -5,9 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据"/>
-	<meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
-	<title>基本信息_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
-	<title>dataHub-数据精选</title>
+	<meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。">
+	<title>pub.DataHub</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/pagination.css"/>
 	<link rel="stylesheet" href="css/command.css">
@@ -30,16 +29,19 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body" style="padding: 30px 30px 45px 30px">
-					<div class="head">
+					<div class="head" style="margin-bottom: 0px;">
 						<span class="title">新增Repository</span>
 						<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					</div>
+					<div style="height: 30px;">
+						<div id="addalertbox" class='container' style="width:100%;"></div>
 					</div>
 					<div class="repname">
 						<div class="key">
 							<span class="title">Repository 名称</span>
 							<span class="promt" style="margin-left: 5px;font-size: 12px;color: #333">设置后不能修改</span></div>
 						<div class="value">
-							<input id="repnameInput" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
+							<input id="repnameInput" maxlength="52" type="text" placeholder='不能为空，52个字符以内，仅限使用英文字母、数字和"_"'>
 						</div>
 					</div>
 					<div class="repcomment">
@@ -48,11 +50,12 @@
 							<textarea placeholder='200字以内'></textarea>
 						</div>
 					</div>
+					<div class="xiugaireperror">您可新增的<span class="ispublicrepo">开放</span>Repository资源不足，<a class="viplinks" href="memberUpgrade.html" target="_blank">升级会员</a>获取更多资源</div>
 					<div class="property">
 						<div class="key">属性</div>
 						<div class="value">
-							<select name="" id="ispublic">
-								<option value="1">公开</option>
+							<select name="" id="ispublic" data-tagle="">
+								<option value="1">开放</option>
 								<option value="2">私有</option>
 							</select>
 							<!-- <p></p> -->
@@ -79,7 +82,7 @@
 					<div style="height: 40px">
 						<div id="messcooperatorpublic" class='container' style=""></div>
 					</div>
-					<input type="text" class="form-control" id="cooperatoremailTest" placeholder="请输入白名单用户的注册邮箱">
+					<input type="text" class="form-control" id="cooperatoremailTest" placeholder="请输入协作者的注册邮箱">
 					<button  class="btn btn-primary" id="cooperatorinList">添加为协作者</button>
 					<button class="btn btn-primary" id="cooperatorseList">在列表中查找</button>
 				</div>
@@ -89,7 +92,7 @@
 					<div id="cooperatordelAll">[清空协作者]</div>
 				</div>
 				<div class="modal-body cooperator_list cooperator_listpublic" style="padding: 0px;float:left;width:100%;"></div>
-				<div class="gobackbtnwrop" style="margin-top:5px;"><span class="gobackcooperator">[返回]</span></div>
+				<div class="publicgobackbtnwrop" style="margin-top:5px;"><span class="gobackcooperator">[返回]</span></div>
 				<div class="pagesPercooperator" style='float:left'></div>
 
 			</div>
@@ -115,8 +118,12 @@
 							<div id="cooperatordelCurrent" >[删除]</div>
 							<div id="cooperatordelAllpri">[清空协作者]</div>
 						</div>
+
 						<div class="privatelistboxwrop">
-							<div class="pomisionesearchwrop"><input type="text" class="form-control" id="privatecooperatoremailTest"  placeholder="请输入白名单用户的注册邮箱"><div id="searchcooperatoremailTest" class="searchpomisione"></div></div>
+							<div style="height: 30px;margin-top:10px;">
+								<div id="messcooperatorprivate1" class='container' style="width:250px"></div>
+							</div>
+							<div class="pomisionesearchwrop"><input type="text" class="form-control" id="privatecooperatoremailTest"  placeholder="请输入协作者的注册邮箱"><div id="searchcooperatoremailTest" class="searchpomisione"></div></div>
 							<div class="privatecooperList cooperator_list" style="margin-top:15px;"></div>
 							<div style="margin-top: 5px;" class="privategobackbtnwrop"><span class="gobackprivatecooperList">[返回]</span></div>
 						</div>
@@ -127,6 +134,9 @@
 					<div class="ListboxRight">
 						<div style="width:100%;margin-bottom:10px;">白名单</div>
 						<div class="privatelistboxwrop">
+							<div style="height: 30px;margin-top:10px;">
+								<div id="messcooperatorprivate" class='container' style="width:250px"></div>
+							</div>
 							<div class="modal-body" style="padding: 0px;width:100%;">
 								<div class="pomisionesearchwrop"><input type="text" class="form-control" id="privatepomisionemailTest"  placeholder="请输入白名单用户的注册邮箱"><div id="searchpomisionemailTest" class="searchpomisione"></div></div>
 								<div class="cooperatorpomitionList" style="margin-top:15px;"></div>
@@ -154,7 +164,7 @@
 					<div style="height: 40px">
 						<div id="mess" class='container' style=""></div>
 					</div>
-					<input type="text" class="form-control" id="emailTest" placeholder="请输入协作者的注册邮箱">
+					<input type="text" class="form-control" id="emailTest" placeholder="请输入白名单用户的注册邮箱">
 					<button  class="btn btn-primary" id="inList">添加到白名单</button>
 					<button class="btn btn-primary" id="seList">在列表中查找</button>
 				</div>
@@ -207,7 +217,7 @@
 					<td style="width: 18%;">订购方</td>
 					<td style="width: 20%;">价格包</td>
 					<td style="width: 12%;">订单状态</td>
-					<td style="width: 8%">投诉状态</td>
+					<td style="width: 8%">申诉状态</td>
 				</tr>
 			</table>
 			<div class="dingcon">

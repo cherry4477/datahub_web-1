@@ -69,8 +69,10 @@ function changebg(index){
 var lablename={};
 
 $("body").on("click","#navigator_ul li",function(){
+
+    $(".be-loader").show();
     window.clickindex = $(this).index();
-    $(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
+    //$(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
     lablename=$(this).text();
     $(".container .title p").text(lablename);
     changebg(clickindex);
@@ -86,50 +88,83 @@ function get_type(){
         changebg(0);
         lablename2=$("#navigator_ul li:eq(0)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =0;
     }
     if(type=="终端专题"){
         changebg(1);
         lablename2=$("#navigator_ul li:eq(1)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =1;
     }
     if(type=="互联网专题"){
         changebg(2);
         lablename2=$("#navigator_ul li:eq(2)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =2;
     }
     if(type=="征信专题"){
         changebg(3);
         lablename2=$("#navigator_ul li:eq(3)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =3;
     }
     if(type=="运营商专题"){
         changebg(4);
         lablename2=$("#navigator_ul li:eq(4)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =4;
     }
-    if(type=="位置专题"){
+    if(type=="位置专题") {
         changebg(5);
-        lablename2=$("#navigator_ul li:eq(5)").text();
+        lablename2 = $("#navigator_ul li:eq(5)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0, lablename2);
+        window.clickindex = 5;
     }
     if(type=="北京公共专题"){
         changebg(6);
         lablename2=$("#navigator_ul li:eq(6)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =6;
     }
     if(type=="上海公共专题"){
         changebg(7);
         lablename2=$("#navigator_ul li:eq(7)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =7;
     }
     if(type=="空气质量专题"){
         changebg(8);
-        lablename2=$("#navigator_ul li:eq(8)").text();
+        lablename2=$("#navigator_ul li:eq(9)").text();
         $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =8;
     }
+    if(type=="金融数据专题"){
+        changebg(9);
+        lablename2=$("#navigator_ul li:eq(9)").text();
+        $(".container .title p").text(lablename2);
+        appendList3(0,lablename2);
+        window.clickindex =9;
+    }
+    if(type=="房地产专题"){
+     changebg(10);
+     lablename2=$("#navigator_ul li:eq(10)").text();
+     $(".container .title p").text(lablename2);
+     appendList3(0,lablename2);
+     window.clickindex =10;
+     }
 }
 //  加载全部数据
 function appendList(pages){
+    $(".be-loader").show();
     $(".repoAll").empty();
     pages=pages+1;
     ajaxRe(pages);
@@ -138,9 +173,19 @@ function appendList(pages){
 }
 //按左侧导航分类发送请求加载数据；
 function appendList2(pages){
+    $(".be-loader").show();
     $(".repoAll").empty();
     pages=pages+1;
     hanvelables(pages);
+    addhtml();
+    $('[data-toggle="tooltip"]').tooltip();
+}
+//按首页跳转请求加载数据；
+function appendList3(pages,lab){
+    $(".be-loader").show();
+    $(".repoAll").empty();
+    pages=pages+1;
+    hanvelables3(pages,lab);
     addhtml();
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -149,9 +194,39 @@ function hanvelables(pages){
     repos = [];
     var url = '';
     if(lablename == '全部精选'){
-        url = ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
-        url = ngUrl+"/selects?select_labels="+lablename+"&size=5&page="+pages;
+        url = ngUrl+"/selects?select_labels="+encodeURIComponent(lablename)+"&size=10&page="+pages;
+    }
+    $.ajax({
+        url: url,
+        type: "get",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json){
+            if(json.data.select.length!=0){
+                window.paegeitems2=json.data.total;
+                var pages=json.data.select.length;
+                for(var i=0;i<pages;i++){
+                    repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
+                }
+            }else{
+                window.paegeitems2=0;
+            }
+        }
+    });
+}
+function hanvelables3(pages,lab){
+    repos= [];
+    var paegeitems3;
+    var url = '';
+    if(lab == '全部精选'){
+        url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
+    }else{
+        lab=encodeURIComponent(lab);
+        url = ngUrl+"/selects?select_labels="+lab+"&size=10&page="+pages;
     }
 
     $.ajax({
@@ -163,24 +238,33 @@ function hanvelables(pages){
         headers:headerToken,
         success:function(json){
             if(json.data.select.length!=0){
-                console.log(json.data.total);
-                window.paegeitems2=json.data.total;
+               paegeitems3=json.data.total;
                 var pages=json.data.select.length;
                 for(var i=0;i<pages;i++){
                     repos.push([json.data.select[i].repname,json.data.select[i].itemname]);
                 }
             }else{
-                window.paegeitems2=0;
+                paegeitems3=0;
             }
         }
     });
-
-
+    $("#pages").pagination(paegeitems3, {
+        maxentries:paegeitems3,
+        items_per_page:10,
+        num_display_entries:5,
+        num_edge_entries:5,
+        prev_text:"上一页",
+        next_text:"下一页",
+        ellipse_text:"...",
+        link_to:"javascript:void(0)",
+        callback:appendList3,
+        load_first_page:false
+    });
 }
 function pages2(){
     $("#pages").pagination(window.paegeitems2, {
         maxentries:window.paegeitems2,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries:5,
         prev_text:"上一页",
@@ -198,7 +282,7 @@ function ajaxRe(pages){
     $(".container .title p").text("全部精选");
     var urlt="";
     repos = [];
-    urlt=ngUrl+"/selects?select_labels"+"&size=5&page="+pages;
+    urlt=ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     $.ajax({
         url: urlt,
         type: "get",
@@ -223,7 +307,7 @@ function ajaxRe(pages){
 function pages(){
     $("#pages").pagination(window.paegeitems, {
         maxentries:window.paegeitems,
-        items_per_page:5,
+        items_per_page:10,
         num_display_entries:5,
         num_edge_entries: 5,
         prev_text:"上一页",
@@ -256,10 +340,12 @@ function addhtml(){
     var dataitemdpullNum = [];
     //返回该DataItem的star量
     var dataitemdstarNum = [];
+    //返回该DataItem的comment量
+    var dataitemdcommentNum = [];
 
     for(var j=0;j<repos.length;j++)
     {
-        getAjax(ngUrl + "/subscription_stat/" +repos[j][0],function (msg) {
+        getAjax(ngUrl + "/subscription_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
             dataitemd.push(msg.data.numsubs);
         });
         getAjax(ngUrl + "/transaction_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
@@ -267,6 +353,9 @@ function addhtml(){
         });
         getAjax(ngUrl + "/star_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
             dataitemdstarNum.push(msg.data.numstars);
+        });
+        getAjax(ngUrl + "/comment_stat/" +repos[j][0]+'/'+repos[j][1],function (msg) {
+            dataitemdcommentNum.push(msg.data.numcomments);
         });
         //填充
         direct_url="itemDetails.html?repname="+repos[j][0]+"&itemname="+repos[j][1];
@@ -334,13 +423,14 @@ function addhtml(){
                     window.company_name=msg.data.userName;
                 });
                 $repo_left_subline_lable.append($("<span></span>").text(labelV));
-
+                var url="dataOfDetails.html?username="+create_user;
                 $repo_left.append("" +
                     "<div class='supplier'>"+
-                "<p> 本数据由 <a> "+company_name+"</a> 提供</p></div>");
+                "<p> 本数据由 <a href='"+url+"'> "+company_name+"</a> 提供</p></div>");
 
-                var url="dataOfDetails.html?username="+create_user;
-                $(".supplier p a").attr("href",url);
+
+                //$(".supplier p a").attr("href",url);
+
 
 
                 //右边部分
@@ -352,9 +442,9 @@ function addhtml(){
                     price_style="免费";
                     price_sheet ="mianfei_sheet";
                 }
-                else if(pricestate=="限量免费")
+                else if(pricestate=="限量试用")
                 {
-                    price_style="限量免费";
+                    price_style="限量试用";
                     price_sheet ="xianliang_sheet";
                 }
                 else if(pricestate=="付费")
@@ -366,7 +456,6 @@ function addhtml(){
                     price_style="暂无";
                     price_sheet="wu_sheet";
                 }
-
 
 
                 $repo_right.append(""+
@@ -386,8 +475,14 @@ function addhtml(){
                     "<img style='margin-left: 20px' src='../images/selects/down.png' data-toggle='tooltip' datapalecement='top' title='下载量'>"+
                     "<span style='margin-left: 20px;'>"+dataitemdpullNum[j]+"</span>"+
                     "</div>"+
+                    "<div class='comment'>"+
+                    "<img style='margin-left: 20px' src='../images/selects/comment.png' data-toggle='tooltip' datapalecement='top' title='评论量'>"+
+                    "<span style='margin-left: 20px;'>"+dataitemdcommentNum[j]+"</span>"+
+                    "</div>"+
                     "</div>");
             }
         });
     }
+
+    $(".be-loader").fadeOut(1000);
 }

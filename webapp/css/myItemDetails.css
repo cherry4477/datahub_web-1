@@ -42,12 +42,15 @@
     padding-left: 28px;
     width: 100%;
 }
-.baimingdan{
+.chakanbaimingdan,.baimingdan{
     background:url(../images/as_user.png) left 5px no-repeat;
 }
-.baimingdan:hover{
+.baimingdan:hover,.chakanbaimingdan:hover{
     background:url(../images/as_user_hover.png) left 5px no-repeat;
     color: #395289;
+}
+.baimingdan{
+    display: none;
 }
 .xiezuozhe{
     background:url(../images/delete.png) left 5px no-repeat;
@@ -178,8 +181,11 @@
     text-align: center;
     line-height: 25px;
 }
+.tagpullNum{
+    float: right;
+}
 .tagpullNum p{
-    text-align: right;
+    text-align: center;
     line-height: 24px;
 }
 .pullListcon,.pullListconwrop{
@@ -225,6 +231,7 @@
     width: 100%;
     overflow: hidden;
     border:1px dashed #c8c8c8;
+    word-break: break-all;
 }
 .editmeta,.editsample{
     width: 70px;
@@ -276,13 +283,26 @@
     color: #333;
     font-size: 20px;
 }
-#editItem .itemname .key, #editItem .itemcomment .key, #editItem .itempro .key, #editItem .itemtag .key {
+#editItem .itemname .key, #editItem .itemcomment .key, #editItem .itemtag .key {
+
+}
+#editItem .itempro .key span{
     color: #29abe2;
     font-size: 14px;
     margin-bottom: 10px;
+    float: left;
+}
+#editItem .itempro .key{
+    width: 100%;
+    overflow: hidden;
+}
+#messcooperatorpublic{
+    float: left;
+    width: 90%;
+    display: none;
 }
 #editItem .itemname .value input {
-    background-color: #fff;
+    background-color: #f5f5f5;
     border: 1px solid #c7c7c7;
     border-radius: 5px;
     color: #666;
@@ -301,6 +321,10 @@
     margin-bottom: 30px;
     padding: 0 10px;
     width: 100%;
+}
+.thisiscooperatestatname{
+    font-size: 12px;
+    color: #666666;
 }
 #editItem .itempro .value span {
     border: 1px solid #c7c7c7;
@@ -345,6 +369,9 @@
     margin-top: 3px;
     width: 16px;
 }
+.delitemlabelicon:hover{
+    background-image: url("../images/delete_hover1.png");
+}
 .errorMesslabels {
     background-color: #ffd1d1;
     color: #ff0000;
@@ -369,6 +396,10 @@
     margin-left: 5px;
     margin-top: 4px;
     width: 18px;
+}
+#editItem .itemtag .key .addbtn .btnicon:hover{
+    background-image: url("../images/add_hover.png");
+    background-position: 1px 0px;
 }
 #editItem .itemtag .key .addbtn > span {
     display: inline-block;
@@ -398,6 +429,9 @@
     margin-left: 10px;
     margin-top: 3px;
     width: 16px;
+}
+#editItem .itemtagmoney .valuemoney .persontag div.delitemmoneyicon:hover{
+    background-image: url("../images/delete_hover1.png");
 }
 #editItem .submit {
     padding-top: 30px;
@@ -462,6 +496,22 @@
     margin-left: 5px;
     margin-top: 4px;
     width: 18px;
+}
+
+.freetype {
+    border: 1px solid #f49f12;
+    color: #f49f12;
+}
+.pricetype {
+    border-radius: 3px;
+    display: inline;
+    font-size: 12px;
+    margin-left: 5px;
+    padding: 2px 5px;
+}
+#editItem .itemtagmoney .keymoney .divmoney .btniconmoney:hover{
+    background-image: url("../images/add_hover.png");
+    background-position: 1px 0px;
 }
 #editItem .itemtagmoney .keymoney .divmoney > span {
     display: inline-block;
@@ -592,6 +642,7 @@
 .allpriceList{
     width: 100%;
     overflow: hidden;
+    margin-top: 24px;
 }
 .allpriceList li{
     background: #e5e5e5 none repeat scroll 0 0;

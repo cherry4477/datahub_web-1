@@ -50,7 +50,7 @@ function  accountDetailes(){
     }
     var total=0;
     $.ajax({
-    url: ngUrl + "/bill/" + $.cookie("tname") + "/detail",
+    url: ngUrl + "/bill/" + $.cookie("tname") + "/detail"+"?&size=50",
         type: "GET",
         cache: false,
         async: false,
@@ -58,6 +58,7 @@ function  accountDetailes(){
         headers: headerToken,
         success: function (json) {
             total=json.data.total;
+            console.log(json.data);
             if(total==0){
                 $("#emptyData").show();
             }
@@ -96,42 +97,42 @@ function  accountDetailes(){
                                 count_num="count_num2";
                                 break;
                             case 3:
-                                opType = "扣年费";
+                                opType = "年费";
                                 tradeAmount=(-tradeAmount);
                                 count_num="count_num2";
                                 break;
                             case 4:
-                                opType = "购买待生效";
+                                opType = "订单生效";
                                 tradeAmount=(-tradeAmount);
                                 count_num="count_num2";
                                 break;
                             case 5:
-                                opType = "购买生效";
+                                opType = "订单完成";
                                 tradeAmount=(-tradeAmount);
                                 count_num="count_num2";
                                 break;
                             case 6:
-                                opType = "购买失效";
+                                opType = "Item下线订单失效";
                                 tradeAmount=(-tradeAmount);
                                 count_num="count_num2";
                                 break;
                             case 7:
-                                opType = "购买后退款";
+                                opType = "投诉成功订单失效";
                                 tradeAmount=(+tradeAmount);
                                 count_num="count_num1";
                                 break;
                             case 8:
-                                opType = "售出交易成功";
+                                opType = "订单完成";
                                 tradeAmount=(+tradeAmount);
                                 count_num="count_num1";
                                 break;
                             case 9:
-                                opType = "售出交易生效";
+                                opType = "订单生效";
                                 tradeAmount=(+tradeAmount);
                                 count_num="count_num1";
                                 break;
                             case 10 :
-                                opType = "售出退款";
+                                opType = "投诉成功订单失效";
                                 tradeAmount=(-tradeAmount);
                                 count_num="count_num2";
                                 break;
@@ -157,7 +158,7 @@ function  accountDetailes(){
     });
     $(".accountPages").pagination(total,{
         maxentries:total,
-        items_per_page: 8,
+        items_per_page: 50,
         num_display_entries: 3,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -175,7 +176,7 @@ function gonextpage(next_pages){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     $.ajax({
-        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail" + "?page=" + next_pages + "&size=8",
+        url: ngUrl + "/bill/" + $.cookie("tname") + "/detail" + "?page=" + next_pages + "&size=50",
         type: "GET",
         cache: false,
         async: false,
@@ -222,42 +223,42 @@ function gonextpage(next_pages){
                             count_num="count_num2";
                             break;
                         case 3:
-                            opType = "扣年费";
+                            opType = "年费";
                             tradeAmount=(-tradeAmount);
                             count_num="count_num2";
                             break;
                         case 4:
-                            opType = "购买待生效";
+                            opType = "订单生效";
                             tradeAmount=(-tradeAmount);
                             count_num="count_num2";
                             break;
                         case 5:
-                            opType = "购买生效";
+                            opType = "订单完成";
                             tradeAmount=(-tradeAmount);
                             count_num="count_num2";
                             break;
                         case 6:
-                            opType = "购买失效";
+                            opType = "Item下线订单失效";
                             tradeAmount=(-tradeAmount);
                             count_num="count_num2";
                             break;
                         case 7:
-                            opType = "购买后退款";
+                            opType = "投诉成功订单失效";
                             tradeAmount=(+tradeAmount);
                             count_num="count_num1";
                             break;
                         case 8:
-                            opType = "售出交易成功";
+                            opType = "订单完成";
                             tradeAmount=(+tradeAmount);
                             count_num="count_num1";
                             break;
                         case 9:
-                            opType = "售出交易生效";
+                            opType = "订单生效";
                             tradeAmount=(+tradeAmount);
                             count_num="count_num1";
                             break;
                         case 10 :
-                            opType = "售出退款";
+                            opType = "投诉成功订单失效";
                             tradeAmount=(-tradeAmount);
                             count_num="count_num2";
                             break;

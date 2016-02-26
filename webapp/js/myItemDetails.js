@@ -67,6 +67,40 @@ $(function(){
         }
         return labeldata
     };
+    //获取该repo发布者
+    function getrepocurname(){
+        var thisrepocurname = '';
+        $.ajax({
+            type: "get",
+            url:ngUrl+"/repositories/"+repname,
+            cache:false,
+            async:false,
+            headers:{Authorization: "Token "+account},
+            success: function(json){
+                thisrepocurname = getrealnames(json.data.create_user);
+                return thisrepocurname;
+            }
+        });
+        return thisrepocurname;
+    }
+    //得到发布者的真实姓名
+    function getrealnames(create_userrealname){
+        var thsirealname = ''
+        $.ajax({
+            url: ngUrl + "/users/"+create_userrealname ,
+            type: "get",
+            cache: false,
+            async: false,
+            datatype: 'json',
+            success:function(datas){
+                if(datas.code == 0){
+                    thsirealname = datas.data.userName;
+                    return thsirealname;
+                }
+            }
+        });
+        return thsirealname;
+    }
 //返回该DataItem的订阅量
     getAjax(ngUrl + "/subscription_stat/"+itemname,function(msg){
         $('.myitempull').html(msg.data.numsubs);
@@ -170,6 +204,7 @@ $(function(){
     var itemaccesstype;
     var supply_style;
     var allpricecon;
+    var thisitemispublic
     function tagbox(pages){
         $(".filletspan .personaltag").remove();
         var ispagetags = 0;
@@ -182,12 +217,30 @@ $(function(){
             success: function(msg) {
             	//添加状态开始
             	var thisispricestatenew="";
+                var thisiscooperatestatname = '';
+                ////////////是否协作
+                var thisiscooperatestat = ''
+                if(msg.data.cooperatestate == 'null' || msg.data.cooperatestate == null || msg.data.cooperatestate == ''){
+                    thisiscooperatestat = '';
+                }else{
+                    thisiscooperatestat = '<span class="pricetype freetype reptoppr">'+msg.data.cooperatestate+'</span>';
+                    if(msg.data.cooperatestate == '协作'){
+                        thisiscooperatestatname = getrealnames(msg.data.create_user);
+                        $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;协作');
+                    }else if(msg.data.cooperatestate == '协作中'){
+                        thisiscooperatestatname = getrepocurname();
+                        $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;邀请协作');
+                    }
+                }
+                $(".itemnameitem").after(thisiscooperatestat);
             	if(msg.data.pricestate=='付费'){
             		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:red;border:1px solid red;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+            	}else if(msg.data.pricestate==''){
+                    thisispricestatenew="";
             	}else{
-            		thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:#f49f12;border:1px solid #f49f12;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
-            	}
-            	$(".itemnameitem").append(thisispricestatenew);
+                    thisispricestatenew = '<strong style="border-radius: 3px;display: inline;font-size: 12px;margin-left: 5px;padding: 2px 5px;color:#f49f12;border:1px solid #f49f12;position: relative;top: -3px;">' + msg.data.pricestate + '</strong>'
+                }
+            	$(".itemnameitem").after(thisispricestatenew);
             	//添加状态结束
                 allpricecon = msg.data.price;
                 tagallnum = msg.data.tags;
@@ -226,9 +279,16 @@ $(function(){
                 var jsonTime = getTimes(msg.data.optime);
                 itemaccesstype = msg.data.itemaccesstype;
                 if (itemaccesstype == 'public') {
+                    thisitemispublic = 'public';
+                    $('.baimingdan').hide();
                     $('.itemaccesstype').html('公开');
                 } else if (itemaccesstype == 'private') {
+                    thisitemispublic = 'private';
                     $('.itemaccesstype').html('私有');
+                    if(msg.data.cooperatestate == '协作中' || msg.data.cooperatestate == ''){
+                        $('.baimingdan').show();
+                    }
+
                 }
                 $('.itemoptime').html(jsonTime.showTime);
                 $('.itemoptime').attr('data-original-title', jsonTime.jdTime);
@@ -280,7 +340,7 @@ $(function(){
         $('.metaList').empty();
         var str =  '<div class="metatitle">样例 <div class="editmeta"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" >修改</a></div></div>'+
             '<div class="metabox" id="metadata">'+marked(sample)+'</div>'+
-            '<div class="metatitle">元数据<div class="editsample"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" >修改</a></div></div>'+
+            '<div class="metatitle" style="margin-top:20px;">元数据<div class="editsample"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" >修改</a></div></div>'+
             '<div class="metabox metadata-con markdown-body" id="sampledata">'+marked(meta)+'</div>';
         $('.metaList').append(str);
     }
@@ -288,13 +348,13 @@ $(function(){
 ////////////////////////////////////////////////////////查看价格
     $('.chekcprice').click(function(){
         $('.allpriceList').empty();
-        var limitstr = '';
         var str = ''
         if(allpricecon.length == 0){
             str = '<div style="text-align:center">暂时没有价格计划</div>'
             $('.allpriceList').append(str);
         }else{
             for(var i = 0; i < allpricecon.length;i++){
+                var limitstr = '';
                 if(allpricecon[i].limit){
                     limitstr = '每个用户限购&nbsp;'+allpricecon[i].limit+'&nbsp;次';
                 }
@@ -322,17 +382,21 @@ $(function(){
                 if(json.code == 0){
                     var itemaccesstype = '开放';
                     if(json.data.itemaccesstype == 'private'){
-                        itemaccesstype = '私有'
+                        //itemaccesstype = '私有'
+                        $("#ispublic").attr('data-tagle',2);
+                        $("#ispublic").val(2);
                     }else{
-                        itemaccesstype = '开放'
+                        //itemaccesstype = '开放'
+                        $("#ispublic").attr('data-tagle',1);
+                        $("#ispublic").val(1);
                     }
                     var itemNameInput = $("#editItem .itemname .value input");
                     var itemCommentTextArea = $("#editItem .itemcomment .value textarea");
-                    var itemProSelect = $("#editItem .itempro .value span");
+                    //var itemProSelect = $("#editItem .itempro .value span");
                     var itemtagDiv = $("#editItem .itemtag .value");
                     itemNameInput.val(itemname).attr("disabled", "disabled");
                     itemCommentTextArea.val(json.data.comment);
-                    itemProSelect.html(itemaccesstype);
+                    //itemProSelect.html(itemaccesstype);
                     if(json.data.label != undefined && json.data.label != null && json.data.label != "null" &&
                         json.data.label.owner != undefined && json.data.label.owner != null && json.data.label.owner != "null") {
                         var lables = json.data.label.owner;
@@ -375,6 +439,13 @@ $(function(){
         var reg = new RegExp("^[0-9]*$");
         //var newmoney = new RegExp("^([1-9][0-9]*)+(.[0-9]{1,2})?$");
         var itemtagDiv = $("#editItem .itemtag .value");
+        var thisitemtypes = $('#ispublic').val();
+        var itemaccesstypes = '';
+        if(thisitemtypes == 1){
+            itemaccesstypes = 'public';
+        }else{
+            itemaccesstypes = 'private';
+        }
         var labels = itemtagDiv.children(".persontag");
         var itemtagDivmoney = $("#editItem .itemtagmoney .valuemoney");
         var moneydivs = itemtagDivmoney.children(".persontag");
@@ -457,6 +528,7 @@ $(function(){
         }
         dataitem.price = dataarr ;
         dataitem.comment = $.trim($("#editItem .itemcomment .value textarea").val());
+        dataitem.itemaccesstype = itemaccesstypes;
         if(dataitem.comment.length > 200) {
             alert('"DataItem 描述"太长！');
             return;
@@ -511,10 +583,16 @@ $(function(){
                         }
                     });
                 }
+                location.reload();
             }
         });
 
     });
+    $('#ispublic').change(function(){
+        if($(this).val() ==2){
+            $('#messcooperatorpublic').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+        }
+    })
     $(document).on('blur','.tagkey',function(){
         var tagval = $(this).val();
         var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
@@ -534,12 +612,13 @@ $(function(){
 
 
     })
-    $.ajax({
+    if(thisitemispublic == 'private'){
+        $.ajax({
             type: "get",
             url:ngUrl+"/permission/"+repname+"/"+itemname+'?size=6&page=1',
             cache:false,
             async:false,
-            headers:{Authorization: "Token "+account},
+            headers: {Authorization: "Token " + $.cookie("token")},
             success: function(msg){
                 $('.baimingdan').html('白名单管理('+msg.data.total+')');
             },
@@ -551,6 +630,7 @@ $(function(){
 
             }
         });
+    }
     ////////修改白名单/////////////////////////////////////////////
     var totals = 0;
     function getpagesF(){
@@ -876,6 +956,8 @@ $(function(){
                     $(this).parent().remove();
                 }
             }));
+        }else{
+            $('#itemmess').html('最多添加6个价格属性').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
         }
     }
 //////////////////////////////////////////////////////添加自定义标签
@@ -915,6 +997,8 @@ $(function(){
                     $(this).parent().remove();
                 }
             }));
+        }else{
+            $('#errlabels').html('最多添加5个标签').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);
         }
     }
 

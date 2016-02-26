@@ -22,7 +22,7 @@ $(function(){
     })
     function addprompt(thisobj,thiscon){
         $('.promptbox').remove();
-        var promptbox = '<div class="promptbox" style="display: block; left: 706px;">'+
+        var promptbox = '<div class="promptbox" style="display: block; right: 0px;">'+
             thiscon
             '</div>';
         $(thisobj).siblings('.conmentbt').append(promptbox);
@@ -86,7 +86,7 @@ $(function(){
             delstr = '<span class="delcommentbtn">删除</span>';
         }
         if(listcon.replyto){
-            replytousername = '回复'+listcon.replyto.username;
+            replytousername = '回复&nbsp;'+listcon.replyto.nickname;
         }
         var createtime = listcon.createtime.replace(/[A-Z]/g, " ");
         var aplystr = '<div class="comListconwrop" datacomid="'+listcon.commentid+'">'+
@@ -210,6 +210,7 @@ $(function(){
             addprompt(thisobj,'评论不能为空');
             return false;
         }else if(commentcon.length > 210){
+            addprompt(thisobj,'评论字数过长');
             return false;
         }else{
             var thisdatas = {

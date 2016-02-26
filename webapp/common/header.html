@@ -46,7 +46,7 @@
 	}
 	
 	.badgeHeader{
-		background-color: red;
+		/* background-color: red;
 	    border-radius: 5px;
 	    color: #fff;
 	    font-size: 5px;
@@ -60,8 +60,26 @@
 	    text-align: left;
 	    vertical-align: middle;
 	    white-space: nowrap;
-	    display: none;
+	    display: none; */
+	    background-color: red;
+	    border-radius: 50%;
+	    height: 10px;
+	    position: absolute;
+	    width: 10px;
+	    right: 5px;
+  		top: 15px;
 	}
+	
+	#phoneshowblog{
+		display:none;
+	}
+	#phoneshowhelp{
+		display:none;
+	}
+	#phoneshowlogout{
+		display:none;
+	}
+	
 	 @media (max-width: 768px) {
 	 
 		#col-left{
@@ -132,7 +150,19 @@
 		#nLogosHeader{
 			display:block;
 		}
- 
+ 	#phoneshowblog{
+		display:block;
+	}
+	#phoneshowhelp{
+		display:block;
+	}
+	#phoneshowlogout{
+		display:block;
+	}
+	
+	#iLoginf li[class="inLoginfLiF"]{
+		display:none;
+	}
   }
 	
 </style>
@@ -183,7 +213,10 @@
                   	 
                   <li>
                   	<a id="sign-in" style="color: #fff;font-size: 1em;" href="javaScript:void(0);" data-toggle="modal" data-target="#about-modal">登录</a>
-                  </li>                       
+                  </li> 
+                  <!--<li>
+                  	<a id="sign-tool" style="color: #fff;font-size: 1em;" href="" data-toggle="modal" data-target="#about-modal">工具</a>
+                  </li>-->                       
                   <li>
                   	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
@@ -192,9 +225,20 @@
                         		帮助
                      </a>
                   </li> 
-				
-				  
-
+                  <li>
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li> 
+				  <!--<li>
+                  	<a id='sign-comment' target="_blank" href='' style='color: #fff;font-size: 1em;'>
+                        		论坛
+                     </a>
+                  </li> 
+                  -->
               </ul>
           </div>
          </div> 
@@ -210,7 +254,7 @@
                   </li>
                    
  
-                 <li>
+                 <li class="inLoginfLiF">
                   	<a title='我的发布' style="color: #fff;font-size: 1em" href="myPublish.html">
                   		<!--  
                   		<img src="images/fl4.png" />
@@ -219,15 +263,19 @@
                   	</a>
                   </li>
 
-                  <li>
+                  <li class="inLoginfLiF">
                   	<a title='我的订购' style="color: #fff;font-size: 1em" href="mySubscribe.html">
                   		<!--  
                   		<img src="images/fl1.png" />
                   		-->
                   		我的订购
                   	</a>
-                  </li>                       
-                  <li>
+                  </li> 
+                   <!--<li>
+                  	<a id="sign-tool" style="color: #fff;font-size: 1em;" href="" data-toggle="modal" data-target="#about-modal">工具</a>
+                  </li> 
+                  -->                       
+                  <li class="inLoginfLiF">
                   	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!-- 
                   		<img src="images/fl2.png" />
@@ -235,15 +283,8 @@
                   		pull记录
                   	</a>
                   </li> 
-                  <li>
-					<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
-                  		<!--
-                  		<img src="images/fl2.png" />
-                  		-->
-                  		帮助
-                  	</a>
-                  </li>
-                 <li>
+                  
+                 <li class="inLoginfLiF">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
                   		<img src="images/fl3.png" />
@@ -256,14 +297,59 @@
 					    <li><a href="basicPwd.html" target="_blank">修改密码</a></li>
 					    <li><a href="basicInfo.html" target="_blank">基本信息</a></li>
 					    <li><a href="monitor.html" target="_blank">监控中心</a></li>
-						<li><a href="myAccount.html" target="_blank">查询账单</a></li>
+						<li><a href="myAccount.html" target="_blank">账务中心</a></li>
 						<li><a href="messageRequired.html" target="_blank">消息中心</a></li>
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
-					  </ul>
-					  
+					  </ul>	  
                  </li> 
-                                     
+                 <li class="inLoginfLiF">
+					<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li>
+                 <li class="inLoginfLiF">
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li> 
+				  <!--<li>
+                  	<a id='sign-comment' target="_blank" href='' style='color: #fff;font-size: 1em;'>
+                        		
+                        		论坛
+                     </a>
+                  </li> 
+                  -->
+                    <li id="phoneshowhelp">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  		<!--
+                  		<img src="images/fl2.png" />
+                  		-->
+                  		帮助
+                  	</a>
+                  </li> 
+                   <li id="phoneshowblog">
+                  	<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		博客
+                     </a>
+                  </li> 
+                   <li id="phoneshowlogout">
+                  	<a id="logout" href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        		<!--
+                        		<img src="images/i.png">
+                        		-->
+                        		退出
+                     </a>
+                  </li>                 
               </ul>
           </div>
          </div> 

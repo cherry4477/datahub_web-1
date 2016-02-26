@@ -27,28 +27,61 @@
     position: relative;
     height:60px;
 }
-#LT_left_title  p{
+#titleName{
     font-size:20px;
     width:575px;
-    color: #43609f ;
-    line-height: 30px;
-    display: inline;
+    color: #43609f;
     font-weight: bold;
-    word-wrap: break-word;
+    display: inline;
 }
 #titleName .reponame{
     color: #43609f ;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline;
+    height: 30px;
+    white-space:nowrap;
 }
 #titleName.reponame:hover{
     color: #395289;
 }
-#LT_left_title div>span{
+#titleName .itemname{
+    height: 30px;
+    display: inline;
+    white-space:nowrap;
+}
+/*#titleName.itemname{
+    height: 30px;
+    width: 525px;
+    color: #43609f ;
+    font-size: 20px;
+    font-weight: bold;
+    white-space:nowrap;
+     overflow:hidden;
+     text-overflow:ellipsis;
+     display: -webkit-box;
+}*/
+/*color: #000000;
+overflow: hidden;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+word-break: break-all;*/
+#LT_left_title{
+    text-overflow:ellipsis;
+    word-wrap: break-word;
+    height: 60px;
+    width: 525px;
+}
+
+#LT_left_title .line{
     font-size: 0.8em !important;
     display: inline;
     border-radius: 10px;
     margin: 7px;
     padding: 0px 4px;
     text-align: center;
+    width:38px;
 
 }
 #LT_left_icon{
@@ -64,8 +97,6 @@
 }
 #LT_left_icon p{
     display:inline ;
-
-
 }
 #LT_left_icon .alert_login{
     position: absolute;
@@ -234,11 +265,11 @@
     font-size: 16px;
     font-weight: bold;
     top: 230px;
-    left: 830px;
+    left: 818px;
     color:#ea0c1d;
     height: 18px;
     display: none ;
-    width: 150px;
+    width: 180px;
     text-align: center;
 }
 #cancel_buy:hover{
@@ -347,14 +378,14 @@
     word-break:break-all;
     display: none;
 }
-#left_exam p:nth-child(1){
+#left_exam>p:first-child{
     padding:15px 0px 15px 15px;
     border-bottom: 1px solid #666666;
     font-size: 20px;
     font-weight: 700;
     color: #666666;
 }
-#left_exam p:nth-child(2){
+#left_exam>p:nth-child(2){
     padding:15px 0px 15px 15px;
     font-size: 12px;
     width: 876px;
@@ -483,6 +514,8 @@
     height:45px;
     border: 1px solid;
     border-right-width: 0px;
+    font-size: 12px;
+    padding-top: 3px;
 }
 .content .content1_copy button{
     height:45px;
@@ -527,6 +560,7 @@
     width: 100%;
     padding-bottom: 20px;
     border-bottom: 1px solid #8c97cb;
+    word-wrap:break-word;
 }
 #main-right h3{
     font-size: 16px;

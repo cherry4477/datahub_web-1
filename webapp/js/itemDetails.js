@@ -32,9 +32,9 @@ $(function(){
     switchover();//切换
     tablesheet();//表格样式
 
-    closewrap();//关闭弹窗s
+    closewrap();//关闭弹窗
 
-    hot();//the hottest items 
+    //hot();//the hottest items 
     
 });
 $(document).ready(function(){
@@ -43,6 +43,18 @@ $(document).ready(function(){
         $('#myModal').modal('toggle');
     });
     $('[data-toggle="tooltip"]').tooltip();
+
+    //标题长度过长时省略号代替
+    var item=$("#titleName .itemname").text();
+    if(item.length>45){
+        var subitem=item.substring(0,42)+"...";
+        $("#titleName .itemname").text(subitem);
+    }
+    var repo=$("#titleName .reponame").text();
+    if(repo.length>45){
+        var subrepo=repo.substring(0,45);
+        $("#titleName .itemname").text(subrepo);
+    }
 });
 
 
@@ -72,7 +84,7 @@ function yes_no_login(){
 function request(){
     $(".left_content_page").pagination(tagNum, {
         maxentries:tagNum,
-        items_per_page: 6,
+        items_per_page: 30,
         num_display_entries: 5,
         num_edge_entries: 5 ,
         prev_text:"上一页",
@@ -99,16 +111,15 @@ function gonextpage(nextpages){
 
         //tag信息
         $.ajax({
-            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages+"&size=6",
+            url: ngUrl + "/repositories/" + repoName + "/" + itemName + "?page=" + nextpages+"&size=30",
             type: "GET",
             cache: false,
             async: false,
             headers:headerToken,
             dataType: 'json',
             success: function (json) {
-
                 if (json.code == 0) {
-                    tagNum = json.data.tags;
+                     tagNum = json.data.tags;
                     $("#nav1 > sup > span").text(tagNum);
                     var list_length = json.data.taglist.length;
                     var taglist = json.data.taglist;
@@ -174,6 +185,12 @@ function gonextpage(nextpages){
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
 
+                }
+            },
+            error:function(json){
+                if ($.parseJSON(json.responseText).code == 1006) {
+                    alert("信息已过期，访问首页!");
+                    window.location.href="/";
                 }
             }
         });
@@ -379,15 +396,16 @@ function about_item(){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
-    
+
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName,
+        url: ngUrl+"/repositories/"+repoName+"/"+itemName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
         headers:headerToken,
         success:function(json){
+            console.log(json);
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
@@ -453,7 +471,7 @@ function company(){
 
 
             var Sample=json.data.Sample;//样例数据
-            $("#left_exam p:nth-child(2)").text(Sample);
+            $("#left_exam p:nth-child(2)").html(marked(Sample));
             var Meta=json.data.Meta;//元数据
             $("#left_unit p:nth-child(2)").html(marked(Meta));
 
@@ -475,7 +493,7 @@ function company(){
             {
                 $("#button_buy>p").text("免费").css({"height":"2.1em","margin-top":"40px","border":"1px solid #f49f12","color":"#f49f12"});
             }
-            if(pricestate=="限量免费")
+            if(pricestate=="限量试用")
             {
                 $("#button_buy>p").text("限量试用").css({"height":"3.2em","margin-top":"30px"});
             }
@@ -579,6 +597,18 @@ function closewrap(){
             }
         });
         if(login=="false") {
+            //登录前进行正在发布情况的判断
+            var tagNum=$("#nav1>sup>span").text();
+            var priceIndex=$("#LT-right .form-control option").val();
+            if(tagNum==0||priceIndex==undefined||priceIndex==""){
+                $("#cancel_buy").hide();
+                $("#hurry_buy").hide();
+                $("#apply_buy").hide();
+                $("#price_plan").hide();
+                $("#upcoming_release").show();
+            }
+            //$("#hurry_buy").text("登录后订购");
+
             $("#hurry_buy").click(function(){
                 $(".alert_login").css({"display": "block", "left": "706px"}).show();
             });
@@ -614,6 +644,7 @@ function closewrap(){
                             dataType:'json',
                             success:function(json){
                                 var permission=json.data.permission;
+                                //alert("permission:"+permission);
                                 if(permission==false||permission=="false")
                                 {
                                     $.ajax({
@@ -625,6 +656,7 @@ function closewrap(){
                                         dataType:'json',
                                         success:function(json){
                                             if(json.code==0){
+                                                //alert("json.data:"+json.data);
                                                 if(json.data=="undefined"||json.data==undefined||json.data==null||json.data=="null")
                                                 {
                                                     $("#apply_buy").show();
@@ -661,12 +693,64 @@ function closewrap(){
 
 //立即订购
 function hurry_buy(){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var limitBoo=false;
     $("#hurry_buy").click(function(e){
-
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
         $(".repnamePm").text(repoName);
         $(".itemnamePm").text(itemName);
+        var price_plan=$("#price_plan").text();
+        $.ajax({
+            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
+            type: "get",
+            cache:false,
+            async:false,
+            headers:headerToken,
+            dataType:'json',
+            success:function(json){
+                if(json.code == 0){
+                   var  prices= json.data.price;
+                    if(prices!=null||prices!=""){
+                        var sel_options=$("#LT-right .form-control").find("option:selected").val();
+                        var limitNum=prices[sel_options].limit;//限制订购的次数
+                        var planId=prices[sel_options].plan_id;
+                            if(limitNum==null||limitNum==""||limitNum==undefined){
+                                limitNum=0;
+                            }
+                            if(limitNum!=null||limitNum!=""||limitNum!=undefined){
+                            $.ajax({
+                                url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName+"/"+planId,
+                                type: "get",
+                                cache:false,
+                                async:false,
+                                headers:{Authorization:"Token "+$.cookie("token")},
+                                dataType:'json',
+                                success:function(json){
+                                    if(json.code==0){
+                                        var numsigns=json.data.numsigns;//订购次数
+                                        if(limitNum>0&&numsigns>=limitNum&&price_plan=="限量试用"){
+                                            alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            limitBoo=false
+                                        }
+                                        else{
+                                            limitBoo=true;
+                                        }
+                                    }
+                                },
+                                error:function(){
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        });
+
+if(limitBoo){
         var create_user;
         var subscripted;
         var supplyStyle;
@@ -674,7 +758,7 @@ function hurry_buy(){
         var subType=true;
 
 
-            var headerToken={};
+        var headerToken={};
         $("#myModalLabel").text("数据订购合约");
             //登陆后
             if($.cookie("token")!=null&&$.cookie("token")!="null"){
@@ -716,7 +800,7 @@ function hurry_buy(){
                     }
                 },
                 error:function(json){
-                    if ($.parseJSON(json.responseText).code == 5008) {
+                    if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                         $("#myself_alert").show().fadeOut(3000);
                         myself=false;
                     }
@@ -806,8 +890,8 @@ function hurry_buy(){
                 });
         //设置radio默认状态
         var sel_options=$("#LT-right .form-control").find("option:selected").val();
-        $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked");
-
+        $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked").siblings().hide();
+        $(".charge-body div:eq("+sel_options+")").siblings().hide();
             //TODO 设置订购合同日期，目前写死
             var timer;
             $('#subscriptDialog').on("hidden.bs.modal",function() {//从新初始化
@@ -822,6 +906,7 @@ function hurry_buy(){
         if(myself==true){
             $("#subscriptDialog").modal('toggle');
         }
+}
     });
 
 
@@ -866,22 +951,6 @@ function hurry_buy(){
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
-//        $.ajax({
-//            url: ngUrl+"/repositories/"+repoName+"/"+itemName,
-//            type: "GET",
-//            cache:false,
-//            async:false,
-//            dataType:'json',
-//            headers:headerToken,
-//            success:function(json) {
-//                var pricestate = json.data.pricestate;//获取付费状态
-//                var price = json.data.price;//计费方式
-//                var price_length=json.data.price.length;
-//                var price_array=new Array();
-//                for(var i=0;i<price_length;i++)
-//                {
-//                    price_array.push(price[i].money);
-//                }
                 var sel_price1= $("input:radio[charge_hurry=charge_hurry]:checked").parent().siblings().find(".moneyv").text();
                 sel_price1=sel_price1.substring(0,sel_price1.length-1);
                 $.ajax({
@@ -907,6 +976,7 @@ function hurry_buy(){
                                 dataType:'json',
                                 headers:header,
                                 success:function(json){
+                                    $("#myModalLabel").text("签约结果");
                                     if(json.code == 0){
                                         setTimeout(function() {
                                             clearInterval(timer);
@@ -944,15 +1014,8 @@ function hurry_buy(){
                         }
                     }
                 });
-
-
-//            }
-//        });
-
     });
 }
-
-
 
 
 //申请订购
@@ -1008,10 +1071,9 @@ function apply_buy(){
                         supplyStyle = json.data.label.supply_style;
                     }
                 },
-                error:function(){
-                    if ($.parseJSON(json.responseText).code == 5008) {
-                        $("#myself_alert").show().fadeOut(3000);
-
+                error:function(json){
+                if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
+                            $("#myself_alert").show().fadeOut(3000);
                     }
                 }
             });
@@ -1035,7 +1097,7 @@ function apply_buy(){
                     }
                 },
                 error:function(json){
-                    if ($.parseJSON(json.responseText).code == 5008) {
+                    if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                         $("#myself_alert").show().fadeOut(3000);
                         myself=false;
                     }
@@ -1122,6 +1184,7 @@ function apply_buy(){
             //设置radio默认状态
             var sel_options=$("#LT-right .form-control").find("option:selected").val();
             $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked");
+            $(".charge-body div:eq("+sel_options+")").siblings().hide();
 
             //TODO 设置订购合同日期，目前写死
             var timer;
@@ -1184,6 +1247,7 @@ function apply_buy(){
                         dataType:'json',
                         headers:header,
                         success:function(json){
+                            $("#myModalLabel").text("申请签约结果");
                             if(json.code == 0){
                                 setTimeout(function() {
                                     clearInterval(timer);
@@ -1197,7 +1261,9 @@ function apply_buy(){
                                     $("#apply_buy").hide();
                                     $("#hurry_buy").hide();
                                     $("#cancel_buy").show();
-                                    location.reload();
+                                    $('#subscriptDialog').on('hide.bs.modal', function () {
+                                        location.reload();
+                                    });
                                 }, 1000)
                             }else {
                                 clearInterval(timer);
@@ -1217,7 +1283,9 @@ function apply_buy(){
                                 $("#subscriptDialog .subprocess").hide();
                                 $("#subscriptDialog .subafterprocess .successed").hide();
                                 $("#subscriptDialog .subafterprocess .failed2").show();
-                                location.reload();
+                                $('#subscriptDialog').on('hide.bs.modal', function () {
+                                    location.reload();
+                                });
                             //}
                         }
                     });
@@ -1257,8 +1325,8 @@ function cancel_buy(){
                             location.reload();
                         }
                     },
-                    error:function(){
-                        if ($.parseJSON(json.responseText).code == 5008) {
+                    error:function(json){
+                        if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                             $("#myself_alert").show().fadeOut(3000);
                             location.reload();
                         }
@@ -1269,142 +1337,3 @@ function cancel_buy(){
     });
 }
 
-//the amount of like:star
-function subscription(itemName){
-	var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    var starAmount = '';
-    var repoName=getParam("repname");
-    $.ajax({
-        url: ngUrl + "/star_stat/" + repoName + "/" + itemName,
-        type: "GET",
-        cache: false,
-        async: false,
-        dataType: 'json',
-        headers: headerToken,
-        success: function (json) {
-            if(json.code == 0){
-                starAmount = json.data.numstars;
-            }
-        }
-    });
-    return starAmount;
-}
-//the amount of purchase icon cart
-function purchase(itemName){
-	var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    var purchaseAmount = '';
-    var repoName=getParam("repname");
-    $.ajax({
-        url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        headers:headerToken,
-        success:function(json){
-            if(json.code == 0){
-                //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
-                purchaseAmount=json.data.numsubs;
-            }
-        }
-    });
-    return purchaseAmount;
-}
-//the amount of download the icon download
-function download_icon(itemName){
-	var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    var downloadAmount ='';
-    var repoName=getParam("repname");
-    $.ajax({
-        url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        headers:headerToken,
-        success:function(json){
-            if(json.code == 0){
-                downloadAmount = json.data.numpulls;
-            }
-        }
-    });
-    return downloadAmount;
-}
-//the amount of comment
-function getComment(itemName){
-	var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    var commentAmount='';
-    var repoName=getParam("repname");
-    $.ajax({
-        url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        headers:headerToken,
-        success:function(json){
-            if(json.code == 0){
-                commentAmount=json.data.numcomments;
-            }
-        }
-    });
-    return commentAmount;
-}
-
-function hot(){
-	var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    //get current reponame
-    var repoName=getParam("repname");
-    $("#titleName .itemname").text(itemName);
-
-    var repoName=getParam("repname");
-    var itemName=getParam("itemname");
-    var $place=$("<div></div>").appendTo($("#hot"));
-    $.ajax({
-        url: ngUrl+"/repositories/"+repoName+"?items=1&size=3",
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        headers:headerToken,
-        success:function(json) {
-            var iname=json.data.dataitems;
-            console.log();
-            for (i=0;i<json.data.dataitems.length;i++){
-                 //alert(json.data.length)
-                var pnum = purchase(iname[i]);
-                var dnum = download_icon(iname[i]);
-                var starnum = subscription(iname[i]);
-                var commentnum = getComment(iname[i]);
-                var url ="itemDetails.html?repname="+repoName+"&itemname="+iname[i];
-                $place.append(""+
-                    "<div id='completeDiv'  style='float: left'>"+
-                    "<a href='"+url+"'><p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p></a>"+
-                    "<div ID='icons' style='float:left;'>"+
-                    "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 90px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
-                    +"</div>"
-                    +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_10.png' style='padding-right: 15px;'>"+"<span>"+pnum+"</span>"
-                    +"</div>"
-                    +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width: 113px;'>"+"<img src='images/selects/images_12.png'>"+"<span style='margin-left: 10px;'>"+dnum+"</span>"
-                    +"</div>"
-                    +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
-                    +"</div>"+"</div>"+"</div>"+"</div>");
-            }
-        }
-    });
-}

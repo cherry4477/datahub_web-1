@@ -75,6 +75,13 @@ a:hover{
     display: block;
 }
 
+.isrep a{
+    display: block;
+    color: #666666;
+}
+.isrep .iscuritemname{
+    color: #337ab7;
+}
 .curname{
     width: 30%;
     overflow: hidden;
