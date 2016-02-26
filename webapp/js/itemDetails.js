@@ -800,7 +800,7 @@ if(limitBoo){
                     }
                 },
                 error:function(json){
-                    if ($.parseJSON(json.responseText).code == 5008) {
+                    if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                         $("#myself_alert").show().fadeOut(3000);
                         myself=false;
                     }
@@ -1072,10 +1072,8 @@ function apply_buy(){
                     }
                 },
                 error:function(json){
-                    if ($.parseJSON(json.responseText).code == 5008) {
-                        $("#myself_alert").show().fadeOut(3000);
-
-
+                if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
+                            $("#myself_alert").show().fadeOut(3000);
                     }
                 }
             });
@@ -1099,7 +1097,7 @@ function apply_buy(){
                     }
                 },
                 error:function(json){
-                    if ($.parseJSON(json.responseText).code == 5008) {
+                    if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                         $("#myself_alert").show().fadeOut(3000);
                         myself=false;
                     }
@@ -1328,7 +1326,7 @@ function cancel_buy(){
                         }
                     },
                     error:function(json){
-                        if ($.parseJSON(json.responseText).code == 5008) {
+                        if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
                             $("#myself_alert").show().fadeOut(3000);
                             location.reload();
                         }

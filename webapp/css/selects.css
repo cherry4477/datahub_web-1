@@ -262,9 +262,16 @@
 	color:#43609f;
 }
 .li09{
-	background: url("../images/selects/images_153.png") no-repeat;
+		background: url("../images/selects/images_153.png") no-repeat;
 	color:#43609f;
 }
+.li010{
+	background: url("../images/selects/images_157.png") no-repeat;
+	color:#43609f;
+}
+
+
+
 
 .li10{
 	background: url("../images/selects/images_03.png") no-repeat;
@@ -305,7 +312,10 @@
 .li19{
 	background: url("../images/selects/images_152.png") no-repeat;
 	color:#29abe2;
-
+}
+.li110{
+	background: url("../images/selects/images_156.png") no-repeat;
+	color:#29abe2;
 }
 
 .pageLoading{

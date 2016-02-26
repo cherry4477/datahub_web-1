@@ -302,18 +302,43 @@ function forList(list,type){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
 	var url="";
-
-	
+	//var commentsnum=[];
 	if(list!=null){
 	    for(var i=0;i<list.length;i++){
 	        $.ajax({
-	            url: ngUrl+"/repositories/"+list[i],
+	            url: ngUrl+"/repositories/"+list[i]+"?items=1",
 	            type: "get",
 	            cache:false,
 	            async:false,
 	            headers:headerToken,
 	            dataType:'json',
 	            success:function(json){
+					console.log(json);
+					var items=json.data.items;
+					var dataitems=json.data.dataitems;
+
+					for(var i=0;i<items;i++){
+						var comments=0;
+						$.ajax({
+							url: ngUrl+"/comment_stat/"+list[i]+"/"+dataitems[i],
+							type: "get",
+							cache:false,
+							async:false,
+							dataType:'json',
+							success:function(json){
+								if(json.code == 0){
+									comments =json.data.numcomments;
+									comments +=comments;
+								}else {
+									console.log("报错");
+								}
+							}
+						});
+					}
+
+					/*commentsnum.push(comments);
+					alert(commentsnum[i]);*/
+
 	                $("#loading").empty();
 	                var times=json.data.optime;
 	                var jdTime=times.substring(0, times.indexOf("."));
@@ -375,7 +400,6 @@ function forList(list,type){
 	                        }
 	                    }
 	                });
-	                
 	                if(type=="1"){
 	            		
 	            	}
@@ -427,7 +451,11 @@ function forList(list,type){
 	         							"<img src='images/newpic003.png' data-toggle='tooltip' datapalecement='top' title='pull量'>"+
 	         							"<span style='margin-left: 20px;'>"+transnum+"</span>"+ 
 	         						"</div>"+
-	         					"</div>"+
+									 "<div class='comment'>"+
+									 "<img src='../images/selects/comment.png' data-toggle='tooltip' datapalecement='top' title='评论量'>"+
+									 "<span style='margin-left: 20px;'>"+comments+"</span>"+
+									 "</div>"+
+									"</div>"+
 	         				"</div>"+
 	         			"</div>"	                    		
 	                             

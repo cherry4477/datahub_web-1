@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="DataHub，批量数据，API数据，流式数据，数据流动，数据交易，运营商数据，空气质量数据，免费数据调用，数据版权保护，大数据，电商数据，物流数据，交通数据" />
-    <meta name="description" content="DataHub是国内首个P2P去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
+    <meta name="description" content="DataHub是国内首个去中心化、P2P大数据流通平台，通过将DataHub协议开源，致力于与全社会一起共建一套数据流通协议，打造数据互联网，让数据流通在阳光下流通。" />
 	<title>message.DataHub</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/command.css">
@@ -372,7 +372,7 @@
 			                    if(phase==10){
 				                    var sellername=json.data.results[i].data.sellername; //用户
 				                    sellername=ajaxReUser(sellername);
-			                    	s="管理员：您申请订购的"+repname+"/"+itemname+"“"+money+""+planType+"="+units+"条，有效期"+expire+"天的订购合同，"+sellername+"已同意。由于您余额不足，此次订购未成功。您可以充值后重新订购。点击<a href='javascript:void(0);'>充值</a>。";
+			                    	s="管理员：您申请订购的<a class='acomRe' target='_blank' href='itemDetails.html?repname="+repname+"&itemname="+itemname+"'>"+repname+"/"+itemname+"</a>"+money+""+planType+"="+units+"条，有效期"+expire+"天的订购合同，"+sellername+"已同意。由于您余额不足，此次订购未成功。您可以充值后重新订购。点击<a href='javascript:void(0);'>充值</a>。";
 			                    	$("#terminal-content-body").append(""+
 					    	        		"<div class='record'>"+
 					    	        			"<div class='head'>"+
