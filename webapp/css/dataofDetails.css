@@ -210,13 +210,19 @@
 	margin-top: 20px;
 	margin-left: 20px;
 	width: 50%;
-	float: left;
+	float: right;
 }
 
 .download{
 	padding-top: 15px;
 	float: left;
 	margin-left: -30px;
+}
+.comment{
+	float: right;
+	padding-top: 15px;
+	width: 50%;
+
 }
 
 .download #download>span:nth-child(1){

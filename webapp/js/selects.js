@@ -69,6 +69,7 @@ function changebg(index){
 var lablename={};
 
 $("body").on("click","#navigator_ul li",function(){
+
     $(".be-loader").show();
     window.clickindex = $(this).index();
     //$(".repoAll").empty().append("<div class='container-fluid' id='loading'><p style='float:left;margin-bottom:30px;width:100%;' class='text-center'>正在加载请稍后...</p></div>");
@@ -163,6 +164,7 @@ function get_type(){
 }
 //  加载全部数据
 function appendList(pages){
+    $(".be-loader").show();
     $(".repoAll").empty();
     pages=pages+1;
     ajaxRe(pages);
@@ -171,14 +173,16 @@ function appendList(pages){
 }
 //按左侧导航分类发送请求加载数据；
 function appendList2(pages){
+    $(".be-loader").show();
     $(".repoAll").empty();
     pages=pages+1;
     hanvelables(pages);
     addhtml();
     $('[data-toggle="tooltip"]').tooltip();
 }
-//按左侧导航分类发送请求加载数据；
+//按首页跳转请求加载数据；
 function appendList3(pages,lab){
+    $(".be-loader").show();
     $(".repoAll").empty();
     pages=pages+1;
     hanvelables3(pages,lab);
@@ -192,10 +196,8 @@ function hanvelables(pages){
     if(lablename == '全部精选'){
         url = ngUrl+"/selects?select_labels"+"&size=10&page="+pages;
     }else{
-        lablename=encodeURIComponent(lablename);
-        url = ngUrl+"/selects?select_labels="+lablename+"&size=10&page="+pages;
+        url = ngUrl+"/selects?select_labels="+encodeURIComponent(lablename)+"&size=10&page="+pages;
     }
-
     $.ajax({
         url: url,
         type: "get",
@@ -205,7 +207,6 @@ function hanvelables(pages){
         headers:headerToken,
         success:function(json){
             if(json.data.select.length!=0){
-                console.log(json.data.total);
                 window.paegeitems2=json.data.total;
                 var pages=json.data.select.length;
                 for(var i=0;i<pages;i++){
@@ -455,7 +456,6 @@ function addhtml(){
                     price_style="暂无";
                     price_sheet="wu_sheet";
                 }
-
 
 
                 $repo_right.append(""+
