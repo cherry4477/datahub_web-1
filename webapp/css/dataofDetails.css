@@ -213,13 +213,18 @@
 	margin-top: 20px;
 	margin-left: 20px;
 	width: 50%;
-	float: left;
+	float: right;
 }
 
 .download{
 	padding-top: 15px;
 	float: left;
-	margin-left: -30px;
+	margin-left: -29px;
+}
+.comment{
+	float: right;
+	padding-top: 15px;
+	width: 50%;
 }
 
 .download #download>span:nth-child(1){
@@ -300,7 +305,7 @@
 	display: inline ;
 }
 .carts>span{
-	margin-left: 15px ;
+	margin-left: 16px ;
     width: 30px ;
 }
 

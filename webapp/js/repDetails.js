@@ -77,7 +77,7 @@ $(function() {
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
         $.ajax({
-            url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
+            url: ngUrl + "/repositories/" + repname + "?items=1&size=2&page="+pages,
             cache: false,
             async: false,
             headers:headerToken,
@@ -121,15 +121,12 @@ $(function() {
     getAjax(ngUrl + "/transaction_stat/" +repname,function(msg){
         $(".numpulls").html(msg.data.numpulls);
     });
-    var dataitemd = [];
-    var dataitemdpullNum = [];
-    var dataitemstarNum= [];
-    var dataitemdcommentNum=[];
+
     function getitemDeteails(){
-        dataitemd = [];
-        dataitemdpullNum = [];
-        dataitemstarNum= [];
-        dataitemdcommentNum=[];
+        var dataitemd = [];
+        var dataitemdpullNum = [];
+        var dataitemstarNum= [];
+        var dataitemdcommentNum=[];
         for(var i= 0;i<datas.length;i++) {
             //返回该DataItem的订阅量
             getAjax(ngUrl + "/subscription_stat/" +datas[i],function(msg){
@@ -215,10 +212,16 @@ $(function() {
                             }
                         }
                     });
+                    getAjax(ngUrl + "/star_stat/" +repname+"/"+datas[i],function(msg){
+                        apendjson.dataitemstarNum = msg.data.numstars;
+                    });
+                    getAjax(ngUrl + "/comment_stat/" +repname+"/"+datas[i],function (msg) {
+                        apendjson.dataitemdcommentNum = msg.data.numcomments;
+                    });
                   //  apendjson.dataitemd = dataitemd;
                   //  apendjson.dataitemdpullNum = dataitemdpullNum;
-                    apendjson.dataitemstarNum = dataitemstarNum;
-                    apendjson.dataitemdcommentNum = dataitemdcommentNum;
+                  //  apendjson.dataitemstarNum = dataitemstarNum;
+                  //  apendjson.dataitemdcommentNum = dataitemdcommentNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
             });
@@ -229,7 +232,7 @@ $(function() {
     funitemList();
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
-        items_per_page: 6,
+        items_per_page: 2,
         num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",
@@ -242,6 +245,7 @@ $(function() {
     });
     $('.pagination a').attr('href','javascript:void(0)')
     function fenS(new_page_index){
+        getitemDeteails();
         getrepname(new_page_index+1);
         fornum = datas.length;
         apendjson = {};
@@ -250,7 +254,6 @@ $(function() {
         if($.cookie("token")!=null&&$.cookie("token")!="null"){
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
-        getitemDeteails();
         $('.bigBox').empty();
         // alert(ngUrl + "/repositories/" + repname + "/"+datas[1]);
         for(var i=0;i<fornum;i++) {
@@ -312,7 +315,14 @@ $(function() {
                             }
                         }
                     });
-                    apendjson.dataitemstarNum = dataitemstarNum;
+                    getAjax(ngUrl + "/star_stat/" +repname+"/"+datas[i],function(msg){
+                        apendjson.dataitemstarNum = msg.data.numstars;
+                    });
+                    getAjax(ngUrl + "/comment_stat/" +repname+"/"+datas[i],function (msg) {
+                        apendjson.dataitemdcommentNum = msg.data.numcomments;
+                    });
+                    //apendjson.dataitemstarNum = dataitemstarNum;
+                    //apendjson.dataitemdcommentNum = dataitemdcommentNum;
                     apendBigbox(apendjson,i,labelstr);
                 }
             });
@@ -375,7 +385,7 @@ function apendBigbox(apendjson,i,labelstr){
         '<div class="iconGroup">'+
         '<div class="like">'+
         '<img style=""src="images/newpic001.png" data-toggle="tooltip" datapalecement="top" title="点赞量">'+
-        '<span>' + apendjson.dataitemstarNum[i] + '</span>'+
+        '<span>' + apendjson.dataitemstarNum + '</span>'+
         '</div>'+
         '<div class="cart">'+
         '<img style=""src="images/newpic002.png" data-toggle="tooltip" datapalecement="top" title="订购量">'+
@@ -387,7 +397,7 @@ function apendBigbox(apendjson,i,labelstr){
         '</div>'+
         '<div class="comment">'+
         '<img style=""src="../images/selects/comment.png" data-toggle="tooltip" datapalecement="top" title="评论量">'+
-        '<span>'+apendjson.dataitemdcommentNum[i]+'</span>'+
+        '<span>'+apendjson.dataitemdcommentNum+'</span>'+
         '</div>'+
         '</div>'+
         '</div>';
@@ -628,7 +638,6 @@ function hot(){
         headers:headerToken,
         success:function(json) {
             var iname=json.data.dataitems;
-            console.log();
             for (i=0;i<json.data.dataitems.length;i++){
                  //alert(json.data.length)
                 var pnum = purchase(iname[i]);

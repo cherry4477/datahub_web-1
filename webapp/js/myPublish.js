@@ -1361,6 +1361,7 @@ function postrepo(){
 //////////////////开放repo//////////////////////
     $("#openRepo").click(function(){
         //判断是否有配额数
+        $('.xiugaireperror').remove();
         $.ajax({
             url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
             type:"get",
@@ -1398,6 +1399,7 @@ function postrepo(){
 ///////////////////////////新增私有repo///////////////////////////
     $("#privateRepo").click(function(){
         //判断是否有配额数
+        $('.xiugaireperror').remove();
         $.ajax({
             url: ngUrl+"/quota/"+$.cookie("tname")+"/repository",
             type:"get",
