@@ -864,6 +864,10 @@ $(function() {
                         if(deluser.code == 0){
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
+                            if($('#'+thisrepoName).find('.pricetype').length <= 0 && thiscooperatorcon.total>0){
+                                var thisiscooperatestat = '<span class="pricetype freetype reptoppr">协作</span>';
+                                $('#'+thisrepoName).append(thisiscooperatestat)
+                            }
                             $('.'+thisrepoName).html('协作者管理（'+thiscooperatorcon.total +'）');
                             
                         }

@@ -103,11 +103,11 @@ $(function(){
     }
 //返回该DataItem的订阅量
     getAjax(ngUrl + "/subscription_stat/"+itemname,function(msg){
-        $('.myitempull').html(msg.data.numsubs);
+        $('.myitemdy').html(msg.data.numsubs);
     });
 //返回该DataItem的pull量
     getAjax(ngUrl + "/transaction_stat/"+repname+"/"+itemname,function(msg){
-        $('.myitemdy').html(msg.data.numpulls);
+        $('.myitempull').html(msg.data.numpulls);
     });
 // 返回item的star量
     getAjax(ngUrl + "/star_stat/"+repname+"/"+itemname,function(msg){
@@ -503,7 +503,7 @@ $(function(){
             if(isnimitid.is(':checked') == true){
                 if(limitnum){
                     if(!reg.test(limitnum)){
-                        $('#itemmess').html('限购次数必须为数字').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
+                        $('#itemmess').html('限购次数必须为大于0的整数').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300)
                         //alert("限购次数必须为数字");
                         return;
                     }
