@@ -5,11 +5,31 @@
 	font-size: 27px;
 	color: #333333;
 }
+.top_nav {
+	border-bottom: 1px solid #c8c8c8;
+	font-size: 27px;
+	overflow: hidden;
+	padding-top: 40px;
+	width: 100%;
+}
+.topanvcon {
+	border-bottom: 4px solid #fff;
+	color: #43609f;
+	cursor: pointer;
+	float: left;
+	overflow: hidden;
+	padding-bottom: 40px;
+	width: 50%;
+	height: 105px;
+}
+.cur {
+	border-bottom: 4px solid #43609f;
+}
 .dataitem p{
-	font-size: 12px bold;
+	font-size: 12px;
 	color: #333333;
 	margin-top: 7px;
-	padding-bottom: 41px;
+	/*padding-bottom: 41px;*/
 }
 /* .dataitem:hover p{
 	font-size: 12px bold;
@@ -38,7 +58,7 @@
 	float:left;
 }
 .orderNum p{
-	font:14px ;
+	font-size:14px ;
 	color: #000000;
 }
 .orderNum span{
@@ -49,7 +69,7 @@
 	float:right;
 }
 .orderTime p{
-	font:14px ;
+	font-size:14px ;
 	color: #000000;
 	padding-left: 36px;
 }
@@ -84,7 +104,7 @@
 .description{
 	float:left;
 	padding-bottom: 20px;
-	font:14px;
+	font-size:14px;
 	color: #333333;
 	line-height: 20px;
 	width:470px;
@@ -133,7 +153,7 @@
 }
 .price{
 	float:left;
-	width:15%;
+	width:20%;
 	height:140px;
 	padding-top: 40px;
 	margin-left: 70px;
@@ -145,19 +165,29 @@
 	padding-bottom: 20px;
 	width: 210px; 
 	border-left-width: 70px; 
-	font:14px #666666;
-}
-}
-.button{
-	height:30px;
-	width:112px;
-	float: left;
-	width: 90px;
-	margin-top: 68px;
-	margin-bottom: 50px;
-	margin-left: 100px;"
+	font-size:14px ;
+	color:#666666;
 }
 
+.button{
+	height:42px;
+	/*width:112px;*/
+	float: left;
+	width: 96px;
+	margin-top: 68px;
+	/*margin-bottom: 50px;*/
+	/*margin-left: 100px;"*/
+}
+.mypushcomment {
+	overflow: hidden;
+	width: 100%;
+	margin-top:60px;
+}
+.mypushcomment li {
+	display: none;
+	overflow: hidden;
+	width: 100%;
+}
 .repoE{
 	margin-bottom:60px;
 	float:left;

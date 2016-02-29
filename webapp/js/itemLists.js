@@ -1,7 +1,11 @@
 
 $(function () {
-	
 })
+	$('.mypushcomment li').eq(0).show();
+	$('.top_nav div').click(function(){
+		$(this).addClass('cur').siblings().removeClass('cur');
+		$('.mypushcomment li').eq($(this).index()).show().siblings().hide();
+	});
 
 var type=0;
 var size=0;
@@ -110,7 +114,7 @@ function ajaxFunHtml(type,size,page){
 		        		});
 		        		//订单状态
 		        		var orderStatus=json.data.results[i].phase;
-		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
+		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; ";
 		        		if(orderStatus=="5"){
 		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 		        		}
@@ -565,7 +569,7 @@ function ajaxTotal(type,size){
 	        		});
 	        		//订单状态
 	        		var orderStatus=json.data.results[i].phase;
-	        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
+	        		var btnStyle="padding: 10px 32px; border-top-width: 0px;";
 	        		if(orderStatus=="5"){
 	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 	        		}

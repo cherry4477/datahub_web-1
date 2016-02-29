@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="css/myOrders.css">
 	<link rel="stylesheet" href="css/pagination.css"/>
+	<link rel="stylesheet" href="./css/mypullDetails.css">
 </head>
 <style>
 .pagination a, .pagination span{
@@ -63,14 +64,30 @@
 	<header></header>
 	<!--内容-->
 	<div class="container" style="padding:0px; margin-top:40px; margin-bottom:100px;">
-		<div class="title">
-			<p>我的订购</p>
+		<div class="top_nav">
+			<div class="topanvcon cur">
+				我的订购
+				<div class="dataitem">
+					<p>DataItem:<span id="itemnum"></span></p>
+				</div>
+			</div>
+			<div class="topanvcon">Pull记录</div>
 		</div>
-		<div class="dataitem">
-			<p>DataItem:<span id="itemnum"></span></p>
-		</div>
-		<div id="terminal-content-body" style="float:left; width: 100%;"></div>
-		<div class="pages"></div>	
+		<ul class="mypushcomment">
+			<li>
+
+				<div id="terminal-content-body" style="float:left; width: 100%;"></div>
+				<div class="pages"></div>
+			</li>
+			<li>
+				<div id="pull-head"><b>Pull 记录</b></div>
+				<div id="pull-body">
+
+				</div>
+				<div class="pullpages"></div>
+			</li>
+		</ul>
+
 	</div>		
 	<footer></footer>
 
@@ -87,6 +104,7 @@
 	<script src='js/errorDialog.js'></script>
 	<script src="js/jquery.pagination.js"></script>
 	<script src='js/itemLists.js'></script>
+	<script src="js/mypullDetails.js"></script>
 	<script>
 		$("a").focus(function(){this.blur()});
 		$("header").load("common/header.html");

@@ -83,7 +83,7 @@ $(function(){
         });
     }
     getcurrpullnum(1);
-    $(".pages").pagination(pulltotal, {
+    $(".pullpages").pagination(pulltotal, {
         maxentries:pulltotal,
         items_per_page: 30,
         num_display_entries: 1,

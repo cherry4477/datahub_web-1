@@ -1,6 +1,16 @@
 body{
     background: #f5f5f5;
 }
+.top_nav {
+    border-bottom: 1px solid #c8c8c8;
+    font-size: 27px;
+    overflow: hidden;
+    padding-top: 40px;
+    width: 100%;
+}
+.cur {
+    border-bottom: 4px solid #43609f;
+}
 .container{
     padding-bottom: 50px;
 }
