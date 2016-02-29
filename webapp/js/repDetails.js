@@ -482,11 +482,11 @@ function download_icon(repoName){
      return downloadAmount;
 }
 //the amount of comment
-function getComment(repoName){
+function getComments(repoName){
     var commentAmount=0;
     var allCommentAmount=0;
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName,
+        url: ngUrl+"/repositories/"+repoName+"?items=1",
         type: "GET",
         cache:false,
         async:false,
@@ -499,7 +499,7 @@ function getComment(repoName){
                     for(var i=0;i<len;i++){
                         var itemName=dataItem[i];
                         $.ajax({
-                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
                             type: "GET",
                             cache:false,
                             async:false,
@@ -520,7 +520,10 @@ function getComment(repoName){
 }
 
 $(document).ready(function(){
+    var repoName=getParam("repname");
     hot();
+   var allCommentAmount= getComments(repoName);
+    $(".numcomments").text(allCommentAmount);
 });
 
 //the amount of like:star
