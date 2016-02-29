@@ -317,10 +317,10 @@ function forList(list,type){
 					var items=json.data.items;
 					var dataitems=json.data.dataitems;
 
-					for(var i=0;i<items;i++){
+					for(var j=0;j<items;j++){
 						var comments=0;
 						$.ajax({
-							url: ngUrl+"/comment_stat/"+list[i]+"/"+dataitems[i],
+							url: ngUrl+"/comment_stat/"+list[j]+"/"+dataitems[j],
 							type: "get",
 							cache:false,
 							async:false,
@@ -335,7 +335,9 @@ function forList(list,type){
 							}
 						});
 					}
-
+					if(comments==undefined||comments==""){
+						comments=0;
+					}
 					/*commentsnum.push(comments);
 					alert(commentsnum[i]);*/
 
