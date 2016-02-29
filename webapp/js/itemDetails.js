@@ -34,7 +34,7 @@ $(function(){
 
     closewrap();//关闭弹窗
 
-    //hot();//the hottest items 
+
     
 });
 $(document).ready(function(){
@@ -55,6 +55,7 @@ $(document).ready(function(){
         var subrepo=repo.substring(0,45);
         $("#titleName .itemname").text(subrepo);
     }
+
 });
 
 
@@ -607,6 +608,7 @@ function closewrap(){
                 $("#price_plan").hide();
                 $("#upcoming_release").show();
             }
+
             //$("#hurry_buy").text("登录后订购");
 
             $("#hurry_buy").click(function(){
@@ -687,6 +689,13 @@ function closewrap(){
                     }
                 }
             });
+        }
+        var upcomsta=$("#upcoming_release").is(":visible");
+        //var display =$('#upcoming_release').css('display');
+        if(upcomsta){
+            $(".price-style").hide();
+        }else{
+            $(".price-style").show();
         }
     });
 }
