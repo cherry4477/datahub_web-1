@@ -1598,14 +1598,14 @@ function hot(){
                 $place.append(""+
                     "<div class='completeDiv2'  style='float: left'>"+
                     "<a href='"+url+"'><p class='subtitle2' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p></a>"+
-                    "<div class='icons2' style='float:left;'>"+
-                    "<div class='like2' style='margin-top: 0px; margin-left:10px; width: 90px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
+                    "<div class='icons2'>"+
+                    "<div class='like2'>"+"<img src='images/newpic001.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
                     +"</div>"
-                    +"<div calss='cart2' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_12.png' style='padding-right: 15px;'>"+"<span>"+dnum+"</span>"
+                    +"<div class='cart2'>"+"<img src='images/newpic002.png' style='padding-right: 15px;'>"+"<span>"+dnum+"</span>"
                     +"</div>"
-                    +"<div class='download2' style='float:left; margin-left:10px; margin-top:15px; width: 113px;'>"+"<img src='images/selects/images_10.png'>"+"<span style='margin-left: 10px;'>"+pnum+"</span>"
+                    +"<div class='download2'>"+"<img src='images/newpic003.png'>"+"<span style='margin-left: 10px;'>"+pnum+"</span>"
                     +"</div>"
-                    +"<div class='comment2' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
+                    +"<div class='comment2' >"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
                     +"</div>"+"</div>"+"</div>"+"</div>");
             }
         }

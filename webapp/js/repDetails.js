@@ -521,49 +521,57 @@ function getComments(repoName){
 
 $(document).ready(function(){
     var repoName=getParam("repname");
-    hot();
    var allCommentAmount= getComments(repoName);
     $(".numcomments").text(allCommentAmount);
+
+    getUserEmail();
 });
 
+//获取reponame,itemname
+function getParam(key) {
+    var value='';
+    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+        value = itemid.exec(decodeURIComponent(window.location.href))[1];
+    }
+    return value;
+}
+
 //the amount of like:star
-function subscription(itemName){
-    var headerToken={};
+function subscription(repoName){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     var starAmount = '';
-    var repoName=getParam("repname");
     $.ajax({
-        url: ngUrl + "/star_stat/" + repoName + "/" + itemName,
+        url: ngUrl + "/star_stat/"+repoName,
         type: "GET",
         cache: false,
         async: false,
         dataType: 'json',
-        headers: headerToken,
+        //headers: {Authorization: "Token " + $.cookie("token")},
         success: function (json) {
-            if(json.code == 0){
+            if(json.code == 0) {
                 starAmount = json.data.numstars;
             }
         }
     });
     return starAmount;
 }
+
 //the amount of purchase icon cart
-function purchase(itemName){
-    var headerToken={};
+function purchase(repoName){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     var purchaseAmount = '';
-    var repoName=getParam("repname");
     $.ajax({
-        url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
+        url: ngUrl+"/subscription_stat/"+repoName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        headers:headerToken,
+        //headers:{Authorization:"Token "+$.cookie("token")},
         success:function(json){
             if(json.code == 0){
                 //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
@@ -574,20 +582,18 @@ function purchase(itemName){
     return purchaseAmount;
 }
 //the amount of download the icon download
-function download_icon(itemName){
-    var headerToken={};
+function download_icon(repoName){
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     var downloadAmount ='';
-    var repoName=getParam("repname");
     $.ajax({
-        url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
+        url: ngUrl+"/transaction_stat/"+repoName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        headers:headerToken,
+        //headers:{Authorization:"Token "+$.cookie("token")},
         success:function(json){
             if(json.code == 0){
                 downloadAmount = json.data.numpulls;
@@ -597,70 +603,97 @@ function download_icon(itemName){
     return downloadAmount;
 }
 //the amount of comment
-function getComment(itemName){
-    var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    var commentAmount='';
-    var repoName=getParam("repname");
+function getComment(repoName){
+    var commentAmount=0;
+    var allCommentAmount=0;
     $.ajax({
-        url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
+        url: ngUrl+"/repositories/"+repoName,
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
-        headers:headerToken,
         success:function(json){
             if(json.code == 0){
-                commentAmount=json.data.numcomments;
+                if(json.data.dataitems!=null){
+                    var dataItem=json.data.dataitems;
+                    var len=json.data.items;
+                    for(var i=0;i<len;i++){
+                        var itemName=dataItem[i];
+                        $.ajax({
+                            url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
+                            type: "GET",
+                            cache:false,
+                            async:false,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.code == 0){
+                                    commentAmount=json.data.numcomments;
+                                }
+                            }
+                        });
+                        allCommentAmount+=commentAmount;
+                    }
+                }
             }
         }
     });
-    return commentAmount;
+    return allCommentAmount;
 }
 
-function hot(){
-    var headerToken={};
-    if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
-    }
-    //get current reponame
-    var repoName=getParam("repname");
-    $("#titleName .itemname").text(itemName);
+var $place=$("<div></div>").appendTo($("#hot"));
+//get currently user's loginname(email)
+function getUserEmail(){
+    var repname = getParam("repname");
+    var loginEmail = '';
+     $.ajax({
+         url: ngUrl +"/repositories/"+repname,
+         type: "get",
+         cache: false,
+         async: false,
+         success: function (jsons) {
+         loginEmail = jsons.data.create_user;
+         //get username
 
-    var repoName=getParam("repname");
-    var itemName=getParam("itemname");
-    var $place=$("<div></div>").appendTo($("#hot"));
-    $.ajax({
-        url: ngUrl+"/repositories/"+repoName+"?items=1&size=3",
-        type: "GET",
-        cache:false,
-        async:false,
-        dataType:'json',
-        headers:headerToken,
-        success:function(json) {
-            var iname=json.data.dataitems;
-            for (i=0;i<json.data.dataitems.length;i++){
-                 //alert(json.data.length)
-                var pnum = purchase(iname[i]);
-                var dnum = download_icon(iname[i]);
-                var starnum = subscription(iname[i]);
-                var commentnum = getComment(iname[i]);
-                var url ="itemDetails.html?repname="+repoName+"&itemname="+iname[i];
-                $place.append(""+
-                    "<div id='completeDiv'  style='float: left'>"+
-                    "<a href='"+url+"'><p ID='subtitle' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p></a>"+
-                    "<div ID='icons' style='float:left;'>"+
-                    "<div ID='like' style='margin-top: 0px; margin-left:10px; width: 90px;'>"+"<img src='images/selects/images_08.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
-                    +"</div>"
-                    +"<div ID='cart' style='float: left; width: 50%; margin-top: 0px; margin-bottom: 15px;'>"+"<img src='images/selects/images_12.png' style='padding-right: 15px;'>"+"<span>"+dnum+"</span>"
-                    +"</div>"
-                    +"<div ID='download' style='float:left; margin-left:10px; margin-top:15px; width: 113px;'>"+"<img src='images/selects/images_10.png'>"+"<span style='margin-left: 10px;'>"+pnum+"</span>"
-                    +"</div>"
-                    +"<div ID='comment' style='float: left; width: 45px; margin-bottom: 15px; margin-left: -23px;'>"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
-                    +"</div>"+"</div>"+"</div>"+"</div>");
-            }
+            $.ajax({
+                url: ngUrl +"/users/"+loginEmail,
+                type: "get",
+                cache: false,
+                async: false,
+                success: function (jsons){
+            //get reponame
+
+            var repoName = '';
+            $.ajax({
+                url: ngUrl +"/repositories/"+"?size=3&username="+loginEmail,
+                type: "get",
+                cache: false,
+                async: false,
+                success: function (jsons) {
+
+                    for (i=0;i<jsons.data.length;i++){
+                        repoName=jsons.data[i].repname;
+                        var like = subscription(repoName);
+                        var cart =purchase(repoName);
+                        var download =download_icon(repoName);
+                        var comment = getComment(repoName);
+                        var url ="repDetails.html?repname="+repoName
+                        $place.append(""+
+                            "<div class='completeDiv'  style='float: left;'>"+
+                            "<a href='"+url+"'> <p class='subtitle'>"+repoName+"</p></a>"+
+                            "<div class='icons' >"+
+                            "<div class='likes' >"+"<img src='images/newpic001.png'>"+"<span>"+like+"</span>"
+                            +"</div>"
+                            +"<div class='carts' >"+"<img src='images/newpic002.png'>"+"<span>"+cart+"</span>"
+                            +"</div>"
+                            +"<div class='downloads' >"+"<img src='images/newpic003.png'>"+"<span>"+download+"</span>"
+                            +"</div>"
+                            +"<div class='comments' >"+" <img src='../images/selects/comment.png'>"+"<span>"+comment+"</span>"
+                            +"</div>"+"</div>"+"</div>"+"</div>");
+                    }
+                }
+            });
         }
     });
+   }
+});
 }

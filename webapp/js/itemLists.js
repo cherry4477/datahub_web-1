@@ -53,7 +53,7 @@ function ajaxFunHtml(type,size,page){
 		
 	}
 	if(type=="4"){
-		getUserEmail();
+		//getUserEmail();
 	    $("#terminal-content-body").empty();
 		url=ngUrl+"/repositories?username="+getParam("username")+"&size="+size+"&page="+page;
 		$.ajax({
@@ -858,7 +858,7 @@ function ajaxReUser(){
 }
 
 //获取reponame,itemname
-function getParam(key) {
+/*function getParam(key) {
     var value='';
     var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
     if (itemid.test(decodeURIComponent(window.location.href))) {
@@ -950,7 +950,7 @@ function getComment(repoName){
                     for(var i=0;i<len;i++){
                         var itemName=dataItem[i];
                         $.ajax({
-                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
                             type: "GET",
                             cache:false,
                             async:false,
@@ -970,23 +970,21 @@ function getComment(repoName){
     return allCommentAmount;
 }
 
-$(document).ready(function(){
-   // getUserEmail();
-});
+
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
-        /*var loginEmail = '';
+        /!*var loginEmail = '';
         var repname = '';
         $.ajax({
             url: ngUrl +"/repositories/"+repname,
             type: "get",
             cache: false,
             async: false,
-            success: function (jsons) {   
+            success: function (jsons) {
                 loginEmail = jsons.data.create_user;
                 //get username
-                    var userName = '';*/
+                    var userName = '';*!/
                     var username = getParam("username");
                     $.ajax({
                         url: ngUrl +"/users/"+username,
@@ -1036,4 +1034,4 @@ function getUserEmail(){
         }); 
     //}
 //});
-}
+}*/

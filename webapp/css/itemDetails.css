@@ -575,7 +575,7 @@ word-break: break-all;*/
     line-height: 24px;
 }
 #about .span_time>span:nth-child(1){
-    background-image: url('/images/icon_time.png');
+    background-image: url('../images/icon_time.png');
     background-repeat: no-repeat;
     background-position: 0px 0px;
     display: inline-block;
@@ -652,6 +652,8 @@ word-break: break-all;*/
     padding-right: 3px;
 
 }
+
+
 #hot{
     margin-top:78px;
 }
@@ -681,43 +683,30 @@ word-break: break-all;*/
     white-space: nowrap;
     padding-left: 10px;
 }
+.icons2{
+    float:left;
+    width: 100%;
+    padding-left: 10px;
+}
 .subtitle2 p:hover{
     color:#395289;
 }
 
-.like2{
-    margin-top: 25px;
+.like2,.cart2,.download2,.comment2{
     width:50%;
     float:left;
+    margin-bottom: 20px;
 }
 #like_pic{
     margin-left: 10px;
     padding-right: 15px; 
 }
-.cart2{
-    float:left;
-    width: 50%;
-    margin-top: 25px;
-    margin-bottom: 15px;
-}
 #cart_pic{
     padding-right: 15px;
-}
-.download2{
-    float:left;
-    width: 50%;
-    margin-top: 15px;
-    margin-bottom: 20px;
 }
 #download_pic{
     background-image: url('../images/icon_download.png');
     padding-right: 15px; 
-}
-.comment2{
-    float:right;
-    width: 50%;
-    margin-top: 15px;
-    margin-bottom: 15px;
 }
 #comment_pic{
    padding-right: 15px; 
