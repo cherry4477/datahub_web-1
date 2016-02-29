@@ -666,19 +666,26 @@ word-break: break-all;*/
 }   
 
 #title {
-    font:16px #333333;
+    font-size:16px;
+    color: #333333;
     padding-bottom: 20px;
     border-bottom:1px solid #8c97cb;
 }
-#subtitle{
+.subtitle2{
     padding-top: 20px;
-    font:20px bold #43609f;
+    font:20px bold ;
+    color:#43609f;
+    width: 260px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 10px;
 }
-#subtitle p:hover{
+.subtitle2 p:hover{
     color:#395289;
 }
 
-#like{
+.like2{
     margin-top: 25px;
     width:50%;
     float:left;
@@ -687,7 +694,7 @@ word-break: break-all;*/
     margin-left: 10px;
     padding-right: 15px; 
 }
-#cart{
+.cart2{
     float:left;
     width: 50%;
     margin-top: 25px;
@@ -696,18 +703,18 @@ word-break: break-all;*/
 #cart_pic{
     padding-right: 15px;
 }
-#download{
+.download2{
     float:left;
     width: 50%;
     margin-top: 15px;
     margin-bottom: 20px;
 }
 #download_pic{
-    background-image: url('/images/icon_download.png');
+    background-image: url('../images/icon_download.png');
     padding-right: 15px; 
 }
-#comment{
-    float:left;
+.comment2{
+    float:right;
     width: 50%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -900,6 +907,6 @@ word-break: break-all;*/
 #subscriptDialog .subafterprocess .failed2 .head .text{
     color:#ec6467;
 }
-#completeDiv:hover{
+.completeDiv2:hover{
     background-color:#f3fbfe;
 }
