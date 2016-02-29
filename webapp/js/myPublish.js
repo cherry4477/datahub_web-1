@@ -183,15 +183,16 @@ $(function() {
         if(repocon.repaccesstype == 'public'){
             ispublic = '开放';
         }else{
-            var permissioncon = getpermission(iscooperatestate.repname,1,0);
-            // console.log(permissioncon)
-            if(permissioncon == 'null' || permissioncon == '' || permissioncon == 'undefined'){
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>0</span>）</p>';
-            }else{
-                baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>'+permissioncon.total+'</span>）</p>';
+            if(iscooperatestate.cooperatestate != "协作中"){
+                var permissioncon = getpermission(iscooperatestate.repname,1,0);
+                // console.log(permissioncon)
+                if(permissioncon == 'null' || permissioncon == '' || permissioncon == 'undefined'){
+                    baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>0</span>）</p>';
+                }else{
+                    baimingdan = '<p class="baimingdan" datareponame="'+iscooperatestate.repname+'">白名单管理（<span>'+permissioncon.total+'</span>）</p>';
+                }
+                ispublic = '私有';
             }
-            ispublic = '私有';
-
         }
         var dataitemsalllist = '';
         if(repocon.dataitems){
@@ -199,13 +200,15 @@ $(function() {
         }else{
             dataitemsalllist = 'itemdata=""';
         }
-        var xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
-        var cooperator = getcooperator(iscooperatestate.repname);
-        if(cooperator == 'null' || cooperator == '' || cooperator == 'undefined' || cooperator == 'error'){
-            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>0</span>）</p>';
-        }else{
+        if(iscooperatestate.cooperatestate != "协作中") {
+            var xizuozhe = '<p class="xiezuozhe ' + iscooperatestate.repname + '" datareponame="' + iscooperatestate.repname + '" dataispublic="' + repocon.repaccesstype + '">协作者管理（<span>0</span>）</p>';
+            var cooperator = getcooperator(iscooperatestate.repname);
+            if (cooperator == 'null' || cooperator == '' || cooperator == 'undefined' || cooperator == 'error') {
+                xizuozhe = '<p class="xiezuozhe ' + iscooperatestate.repname + '" datareponame="' + iscooperatestate.repname + '" dataispublic="' + repocon.repaccesstype + '">协作者管理（<span>0</span>）</p>';
+            } else {
 
-            xizuozhe = '<p class="xiezuozhe '+iscooperatestate.repname+'" datareponame="'+iscooperatestate.repname+'" dataispublic="'+repocon.repaccesstype+'">协作者管理（<span>'+cooperator.total+'</span>）</p>';
+                xizuozhe = '<p class="xiezuozhe ' + iscooperatestate.repname + '" datareponame="' + iscooperatestate.repname + '" dataispublic="' + repocon.repaccesstype + '">协作者管理（<span>' + cooperator.total + '</span>）</p>';
+            }
         }
         var repotiems = getTimes(repocon.optime);
         //右侧rep
@@ -951,6 +954,9 @@ $(function() {
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             addcooperatorhtml(thiscooperatorcon);
                             if(thiscooperatorcon == 'error'){
+                                if($('#'+thisrepoName).find('.pricetype').length > 0){
+                                    $('#'+thisrepoName).find('.pricetype').remove();
+                                }
                                 $("."+thisrepoName).html("协作者管理（0）");
 
                             }else{
@@ -996,6 +1002,9 @@ $(function() {
                             var thiscooperatorcon = getcooperator(thisrepoName);
                             if(thiscooperatorcon == 'error'){
                                 $("."+thisrepoName).html("协作者管理（0）");
+                                if($('#'+thisrepoName).find('.pricetype').length > 0){
+                                    $('#'+thisrepoName).find('.pricetype').remove();
+                                }
                             }else{
                                 $("."+thisrepoName).html("协作者管理（"+thiscooperatorcon.total+"）");
                             }
@@ -1050,12 +1059,18 @@ $(function() {
     $('#cooperatordelAllpri').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        if($('#'+thisrepoame).find('.pricetype').length > 0){
+            $('#'+thisrepoame).find('.pricetype').remove();
+        }
         perTongXie(thisrepoame,"del",0);
     })
     //////////////////////////////////////////清空公开协作者
     $('#cooperatordelAll').click(function(){
         var thisrepoame = $('.cooperator_list').attr('modal-repoName');
         delallpomitionorcoop(thisrepoame,'cooperator','.cooperator_list');
+        if($('#'+thisrepoame).find('.pricetype').length > 0){
+            $('#'+thisrepoame).find('.pricetype').remove();
+        }
         $("."+thisrepoame).html("协作者管理(0)");
         perTongXie(thisrepoame,"del",0);
     })
