@@ -283,20 +283,18 @@ function del_item(){
                 //GET /subscription_stat/:repname/:itemname?phase={phase}
                 $.ajax({
                     url: ngUrl + "/subscription_stat/" + repoName + "/" + item,
-                    type: "DELETE",
+                    type: "get",
                     cache: false,
                     async: false,
                     headers:headerToken,
                     dataType: 'json',
                     success: function (json) {
-                        numsubs=json.data.numsubs;
-                       console.log(json.data.numsubs);
+                        numsubs=json.data.numsubs;//判断是否处于订购中
                     }
                 });
-
                 if(numsubs>0){
                     var refer=confirm(item+"处于订购中，"+"确定要删除？");
-                    if(refer){
+                    if(refer==true){
                         $.ajax({
                             url: ngUrl + "/repositories/" + repoName + "/" + item,
                             type: "DELETE",
@@ -311,18 +309,21 @@ function del_item(){
                         });
                     }
                 }else{
-                    $.ajax({
-                        url: ngUrl + "/repositories/" + repoName + "/" + item,
-                        type: "DELETE",
-                        cache: false,
-                        async: false,
-                        headers:headerToken,
-                        dataType: 'json',
-                        success: function () {
-                            $(".table_content").empty();
-                            stats=1;
-                        }
-                    });
+                    var refer2=confirm("确定要删除"+item+"？");
+                    if(refer2==true){
+                        $.ajax({
+                            url: ngUrl + "/repositories/" + repoName + "/" + item,
+                            type: "DELETE",
+                            cache: false,
+                            async: false,
+                            headers:headerToken,
+                            dataType: 'json',
+                            success: function () {
+                                $(".table_content").empty();
+                                stats=1;
+                            }
+                        });
+                    }
                 }
 
             }
@@ -335,6 +336,7 @@ function del_item(){
         if(stats==1){
             alert("删除成功");
             getitemlist();
+            stats=0;
         }
     });
 }
