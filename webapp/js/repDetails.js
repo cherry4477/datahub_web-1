@@ -77,7 +77,7 @@ $(function() {
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
         $.ajax({
-            url: ngUrl + "/repositories/" + repname + "?items=1&size=2&page="+pages,
+            url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
             cache: false,
             async: false,
             headers:headerToken,
@@ -232,7 +232,7 @@ $(function() {
     funitemList();
     $(".pages").pagination(paegeitems, {
         maxentries:paegeitems,
-        items_per_page: 2,
+        items_per_page: 6,
         num_display_entries: 3,
         num_edge_entries: 3 ,
         prev_text:"上一页",

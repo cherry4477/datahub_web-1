@@ -28,7 +28,7 @@ a:hover{
     color: #29abe2;
     font-size: 1.2em;
     padding-right: 6%;
-    width: 85%;
+    width: 80%;
     float: left;
     overflow: hidden;
     padding-top:5px;
@@ -90,7 +90,7 @@ a:hover{
     color: #666;
 }
 .cur_user{
-    width: 60%;
+    width: 85%;
     overflow: hidden;
     float: left;
     font-size: 1em;
