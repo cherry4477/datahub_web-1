@@ -750,7 +750,11 @@ function hurry_buy(){
                                         }
                                     }
                                 },
-                                error:function(){
+                                error:function(json){
+                                    if ($.parseJSON(json.responseText).code == 5040) {
+                                        alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                    }
+
                                 }
                             });
                         }
