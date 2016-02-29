@@ -151,7 +151,7 @@
                         <li><a id='sign-in' href="javaScript:void(0);" style='color: #fff;font-size: 1em;margin-top: 9px;padding: 5px 10px;'>登录</a></li>   
                         -->   
                         <li style="float: left;">
-                        	<a id='sign-in' href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
+                        	<a id='sign-in' title='登录' href='javaScript:void(0);' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/login.png">
                         		  -->
@@ -159,7 +159,12 @@
                         	</a>
                         </li> 
                         <li style="float: left;">
-                        	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
+                        	<a id='sign-gj' title='工具' target="_blank" href='clientDownload.html' style='color: #fff;font-size: 1em;'>
+                        		工具
+                        	</a>
+                        </li>
+                        <li style="float: left;">
+                        	<a id='sign-help' title='帮助' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
                         		-->
@@ -167,7 +172,7 @@
                         	</a>
                         </li>
                         <li style="float: left;">
-                  			<a id='sign-blog' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
+                  			<a id='sign-blog' title='博客' target="_blank" href='http://blog.hub.dataos.io' style='color: #fff;font-size: 1em;'>
                         		<!--
                         		<img src="images/i.png">
                         		-->
@@ -245,9 +250,14 @@
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>
 					  
+                 </li>
+                 <li class="inLoginfLiF">
+                     	<a target="_blank" href='clientDownload.html' title='工具' style='color: #fff;font-size: 1em;'>
+                     		工具
+                     	</a>
                  </li> 
                  <li class="inLoginfLiF">
-                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->
@@ -263,7 +273,7 @@
                      </a>
                   </li>
                   <li id="phoneshowhelp">
-                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->
@@ -432,7 +442,7 @@
 		           		<a id="guanCom1" href='itemDetails.html?repname=Internet_stats&itemname=Ecommerce_goods'>
 							<div class="col-md-3 col-sm-6  wobble-bottom-bd1 guanNum"> 
 								<div class="wobble-bottom guanDiv">
-				           			<img src="images/guan1.png" style='margin-top:23px'/>
+				           			<img class="gdindex1" src="images/guan1.png"/>
 				           			<div class="feature-label" style='margin-top:20px;'>
 				           				电商商品库
 				           			</div>
@@ -442,7 +452,7 @@
 		           		<a id="guanCom2" href='itemDetails.html?repname=Transportation_of_beijing&itemname=Rail_transit_route'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd2 guanNum"> 
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guandx.png"  style='margin-top:27px'/>
+			           			<img class="gdindex2" src="images/guandx.png" />
 		           				<div class="feature-label" style='margin-top:20px;'>
 		           					交通服务信息
 		           				</div>
@@ -452,7 +462,7 @@
 		           		<a id="guanCom3" href='itemDetails.html?repname=Meteorological&itemname=Synthetic_pollution_index'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd3 guanNum">
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan3.png"   style='margin-top:39px'/>
+			           			<img class="gdindex3" src="images/guan3.png" />
 		           				<div class="feature-label"   style='margin-top:20px'>
 		           					空气质量数据
 		           				</div>
@@ -462,7 +472,7 @@
 		           		<a id="guanCom4" href='itemDetails.html?repname=Base_station_location&itemname=Base_station_location'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd4 guanNum" >
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan4.png"  style='margin-top:30px' />
+			           			<img class="gdindex4" src="images/guan4.png" />
 		           				<div class="feature-label"  style='margin-top:20px'>
 		           					全国基站信息
 		           				</div>
@@ -472,7 +482,7 @@
 		           		<a id="guanCom5" href='itemDetails.html?repname=Financial_Statistics&itemname=Financial_Market_Statistics'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd5 guanNum">
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan6.png"   style='margin-top:34px'/>
+			           			<img class="gdindex5" src="images/guan6.png" />
 		           				<div class="feature-label"  style='margin-top:20px'>
 		           					股票数据
 		           				</div>
@@ -482,7 +492,7 @@
 		           		<a id="guanCom6" href='itemDetails.html?repname=Hot_searches&itemname=Hot_words'>
 		           		<div class="col-md-3 col-sm-6 wobble-bottom-bd6 guanNum" > 
 		           			<div class="wobble-bottom guanDiv">
-			           			<img src="images/guan5.png"   style='margin-top:25px'/>
+			           			<img class="gdindex6" src="images/guan5.png" />
 		           				<div class="feature-label"  style='margin-top:20px'>
 		           					搜索热词
 		           				</div>
@@ -618,6 +628,7 @@
 
 </body>
 <script src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script src="js/TouchSlide.1.1.js"></script>
 <script>
 	$("a").focus(function(){this.blur()});
 	$(window).load(function(){
@@ -676,9 +687,13 @@
 			$(this).children().removeClass().addClass("baaa");
 		});
 
-		jQuery("#changeH").slide({mainCell:"#lunCom",titCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});
-
-
+		if(pcorphone == 'pc') {
+			jQuery("#changeH").slide({mainCell:"#lunCom",titCell:".slick-tab li",effect:"left",trigger:"click",easing:"easeOutBounce"});	
+		}
+		if(pcorphone == 'phone'){
+			TouchSlide({slideCell:"#changeH",mainCell:"#lunCom",titCell:".slick-tab li"});
+		}
+		
 		$("#sign-in").click(function(){
 			if(pcorphone == 'pc') {
 				$(".modal-open").css("padding-right", "15px");
