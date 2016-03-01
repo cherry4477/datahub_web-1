@@ -414,13 +414,10 @@ function about_item(){
                 var arr=new Array();
                 arr=optime.split("|");
                 $(".span_time span:nth-child(2)").text(arr[1]).attr("title",arr[0]);
-          /*      var label=json.data.label;
-                if(label==null||label=="null"){
+                var label=json.data.label.sys.select_labels;
+                if(label!=null&&label!=""&&label!=undefined){
+                        $(".span_label").append("<span>"+label+"</span>");
                 }
-                else{
-                    $(".span_label").append($("<span></span>").text(json.data.label));
-                    console.log(json.data.label);
-                }*/
             }
         }
     });
@@ -742,7 +739,8 @@ function hurry_buy(){
                                     if(json.code==0){
                                         var numsigns=json.data.numsigns;//订购次数
                                         if(limitNum>0&&numsigns>=limitNum&&price_plan=="限量试用"){
-                                            alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            //alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            $("#limit_buy_alert").show().fadeOut(2500);
                                             limitBoo=false
                                         }
                                         else{
@@ -752,7 +750,8 @@ function hurry_buy(){
                                 },
                                 error:function(json){
                                     if ($.parseJSON(json.responseText).code == 5040) {
-                                        alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                        //alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                        $("#limit_buy_alert").show().fadeOut(2500);
                                     }
 
                                 }
@@ -814,7 +813,7 @@ if(limitBoo){
                 },
                 error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                        $("#myself_alert").show().fadeOut(3000);
+                        $("#myself_alert").show().fadeOut(2500);
                         myself=false;
                     }
                 }
@@ -1086,7 +1085,7 @@ function apply_buy(){
                 },
                 error:function(json){
                 if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                            $("#myself_alert").show().fadeOut(3000);
+                            $("#myself_alert").show().fadeOut(2500);
                     }
                 }
             });
@@ -1111,7 +1110,7 @@ function apply_buy(){
                 },
                 error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                        $("#myself_alert").show().fadeOut(3000);
+                        $("#myself_alert").show().fadeOut(2500);
                         myself=false;
                     }
                 }
@@ -1340,7 +1339,7 @@ function cancel_buy(){
                     },
                     error:function(json){
                         if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                            $("#myself_alert").show().fadeOut(3000);
+                            $("#myself_alert").show().fadeOut(2500);
                             location.reload();
                         }
                     }
@@ -1576,13 +1575,14 @@ function hot(){
     var itemName=getParam("itemname");
     var $place=$("<div></div>").appendTo($("#hot"));
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName+"?items=1&size=3",
+        url: ngUrl+"/repositories/"+repoName+"?relatedItems=1&size=3",
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
         headers:headerToken,
         success:function(json) {
+            console.log(json.data);
             var iname=json.data.dataitems;
             var item_exist=$("#titleName .itemname").text();
             for (i=0;i<json.data.dataitems.length;i++){
@@ -1605,7 +1605,7 @@ function hot(){
                     +"</div>"
                     +"<div class='download2'>"+"<img src='images/newpic003.png'>"+"<span style='margin-left: 10px;'>"+pnum+"</span>"
                     +"</div>"
-                    +"<div class='comment2' >"+"<img src='images/selects/images_14.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
+                    +"<div class='comment2' >"+"<img src='../images/selects/comment.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
                     +"</div>"+"</div>"+"</div>"+"</div>");
             }
         }

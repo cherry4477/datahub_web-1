@@ -272,6 +272,18 @@ word-break: break-all;*/
     width: 180px;
     text-align: center;
 }
+#limit_buy_alert{
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    top: 216px;
+    left: 797px;
+    color:#333333;
+    height: 18px;
+    display: none ;
+    width: 180px;
+    text-align: center;
+}
 #cancel_buy:hover{
     background-image: linear-gradient(to bottom, #666666 0%, #666666 100%) !important;
     background-color:#666666 ;
