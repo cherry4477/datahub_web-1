@@ -123,6 +123,9 @@ word-break: break-all;*/
 #LT_left_icon .alert_login p a:hover{
     cursor: pointer;
 }
+#icon_buy,#icon_download,#icon_heart{
+    margin-top:2px;
+}
 #icon_buy{
         background-image: url('../images/icon_buy.png');
         background-repeat: no-repeat;
@@ -153,7 +156,6 @@ word-break: break-all;*/
 #icon_download_num{
     height: 25px;
     line-height: 25px;
-    margin-right: 300px;
     float: left;
     text-align: center;
     width:50px;
@@ -910,4 +912,51 @@ word-break: break-all;*/
 }
 .completeDiv2:hover{
     background-color:#f3fbfe;
+}
+
+
+#qrcode{
+    width: 100px;
+    height: 36px;
+    border-radius: 10px;
+    /*background-color: #00a8c6;*/
+    float: right;
+}
+#small-qrcode>span{
+    margin-right: 5px;
+}
+#small-qrcode>span>canvas{
+    border: 1px solid white;
+    border-radius: 0.5px;
+}
+#small-qrcode{
+    font-size: 14px;
+    line-height: 16px;
+    background-color: #29abe2;
+    border-radius: 5px;
+    color:#FFFFFF;
+    padding:8px 10px ;
+    float: right;
+    cursor:pointer
+}
+#big-qrcode{
+    position: absolute;
+    top: 190px;
+    left: 560px;
+    width:135px;
+    height:170px;
+    text-align: center;
+    border: 2px solid #c0c0c0;
+    background-color: #ffffff;
+    display: none;
+}
+#big-qrcode>p{
+    font-size: 14px;
+    line-height: 56px;
+    color: #0a001f;
+    font-weight: bold;
+
+}
+#big-qrcode>span{
+    position: relative;
 }

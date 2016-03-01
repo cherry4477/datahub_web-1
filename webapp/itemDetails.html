@@ -78,12 +78,14 @@
                         <div id="LT_left_icon">
                             <div><span id="icon_buy"data-toggle="tooltip" data-placement="top" data-original-title="订购量" ></span><p id="icon_buy_num">0</p></div>
                             <div><span id="icon_download" data-toggle="tooltip" data-placement="top" data-original-title="下载量" ></span><p id="icon_download_num">0</p></div>
-                            <div style="float:right;"><span id="icon_heart"data-toggle="tooltip" data-placement="top" data-original-title="点赞量" ></span><p id="icon_heart_number">0</p></div>
+                            <div style="float:left; margin-left: 146px;"><span id="icon_heart"data-toggle="tooltip" data-placement="top" data-original-title="点赞量" ></span><p id="icon_heart_number">0</p></div>
                             
                             <div class="alert_login">
                               <p> 您还没有登录，请<a>登录</a></p>
                             </div>
-                        </div><!--//放小图-->
+                            <div  id="small-qrcode"><span></span>分享到微信</div>
+                        </div>
+                        <div id="big-qrcode"><p>微信扫码</p><span></span></div><!--//放小图-->
                         <!--<div><p id="share" style="display: inline-block;"><span></span>分享到朋友圈</p></div>-->
                     </div>
                     <div id="LT-right">
@@ -347,6 +349,18 @@
 
 
 <script>
+    var local_href=location.href;
+    var qrcode= new AraleQRCode({
+        text:local_href,
+        render:"canvas ",
+        size:90
+    });
+    var qrcode2= new AraleQRCode({
+        text:local_href,
+        render:"canvas ",
+        size:12
+    });
+
     $("a").focus(function(){this.blur()});
     $("header").load("common/header.html");
     $("footer").load("common/footer.html");
@@ -354,8 +368,19 @@
     var repos=[];
     $(window).load(function(){
         $(".be-loader").fadeOut("slow");
+        $("#small-qrcode>span").append(qrcode2);
     });
 
+    $("#small-qrcode,#big-qrcode").on("mouseenter mouseleave",function(event){
+        if(event.type=="mouseenter"){
+            $("#big-qrcode>span").append(qrcode);
+            $("#big-qrcode").show();
+        }
+        if(event.type=="mouseleave"){
+            $("#big-qrcode>span").empty();
+            $("#big-qrcode").hide();
+        }
+    })
 
 </script>
 
