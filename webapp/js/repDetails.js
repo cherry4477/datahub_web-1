@@ -97,6 +97,15 @@ $(function() {
                 for (i = 0; i < msg.data.dataitems.length; i++) {
                     datas.push(msg.data.dataitems[i]);
                 }
+            },error:function (json)
+            {
+                if(json.status == 400) {
+                    if ($.parseJSON(json.responseText).code == 1006) {
+                        alert("信息已过期，访问首页!");
+                        window.location.href="/";
+                    }
+                }
+
             }
 
         });

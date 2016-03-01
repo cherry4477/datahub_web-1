@@ -545,7 +545,8 @@
     var account= $.cookie('token');
      var tname= $.cookie('tname');
     //得到daemonid
-    if(account != 'null'){
+
+    if(account){
         $.ajax({
             type: "get",
             url:ngUrl+"/daemon/id",
@@ -557,11 +558,11 @@
             }
         });
         }
-    if(account == null || account == 'null'){
+    if(!account){
         $('.havetoken').html('xxxxxxxxxx');
     }
     // entrypoint
-     if(account != 'null'){
+     if(account){
         $.ajax({
             type: "get",
             url:ngUrl+"/daemon/ep/"+tname,
