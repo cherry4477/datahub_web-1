@@ -2,6 +2,19 @@
 strong{
 	font-weight: normal;
 }
+.isdelerepo{
+	width: 23px;
+	height: 23px;
+	display: inline-block;
+	background:url("../images/delete.png");
+	position: absolute;
+	right: 30px;
+	top:28px;
+	cursor: pointer;
+}
+.isdelerepo:hover{
+	background:url("../images/delete_hover.png");
+}
 .selects_rep_top{
 	width: 100%;
 	line-height: 24px;
@@ -151,7 +164,7 @@ strong{
 	margin-right: 20px;
 	overflow: hidden;
 	width: 160px;
-	margin-top: 10px;
+	margin-top: 53px;
 }
 .price {
 	float: left;
@@ -207,10 +220,46 @@ strong{
 	padding-top: 15px;
 }
 .repright{
-	float: right;
+	float: left;
 	width: 200px;
 	overflow: hidden;
-	margin-top:25px;
+	margin-top:65px;
+	margin-left:68px;
+}
+#delerepoalert .modal-dialog{
+	width: 500px;
+	margin-top:100px;
+}
+.delerepotitle{
+	height: 35px;
+	width: 100%;
+	font-size: 18px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.nodelrepo{
+	border-radius: 5px;
+	color:#ffffff;
+	background: #29abe2;
+	padding:5px 30px;
+	font-size: 16px;
+	display: inline-block;
+	cursor: pointer;
+}
+.delerepobtnwrop{
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	margin-top:20px;
+}
+.delerepocomment{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	margin-top:27px;
+}
+.nodelerepo{
+	margin-left:20px;
 }
 .repright p{
 	width: 100%;
@@ -221,17 +270,17 @@ strong{
 	cursor: pointer;
 }
 .baimingdan{
-	background:url("../images/as_user.png") left 5px no-repeat;
+	background:url("../images/white_user.png") left 5px no-repeat;
 }
 .baimingdan:hover{
-	background:url("../images/as_user_hover.png") left 5px no-repeat;
+	background:url("../images/white_user_hover.png") left 5px no-repeat;
 	color: #395289;
 }
 .xiezuozhe{
-	background:url("../images/delete.png") left 5px no-repeat;
+	background:url("../images/as_user.png") left 5px no-repeat;
 }
 .xiezuozhe:hover{
-	background:url("../images/delete_hover.png") left 5px no-repeat;
+	background:url("../images/as_user_hover.png") left 5px no-repeat;
 	color: #395289;
 }
 .xiugairep{

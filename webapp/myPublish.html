@@ -24,6 +24,16 @@
 <!--内容-->
 <!--左侧导航-->
 <div class="container" style="width:1170px;padding:0px; margin-top:50px;margin-bottom:100px;">
+	<!-- ----------------------------删除repo弹窗----------------------------- -->
+	<div class="modal fade" id="delerepoalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  modal-repoName=''>
+		<div class="modal-dialog">
+			<div class="modal-content" style="padding:18px 30px;width:500px;float: left;height: 200px;">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<div class="delerepotitle">删除Repository</div>
+					<div class="delerepoalertcon"></div>
+			</div>
+		</div>
+	</div>
 	<!-- ----------------------------修改repo弹窗---------------------------------- -->
 	<div id="addRep" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -196,12 +206,12 @@
 	<ul class="mypushcomment">
 		<li style="display: block">
 			<!----------------------------------------------------新版修改部分 -->
-			<div class="selects_rep_top">
-				<input type="checkbox" id="select_all_rep">全选<span class="del_rep_btn"></span>
-				<!-- 
-				<span class="godeldata">查看已删除数据</span>
-				 -->
-			</div>
+			<!--<div class="selects_rep_top">-->
+				<!--<input type="checkbox" id="select_all_rep">全选<span class="del_rep_btn"></span>-->
+				<!--&lt;!&ndash; -->
+				<!--<span class="godeldata">查看已删除数据</span>-->
+				 <!--&ndash;&gt;-->
+			<!--</div>-->
 			<div class="repList">
 
 			</div>

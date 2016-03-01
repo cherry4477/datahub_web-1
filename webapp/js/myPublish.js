@@ -151,7 +151,7 @@ $(function() {
         var thiscoopername = '';
         //协作显示
         var ifcooper=true;
-        var ischeckedbox =  '<input type="checkbox" class="checkrepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">';
+        var isdelerepo =  '<span class="isdelerepo" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'"></span>';
         if(iscooperatestate.cooperatestate == 'null' || iscooperatestate.cooperatestate == null || iscooperatestate.cooperatestate == 'undefined'){
             thisiscooperatestat = '';
         }else{
@@ -174,7 +174,7 @@ $(function() {
 
                 });
                 thiscoopername = '<div class="thiscoopername"><span>由&nbsp;'+thiscreate_user+'&nbsp;邀请协作</span></div>';
-                ischeckedbox =  '<input type="checkbox" class="checkrepo" disabled="disabled" datarepoName="'+iscooperatestate.repname+'" datarepoisxiezuo="'+repocon.cooperateitems+'">'
+                isdelerepo =  '';
             }
         }
         ////////是否开放;
@@ -218,7 +218,7 @@ $(function() {
         }
         var repostr = '<div class="repo" >'+
             '<div class="describe" '+dataitemsalllist+'>'+
-            ischeckedbox+
+            isdelerepo+
             '<div class="left">'+
             '<div class="subtitle" id="'+iscooperatestate.repname+'"><span class="curreoName">'+iscooperatestate.repname+'</span></a>'+thisiscooperatestat+'</div>'+
             thiscoopername+
@@ -263,7 +263,7 @@ $(function() {
     //////////////查看repo下的item
     $(document).on('click','.describe',function (e) {
     	var thisrepName = $(this).find('.curreoName').html();
-        if ((e.target.className.indexOf("checkrepo")<0 && e.target.className.indexOf("baimingdan")<0 && e.target.className.indexOf("xiezuozhe")<0 && e.target.className.indexOf("xiugairep")<0)) {
+        if ((e.target.className.indexOf("isdelerepo")<0 && e.target.className.indexOf("baimingdan")<0 && e.target.className.indexOf("xiezuozhe")<0 && e.target.className.indexOf("xiugairep")<0)) {
             if ($(this).siblings('.tablelist').length <= 0) {
                 var thisitems = $(this).attr('itemdata');
                 var itemstr = ' <div class="tablelist">' +
@@ -360,17 +360,17 @@ $(function() {
     })
 
 ////////////////////////////////全选repo////////////////////////
-    $("#select_all_rep").click(function(){
-        if(this.checked){
-            $(".checkrepo").each(function() {
-                $(this).prop("checked", true);
-            });
-        }else{
-            $(".checkrepo").each(function() {
-                $(this).prop("checked", false);
-            });
-        }
-    });
+//    $("#select_all_rep").click(function(){
+//        if(this.checked){
+//            $(".checkrepo").each(function() {
+//                $(this).prop("checked", true);
+//            });
+//        }else{
+//            $(".checkrepo").each(function() {
+//                $(this).prop("checked", false);
+//            });
+//        }
+//    });
 
 ////////////////////////////////////得到白名单
     function getpermission(repopermission,pages,isdelhtml){
@@ -1455,69 +1455,55 @@ function postrepo(){
     });
 
 /////////////////////////////////////删除repo/////////////////////////////////////////////
-    $('.del_rep_btn').click(function(){
-        var divlist = $('.repList>div');
-        var reponamearr = [];
-        for(var i = 0;i<divlist.length;i++){
-            if($(divlist).eq(i).find('.checkrepo').is(':checked')==true){
-                var delreponame = $(divlist).eq(i).find('.checkrepo').attr('datareponame');
-                var datarepoisxiezuo  = $(divlist).eq(i).find('.checkrepo').attr('datarepoisxiezuo');
-                if(datarepoisxiezuo > 0){
-                    alert(delreponame+'下有下有您的协助者创建的DataItem，协助者删除DataItem之后，您才可以删除'+delreponame);
-                    return false;
-                }
-                reponamearr.push(delreponame);
+    $(document).on('click','.isdelerepo',function(){
+        var thisreponame = $(this).attr('datareponame');
+        $('#delerepoalert').find('.delerepoalertcon').empty();
+        var str = '';
+        $.ajax({
+            url: ngUrl+"/repositories/"+thisreponame,
+            type:"get",
+            cache:false,
+            data:{},
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
+               if(json.data.items > 0){
+                     str = '<div class="delerepocomment">无法删除，请先通过Client端删除Repository内的Dataitem</div>'+
+                           '<div class="delerepobtnwrop"><span class="nodelrepo nocantdele">我知道了</span></div>'
+               }else{
+                   str = '<div class="delerepocomment">删除Repository后不可恢复，请确认删除</div>'+
+                       '<div class="delerepobtnwrop"><span class="nodelrepo yesdelerepo" datareponame="'+thisreponame+'">确认</span><span class="nodelrepo nodelerepo">取消</span></div>'
+
+               }
+                $('#delerepoalert').find('.delerepoalertcon').append(str);
+                $('#delerepoalert').modal('toggle');
             }
-        }
-        var rechekcissubs = chekcissubs(reponamearr);
-        if(rechekcissubs == true){
-            isyesornodel(reponamearr);
-        }else if(rechekcissubs == false){
-            return false;
-        }else{
-            var tu = confirm("您确认删除已选Repository吗？");
-            if(tu == true){
-                isyesornodel(reponamearr);
-            	//新增删除
-            	var divlist = $('.repList>div');
-                var reponamearr = [];
-                for(var i = 0;i<divlist.length;i++){
-                    if($(divlist).eq(i).find('.checkrepo').is(':checked')==true){
-                        var delreponame = $(divlist).eq(i).find('.checkrepo').attr('datareponame');
-                        $(divlist).eq(i).remove();
-                    }
-                }
-            }else{
-                return false;
-            }
-        }
+        });
 
 
     })
-    function chekcissubs(reponamearr){
-        if(reponamearr.length>0){
-            var isdelropmsg = 'trueorfalse';
-            for(var j = 0; j < reponamearr.length; j++){
-                $.ajax({
-                    url: ngUrl+"/subscription_stat/"+reponamearr[j]+"?phase=1",
-                    type:"get",
-                    cache:false,
-                    data:{},
-                    async:false,
-                    dataType:'json',
-                    headers:{ Authorization:"Token "+$.cookie("token") },
-                    success:function(json){
-                        if(json.data.numsubs>0){
-                            isdelropmsg = confirm(reponamearr[j]+"下有未完成的订单，如果删除，未完成订单将全额退回给数据订购方。");
-                            return isdelropmsg;
-                        }
+    $(document).on('click','.yesdelerepo',function(){
+        var thisreponame = $(this).attr('datareponame');
+        $.ajax({
+            url: ngUrl+"/repositories/"+thisreponame,
+            type:"DELETE",
+            cache:false,
+            data:{},
+            async:false,
+            dataType:'json',
+            headers:{ Authorization:"Token "+$.cookie("token") },
+            success:function(json){
 
-                    }
-                });
-                return isdelropmsg;
             }
-        }
-    }
+        });
+    })
+    $(document).on('click','.nodelerepo',function(){
+        $('#delerepoalert').modal('toggle');
+    });
+    $(document).on('click','.nocantdele',function(){
+        $('#delerepoalert').modal('toggle');
+    })
     function isyesornodel(reponamearr){
         if(reponamearr.length>0){
             for(var k = 0; k<reponamearr.length;k++){
