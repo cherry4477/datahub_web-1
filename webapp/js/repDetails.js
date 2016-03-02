@@ -494,12 +494,18 @@ function download_icon(repoName){
 function getComments(repoName){
     var commentAmount=0;
     var allCommentAmount=0;
+    var headerToken={};
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url: ngUrl+"/repositories/"+repoName+"?items=1",
         type: "GET",
         cache:false,
         async:false,
         dataType:'json',
+        headers:headerToken,
         success:function(json){
             if(json.code == 0){
                 if(json.data.dataitems!=null){
@@ -513,6 +519,7 @@ function getComments(repoName){
                             cache:false,
                             async:false,
                             dataType:'json',
+                            headers:headerToken,
                             success:function(json){
                                 if(json.code == 0){
                                     commentAmount=json.data.numcomments;
@@ -523,7 +530,17 @@ function getComments(repoName){
                     }
                 }
             }
+        },error:function (json)
+        {
+            if(json.status == 400) {
+                if ($.parseJSON(json.responseText).code == 1006) {
+                    alert("信息已过期，访问首页!");
+                    window.location.href="/";
+                }
+            }
+
         }
+
     });
     return allCommentAmount;
 }
@@ -615,6 +632,11 @@ function download_icon(repoName){
 function getComment(repoName){
     var commentAmount=0;
     var allCommentAmount=0;
+    var headerToken={};
+    //登陆后
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     $.ajax({
         url: ngUrl+"/repositories/"+repoName,
         type: "GET",
