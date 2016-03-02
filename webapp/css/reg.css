@@ -22,10 +22,10 @@
 	margin-top: 100px;
 	text-align: left;
 	color: #FF0000;
-	height:;
 }
 .labelBox p{
-	font:14px #ea0c1d;
+	font-size:14px;
+	color:#ea0c1d;
 }
 #label_four{
 	display: none
@@ -72,20 +72,23 @@
 	color: #c8c8c8;
 }
 #email{
-	font:14px #c8c8c8;
+	font-size:14px;
+	color:#c8c8c8;
 }
 #ps{
-	font:14px #c8c8c8;
+	font-size:14px;
+	colorz:#c8c8c8;
 }
 #psr{
-	font:14px #c8c8c8;
+	font-size:14px;
+	color:#c8c8c8;
 }
 
 #accept{
 	float:left;
 	display: inline;
 	text-align: center;
-	margin-left: 250px;
+	width: 100%;
 }
 #item{
 	display: inline;
@@ -105,8 +108,7 @@
 	margin-bottom:30px
 }
 #registration{
-	
-	margin-left: 245px;
+
 	margin-bottom: 30px;
 	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
 	font:18px bold;
@@ -129,11 +131,13 @@
 	width:100%;
 }
 #login{
-	font:14px #333333;
+	font-size:14px;
+	color:#333333;
 }
 
 #login a{
-	font:14px #666666;
+	font-size:14px;
+	color:#666666;
 	font-weight: bold;
 }
 #checkEmail{
@@ -156,13 +160,13 @@
 }
 #info {
 	float:left;
+	width:100%;
 	
 }
 #info p{
 	float:left;
-	font:16px;
-	margin-top: 70px; 
-	margin-left: 125px;
+	font-size:16px;
+	margin-top: 70px;
 	margin-bottom: 70px;
 	text-align: center;
 }
@@ -207,8 +211,8 @@
 .sub9{
 	margin-bottom: 20px;
 }
-#cannotreg{
-float: left;
+/*#cannotreg{
+	float: left;
 	margin-top: 40px;
 	border-top:5px solid #c8c8c8;
 	border-bottom: 1px solid #395289;
@@ -216,10 +220,10 @@ float: left;
 	border-right: 1px solid #395289;
 	width:740px;
 	height:300px;
-}
+}*/
 #wrongmes{
 	float:left;
-	font:16px;
+	font-size:16px;
 	margin-top: 127px; 
 	margin-left: 125px;
 	margin-bottom: 70px;
