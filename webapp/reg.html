@@ -258,13 +258,13 @@
 			$("#email").blur(function(){
 
 				if (($("#email").val())==""){
-					$("#label_five").css("display","block");
+					$("#label_five").show().siblings().hide();
 					$("#label_five").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_two").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
+//					$("#label_one").css("display","none");
+//					$("#label_two").css("display","none");
+//					$("#label_three").css("display","none");
+//					$("#label_four").css("display","none");
+//					$("#label_six").css("display","none");
 				}
             	if (($("#email").val())!==""){
             	 	if (!reg.test($("#email").val())){
