@@ -350,15 +350,19 @@
 
 <script>
     var local_href=location.href;
+    console.log(local_href);
     var qrcode= new AraleQRCode({
-        text:local_href,
         render:"canvas ",
-        size:90
+        text:local_href,
+//        text:"http://127.0.0.1:8888",
+        size:90,
+        correctLevel:0
     });
     var qrcode2= new AraleQRCode({
-        text:local_href,
         render:"canvas ",
-        size:12
+        text:local_href,
+        size:12,
+        correctLevel:0
     });
 
     $("a").focus(function(){this.blur()});

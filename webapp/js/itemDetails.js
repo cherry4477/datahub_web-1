@@ -16,7 +16,7 @@ $(function(){
     $("#titleName .reponame").parent().attr("href",url);
 
     $(".slideTxtBox").slide({trigger:"click"});
-     yes_no_login();//判断是否登录
+    yes_no_login();//判断是否登录
     gonextpage(0);//请求tag数据
     request();//请求tag数据
 
