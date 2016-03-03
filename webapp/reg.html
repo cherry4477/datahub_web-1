@@ -54,24 +54,28 @@
 				<p id="label_four" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">您还没有接受《DataHub服务协议》</p>
 				<p id="label_five" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱不能为空</p>
 				<p id="label_six" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">邮箱密码不能为空</p>
+				<p id="cannotreg" style="display: none"><img style="display: block inline; padding-right:10px;" src="images/images02_127.png">用户已存在</p>
 			</div>
 		<form class="form-inline">
   			<div class="input-group">
-				<label for="exampleEmail" ID="label1" >邮箱地址</label>
+				<label ID="label1" for="email"  >邮箱地址</label>
     			<input type="text" class="form-control" id="email" maxlength="32" placeholder="请填写正确的邮箱，以便接收账号">
-    			<label for="examplePs" ID="label2">输入密码</label>
+    			<label for="ps" ID="label2">输入密码</label>
    				<input type="password" class="form-control" id="ps" maxlength="32" placeholder="最少8个字符">
-   				<label for="examplePs2" ID="label3">确认密码</label>
+   				<label for="psr" ID="label3">确认密码</label>
    				<input type="password" class="form-control" maxlength="32" ID="psr" placeholder="再次输入密码">
 			</div>
 		</form> 
 				<div ID="accept">
-   					<input ID="item" type="checkbox" name="accept"/>
-					<span>我已阅读并接受<a id="protocol" href="#">《DataHub服务协议》</a></span>
+					<div style="float: left;margin-left: auto; width: 100%;padding-left: 200px;">
+						<input ID="item" type="checkbox" name="accept"/>
+						<span>我已阅读并接受<a id="protocol" href="#">《DataHub服务协议》</a></span>
+					</div>
+					<div style="float: left;width: 100%;">
+						<button style="height: 39px; padding-top: 0px; padding-bottom: 0px;"class="btn btn-primary btn-lg" ID="registration" role="button" HREF="javaScript:void(0); ">注册</button>
+					</div>
+
 				</div>
-  			<button class="btn btn-primary btn-lg" ID="registration" role="button" HREF="javaScript:void(0);">
-				注册
-			</button>
 			<div ID="login" style="float: left">
   				<p>已有DataHub账号？请<a href="/">登录</a></p>
   			</div>
@@ -85,7 +89,7 @@
 				<p>注册DataHub账号</p>
 			</div>
 			<div ID="info">
-				<p style="font:16px;">恭喜您，注册成功！请在24小时内点击邮箱<a></a>中的链接完成账号激活！</p>
+				<p style="font-size:16px;width:100%;text-align:center;">恭喜您，注册成功！请在24小时内点击邮箱<a></a>中的链接完成账号激活！</p>
 			</div>
 		</div>
 	</div>
@@ -266,127 +270,72 @@
 //					$("#label_four").css("display","none");
 //					$("#label_six").css("display","none");
 				}
-            	if (($("#email").val())!==""){
+            	if (($("#email").val())!=""){
             	 	if (!reg.test($("#email").val())){
-            			$("#label_one").css("display","block");	
+						$("#label_one").show().siblings().hide();
             			$("#label_one").fadeOut(4000);
-            			$("#label_five").css("display","none");
-						$("#label_two").css("display","none");
-						$("#label_three").css("display","none");
-						$("#label_four").css("display","none");
-						$("#label_six").css("display","none");
 					}	
 				}	
 			});
 			$("#ps").blur(function(){
             	if (($("#ps").val())==""){
-					$("#label_two").css("display","block");
+					$("#label_two").show().siblings().hide();
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 				}
 
 				if(($("#ps").val()).length<8){
-					$("#label_two").css("display","block");	
+					$("#label_two").show().siblings().hide();
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 				}
 
 				if(($("#ps").val()).length>32){
-					$("#label_two").css("display","block");	
+					$("#label_two").show().siblings().hide();
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 				}
 			});	
 			$("#psr").blur(function(){
             	if ($("#psr").val()==""){
-					$("#label_two").css("display","block");	
+					$("#label_two").show().siblings().hide();
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 				} 
 
-				if(($("#psr").val()).length<8){
-					$("#label_two").css("display","block");	
+				if(($("#psr").val()).length<8||$("#psr").val().length>32){
+					$("#label_two").show().siblings().hide();
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 				}
-
-				if(($("#psr").val()).length>32){
-					$("#label_two").css("display","block");	
-					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
+				//判断密码是否相同
+				if (($("#ps").val())!=($("#psr").val())){
+					$("#label_three").show().siblings().hide();
+					$("#label_three").fadeOut(4000);
 				}
 			});
 
-			//判断密码是否相同
-			if (($("#ps").val())!=($("#psr").val())){
-				$("#label_three").css("display","block");	
-				$("#label_three").fadeOut(4000);
-				$("#label_one").css("display","none");
-				$("#label_two").css("display","none");
-				$("#label_five").css("display","none");
-				$("#label_four").css("display","none");
-				$("#label_six").css("display","none");
-			}
+
 			$("#registration").click(function(){
-				if( $("#email").val() !== ''){
-					$("#email").focus();
-					
+				if( $("#email").val() != ''){
 						if (!reg.test($("#email").val())){
-            				$("#label_one").css("display","block");
+							$("#label_one").show().siblings().hide();
             				$("#label_one").fadeOut(4000);
-            				$("#label_five").css("display","none");
-							$("#label_two").css("display","none");
-							$("#label_three").css("display","none");
-							$("#label_four").css("display","none");
-							$("#label_six").css("display","none");
             				$(".infoBox").show();
 							$("#checkEmail").hide();
 							return;
             			}		
 				}
-				else{$("#label_five").css("display","block");
+				else{
+					$("#label_five").show().siblings().hide();
 					$("#label_five").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_two").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
 					return;
 				}
 					
 				if( $("#ps").val() == ''){
-					$("#ps").focus();
-					$("#label_two").css("display","block");
+					$("#label_two").show().siblings().hide();
+//					$("#label_two").css("display","block");
 					$("#label_two").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
-					$("#label_six").css("display","none");
+//					$("#label_one").css("display","none");
+//					$("#label_five").css("display","none");
+//					$("#label_three").css("display","none");
+//					$("#label_four").css("display","none");
+//					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
@@ -461,64 +410,73 @@
 					$("#label_six").css("display","none");
 				return;
 				}
-});
-			//判断checkbox是否选中
-			// alert($("#item").is(":checked"))
+
+				//判断checkbox是否选中
+				// alert($("#item").is(":checked"))
+				var b;
 				if ($("#item").is(":checked")==false){
 					b=false;
-					$("#label_four").css("display","block");
+					$("#label_four").show().siblings().hide();
 					$("#label_four").fadeOut(4000);
-					$("#label_one").css("display","none");
-					$("#label_five").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_two").css("display","none");
-					$("#label_six").css("display","none");
 					$(".infoBox").show();
 					$("#checkEmail").hide();
 					return;
 				}
 				else{
-					$(".infoBox").hide();
-					$("#checkEmail").show();
+					b=true;
 				}
-					$(".infoBox").hide();
-					$("#checkEmail").show();
 
 				var loginname=$("#email").val();
 				var	myps=$.md5($("#ps").val());
-	 		 	//var sid=getParam("sid");
+				//var sid=getParam("sid");
+				if(b==true)
 				$.ajax({
-            		url: ngUrl+"/users/"+loginname,
-            		type: "POST",
-            		cache:false,
-            		data:{"passwd":myps},
-            		async:false,
-            		dataType:'json',
-            		success:function(json){
-            			//check the user status registered or not
- 
-            				var ss=loginname;
-            				var start=ss.indexOf("@")+1;
-    						var end=start+ss.length;
-    						var strtext="http://mail."+ss.substring(start,end);
-				 			$("#info a").text(strtext).attr("href",strtext);
-            			}
-			   //     	error:function(json){
-			   //     		if($.parseJSON(json.responseText).code==8002){
-			   //     			$("#cannotreg").show();
-			   //      		$(".infoBox").hide();
-			   //      		$("#checkEmail").hide();
-			   //      		$("#after24").hide();
-			   //     		}
-						// if ($.parseJSON(json.responseText).code == 8012) {
-    		// 				$("#after24").show();
-    		// 				$("#cannotreg").hide();
-    		// 				$("#checkEmail").hide();
-    		// 				$(".infoBox").hide();
-			   //     		}
-            		     
+					url: ngUrl+"/users/"+loginname,
+					type: "POST",
+					cache:false,
+					data:{"passwd":myps},
+					async:false,
+					dataType:'json',
+					success:function(json){
+						//check the user status registered or no
+						if(json.code==0){
+							var ss=loginname;
+							var start=ss.indexOf("@")+1;
+							var end=start+ss.length;
+							var strtext="http://mail."+ss.substring(start,end);
+							$("#info a").text(strtext).attr("href",strtext);
+
+							$(".infoBox").hide();
+							$("#checkEmail").show();
+						}
+					},
+					error:function(json){
+						if($.parseJSON(json.responseText).code==8002){
+							$("#cannotreg").show().siblings().hide();
+							$("#cannotreg").fadeOut(2500);
+//							$(".infoBox").hide();
+//							$("#checkEmail").hide();
+//							$("#after24").hide();
+							$(".infoBox").show();
+							$("#checkEmail").hide();
+						}
+						if ($.parseJSON(json.responseText).code == 8012) {
+							$("#cannotreg").show().siblings().hide();
+							$("#cannotreg").fadeOut(2500);
+//							$("#after24").show();
+							$(".infoBox").show();
+							$("#checkEmail").hide();
+//							$("#cannotreg").hide();
+//							$("#checkEmail").hide();
+//							$(".infoBox").hide();
+						}
+					}
+
+
 				});
-			});
+});
+
+});
 			
 			function getParam(key) {
 		    	var value='';

@@ -700,9 +700,12 @@ function getUserEmail(){
                 cache: false,
                 async: false,
                 success: function (jsons) {
-
+                    var repoName_exist=$(".title .titlename").text();
                     for (i=0;i<jsons.data.length;i++){
                         repoName=jsons.data[i].repname;
+                        if(repoName_exist==repoName){
+                            continue;
+                        }
                         var like = subscription(repoName);
                         var cart =purchase(repoName);
                         var download =download_icon(repoName);

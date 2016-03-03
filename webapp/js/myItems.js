@@ -60,84 +60,89 @@ function getitemlist(){
             len=json.data.items;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
-            for(var i=0;i<item_Arr.length;i++){
-                $.ajax({
-                    url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
-                    type: "GET",
-                    cache: false,
-                    async: false,
-                    headers:{Authorization: "Token "+account},
-                    dataType: 'json',
-                    success: function (json) {
-                        var cooperatestate=json.data.cooperatestate;//协作状态
-                        var pricestate=json.data.pricestate;//价格状态
-                        var optime=json.data.optime;//时间
-                        var itemaccesstype=json.data.itemaccesstype;//访问权限
-                        var tags=json.data.tags;//tags量
+            if(item_Arr==undefined){
+                $table_content.append("<div style='display: block;vertical-align:middle;text-align: center;color: #333333;'>该repo还未创建item</div>");
+            }else{
+                for(var i=0;i<item_Arr.length;i++){
+                    $.ajax({
+                        url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
+                        type: "GET",
+                        cache: false,
+                        async: false,
+                        headers:{Authorization: "Token "+account},
+                        dataType: 'json',
+                        success: function (json) {
+                            var cooperatestate=json.data.cooperatestate;//协作状态
+                            var pricestate=json.data.pricestate;//价格状态
+                            var optime=json.data.optime;//时间
+                            var itemaccesstype=json.data.itemaccesstype;//访问权限
+                            var tags=json.data.tags;//tags量
 
-                        var cooperat_style="";
-                        var cooperat_sheet="";
-                        var price_sheet="";
-                        var price_style="";
-                        var thisiscooperatestatname = '';
+                            var cooperat_style="";
+                            var cooperat_sheet="";
+                            var price_sheet="";
+                            var price_style="";
+                            var thisiscooperatestatname = '';
 
-                        var time_arr=new Array();
-                        time_arr=optime.split("|");
+                            var time_arr=new Array();
+                            time_arr=optime.split("|");
 
-                        switch(itemaccesstype){
-                            case "private":itemaccesstype="私有"; break;
-                            case "public":itemaccesstype="开放"; break;
-                        }
+                            switch(itemaccesstype){
+                                case "private":itemaccesstype="私有"; break;
+                                case "public":itemaccesstype="开放"; break;
+                            }
 
-                        if(cooperatestate=="协作")
-                        {
-                            cooperat_style="协作";
-                            cooperat_sheet ="mianfei_sheet";
-                            thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
-                        }
-                        else if(cooperatestate=="协作中")
-                        {
-                            cooperat_style="协作中";
-                            cooperat_sheet ="mianfei_sheet";
+                            if(cooperatestate=="协作")
+                            {
+                                cooperat_style="协作";
+                                cooperat_sheet ="mianfei_sheet";
+                                thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
+                            }
+                            else if(cooperatestate=="协作中")
+                            {
+                                cooperat_style="协作中";
+                                cooperat_sheet ="mianfei_sheet";
 
-                        }else{
-                            cooperat_sheet="wu_sheet";
-                        }
+                            }else{
+                                cooperat_sheet="wu_sheet";
+                            }
 
 
-                        if(pricestate=="免费")
-                        {
-                            price_style="免费";
-                            price_sheet ="mianfei_sheet";
+                            if(pricestate=="免费")
+                            {
+                                price_style="免费";
+                                price_sheet ="mianfei_sheet";
+                            }
+                            else if(pricestate=="限量免费")
+                            {
+                                price_style="限量免费";
+                                price_sheet ="xianliang_sheet";
+                            }
+                            else if(pricestate=="付费")
+                            {
+                                price_style="付费";
+                                price_sheet ="fufei_sheet";
+                            }
+                            else  {
+                                price_style="暂无";
+                                price_sheet="wu_sheet";
+                            }
+                            $table_content.append("" +
+                                "<tr class='item_con_line'>"+
+                                //"<td><input type='checkbox' class='item_check' name='list_check'>" +
+                                "<td style='width: 830px;'>" +
+                                '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>'+
+                                "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
+                                "<span class="+price_sheet+">"+price_style+"</span>"+
+                                thisiscooperatestatname+
+                                "</td>"+
+                                "<td>"+time_arr[1]+"</td>"+
+                                "<td>"+itemaccesstype+"</td>"+
+                                "<td>"+tags+"</td>"+
+                                "</tr>");
                         }
-                        else if(pricestate=="限量免费")
-                        {
-                            price_style="限量免费";
-                            price_sheet ="xianliang_sheet";
-                        }
-                        else if(pricestate=="付费")
-                        {
-                            price_style="付费";
-                            price_sheet ="fufei_sheet";
-                        }
-                        else  {
-                            price_style="暂无";
-                            price_sheet="wu_sheet";
-                        }
-                        $table_content.append("" +
-                            "<tr class='item_con_line'>"+
-                            "<td><input type='checkbox' class='item_check' name='list_check'>" +
-                            '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>'+
-                            "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
-                            "<span class="+price_sheet+">"+price_style+"</span>"+
-                            thisiscooperatestatname+
-                            "</td>"+
-                            "<td>"+time_arr[1]+"</td>"+
-                            "<td>"+itemaccesstype+"</td>"+
-                            "<td>"+tags+"</td>"+
-                            "</tr>");
-                    }
-                });
+                    });
+                }
             }
         }
     });
@@ -169,84 +174,89 @@ function getnextpage(nextpages){
             len=json.data.items;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
-            for(var i=0;i<item_Arr.length;i++){
-                $.ajax({
-                    url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
-                    type: "GET",
-                    cache: false,
-                    async: false,
-                    headers:{Authorization: "Token "+account},
-                    dataType: 'json',
-                    success: function (json) {
-                        var cooperatestate=json.data.cooperatestate;//协作状态
-                        var pricestate=json.data.pricestate;//价格状态
-                        var optime=json.data.optime;//时间
-                        var itemaccesstype=json.data.itemaccesstype;//访问权限
-                        var tags=json.data.tags;//tags量
+            if(item_Arr==undefined){
 
-                        var cooperat_style="";
-                        var cooperat_sheet="";
-                        var price_sheet="";
-                        var price_style="";
-                        var thisiscooperatestatname = '';
+            }else{
+                for(var i=0;i<item_Arr.length;i++){
+                    $.ajax({
+                        url: ngUrl + "/repositories/" + repoName + "/" + item_Arr[i],
+                        type: "GET",
+                        cache: false,
+                        async: false,
+                        headers:{Authorization: "Token "+account},
+                        dataType: 'json',
+                        success: function (json) {
+                            var cooperatestate=json.data.cooperatestate;//协作状态
+                            var pricestate=json.data.pricestate;//价格状态
+                            var optime=json.data.optime;//时间
+                            var itemaccesstype=json.data.itemaccesstype;//访问权限
+                            var tags=json.data.tags;//tags量
 
-                        var time_arr=new Array();
-                        time_arr=optime.split("|");
+                            var cooperat_style="";
+                            var cooperat_sheet="";
+                            var price_sheet="";
+                            var price_style="";
+                            var thisiscooperatestatname = '';
 
-                        switch(itemaccesstype){
-                            case "private":itemaccesstype="私有"; break;
-                            case "public":itemaccesstype="开放"; break;
-                        }
+                            var time_arr=new Array();
+                            time_arr=optime.split("|");
 
-                        if(cooperatestate=="协作")
-                        {
-                            cooperat_style="协作";
-                            cooperat_sheet ="mianfei_sheet";
-                            thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
-                        }
-                        else if(cooperatestate=="协作中")
-                        {
-                            cooperat_style="协作中";
-                            cooperat_sheet ="mianfei_sheet";
-                        }else{
-                            cooperat_sheet="wu_sheet";
-                        }
+                            switch(itemaccesstype){
+                                case "private":itemaccesstype="私有"; break;
+                                case "public":itemaccesstype="开放"; break;
+                            }
+
+                            if(cooperatestate=="协作")
+                            {
+                                cooperat_style="协作";
+                                cooperat_sheet ="mianfei_sheet";
+                                thisiscooperatestatname = '<br/><span style="margin-left:20px;margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;协作</span>';
+                            }
+                            else if(cooperatestate=="协作中")
+                            {
+                                cooperat_style="协作中";
+                                cooperat_sheet ="mianfei_sheet";
+                            }else{
+                                cooperat_sheet="wu_sheet";
+                            }
 
 
-                        if(pricestate=="免费")
-                        {
-                            price_style="免费";
-                            price_sheet ="mianfei_sheet";
-                        }
-                        else if(pricestate=="限量免费")
-                        {
-                            price_style="限量免费";
-                            price_sheet ="xianliang_sheet";
-                        }
-                        else if(pricestate=="付费")
-                        {
-                            price_style="付费";
-                            price_sheet ="fufei_sheet";
-                        }
-                        else  {
-                            price_style="暂无";
-                            price_sheet="wu_sheet";
-                        }
+                            if(pricestate=="免费")
+                            {
+                                price_style="免费";
+                                price_sheet ="mianfei_sheet";
+                            }
+                            else if(pricestate=="限量免费")
+                            {
+                                price_style="限量免费";
+                                price_sheet ="xianliang_sheet";
+                            }
+                            else if(pricestate=="付费")
+                            {
+                                price_style="付费";
+                                price_sheet ="fufei_sheet";
+                            }
+                            else  {
+                                price_style="暂无";
+                                price_sheet="wu_sheet";
+                            }
 
-                        $table_content.append("" +
-                            "<tr class='item_con_line'>"+
-                            "<td><input type='checkbox' class='item_check' name='list_check'>" +
-                            '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>' +
-                            "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
-                            "<span class="+price_sheet+">"+price_style+"</span>"+
-                            thisiscooperatestatname+
-                            "</td>"+
-                            "<td>"+time_arr[1]+"</td>"+
-                            "<td>"+itemaccesstype+"</td>"+
-                            "<td>"+tags+"</td>"+
-                            "</tr>");
-                    }
-                });
+                            $table_content.append("" +
+                                "<tr class='item_con_line'>"+
+                                //"<td><input type='checkbox' class='item_check' name='list_check'>" +
+                                "<td style='width: 830px;'>" +
+                                '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>' +
+                                "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
+                                "<span class="+price_sheet+">"+price_style+"</span>"+
+                                thisiscooperatestatname+
+                                "</td>"+
+                                "<td>"+time_arr[1]+"</td>"+
+                                "<td>"+itemaccesstype+"</td>"+
+                                "<td>"+tags+"</td>"+
+                                "</tr>");
+                        }
+                    });
+                }
             }
         }
     });
