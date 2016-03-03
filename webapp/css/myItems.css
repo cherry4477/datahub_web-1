@@ -19,7 +19,7 @@
 #sel_item {
 	float: left;
 	width:100%;
-	margin-top: 40px;
+	/*margin-top: 40px;*/
 	border-bottom:1px solid #c8c8c8;
 	height: 55px;
 	color:#43609f;
@@ -47,6 +47,8 @@
 }
 .table_content{
 	margin-left: 20px;
+	width: 1130px;
+	margin-top: 20px;
 }
 .item_con_line{
 	border-bottom: 1px solid #c8c8c8;
@@ -60,9 +62,22 @@
 	border-radius: 3px;
 	margin-right: 8px;
 }
+.item_con_line  .item_name{
+	display:inline-block;
+	height: 30px;
+	line-height: 30px;
+	vertical-align:middle;
+
+}
 .item_con_line  .item_name a{
 	font: 14px bold;
 	color:#43609f;
+	display: inline-block;
+	width: 630px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 30px;
 }
 .item_con_line  .item_name a:hover{
 	color:#395289;
