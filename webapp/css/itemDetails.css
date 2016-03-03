@@ -607,8 +607,12 @@ word-break: break-all;*/
     padding: 1px 10px;
     border-radius: 3px;
     margin-left: 2px;
+    border: 1px solid green;
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-right: 3px;
 }
-#about .span_label>span:nth-child(1){
+/*#about .span_label>span:nth-child(1){
     border: 1px solid red;
 }
 #about .span_label>span:nth-child(2){
@@ -619,7 +623,7 @@ word-break: break-all;*/
 }
 #about .span_label>span:nth-child(4){
     border: 1px solid green;
-}
+}*/
 /*下半部分*/
 #client_down {
     padding-top:30px;

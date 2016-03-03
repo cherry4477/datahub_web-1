@@ -418,6 +418,11 @@ function about_item(){
                 if(label!=null&&label!=""&&label!=undefined){
                         $(".span_label").append("<span>"+label+"</span>");
                 }
+                var onwer=json.data.label.owner;
+                for(var x in onwer){
+                    $(".span_label").append("<span>"+onwer[x]+"</span>");
+                }
+
             }
         }
     });
@@ -460,11 +465,11 @@ function company(){
              }
              else{
                  if(label=="batch")
-                     $(".span_label").append($("<span></span>").text("批量数据"));
+                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("批量数据"));
                  if(label=="flow")
-                     $(".span_label").append($("<span></span>").text("流式数据"));
+                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("流式数据"));
                  if(label=="api")
-                     $(".span_label").append($("<span></span>").text("API"));
+                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("API"));
              }
 
 
