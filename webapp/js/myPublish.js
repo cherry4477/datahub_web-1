@@ -1494,7 +1494,7 @@ function postrepo(){
             dataType:'json',
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
-
+                $('#delerepoalert').modal('toggle');
             }
         });
     })
