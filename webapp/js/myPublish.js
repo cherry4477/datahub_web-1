@@ -1495,6 +1495,7 @@ function postrepo(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                 $('#delerepoalert').modal('toggle');
+                location.reload();
             }
         });
     })
