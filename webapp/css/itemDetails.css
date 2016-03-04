@@ -945,8 +945,7 @@ word-break: break-all;*/
 }
 #big-qrcode{
     position: absolute;
-    top: 190px;
-    left: 560px;
+    left: 35px;
     width:135px;
     height:170px;
     text-align: center;
