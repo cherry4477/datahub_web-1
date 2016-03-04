@@ -1469,10 +1469,10 @@ function postrepo(){
             headers:{ Authorization:"Token "+$.cookie("token") },
             success:function(json){
                if(json.data.items > 0){
-                     str = '<div class="delerepocomment">无法删除，请先通过Client端删除Repository内的Dataitem</div>'+
+                     str = '<div class="delerepocomment">无法删除，请先通过Client端删除'+thisreponame+'内的Dataitem</div>'+
                            '<div class="delerepobtnwrop"><span class="nodelrepo nocantdele">我知道了</span></div>'
                }else{
-                   str = '<div class="delerepocomment">删除Repository后不可恢复，请确认删除</div>'+
+                   str = '<div class="delerepocomment">删除'+thisreponame+'后不可恢复，请确认删除</div>'+
                        '<div class="delerepobtnwrop"><span class="nodelrepo yesdelerepo" datareponame="'+thisreponame+'">确认</span><span class="nodelrepo nodelerepo">取消</span></div>'
 
                }

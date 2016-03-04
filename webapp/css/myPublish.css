@@ -253,8 +253,8 @@ strong{
 }
 .delerepocomment{
 	width: 100%;
-	height: 30px;
-	line-height: 30px;
+	/*height: 30px;*/
+	line-height: 24px;
 	text-align: center;
 	margin-top:27px;
 }
