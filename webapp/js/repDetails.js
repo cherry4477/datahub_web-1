@@ -642,6 +642,7 @@ function getComment(repoName){
         type: "GET",
         cache:false,
         async:false,
+        headers:headerToken,
         dataType:'json',
         success:function(json){
             if(json.code == 0){
@@ -674,6 +675,9 @@ function getComment(repoName){
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
     var repname = getParam("repname");
     var loginEmail = '';
      $.ajax({
@@ -681,6 +685,7 @@ function getUserEmail(){
          type: "get",
          cache: false,
          async: false,
+         headers:headerToken,
          success: function (jsons) {
          loginEmail = jsons.data.create_user;
          //get username
@@ -699,6 +704,7 @@ function getUserEmail(){
                 type: "get",
                 cache: false,
                 async: false,
+                headers:headerToken,
                 success: function (jsons) {
                     var repoName_exist=$(".title .titlename").text();
                     for (i=0;i<jsons.data.length;i++){
