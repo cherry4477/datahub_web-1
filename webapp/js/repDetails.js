@@ -675,8 +675,9 @@ function getComment(repoName){
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
+    var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
+       headerToken={Authorization:"Token "+$.cookie("token")};
     }
     var repname = getParam("repname");
     var loginEmail = '';
@@ -707,6 +708,12 @@ function getUserEmail(){
                 headers:headerToken,
                 success: function (jsons) {
                     var repoName_exist=$(".title .titlename").text();
+                    var data_len=jsons.data.length;
+                    if(data_len==0||data_len==null){
+                        $("#hot").hide();
+                    }else{
+                        $("#hot").show();
+                    }
                     for (i=0;i<jsons.data.length;i++){
                         repoName=jsons.data[i].repname;
                         if(repoName_exist==repoName){
@@ -719,7 +726,7 @@ function getUserEmail(){
                         var url ="repDetails.html?repname="+repoName
                         $place.append(""+
                             "<div class='completeDiv'  style='float: left;'>"+
-                            "<a href='"+url+"'> <p class='subtitle'>"+repoName+"</p></a>"+
+                            "<a href='"+url+"'> <p class='subtitle_right'>"+repoName+"</p></a>"+
                             "<div class='icons' >"+
                             "<div class='likes' >"+"<img src='images/newpic001.png'>"+"<span>"+like+"</span>"
                             +"</div>"
