@@ -114,97 +114,101 @@
 			var b=true;
 			//var strEmail =$("#loginEmail").val();
 			var reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			$("#loginEmail").blur(function(){			
-            	if (!reg.test($("#loginEmail").val())){	
-            		$("#label_one").css("display","block");
-					$("#label_two").css("display","none");
-					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
+			$("#loginEmail").blur(function(){
+				var email_states=(!reg.test($("#loginEmail").val()));
+            	if (email_states){
+					$("#label_one").siblings().finish().hide();
+					$("#label_one").show();
+					$("#label_one").fadeOut(3000);
 					b=false;		
-				} 
-				else { 
-					$("#label_one").css("display","none");	
-				} 
+				}
 			});
 
-			$("#companyName").blur(function(){	
-				if($("#companyName").val().length==0){
-					$("#label_two").css("display","block");
+			$("#companyName").blur(function(){
+				if($("#companyName").val()==""){
+					/*$("#label_two").css("display","block");
 					$("#label_one").css("display","none");
 					$("#label_three").css("display","none");
-					$("#label_four").css("display","none");
+					$("#label_four").css("display","none");*/
+					$("#label_two").siblings().finish().hide();
+					$("#label_two").show();
+					$("#label_two").fadeOut(3000);
 					b=false;
-				}
-				else {
-					$("#label_two").css("display","none");
 				}
 			});
 
-			$("#phone").blur(function(){	
-				if(document.getElementById("phone").value==''){
-					$("#label_three").css("display","block");
+			$("#phone").blur(function(){
+				if($("#phone").val()==""){
+				/*	$("#label_three").css("display","block");
 					$("#label_one").css("display","none");
 					$("#label_two").css("display","none");	
-					$("#label_four").css("display","none");	
+					$("#label_four").css("display","none");*/
+					$("#label_three").siblings().finish().hide();
+					$("#label_three").show();
+					$("#label_three").fadeOut(3000);
 					b=false;
-				}
-				else {
-					$("#label_three").css("display","none");
 				}
 			});
 
-			$("#reqirement").blur(function(){	
-				if(document.getElementById("phone").value==''){
-					$("#label_three").css("display","none");
+			$("#reqirement").blur(function(){
+				if($("#reqirement").val()==""){
+				/*	$("#label_three").css("display","none");
 					$("#label_one").css("display","none");
 					$("#label_two").css("display","none");	
-					$("#label_four").css("display","block");	
+					$("#label_four").css("display","block");*/
+					$("#label_four").siblings().finish().hide();
+					$("#label_four").show();
+					$("#label_four").fadeOut(3000);
 					b=false;
-				}
-				else {
-					$("#label_four").css("display","none");
 				}
 			});
 
-		$("#confirm").click(function(){	
-	
+		$("#confirm").click(function(){
+			var b=true;
+			var email_states=(!reg.test($("#loginEmail").val()));
 			if( $("#loginEmail").val() == ''){
-				$("#loginEmail").focus();
-				$("#label_one").css("display","block");
-				return;	
+				$("#label_one").siblings().finish().hide();
+				$("#label_one").show();
+				$("#label_one").fadeOut(3000);
+				b=false;
+			}else if (email_states){
+				$("#label_one").siblings().finish().hide();
+				$("#label_one").show();
+				$("#label_one").fadeOut(3000);
+				b=false;
+			}else if( $("#companyName").val() == ''){
+//				$("#label_two").css("display","block");
+				$("#label_two").siblings().finish().hide();
+				$("#label_two").show();
+				$("#label_two").fadeOut(3000);
+				b=false;
+			}else if( $("#phone").val() == ''){
+//				$("#label_three").css("display","block");
+				$("#label_three").siblings().finish().hide();
+				$("#label_three").show();
+				$("#label_three").fadeOut(3000);
+				b=false;
+			}else if( $("#reqirement").val() == ''){
+//				$("#label_four").css("display","block");
+				$("#label_four").siblings().finish().hide();
+				$("#label_four").show();
+				$("#label_four").fadeOut(3000);
+				b=false;
 			}
-
-			if( $("#companyName").val() == ''){
-				$("#companyName").focus();
-				$("#label_two").css("display","block");
-				return;	
+			if(b==true){
+				$(".regBox").hide();
+				$(".sendEmail").show();
+				var ee=$("#loginEmail").val();
+				var nn=$("#companyName").val();
+				var pp=$("#phone").val();
+				var ww=$("#reqirement").val();
+				$("#confirm").attr("href","mailto:songliang@asiainfo.com?cc=datahub@asiainfo.com&subject=注册信息&body="+ee+"%0d%0a"+nn+"%0d%0a"+pp+"%0d%0a"+ww);
+				$("#loginEmail").val("");
+				$("#companyName").val("");
+				$("#phone").val("");
+				$("#reqirement").val("");
 			}
-
-			if( $("#phone").val() == ''){
-				$("#phone").focus();
-				$("#label_three").css("display","block");
-				return;	
-			}
-
-			if( $("#reqirement").val() == ''){
-				$("#reqirement").focus();
-				$("#label_four").css("display","block");
-				return;	
-			}
-				 $(".regBox").hide();
-				 $(".sendEmail").show();
-				 	var ee=$("#loginEmail").val();
-				 	var nn=$("#companyName").val();
-				 	var pp=$("#phone").val();
-				 	var ww=$("#reqirement").val();
-				 	$("#confirm").attr("href","mailto:songliang@asiainfo.com?cc=datahub@asiainfo.com&subject=注册信息&body="+ee+"%0d%0a"+nn+"%0d%0a"+pp+"%0d%0a"+ww);
-""
-				 	$("#loginEmail").val("");
-					$("#companyName").val("");
-					$("#phone").val("");
-					$("#reqirement").val("");
-
-			});
+		});
 
 			$("#cancle").click(function(){
 					$("#loginEmail").val("");

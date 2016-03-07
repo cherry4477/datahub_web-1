@@ -76,21 +76,27 @@
                         </div>
                         <!--在线或离线-->
                         <div id="LT_left_icon">
-                            <div><span id="icon_buy"></span><p>0</p></div>
-                            <div><span id="icon_download"></span><p>0</p></div>
-                            <div style="float:right;"><span id="icon_heart"></span><p id="icon_heart_number">0</p></div>
+                            <div><span id="icon_buy"data-toggle="tooltip" data-placement="top" data-original-title="订购量" ></span><p id="icon_buy_num">0</p></div>
+                            <div><span id="icon_download" data-toggle="tooltip" data-placement="top" data-original-title="下载量" ></span><p id="icon_download_num">0</p></div>
+                            <div style="float:left; margin-left: 146px;"><span id="icon_heart"data-toggle="tooltip" data-placement="top" data-original-title="点赞量" ></span><p id="icon_heart_number">0</p></div>
                             
                             <div class="alert_login">
                               <p> 您还没有登录，请<a>登录</a></p>
                             </div>
-                        </div><!--//放小图-->
+                            <div style="position: relative">
+                                <div  id="small-qrcode"><span></span>分享到微信</div>
+                                <div id="big-qrcode"><p>微信扫码</p><span></span></div><!--//放大图-->
+                            </div>
+
+                        </div>
+
                         <!--<div><p id="share" style="display: inline-block;"><span></span>分享到朋友圈</p></div>-->
                     </div>
                     <div id="LT-right">
                         <span style="position: absolute"></span><!-- 存planid -->
                         <span style="position: absolute"></span>
                         <div>
-                            <select class="form-control">
+                            <select class="form-control price-style">
                             <!--<option value="1">18-2118-2118-21</option>-->
                             <!--<option value="2">22-2518-2118-21</option>-->
                             </select>
@@ -104,6 +110,7 @@
                         </div>
                         <p id="cance_alert">您已取消成功！</p>
                         <p id="myself_alert">您不能订购自己的数据。</p>
+                        <p id="limit_buy_alert">您的有限免费额度已用完，<br>请选择其他计费包。</p>
 
                     </div>
                 </div>
@@ -187,10 +194,10 @@
                     <p>本数据由</p>
                     <p class="company_name"><a>重庆信息技术有限公司</a>提供</p>
                 </div>
-                <!--<div ID="hot">
-                    <p ID="title">最热DataItem</p>
-                </div>-->
-                <!--<div ID="place">
+                <div ID="hot">
+                    <p ID="title">相关DataItem</p>
+                </div>
+          <!--      <div ID="place">
                     <p ID="subtitle"></p>
                     <div ID="icons">
                         <div ID="like">
@@ -346,6 +353,24 @@
 
 
 <script>
+    var str=[];
+    var local_href=location.href;
+    str=local_href.split(".html");
+    var local_href_new=str[0]+"Phone"+str[1];
+    var qrcode= new AraleQRCode({
+        render:"canvas ",
+        text:local_href_new,
+//        text:"http://127.0.0.1:8888",
+        size:90,
+        correctLevel:0
+    });
+    var qrcode2= new AraleQRCode({
+        render:"canvas ",
+        text:local_href_new,
+        size:12,
+        correctLevel:0
+    });
+
     $("a").focus(function(){this.blur()});
     $("header").load("common/header.html");
     $("footer").load("common/footer.html");
@@ -353,12 +378,19 @@
     var repos=[];
     $(window).load(function(){
         $(".be-loader").fadeOut("slow");
+        $("#small-qrcode>span").append(qrcode2);
     });
-    $(document).ready(function(){
 
-
-
-    });
+    $("#small-qrcode,#big-qrcode").on("mouseenter mouseleave",function(event){
+        if(event.type=="mouseenter"){
+            $("#big-qrcode>span").append(qrcode);
+            $("#big-qrcode").show();
+        }
+        if(event.type=="mouseleave"){
+            $("#big-qrcode>span").empty();
+            $("#big-qrcode").hide();
+        }
+    })
 
 </script>
 

@@ -85,8 +85,16 @@
 .left .subline .lable span{
 	padding:3px 6px;
 	display: inline;
-	border: 1px solid red ;
 	border-radius: 3px;
+}
+.api{
+	border: 1px solid #eb6877 ;
+}
+.period{
+	border: 1px solid #8fc31f ;
+}
+.flot-data{
+	border: 1px solid #f8b551 ;
 }
 .left .subline .icon{
 	float: right;

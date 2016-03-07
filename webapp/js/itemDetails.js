@@ -34,7 +34,7 @@ $(function(){
 
     closewrap();//关闭弹窗
 
-    //hot();//the hottest items 
+
     
 });
 $(document).ready(function(){
@@ -55,6 +55,7 @@ $(document).ready(function(){
         var subrepo=repo.substring(0,45);
         $("#titleName .itemname").text(subrepo);
     }
+
 });
 
 
@@ -413,13 +414,15 @@ function about_item(){
                 var arr=new Array();
                 arr=optime.split("|");
                 $(".span_time span:nth-child(2)").text(arr[1]).attr("title",arr[0]);
-          /*      var label=json.data.label;
-                if(label==null||label=="null"){
+                var label=json.data.label.sys.select_labels;
+                if(label!=null&&label!=""&&label!=undefined){
+                        $(".span_label").append("<span>"+label+"</span>");
                 }
-                else{
-                    $(".span_label").append($("<span></span>").text(json.data.label));
-                    console.log(json.data.label);
-                }*/
+                var onwer=json.data.label.owner;
+                for(var x in onwer){
+                    $(".span_label").append("<span>"+onwer[x]+"</span>");
+                }
+
             }
         }
     });
@@ -462,11 +465,11 @@ function company(){
              }
              else{
                  if(label=="batch")
-                     $(".span_label").append($("<span></span>").text("批量数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #8fc31f;'></span>").text("批量数据"));
                  if(label=="flow")
-                     $(".span_label").append($("<span></span>").text("流式数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #f8b551;'></span>").text("流式数据"));
                  if(label=="api")
-                     $(".span_label").append($("<span></span>").text("API"));
+                     $(".span_label").append($("<span style='border: 1px solid #eb6877;'></span>").text("API"));
              }
 
 
@@ -607,6 +610,7 @@ function closewrap(){
                 $("#price_plan").hide();
                 $("#upcoming_release").show();
             }
+
             //$("#hurry_buy").text("登录后订购");
 
             $("#hurry_buy").click(function(){
@@ -688,6 +692,13 @@ function closewrap(){
                 }
             });
         }
+        var upcomsta=$("#upcoming_release").is(":visible");
+        //var display =$('#upcoming_release').css('display');
+        if(upcomsta){
+            $(".price-style").hide();
+        }else{
+            $(".price-style").show();
+        }
     });
 }
 
@@ -733,7 +744,8 @@ function hurry_buy(){
                                     if(json.code==0){
                                         var numsigns=json.data.numsigns;//订购次数
                                         if(limitNum>0&&numsigns>=limitNum&&price_plan=="限量试用"){
-                                            alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            //alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                            $("#limit_buy_alert").show().fadeOut(2500);
                                             limitBoo=false
                                         }
                                         else{
@@ -741,7 +753,12 @@ function hurry_buy(){
                                         }
                                     }
                                 },
-                                error:function(){
+                                error:function(json){
+                                    if ($.parseJSON(json.responseText).code == 5040) {
+                                        //alert("您的有限免费额度已经用完，请选择其他计费包。");
+                                        $("#limit_buy_alert").show().fadeOut(2500);
+                                    }
+
                                 }
                             });
                         }
@@ -801,7 +818,7 @@ if(limitBoo){
                 },
                 error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                        $("#myself_alert").show().fadeOut(3000);
+                        $("#myself_alert").show().fadeOut(2500);
                         myself=false;
                     }
                 }
@@ -890,7 +907,7 @@ if(limitBoo){
                 });
         //设置radio默认状态
         var sel_options=$("#LT-right .form-control").find("option:selected").val();
-        $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked").siblings().hide();
+        $(".charge-body div:eq("+sel_options+") .cbtn input").prop("checked","checked").siblings().hide();
         $(".charge-body div:eq("+sel_options+")").siblings().hide();
             //TODO 设置订购合同日期，目前写死
             var timer;
@@ -1073,7 +1090,7 @@ function apply_buy(){
                 },
                 error:function(json){
                 if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                            $("#myself_alert").show().fadeOut(3000);
+                            $("#myself_alert").show().fadeOut(2500);
                     }
                 }
             });
@@ -1098,7 +1115,7 @@ function apply_buy(){
                 },
                 error:function(json){
                     if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                        $("#myself_alert").show().fadeOut(3000);
+                        $("#myself_alert").show().fadeOut(2500);
                         myself=false;
                     }
                 }
@@ -1183,7 +1200,7 @@ function apply_buy(){
 
             //设置radio默认状态
             var sel_options=$("#LT-right .form-control").find("option:selected").val();
-            $(".charge-body div:eq("+sel_options+") .cbtn input").attr("checked","checked");
+            $(".charge-body div:eq("+sel_options+") .cbtn input").prop("checked","checked");
             $(".charge-body div:eq("+sel_options+")").siblings().hide();
 
             //TODO 设置订购合同日期，目前写死
@@ -1327,7 +1344,7 @@ function cancel_buy(){
                     },
                     error:function(json){
                         if ($.parseJSON(json.responseText).code == 5008||$.parseJSON(json.responseText).code == 5007) {
-                            $("#myself_alert").show().fadeOut(3000);
+                            $("#myself_alert").show().fadeOut(2500);
                             location.reload();
                         }
                     }
@@ -1337,3 +1354,265 @@ function cancel_buy(){
     });
 }
 
+
+
+
+//-------------------------获取reponame,itemname--------------------------------------
+function getParam(key) {
+    var value='';
+    var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
+    if (itemid.test(decodeURIComponent(window.location.href))) {
+        value = itemid.exec(decodeURIComponent(window.location.href))[1];
+    }
+    return value;
+}
+//the amount of like:star
+function subscription(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var starAmount = '';
+    $.ajax({
+        url: ngUrl + "/star_stat/"+repoName,
+        type: "GET",
+        cache: false,
+        async: false,
+        dataType: 'json',
+        //headers: {Authorization: "Token " + $.cookie("token")},
+        success: function (json) {
+            if(json.code == 0) {
+                starAmount = json.data.numstars;
+            }
+        }
+    });
+    return starAmount;
+}
+
+//the amount of purchase icon cart
+function purchase(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var purchaseAmount = '';
+    $.ajax({
+        url: ngUrl+"/subscription_stat/"+repoName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        //headers:{Authorization:"Token "+$.cookie("token")},
+        success:function(json){
+            if(json.code == 0){
+                //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
+                purchaseAmount=json.data.numsubs;
+            }
+        }
+    });
+    return purchaseAmount;
+}
+//the amount of download the icon download
+function download_icon(repoName){
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var downloadAmount ='';
+    $.ajax({
+        url: ngUrl+"/transaction_stat/"+repoName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        //headers:{Authorization:"Token "+$.cookie("token")},
+        success:function(json){
+            if(json.code == 0){
+                downloadAmount = json.data.numpulls;
+            }
+        }
+    });
+    return downloadAmount;
+}
+//the amount of comment
+function getComment(repoName){
+    var commentAmount=0;
+    var allCommentAmount=0;
+    $.ajax({
+        url: ngUrl+"/repositories/"+repoName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        success:function(json){
+            if(json.code == 0){
+                if(json.data.dataitems!=null){
+                    var dataItem=json.data.dataitems;
+                    var len=json.data.items;
+                    for(var i=0;i<len;i++){
+                        var itemName=dataItem[i];
+                        $.ajax({
+                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            type: "GET",
+                            cache:false,
+                            async:false,
+                            dataType:'json',
+                            success:function(json){
+                                if(json.code == 0){
+                                    commentAmount=json.data.numcomments;
+                                }
+                            }
+                        });
+                        allCommentAmount+=commentAmount;
+                    }
+                }
+            }
+        }
+    });
+    return allCommentAmount;
+}
+
+$(document).ready(function(){
+    hot();
+});
+
+//the amount of like:star
+function subscription(itemName){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var starAmount = '';
+    var repoName=getParam("repname");
+    $.ajax({
+        url: ngUrl + "/star_stat/" + repoName + "/" + itemName,
+        type: "GET",
+        cache: false,
+        async: false,
+        dataType: 'json',
+        headers: headerToken,
+        success: function (json) {
+            if(json.code == 0){
+                starAmount = json.data.numstars;
+            }
+        }
+    });
+    return starAmount;
+}
+//the amount of purchase icon cart
+function purchase(itemName){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var purchaseAmount = '';
+    var repoName=getParam("repname");
+    $.ajax({
+        url: ngUrl+"/subscription_stat/"+repoName+"/"+itemName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json){
+            if(json.code == 0){
+                //$(".content1_pullNumber span:nth-child(2)").text("pull:"+json.data.nummypulls);
+                purchaseAmount=json.data.numsubs;
+            }
+        }
+    });
+    return purchaseAmount;
+}
+//the amount of download the icon download
+function download_icon(itemName){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var downloadAmount ='';
+    var repoName=getParam("repname");
+    $.ajax({
+        url: ngUrl+"/transaction_stat/"+repoName+"/"+itemName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json){
+            if(json.code == 0){
+                downloadAmount = json.data.numpulls;
+            }
+        }
+    });
+    return downloadAmount;
+}
+//the amount of comment
+function getComment(itemName){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    var commentAmount='';
+    var repoName=getParam("repname");
+    $.ajax({
+        url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json){
+            if(json.code == 0){
+                commentAmount=json.data.numcomments;
+            }
+        }
+    });
+    return commentAmount;
+}
+
+function hot(){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
+    //get current reponame
+    var repoName=getParam("repname");
+    $("#titleName .itemname").text(itemName);
+
+    var repoName=getParam("repname");
+    var itemName=getParam("itemname");
+    var $place=$("<div></div>").appendTo($("#hot"));
+    $.ajax({
+        url: ngUrl+"/repositories/"+repoName+"?relatedItems=1&size=3",
+        type: "GET",
+        cache:false,
+        async:false,
+        dataType:'json',
+        headers:headerToken,
+        success:function(json) {
+            console.log(json.data);
+            var iname=json.data.dataitems;
+            var item_exist=$("#titleName .itemname").text();
+            for (i=0;i<json.data.dataitems.length;i++){
+
+               if(iname[i]==item_exist) {
+                   continue;
+               }
+                var pnum = purchase(iname[i]);
+                var dnum = download_icon(iname[i]);
+                var starnum = subscription(iname[i]);
+                var commentnum = getComment(iname[i]);
+                var url ="itemDetails.html?repname="+repoName+"&itemname="+iname[i];
+                $place.append(""+
+                    "<div class='completeDiv2'  style='float: left'>"+
+                    "<a href='"+url+"'><p class='subtitle2' style='padding-top: 20px; padding-bottom:25px; font-size:20px; font-weight: bold; color:#43609f; float:left'>"+iname[i]+"</p></a>"+
+                    "<div class='icons2'>"+
+                    "<div class='like2'>"+"<img src='images/newpic001.png'>"+"<span style='margin-left: 10px;'>"+starnum+"</span>"
+                    +"</div>"
+                    +"<div class='cart2'>"+"<img src='images/newpic002.png' style='padding-right: 15px;'>"+"<span>"+dnum+"</span>"
+                    +"</div>"
+                    +"<div class='download2'>"+"<img src='images/newpic003.png'>"+"<span style='margin-left: 10px;'>"+pnum+"</span>"
+                    +"</div>"
+                    +"<div class='comment2' >"+"<img src='../images/selects/comment.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
+                    +"</div>"+"</div>"+"</div>"+"</div>");
+            }
+        }
+    });
+}

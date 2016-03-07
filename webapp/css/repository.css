@@ -68,28 +68,11 @@
     float:left;
 }
 
-.subtitle{
-    float: left;
-    width: 100%;
-    overflow: hidden;
-}
+
 .description{
     float:left;
     width: 100%;
     overflow: hidden;
-}
-
-.subtitle a{
-    font-size:20px;
-    color:#43609f;
-    margin-top: 21px;
-    margin-left: 30px;
-    margin-bottom: 20px;
-    float: left;
-    font-weight: bold;
-}
-.subtitle a:hover{
-    color: #395289;
 }
 .description p{
     font-size: 14px;
@@ -184,6 +167,7 @@
 }
 .like span,.cart span,.download span,.comment span{
     margin-left: 20px;
+    margin-top:2px;
 }
 .icon img{
 
@@ -214,6 +198,9 @@
     /*margin-left: 90px;*/
     font-size: 12px;
     color: #b5b5b5;
+}
+.iconGroup img{
+    float: left;
 }
 .like{
     margin-top: 20px;
@@ -333,9 +320,61 @@
     border: 2px solid #e60012;
     color: #e60012;
 }
+.subtitle{
+    float: left;
+    width:100%;
+    color: #43609f;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+.subtitle a:hover{
+    color: #395289;
+}
+.subtitle a{
+    font-size:20px;
+    color:#43609f;
+    margin-top: 21px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    display: block;
+    font-weight: bold;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 /*最热rep*/
-
-#title{
+.subtitle_right{
+    float: left;
+    width:210px;
+    color: #43609f;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-left: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+.subtitle_right a:hover{
+    color: #395289;
+}
+.subtitle_right a{
+    font-size:20px;
+    color:#43609f;
+    margin-top: 21px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    display: block;
+    font-weight: bold;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+#titles{
     margin-top: 60px;
     font-size:16px;
     color:#333333;
@@ -343,53 +382,23 @@
     border-bottom:1px solid #c8c8c8;
 }
 
-#icons{
+.icons{
     width: 100%;
     float: left;
-    margin-left: 0px !important;
-    margin-bottom: 0px !important;
-}
-#like{
-    width: 80px !important;
-    margin-top: 0px !important;
-    margin-left: 0px !important;
-    text-align: center !important;
-
-}
-#like>span{
-    width: 30px !important;
-}
-#cart{
-    width: 80px !important;
-    margin-top: 20px !important;
-    margin-left: 0px !important;
-    text-align: center !important;
-}
-#cart>span{
-    width: 30px !important;
-}
-#download{
-    width: 80px !important;
-    float: right !important;
-    text-align: center !important;
-    margin-top:-20px !important;
-    margin-right: 25px !important;
-
-}
-#download>span{
-    margin-left: 15px !important;
-
+    padding-left: 10px;
 }
 
-#comment{
-    width: 80px !important;
-    float: right !important;
-    text-align: center !important;
-    margin-top:20px !important;
-    margin-right: 25px !important;
-
+.likes>span,.carts>span,.downloads>span,.comments>span{
+    margin-left: 10px;
 }
-#completeDiv:hover{
+
+.downloads,.comments,.carts,.likes{
+    float: left;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.completeDiv:hover{
     background-color:#f3fbfe;
 }
 

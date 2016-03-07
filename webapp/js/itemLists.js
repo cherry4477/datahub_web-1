@@ -1,7 +1,11 @@
 
 $(function () {
-	
 })
+	$('.mypushcomment li').eq(0).show();
+	$('.top_nav>div').click(function(){
+		$(this).addClass('cur').siblings().removeClass('cur');
+		$('.mypushcomment li').eq($(this).index()).show().siblings().hide();
+	});
 
 var type=0;
 var size=0;
@@ -49,7 +53,7 @@ function ajaxFunHtml(type,size,page){
 		
 	}
 	if(type=="4"){
-		getUserEmail();
+		//getUserEmail();
 	    $("#terminal-content-body").empty();
 		url=ngUrl+"/repositories?username="+getParam("username")+"&size="+size+"&page="+page;
 		$.ajax({
@@ -110,7 +114,7 @@ function ajaxFunHtml(type,size,page){
 		        		});
 		        		//订单状态
 		        		var orderStatus=json.data.results[i].phase;
-		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
+		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; ";
 		        		if(orderStatus=="5"){
 		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 		        		}
@@ -317,10 +321,10 @@ function forList(list,type){
 					var items=json.data.items;
 					var dataitems=json.data.dataitems;
 
-					for(var i=0;i<items;i++){
+					for(var j=0;j<items;j++){
 						var comments=0;
 						$.ajax({
-							url: ngUrl+"/comment_stat/"+list[i]+"/"+dataitems[i],
+							url: ngUrl+"/comment_stat/"+list[j]+"/"+dataitems[j],
 							type: "get",
 							cache:false,
 							async:false,
@@ -335,7 +339,9 @@ function forList(list,type){
 							}
 						});
 					}
-
+					if(comments==undefined||comments==""){
+						comments=0;
+					}
 					/*commentsnum.push(comments);
 					alert(commentsnum[i]);*/
 
@@ -563,7 +569,7 @@ function ajaxTotal(type,size){
 	        		});
 	        		//订单状态
 	        		var orderStatus=json.data.results[i].phase;
-	        		var btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 120px;";
+	        		var btnStyle="padding: 10px 32px; border-top-width: 0px;";
 	        		if(orderStatus=="5"){
 	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
 	        		}
@@ -852,7 +858,7 @@ function ajaxReUser(){
 }
 
 //获取reponame,itemname
-function getParam(key) {
+/*function getParam(key) {
     var value='';
     var itemid = new RegExp("\\?.*"+key+"=([^&]*).*$");
     if (itemid.test(decodeURIComponent(window.location.href))) {
@@ -944,7 +950,7 @@ function getComment(repoName){
                     for(var i=0;i<len;i++){
                         var itemName=dataItem[i];
                         $.ajax({
-                            url: ngUrl+"/comment_stat/"+repoName+itemName,
+                            url: ngUrl+"/comment_stat/"+repoName+"/"+itemName,
                             type: "GET",
                             cache:false,
                             async:false,
@@ -964,23 +970,21 @@ function getComment(repoName){
     return allCommentAmount;
 }
 
-$(document).ready(function(){
-   // getUserEmail();
-});
+
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
-        /*var loginEmail = '';
+        /!*var loginEmail = '';
         var repname = '';
         $.ajax({
             url: ngUrl +"/repositories/"+repname,
             type: "get",
             cache: false,
             async: false,
-            success: function (jsons) {   
+            success: function (jsons) {
                 loginEmail = jsons.data.create_user;
                 //get username
-                    var userName = '';*/
+                    var userName = '';*!/
                     var username = getParam("username");
                     $.ajax({
                         url: ngUrl +"/users/"+username,
@@ -1030,4 +1034,4 @@ function getUserEmail(){
         }); 
     //}
 //});
-}
+}*/

@@ -68,6 +68,7 @@
 	    width: 10px;
 	    right: 5px;
   		top: 15px;
+  		display: none;
 	}
 	
 	#phoneshowblog{
@@ -169,7 +170,10 @@
 <div style="background-color:#29abe2;border: none;" class="navbar navbar-fixed-top" id="menu-nav">
       <div class="container" style="padding: 0px">
           <div class="navbar-header">
+          	<!-- 
           		<a id="nLogosHeader" style="position: absolute;right: 120px;top: 15px;color: #fff;font-size: 1em;" href="/">DataHub</a>
+          	--> 
+          		<a id="nLogosHeader" style="font-size: 1em;color: #fff;float: left;font-size: 1em;margin-left: 30px;margin-right: -21px;margin-top: 16px;" href="/">DataHub</a>
           	  <a id="phoneSelect" class="selectbtn" href="selects.html" style='position: absolute;right: 50px;top: 15px;color: #fff;font-size: 1em;'>数据精选</a>          	
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                   <span class="sr-only">切换导航 </span>
@@ -216,7 +220,12 @@
                   </li> 
                   <!--<li>
                   	<a id="sign-tool" style="color: #fff;font-size: 1em;" href="" data-toggle="modal" data-target="#about-modal">工具</a>
-                  </li>-->                       
+                  </li>--> 
+                  <li style="float: left;">
+                      	<a id='sign-gj' title='工具' target="_blank" href='clientDownload.html' style='color: #fff;font-size: 1em;'>
+                      		工具
+                      	</a>
+                  </li>                      
                   <li>
                   	<a id='sign-help' target="_blank" href='http://docs.hub.dataos.io/' style='color: #fff;font-size: 1em;'>
                         		<!--
@@ -274,16 +283,16 @@
                    <!--<li>
                   	<a id="sign-tool" style="color: #fff;font-size: 1em;" href="" data-toggle="modal" data-target="#about-modal">工具</a>
                   </li> 
-                  -->                       
+                  -->
+                  
+                  <!--                      
                   <li class="inLoginfLiF">
                   	<a title='pull记录' style="color: #fff;font-size: 1em" href="mypullDetails.html">
-                  		<!-- 
-                  		<img src="images/fl2.png" />
-                  		-->
                   		pull记录
                   	</a>
                   </li> 
-                  
+                   -->  
+                   
                  <li class="inLoginfLiF">
                   	<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title='个人中心' style="color: #fff;font-size: 1em" href="javaScript:void(0);">
                   		<!--
@@ -302,6 +311,11 @@
 					    <li role="separator" class="divider"></li>
 					    <li><a id="logout" href="javaScript:void(0);">退出</a></li>
 					  </ul>	  
+                 </li>
+                 <li class="inLoginfLiF">
+                     	<a target="_blank" href='clientDownload.html' title='工具' style='color: #fff;font-size: 1em;'>
+                     		工具
+                     	</a>
                  </li> 
                  <li class="inLoginfLiF">
 					<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
@@ -327,7 +341,7 @@
                   </li> 
                   -->
                     <li id="phoneshowhelp">
-                  	<a  target="_blank" href="http://docs.hub.dataos.io:8999" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
+                  	<a  target="_blank" href="http://docs.hub.dataos.io" title='帮助' style="color: #fff;font-size: 1em" href="mypullDetails.html">
                   		<!--
                   		<img src="images/fl2.png" />
                   		-->

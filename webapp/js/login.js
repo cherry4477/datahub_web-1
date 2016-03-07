@@ -12,6 +12,9 @@ $(function(){
 //	})
 //
 	$(document).on('click','#sign-in',function(){	
+		if(pcorphone == 'phone'){
+			location.href="login_media.html";
+		}
 				 $(document).keydown(function(event){
 					if(event.keyCode==13){
 					$("#signs").click();
