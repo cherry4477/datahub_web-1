@@ -149,13 +149,16 @@
 			datatype: 'json',
 			success: function (d) {
 				var UT = d.data.userType;
+				console.log(d.data);
 				$("#dataName").text(d.data.userName);
 				$("#dataNamer").text(d.data.userName);
 				$("#dataComment").text(d.data.comment);
 				console.log(d.username);
-
 				if (UT == 1) {
-
+					$("#normal").hide();
+					$("#diamond").hide();
+					$("#gold").hide();
+					$("#terminal-content-body").css("margin","auto");
 				}
 				else if (UT == 3) {
 					$("#gold").hide();
