@@ -353,8 +353,10 @@
 
 
 <script>
+    var str=[];
     var local_href=location.href;
-    console.log(local_href);
+    str=local_href.split(".html");
+    var local_href_new=str[0]+"Phone"+str[1];
     var qrcode= new AraleQRCode({
         render:"canvas ",
         text:local_href,
@@ -364,7 +366,7 @@
     });
     var qrcode2= new AraleQRCode({
         render:"canvas ",
-        text:local_href,
+        text:local_href_new,
         size:12,
         correctLevel:0
     });

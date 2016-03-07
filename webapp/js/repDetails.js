@@ -77,7 +77,7 @@ $(function() {
             headerToken={Authorization:"Token "+$.cookie("token")};
         }
         $.ajax({
-            url: ngUrl + "/repositories/" + repname + "?relatedItems=1&size=6&page="+pages,
+            url: ngUrl + "/repositories/" + repname + "?items=1&size=6&page="+pages,
             cache: false,
             async: false,
             headers:headerToken,
@@ -500,7 +500,7 @@ function getComments(repoName){
         headerToken={Authorization:"Token "+$.cookie("token")};
     }
     $.ajax({
-        url: ngUrl+"/repositories/"+repoName+"?relatedItems=1",
+        url: ngUrl+"/repositories/"+repoName+"?items=1",
         type: "GET",
         cache:false,
         async:false,
@@ -711,9 +711,9 @@ function getUserEmail(){
                     if(data_len==0||data_len==null){
                         $("#hot").hide();
                     }else{
-                        $("#hot").show()
+                        $("#hot").show();
                     }
-                    for (i=0;i<data_len;i++){
+                    for (i=0;i<jsons.data.length;i++){
                         repoName=jsons.data[i].repname;
                         if(repoName_exist==repoName){
                             continue;
