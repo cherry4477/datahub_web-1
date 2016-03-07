@@ -726,7 +726,7 @@ function getUserEmail(){
                         var url ="repDetails.html?repname="+repoName
                         $place.append(""+
                             "<div class='completeDiv'  style='float: left;'>"+
-                            "<a href='"+url+"'> <p class='subtitle'>"+repoName+"</p></a>"+
+                            "<a href='"+url+"'> <p class='subtitle_right'>"+repoName+"</p></a>"+
                             "<div class='icons' >"+
                             "<div class='likes' >"+"<img src='images/newpic001.png'>"+"<span>"+like+"</span>"
                             +"</div>"

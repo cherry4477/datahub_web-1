@@ -316,8 +316,33 @@
     border: 2px solid #e60012;
     color: #e60012;
 }
-/*最热rep*/
 .subtitle{
+    float: left;
+    width:100%;
+    color: #43609f;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+.subtitle a:hover{
+    color: #395289;
+}
+.subtitle a{
+    font-size:20px;
+    color:#43609f;
+    margin-top: 21px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    display: block;
+    font-weight: bold;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/*最热rep*/
+.subtitle_right{
     float: left;
     width:210px;
     color: #43609f;
@@ -330,10 +355,10 @@
     overflow: hidden;
     text-overflow:ellipsis;
 }
-.subtitle a:hover{
+.subtitle_right a:hover{
     color: #395289;
 }
-.subtitle a{
+.subtitle_right a{
     font-size:20px;
     color:#43609f;
     margin-top: 21px;
