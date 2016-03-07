@@ -83,9 +83,13 @@
                             <div class="alert_login">
                               <p> 您还没有登录，请<a>登录</a></p>
                             </div>
-                            <div  id="small-qrcode"><span></span>分享到微信</div>
+                            <div style="position: relative">
+                                <div  id="small-qrcode"><span></span>分享到微信</div>
+                                <div id="big-qrcode"><p>微信扫码</p><span></span></div><!--//放大图-->
+                            </div>
+
                         </div>
-                        <div id="big-qrcode"><p>微信扫码</p><span></span></div><!--//放小图-->
+
                         <!--<div><p id="share" style="display: inline-block;"><span></span>分享到朋友圈</p></div>-->
                     </div>
                     <div id="LT-right">
@@ -349,18 +353,20 @@
 
 
 <script>
+    var str=[];
     var local_href=location.href;
-    console.log(local_href);
+    str=local_href.split(".html");
+    var local_href_new=str[0]+"Phone"+str[1];
     var qrcode= new AraleQRCode({
         render:"canvas ",
-        text:local_href,
+        text:local_href_new,
 //        text:"http://127.0.0.1:8888",
         size:90,
         correctLevel:0
     });
     var qrcode2= new AraleQRCode({
         render:"canvas ",
-        text:local_href,
+        text:local_href_new,
         size:12,
         correctLevel:0
     });

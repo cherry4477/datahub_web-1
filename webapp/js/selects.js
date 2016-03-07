@@ -422,7 +422,7 @@ function addhtml(){
                 getAjax(ngUrl + "/users/" + create_user,function (msg) {
                     window.company_name=msg.data.userName;
                 });
-                $repo_left_subline_lable.append($("<span></span>").text(labelV));
+                $repo_left_subline_lable.append($("<span class="+vvclass+"></span>").text(labelV));
                 var url="dataOfDetails.html?username="+create_user;
                 $repo_left.append("" +
                     "<div class='supplier'>"+
