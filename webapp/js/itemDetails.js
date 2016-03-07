@@ -465,11 +465,11 @@ function company(){
              }
              else{
                  if(label=="batch")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("批量数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #8fc31f;'></span>").text("批量数据"));
                  if(label=="flow")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("流式数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #f8b551;'></span>").text("流式数据"));
                  if(label=="api")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("API"));
+                     $(".span_label").append($("<span style='border: 1px solid #eb6877;'></span>").text("API"));
              }
 
 
