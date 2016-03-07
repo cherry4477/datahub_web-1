@@ -319,16 +319,14 @@
 /*最热rep*/
 .subtitle{
     float: left;
-    width:260px;
+    width:100%;
     color: #43609f;
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 25px;
     padding-top: 20px;
     padding-left: 10px;
-    text-overflow:ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+
 }
 .subtitle a:hover{
     color: #395289;
@@ -339,8 +337,11 @@
     margin-top: 21px;
     margin-left: 30px;
     margin-bottom: 20px;
-    float: left;
+    display: block;
     font-weight: bold;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 #titles{
     margin-top: 60px;
