@@ -674,7 +674,7 @@ function getComment(repoName){
 
 var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
-function getUserEmail()
+function getUserEmail(){
     var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
        headerToken={Authorization:"Token "+$.cookie("token")};
