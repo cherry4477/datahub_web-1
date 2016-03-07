@@ -351,7 +351,9 @@
 						             );
 			                    }
 			                    if(phase==1){
-			                    	s="管理员："+receiver+"同意与您签订<a class='acomRe' target='_blank' href='itemDetails.html?repname="+repname+"&itemname="+itemname+"'>"+repname+"/"+itemname+"</a>“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同，合同已于即日生效，请通过client端下载。"+qtime+"”。点击<a class='acomRe' target='_blank' href='mySubscribe.html'>我的订购</a>查看和处理。";
+				                    var sellername=json.data.results[i].data.sellername; //用户
+				                    sellername=ajaxReUser(sellername);
+			                    	s="管理员："+sellername+"同意与您签订<a class='acomRe' target='_blank' href='itemDetails.html?repname="+repname+"&itemname="+itemname+"'>"+repname+"/"+itemname+"</a>“"+money+""+planType+"="+units+"条，有效期"+expire+"天”的订购合同，合同已于即日生效，请通过client端下载。"+qtime+"”。点击<a class='acomRe' target='_blank' href='mySubscribe.html'>我的订购</a>查看和处理。";
 			                    	$("#terminal-content-body").append(""+
 					    	        		"<div class='record'>"+
 					    	        			"<div class='head'>"+
