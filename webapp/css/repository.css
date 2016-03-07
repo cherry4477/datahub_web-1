@@ -167,6 +167,7 @@
 }
 .like span,.cart span,.download span,.comment span{
     margin-left: 20px;
+    margin-top:2px;
 }
 .icon img{
 
@@ -197,6 +198,9 @@
     /*margin-left: 90px;*/
     font-size: 12px;
     color: #b5b5b5;
+}
+.iconGroup img{
+    float: left;
 }
 .like{
     margin-top: 20px;
