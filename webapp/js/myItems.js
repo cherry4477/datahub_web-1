@@ -46,7 +46,7 @@ function getitemlist(){
     var len=0;
     var thiscoopername = ''
     $.ajax({
-        url: ngUrl + "/repositories/" + repoName+"?items=1&size=6",
+        url: ngUrl + "/repositories/" + repoName+"?items=1&size=6&myRelease=1",
         type: "GET",
         cache: false,
         async: false,
@@ -164,7 +164,7 @@ function getnextpage(nextpages){
     $(".table_content tbody").empty();
     nextpages=nextpages+1;
     $.ajax({
-        url: ngUrl + "/repositories/" + repoName+"?items=1&page="+nextpages+"&size=6",
+        url: ngUrl + "/repositories/" + repoName+"?items=1&page="+nextpages+"&size=6&myRelease=1",
         type: "GET",
         cache: false,
         async: false,

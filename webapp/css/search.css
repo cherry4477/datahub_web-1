@@ -582,6 +582,7 @@ a{
 	padding: 1px 10px;
 	border: 1px solid #666;
 	margin-right: 5px;
+	float: left;
 }
 .download {
 	float: left;
