@@ -2,7 +2,7 @@
 $(function () {
 })
 	$('.mypushcomment li').eq(0).show();
-	$('.top_nav div').click(function(){
+	$('.top_nav>div').click(function(){
 		$(this).addClass('cur').siblings().removeClass('cur');
 		$('.mypushcomment li').eq($(this).index()).show().siblings().hide();
 	});

@@ -72,8 +72,8 @@
 .item_con_line  .item_name a{
 	font: 14px bold;
 	color:#43609f;
+	max-width: 400px;
 	display: inline-block;
-	width: 630px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -125,30 +125,34 @@ table td{
 	padding-left: 30px;
 }
 
-table th:nth-child(1),table td:nth-child(1){
-	width: 550px;
+
+table th:nth-child(1){
+	width: 520px;
+}
+table td:nth-child(1){
+	padding-left: 25px;
 
 }
 table th:nth-child(2){
 	width: 280px;
 }
-table td:nth-child(2){
+table tbody td:nth-child(2){
 	width: 280px;
-	padding-left: 15px;
+	padding-left: 8px;
 }
 table th:nth-child(3){
-	width: 110px;
+	width: 105px;
 }
-table td:nth-child(3){
+table tbody td:nth-child(3){
 	width: 110px;
-	padding-left: 32px;
+	padding-left: 28px;
 
 }
 table th:nth-child(4){
 	width: 160px;
-	padding-left: 66px;
+	padding-left: 50px;
 }
-table td:nth-child(4){
+table tbody td:nth-child(4){
 	width: 190px;
 	padding-left: 105px;
 

@@ -465,11 +465,11 @@ function company(){
              }
              else{
                  if(label=="batch")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("批量数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #8fc31f;'></span>").text("批量数据"));
                  if(label=="flow")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("流式数据"));
+                     $(".span_label").append($("<span style='border: 1px solid #f8b551;'></span>").text("流式数据"));
                  if(label=="api")
-                     $(".span_label").append($("<span style='border: 1px solid red;'></span>").text("API"));
+                     $(".span_label").append($("<span style='border: 1px solid #eb6877;'></span>").text("API"));
              }
 
 
@@ -1053,7 +1053,7 @@ function apply_buy(){
         $(".sub1 .sbody").replaceWith("<div class='sbody'>甲方向乙方申请订购“<span class='repnamePm'></span>/<span class='itemnamePm'></span>”的数据服务。" +
             "<br>乙方保证所提供数据的内容与“<span class='repnamePm'></span>”描述，“<span class='itemnamePm'></span>”描述、样例数据、元数据申明的一致，并保障数据质量。</div>");
         //替换  双方权利与义务
-        $(".sub2 .sbody").replaceWith("");
+        $(".sub2 .sbody").remove();
         var $sbody=$("<div></div>").addClass("sbody").appendTo(".sub2");
         $sbody.append($("<div></div>").text("1、甲方提出申请后，乙方7天内有权选择同意或者拒绝。如甲方的申请7天未得到处理，则该申请失效。"));
         $sbody.append($("<div></div>").text(" 2、若乙方同意为甲方提供数据服务，且冻结本次订购的金额后，订购合同正式生效。订购合同生效后双方权利与义务约束如下：")

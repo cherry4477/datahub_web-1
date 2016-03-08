@@ -228,6 +228,7 @@ function ajaxRe(){
         async:false,
         dataType:'json',
         success:function(json){
+            alert(json.data);
             if(json.code == 0){
                 $("#thisusername").text(json.data.userName);
                 $("#userCom").text(json.data.comment);

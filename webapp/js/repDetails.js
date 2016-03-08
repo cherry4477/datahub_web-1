@@ -672,11 +672,11 @@ function getComment(repoName){
     return allCommentAmount;
 }
 
-var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
+    var headerToken={};
     if($.cookie("token")!=null&&$.cookie("token")!="null"){
-        headerToken={Authorization:"Token "+$.cookie("token")};
+       headerToken={Authorization:"Token "+$.cookie("token")};
     }
     var repname = getParam("repname");
     var loginEmail = '';
@@ -706,7 +706,9 @@ function getUserEmail(){
                 async: false,
                 headers:headerToken,
                 success: function (jsons) {
+                    console.log(jsons.data)
                     var repoName_exist=$(".title .titlename").text();
+                    var $place=$("<div></div>").appendTo($("#hot"));
                     for (i=0;i<jsons.data.length;i++){
                         repoName=jsons.data[i].repname;
                         if(repoName_exist==repoName){
@@ -719,7 +721,7 @@ function getUserEmail(){
                         var url ="repDetails.html?repname="+repoName
                         $place.append(""+
                             "<div class='completeDiv'  style='float: left;'>"+
-                            "<a href='"+url+"'> <p class='subtitle'>"+repoName+"</p></a>"+
+                            "<a href='"+url+"'> <p class='subtitle_right'>"+repoName+"</p></a>"+
                             "<div class='icons' >"+
                             "<div class='likes' >"+"<img src='images/newpic001.png'>"+"<span>"+like+"</span>"
                             +"</div>"
@@ -729,6 +731,16 @@ function getUserEmail(){
                             +"</div>"
                             +"<div class='comments' >"+" <img src='../images/selects/comment.png'>"+"<span>"+comment+"</span>"
                             +"</div>"+"</div>"+"</div>"+"</div>");
+                    }
+                    var domExistLen=$(".completeDiv").length;
+
+                    if(domExistLen>0){
+                        $("#hot").show();
+                        alert(domExistLen)
+                    }
+                    else{
+                        $("#hot").hide();
+                        alert(domExistLen)
                     }
                 }
             });
