@@ -672,7 +672,6 @@ function getComment(repoName){
     return allCommentAmount;
 }
 
-var $place=$("<div></div>").appendTo($("#hot"));
 //get currently user's loginname(email)
 function getUserEmail(){
     var headerToken={};
@@ -707,13 +706,9 @@ function getUserEmail(){
                 async: false,
                 headers:headerToken,
                 success: function (jsons) {
+                    console.log(jsons.data)
                     var repoName_exist=$(".title .titlename").text();
-                    var data_len=jsons.data.length;
-                    if(data_len==0||data_len==null){
-                        $("#hot").hide();
-                    }else{
-                        $("#hot").show();
-                    }
+                    var $place=$("<div></div>").appendTo($("#hot"));
                     for (i=0;i<jsons.data.length;i++){
                         repoName=jsons.data[i].repname;
                         if(repoName_exist==repoName){
@@ -736,6 +731,16 @@ function getUserEmail(){
                             +"</div>"
                             +"<div class='comments' >"+" <img src='../images/selects/comment.png'>"+"<span>"+comment+"</span>"
                             +"</div>"+"</div>"+"</div>"+"</div>");
+                    }
+                    var domExistLen=$(".completeDiv").length;
+
+                    if(domExistLen>0){
+                        $("#hot").show();
+                        alert(domExistLen)
+                    }
+                    else{
+                        $("#hot").hide();
+                        alert(domExistLen)
                     }
                 }
             });
