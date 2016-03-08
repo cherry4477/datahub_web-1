@@ -365,9 +365,10 @@ $(function(){
 
         $('#pricealertbox').modal('toggle');
     })
-
+    var gotodelelables = [];
 //////////////////////////////////////////////////////////修改item
     $(".itemListName-icon").click(function() {
+        gotodelelables = [];
         $('.valuemoney').empty();
         $('.itemtag .value').empty();
         $.ajax({
@@ -434,6 +435,7 @@ $(function(){
     $("#editItem .itemtagmoney .keymoney .divmoney .btniconmoney").click(function() {
         createItemTagmoney();
     });
+
 ///////////////提交修改
     $("#editItem .submit input").click(function() {
         var reg = new RegExp("^[0-9]*$");
@@ -525,6 +527,18 @@ $(function(){
             dataarr[i].expire = parseInt(tagexpire);
             dataarr[i].plan_id = dataid;
 
+        }
+        for(var i = 0;i < gotodelelables.length;i++){
+            $.ajax({
+                        type:"DELETE",
+                        url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label?owner."+gotodelelables[i].owname+"="+gotodelelables[i].thistagvalue,
+                        cache: false,
+                        async: false,
+                        headers:{ Authorization:"Token "+$.cookie("token") },
+                        success: function (datas) {
+                            //other.parent().remove();
+                        }
+                    });
         }
         dataitem.price = dataarr ;
         dataitem.comment = $.trim($("#editItem .itemcomment .value textarea").val());
@@ -977,25 +991,30 @@ $(function(){
             persontag.append($("<div>=</div>").addClass("tagequal"));
             persontag.append($("<input/>").addClass("tagvalue").attr("type", "text").val(tagvalue));
             persontag.append($("<div class='delitemlabelicon'></div>").click(function() {
-                if(persontag.attr("newlabel") != "true") {
-                    var other = $(this);
-                    var owname = $(this).siblings('.tagkey').val();
-                    var thistagvalue = $(this).siblings('.tagvalue').val();
-                    $.ajax({
-                        type:"DELETE",
-                        url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label?owner."+owname+"="+thistagvalue,
-                        cache: false,
-                        async: false,
-                        headers:{ Authorization:"Token "+$.cookie("token") },
-                        success: function (datas) {
-                            other.parent().remove();
-                        }
-                    });
-
-                }else {
+                var delelable = {
+                    owname : $(this).siblings('.tagkey').val(),
+                    thistagvalue : $(this).siblings('.tagvalue').val()
+                }
+                gotodelelables.push(delelable);
+                //if(persontag.attr("newlabel") != "true") {
+                //    var other = $(this);
+                //    var owname = $(this).siblings('.tagkey').val();
+                //    var thistagvalue = $(this).siblings('.tagvalue').val();
+                //    $.ajax({
+                //        type:"DELETE",
+                //        url: ngUrl+"/repositories/"+repname+"/"+itemname+"/label?owner."+owname+"="+thistagvalue,
+                //        cache: false,
+                //        async: false,
+                //        headers:{ Authorization:"Token "+$.cookie("token") },
+                //        success: function (datas) {
+                //            other.parent().remove();
+                //        }
+                //    });
+                //
+                //}else {
 
                     $(this).parent().remove();
-                }
+                //}
             }));
         }else{
             $('#errlabels').html('最多添加5个标签').addClass('errorMess').removeClass('successMess').show().delay(600).fadeOut(300);

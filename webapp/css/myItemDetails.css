@@ -340,7 +340,7 @@
 }
 #editItem .itemtag .value .persontag {
     float: left;
-    margin-bottom: 10px;
+    margin-top: 10px;
     overflow: hidden;
     padding-left: 10px;
     padding-right: 3px;
