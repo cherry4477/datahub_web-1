@@ -736,11 +736,9 @@ function getUserEmail(){
 
                     if(domExistLen>0){
                         $("#hot").show();
-                        alert(domExistLen)
                     }
                     else{
                         $("#hot").hide();
-                        alert(domExistLen)
                     }
                 }
             });
