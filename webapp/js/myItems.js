@@ -46,7 +46,7 @@ function getitemlist(){
     var len=0;
     var thiscoopername = ''
     $.ajax({
-        url: ngUrl + "/repositories/" + repoName+"?items=1&size=6",
+        url: ngUrl + "/repositories/" + repoName+"?items=1&size=6&myRelease=1",
         type: "GET",
         cache: false,
         async: false,
@@ -130,7 +130,7 @@ function getitemlist(){
                             $table_content.append("" +
                                 "<tr class='item_con_line'>"+
                                 //"<td><input type='checkbox' class='item_check' name='list_check'>" +
-                                "<td style='width: 830px;'>" +
+                                "<td>" +
                                 '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>'+
                                 "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                                 "<span class="+price_sheet+">"+price_style+"</span>"+
@@ -164,7 +164,7 @@ function getnextpage(nextpages){
     $(".table_content tbody").empty();
     nextpages=nextpages+1;
     $.ajax({
-        url: ngUrl + "/repositories/" + repoName+"?items=1&page="+nextpages+"&size=6",
+        url: ngUrl + "/repositories/" + repoName+"?items=1&page="+nextpages+"&size=6&myRelease=1",
         type: "GET",
         cache: false,
         async: false,
@@ -244,7 +244,7 @@ function getnextpage(nextpages){
                             $table_content.append("" +
                                 "<tr class='item_con_line'>"+
                                 //"<td><input type='checkbox' class='item_check' name='list_check'>" +
-                                "<td style='width: 830px;'>" +
+                                "<td>" +
                                 '<span class="item_name"><a href="myItemDetails.html?repname='+repoName+'&itemname='+item_Arr[i]+'" target="_blank">'+item_Arr[i]+'</a></span>' +
                                 "<span class="+cooperat_sheet+">"+cooperat_style+"</span>"+
                                 "<span class="+price_sheet+">"+price_style+"</span>"+

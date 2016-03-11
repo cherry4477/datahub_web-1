@@ -108,7 +108,7 @@ word-break: break-all;*/
     height: 86px;
     width: 180px;
     text-align: center;
-    left:420px;
+    left:268px;
     bottom: -80px;
 }
 #LT_left_icon .alert_login p{
@@ -562,6 +562,7 @@ word-break: break-all;*/
     float: right;
 }
 /*页面右边*/
+
 /*上半部分*/
 #main-right{
     float:right;
