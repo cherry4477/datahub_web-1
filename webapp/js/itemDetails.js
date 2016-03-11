@@ -486,9 +486,11 @@ function company(){
                     var expire = price[i].expire;//有效期
                     var money = price[i].money;//money
                     var units = price[i].units;//次数
-
-                    $("#LT-right .form-control").append($("<option></option>").attr("value",i).text(money + "元" + units + "次,  " + "有效期" + expire + "天"))
-
+                    if(label=="flow"){
+                        $("#LT-right .form-control").append($("<option></option>").attr("value",i).text(money + "元" + units + "天,  " + "有效期" + expire + "天"));
+                    }else{
+                        $("#LT-right .form-control").append($("<option></option>").attr("value",i).text(money + "元" + units + "次,  " + "有效期" + expire + "天"));
+                    }
                 }
             }
             //获取付费状态
@@ -875,6 +877,7 @@ if(limitBoo){
                     success:function(json) {
                         var pricestate = json.data.pricestate;//获取付费状态
                             var price = json.data.price;//计费方式
+                        var supply_style=json.data.label.sys.supply_style;
                         if(price==undefined||price==null){
                             $("#cancel_buy").hide();
                             $("#hurry_buy").hide();
@@ -887,15 +890,28 @@ if(limitBoo){
                                 var expire = price[i].expire;//有效期
                                 var money = price[i].money;//money
                                 var units = price[i].units;//次数
-                                var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value="+i+" checked='checkted'>")));
-                                charegeitem.append($("<span class='cvalue'></span>").
-                                append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
-                                append($("<span class='moneyv'></span>").text(money+"元")).
-                                append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
-                                append($("<span class='moneyu2'></span>").text(units+"次")).
-                                append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
-                                append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                                if(supply_style=="flow"){
+                                    var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                                    charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value="+i+" checked='checkted'>")));
+                                    charegeitem.append($("<span class='cvalue'></span>").
+                                    append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                                    append($("<span class='moneyv'></span>").text(money+"元")).
+                                    append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                                    append($("<span class='moneyu2'></span>").text(units+"天")).
+                                    append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                                    append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                                }else{
+                                    var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                                    charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value="+i+" checked='checkted'>")));
+                                    charegeitem.append($("<span class='cvalue'></span>").
+                                    append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                                    append($("<span class='moneyv'></span>").text(money+"元")).
+                                    append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                                    append($("<span class='moneyu2'></span>").text(units+"次")).
+                                    append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                                    append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                                }
+
 
                         }
                             //charegeitem.append($("<span class='cdtitle'></span>").text(expire));
@@ -1172,6 +1188,7 @@ function apply_buy(){
                 success:function(json) {
                     var pricestate = json.data.pricestate;//获取付费状态
                     var price = json.data.price;//计费方式
+                    var supply_style=json.data.label.sys.supply_style;
                     if(price==undefined||price==null){
                         $("#cancel_buy").hide();
                         $("#hurry_buy").hide();
@@ -1184,15 +1201,27 @@ function apply_buy(){
                             var expire = price[i].expire;//有效期
                             var money = price[i].money;//money
                             var units = price[i].units;//次数
-                            var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
-                            charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge='charge' type='radio' value="+i+" checked='checkted'>")));
-                            charegeitem.append($("<span class='cvalue'></span>").
-                            append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
-                            append($("<span class='moneyv'></span>").text(money+"元")).
-                            append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
-                            append($("<span class='moneyu2'></span>").text(units+"次")).
-                            append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
-                            append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                            if(supply_style=="flow"){
+                                var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value="+i+" checked='checkted'>")));
+                                charegeitem.append($("<span class='cvalue'></span>").
+                                append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                                append($("<span class='moneyv'></span>").text(money+"元")).
+                                append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                                append($("<span class='moneyu2'></span>").text(units+"天")).
+                                append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                                append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                            }else{
+                                var charegeitem = $("<div></div>").addClass("chargeitem").appendTo(chargeBody);
+                                charegeitem.append($("<span class='cbtn'></span>").append($("<input name='subcharge' charge_hurry='charge_hurry' type='radio' value="+i+" checked='checkted'>")));
+                                charegeitem.append($("<span class='cvalue'></span>").
+                                append($("<span class='moneyu' mark=" + price[i].plan_id + "></span>").text("¥ ")).
+                                append($("<span class='moneyv'></span>").text(money+"元")).
+                                append($("<span class='moneyl'>&nbsp;/&nbsp;</span>")).
+                                append($("<span class='moneyu2'></span>").text(units+"次")).
+                                append($("<span class='moneyl'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")).
+                                append($("<span class='vexpire'></span>").text("有效期"+expire+"天")));
+                            }
                     }
                     }
                 }
@@ -1612,6 +1641,13 @@ function hot(){
                     +"</div>"
                     +"<div class='comment2' >"+"<img src='../images/selects/comment.png' style='padding-right: 15px;'>"+"<span>"+commentnum+"</span>"
                     +"</div>"+"</div>"+"</div>"+"</div>");
+            }
+            var domExistLen=$(".completeDiv2").length;
+            if(domExistLen>0){
+                $("#hot").show();
+            }
+            else{
+                $("#hot").hide();
             }
         }
     });
