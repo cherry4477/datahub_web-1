@@ -58,6 +58,13 @@
 		color: #395289;
 		text-decoration: underline;
 	}
+	
+	.shens{
+		margin-left:10px;
+		margin-top:-5px;
+		cursor: pointer;
+	}
+	
 </style>
 <!-- 登陆框开始 -->
      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -89,7 +96,14 @@
 					  <button id='signs' class="btn btn-primary" style='width:360px;height:40px;'>登录</button>     
 					  <div style="margin-top: 20px;margin-bottom: 40px;">
 					  		<!--<p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="reg.html">马上注册</a></p>-->
-						  <p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="registration.html">邀请注册</a></p>
+						  <p class="text-center" style="font-size: 16px;">还没有账号？申请成为会员
+						  	<!-- 
+						  	<a id="nvitationLogin" href="registration.html">邀请注册</a>
+						  	 -->
+						  	<a href="mailto:datahub@asiainfo.com?subject=申请成为Datahub会员">
+						  		<img title="申请注册" class="shens"  />
+						  	</a>
+						  </p>
 					  </div>
                 </div>
                 <!-- 
@@ -120,7 +134,12 @@
 					  </div>
 					  <button id='signs2' class="btn btn-primary" style='width:360px;height:40px;'>发送密码重置邮件</button>     
 					  <div style="margin-top: 20px;margin-bottom: 40px;">
-					  		<p class="text-center" style="font-size: 16px;">还没有账号？<a id="nvitationLogin" href="registration.html">邀请注册</a></p>
+					  		<p class="text-center" style="font-size: 16px;">还没有账号？申请成为会员
+					  			<!-- <a id="nvitationLogin" href="registration.html">邀请注册</a> -->
+					  			<a href="mailto:datahub@asiainfo.com?subject=申请成为Datahub会员">
+						  			<img title="申请注册" class="shens"  />
+						  		</a>
+					  		</p>
 					  </div>                       
                 </div>   
             </div>
@@ -142,6 +161,19 @@
             </div>
         </div>
     </div>
+    <script>
+    	$(function(){
+    		 $(".shens").attr("src","images/images02_158.png");
+    		$(document).on("mouseenter mouseleave",'.shens',function(event){ 
+				 if(event.type == "mouseenter"){
+					 $(".shens").attr("src","images/images02_160.png");
+			     }
+				 if(event.type == "mouseleave"){
+					 $(".shens").attr("src","images/images02_158.png");
+			     }
+			  });
+    	});
+    </script>
 <script>
 	// $(function () {
 	// 	$('#myModal').on('hide.bs.modal', function () {
