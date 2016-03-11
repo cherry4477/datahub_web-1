@@ -269,7 +269,7 @@ $(function() {
                 var itemstr = ' <div class="tablelist">' +
                     ' <div class="dtable">' +
                     ' <div class="dhead">' +
-                    ' <span class="col1"><b>DateItem name</b></span>' +
+                    ' <span class="col1"><b>DataItem name</b></span>' +
                     ' <span class="col2"><b>更新时间</b></span>' +
                     ' <span class="col3"><b>属性</b></span>' +
                     ' <span class="col4"><b>Tag数量</b></span>' +

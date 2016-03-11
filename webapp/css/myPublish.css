@@ -366,6 +366,9 @@ strong{
 	border-bottom: 1px solid #c8c8c8;
 
 }
+.dbody .row:hover{
+	background: #f4fbfe;
+}
 .describe{
 	width: 100%;
 	overflow: hidden;
