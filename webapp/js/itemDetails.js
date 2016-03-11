@@ -303,7 +303,7 @@ function star(){
             }
             else
             {
-                $(" .alert_login").css({"display":"block","left":"420px"}).show();
+                $(" .alert_login").css({"display":"block","left":"268px"}).show();
             }
         })
 
