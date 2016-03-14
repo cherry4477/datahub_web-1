@@ -157,6 +157,10 @@
         .cur_user a{
             color: #337ab7;
             display: block;
+            width: 100%;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
         }
         .cur_user a:hover{
             color: #000;
@@ -265,7 +269,24 @@
 <div id="loginTem"></div>
 </body>
 </html>
+<script src="js/terminal.js"></script>
 <script>
+    $(function(){
+        var strUrl = window.location.href;
+        var arrUrl = strUrl.split("/");
+        var strPage = arrUrl[arrUrl.length-1];
+        var indexof = strPage.indexOf("?");
+        if(indexof != -1){
+            strPage = strPage.substr(0,strPage.indexOf("?"));
+        }
+        var ispc = browserRedirect();
+        if(ispc == 'pc'){
+            if(strPage != 'repDetails'){
+                var thisUrl =  strUrl.replace(strPage,'repDetails.html');
+                window.location.href=thisUrl;
+            }
+        }
+    })
     $(document).on('touchstart','.liListwrop',function(){
         $(this).css('background-color','#e8e8e8');
     });
