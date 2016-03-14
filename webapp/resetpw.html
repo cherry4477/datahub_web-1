@@ -77,18 +77,27 @@
 				</button>
 			</div>
 		</div>
+		<div ID="failed" style="display:none" >
+			<div ID="failed_con">
+				<h3>重设登陆密码</h3>
+				<div><p style="font-size:16px;"><img src="../images/images02_127.png" style="margin-right:8px;width:18px;height:18px;vertical-align:middle;display: inline-block;"/>重置密码链接已失效,请点击按钮生成新的链接。</p></div>
+				<button class="btn btn-primary btn-lg" ID="reforget" role="button"  style="float:left">
+					生产新链接
+				</button>
+			</div>
+		</div>
 	</div>
 	<!--reset agter 24 hrs-->
-	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
+<!--	<div class="container" style="margin-top:50px; margin-bottom:100px; width:740px;">
 		<div ID="failed" style="display:none" >
 			<div ID="reset">
 				<p>重设登陆密码</p>
 			</div>
 			<div ID="info">
-				<p style="font-size:16px;"><!--image src="images02_125.png"-->重置密码链接已失效。请点击<a>这里</a>生成新的链接。</p>
+				<p style="font-size:16px;">&lt;!&ndash;image src="images02_125.png"&ndash;&gt;重置密码链接已失效。请点击<a>这里</a>生成新的链接。</p>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	<div id="loginTem"></div>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -121,6 +130,11 @@
 			return value;
 		}
 	$(document).ready(function(){
+		$("#reforget").click(function(){
+			$('#myModal').modal('hide');
+			$('#fine').modal('show');
+		});
+
 		$("#ps").blur(function(){
 			if (($("#ps").val())==""){
 				$("#label_four").siblings().finish().hide();
@@ -164,7 +178,7 @@
 			$("#label_three").fadeOut(3000);
 		}
 		$("#registration").click(function(){
-			var a, b, c, d;
+			var a, b, c, d,e;
 			if (($("#ps").val())==""){
 				$("#label_four").siblings().finish().hide();
 				$("#label_four").show();
@@ -197,10 +211,18 @@
 			}else{
 				d=1;
 			}
+			if (($("#ps").val())!=($("#rps").val())) {
+				$("#label_three").siblings().finish().hide();
+				$("#label_three").show();
+				$("#label_three").fadeOut(3000);
+				e=0;
+			}else{
+				e=1;
+			}
 			var myps = $.md5($("#ps").val());
 			var sid = getParam("sid");
 			var loginname=getParam("regname");
-			if(a*b*c*d==1){
+			if(a*b*c*d*e==1){
 				$.ajax({
 					//sending email
 					url: ngUrl+"/users/"+loginname+"/pwd/reset",

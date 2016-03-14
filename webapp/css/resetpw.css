@@ -94,3 +94,31 @@
 	margin-left: 230px;
 	margin-bottom: 50px;
 }
+#failed{
+	float: left;
+	border:1px solid #c8c8c8;
+	width: 100%;
+}
+#failed_con p:nth-child(1){
+	text-align: center;
+	color: #FF0000;
+	line-height: 24px;
+	margin-top: 80px;
+}
+#failed_con>h3{
+	margin-top: 30px;
+	margin-left: 30px;
+}
+#reforget{
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	float: left;
+	margin-left: 230px;
+	margin-bottom: 50px;
+	margin-top: 85px;
+}
