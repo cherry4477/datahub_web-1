@@ -192,8 +192,10 @@
 			}
 			var ispc = browserRedirect();
 			if(ispc == 'phone'){
-				var thisUrl =  strUrl.replace(strPage,'selectsPhone.html');
-				window.location.href=thisUrl;
+				if(strPage != 'selectsPhone'){
+					var thisUrl =  strUrl.replace(strPage,'selectsPhone.html');
+					window.location.href=thisUrl;
+				}
 			}
 		})
 		$("a").focus(function(){this.blur()});

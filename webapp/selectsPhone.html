@@ -98,8 +98,10 @@
         }
         var ispc = browserRedirect();
         if(ispc == 'pc'){
-            var thisUrl =  strUrl.replace(strPage,'selects.html');
-            window.location.href=thisUrl;
+            if(strPage != 'selects'){
+                var thisUrl =  strUrl.replace(strPage,'selects.html');
+                window.location.href=thisUrl;
+            }
         }
     })
     $(document).on('touchstart','.replist',function(){
