@@ -68,7 +68,15 @@ $(function(){
                     }
                 }
 
-            }
+            },error:function (json)
+                {
+                    if(json.status == 400) {
+                        if ($.parseJSON(json.responseText).code == 1006) {
+                            window.location.href="/";
+                        }
+                    }
+
+                }
 
         });
 

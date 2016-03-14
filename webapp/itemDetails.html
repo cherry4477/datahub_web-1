@@ -350,9 +350,26 @@
 <script src='js/marked.js'></script>
 <script src='js/replyto.js'></script>
 <script src='js/qrcode.js'></script>
+<script src="js/terminal.js"></script>
 
 
 <script>
+    $(function(){
+        var strUrl = window.location.href;
+        var arrUrl = strUrl.split("/");
+        var strPage = arrUrl[arrUrl.length-1];
+        var indexof = strPage.indexOf("?");
+        if(indexof != -1){
+            strPage = strPage.substr(0,strPage.indexOf("?"));
+        }
+        var ispc = browserRedirect();
+        if(ispc == 'phone'){
+            if(strPage != 'ItemDetailsPhone'){
+                var thisUrl =  strUrl.replace(strPage,'ItemDetailsPhone.html');
+                window.location.href=thisUrl;
+            }
+        }
+    })
     var str=[];
     var local_href=location.href;
     str=local_href.split(".html");
