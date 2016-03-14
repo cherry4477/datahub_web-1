@@ -32,14 +32,18 @@ $(function(){
     }
 
     function tophtml(currepnem,curitemnem,pricestate,datastyle,itemcomment,orilabel,vvclass,perlabel,showtime,tagnum,starvalue,subnum,pullnum,cur_user,createuser){
+        var ispricestate = '<span class="pricestate '+datastyle+'">'+ pricestate +'</span>';
+        if(pricestate == '' || pricestate == null){
+            ispricestate == '';
+        }
         var topstr = '<div class="reptitle borderb">'+
             '<div class="cur_link"></div>'+
             '<div class="repNamebg"></div>'+
             '<div class="repname">'+
             '<a href="repDetailsPhone.html?repname='+repname+'">'+
-            '<span class="currepname">'+ currepnem+'</span> / <br/>'+
+            '<span class="currepname">'+ currepnem+'</span> /'+
             '<span class="curitemname">'+ curitemnem +'</span><br/>'+
-            '<span class="pricestate '+datastyle+'">'+ pricestate +'</span>'+
+             ispricestate+
             '<div class="cur_link"></div>'+
             '</a>'+
             '</div>'+

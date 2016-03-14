@@ -113,20 +113,27 @@ $(function(){
             getAjax(ngUrl+ "/repositories/" + repname + "/"+itemdatas[i],function(msg){
                 itemloginName = getscreateName(msg.data.create_user);
                 var datastyle = '';
-                var itemdatatype = msg.data.pricestate
+                var itemdatatype = msg.data.pricestate;
+                var itemdatatypestr = '';
                 if(itemdatatype == '免费'){
                     datastyle = 'freedata';
+                    itemdatatypestr = '<span class="pricestate '+datastyle +'">'+itemdatatype+'</span>';
                 }else if(itemdatatype == '付费'){
                     datastyle = 'paydata';
-                }else{
+                    itemdatatypestr = '<span class="pricestate '+datastyle +'">'+itemdatatype+'</span>';
+                }else if(itemdatatype == '限量试用'){
                     datastyle = 'limitdata';
+                    itemdatatypestr = '<span class="pricestate '+datastyle +'">'+itemdatatype+'</span>';
+                }else{
+                    itemdatatypestr = '';
                 }
+
                 var str= '<a href="itemDetailsPhone.html?repname='+repname+'&itemname='+itemdatas[i]+'"><li class="liListwrop">'+
                     '<div style="width:100%;overflow: hidden;padding:15px 0;" class="borderb">'+
                     '<div class="listTop">'+repname+'/'+itemdatas[i]+'</div>'+
                     '<div class="listbt">数据拥有方：<span class="itemcur">'+itemloginName+'</span></div>'+
                     '<div class="listicon" ></div>'+
-                    '<span class="pricestate '+datastyle +'">'+itemdatatype+'<'+datastyle +'/span>'+
+                    itemdatatypestr +
                     '</div>'+
                     '</li></a>';
                 $('.repinfoList').append(str);
