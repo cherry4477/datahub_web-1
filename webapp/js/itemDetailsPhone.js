@@ -115,7 +115,7 @@ $(function(){
                     datastyle = 'freedata';
                 }else if(itemdatatype == '付费'){
                     datastyle = 'paydata';
-                }else if(itemdatatype == '限量免费'){
+                }else if(itemdatatype == '限量试用'){
                     datastyle = 'limitdata';
                 }
                 vvclass="";
