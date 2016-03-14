@@ -12,6 +12,7 @@ $(function(){
 //	})
 //
 	$(document).on('click','#sign-in',function(){	
+		var pcorphone =  browserRedirect();
 		if(pcorphone == 'phone'){
 			location.href="login_media.html";
 		}

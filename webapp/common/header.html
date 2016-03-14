@@ -519,6 +519,34 @@
  		location.href="messageRequired.html";
  	});
 	
+ 	
+ 	setInterval(mess,5000);
+ 	
+ 	function mess(){
+ 		var headerToken={};
+ 		//登陆后
+ 		if($.cookie("token")!=null&&$.cookie("token")!="null"){
+ 			//获取消息提示
+ 			$.ajax({
+ 				url: ngUrl+"/notification_stat",
+ 		        type: "get",
+ 		        cache:false,
+ 		        async:false,
+ 		        headers:{Authorization:"Token "+$.cookie("token")},
+ 		        dataType:'json',
+ 		        success:function(json){
+ 		        	//没有新消息
+ 		        	if(json.data==null){
+ 		        		
+ 		        	}else{
+ 		        		$(".badgeHeader").show();
+ 		        	}
+ 		        }
+ 			});
+ 		}		
+ 	}
+ 	
+ 	
 	
 	
 </script>
