@@ -33,8 +33,8 @@ $(function(){
 
     function tophtml(currepnem,curitemnem,pricestate,datastyle,itemcomment,orilabel,vvclass,perlabel,showtime,tagnum,starvalue,subnum,pullnum,cur_user,createuser){
         var ispricestate = '<span class="pricestate '+datastyle+'">'+ pricestate +'</span>';
-        if(pricestate == '' || pricestate == null){
-            ispricestate == '';
+        if(pricestate == '' || pricestate == 'null'){
+            ispricestate = '';
         }
         var topstr = '<div class="reptitle borderb">'+
             '<div class="cur_link"></div>'+
