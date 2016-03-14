@@ -330,7 +330,7 @@
             <div class="number"><span id="stopwatch3">578,694</span>个数据内容</div>
           </div>
               
-       <div class="small-label"> <small>数据截止到2015年12月10日</small> </div>
+       <div class="small-label"> <small>数据截止到2016年03月14日</small> </div>
   
   
   
@@ -777,6 +777,33 @@
    	 		e.stopPropagation();
    	 		location.href="messageRequired.html";
    	 	});
+   	 	
+   	 	//循环获取消息
+   	 	setInterval(mess,5000);
+   	 	
+   	 	function mess(){
+   	 		var headerToken={};
+   	 		//登陆后
+   	 		if($.cookie("token")!=null&&$.cookie("token")!="null"){
+   	 			//获取消息提示
+   	 			$.ajax({
+   	 				url: ngUrl+"/notification_stat",
+   	 		        type: "get",
+   	 		        cache:false,
+   	 		        async:false,
+   	 		        headers:{Authorization:"Token "+$.cookie("token")},
+   	 		        dataType:'json',
+   	 		        success:function(json){
+   	 		        	//没有新消息
+   	 		        	if(json.data==null){
+   	 		        		
+   	 		        	}else{
+   	 		        		$(".badgeHeader").show();
+   	 		        	}
+   	 		        }
+   	 			});
+   	 		}		
+   	 	}
 
 		
 		

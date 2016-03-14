@@ -189,6 +189,24 @@ a:hover{
     background-repeat: no-repeat;
     padding: 10px;
 }
+.freedata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
+    color: #f49f12;
+    border-color: #f49f12;
+}
+.paydata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
+    color: #f06f9c;
+    border-color: #f06f9c;
+}
+.limitdata{
+    border: 1px solid #ff1c1c;
+    border-radius: 2rem;
+    color: #ed4855;
+    border-color: #ed4855;
+}
 .period {
     background-color: #29abe2;
     border-radius: 2px;
@@ -243,6 +261,11 @@ a:hover{
 .iscuritemname{
     margin-left:10%;
     color:#333;
+    width: 45%;
+    display: inline-block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 .partitionline{
     width: 100%;
@@ -263,10 +286,16 @@ a:hover{
 .repname a{
     display: block;
     color: #29abe2;
+    word-break: break-all;
 }
 #cur_user{
    color: #337ab7;
    text-decoration: underline;
+    display: inline-block;
+    max-width: 65%;
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 .curtagnum{
     color: #29abe2;
