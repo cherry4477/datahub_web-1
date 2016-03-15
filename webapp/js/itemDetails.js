@@ -406,7 +406,6 @@ function about_item(){
         dataType:'json',
         headers:headerToken,
         success:function(json){
-            console.log(json);
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
@@ -712,6 +711,10 @@ function hurry_buy(){
     }
     var limitBoo=false;
     $("#hurry_buy").click(function(e){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
         $(".repnamePm").text(repoName);
@@ -725,6 +728,7 @@ function hurry_buy(){
             headers:headerToken,
             dataType:'json',
             success:function(json){
+
                 if(json.code == 0){
                    var  prices= json.data.price;
                     if(prices!=null||prices!=""){
@@ -766,6 +770,9 @@ function hurry_buy(){
                         }
                     }
                 }
+            },
+            error:function(){
+                alert("error")
             }
         });
 
@@ -1616,7 +1623,6 @@ function hot(){
         dataType:'json',
         headers:headerToken,
         success:function(json) {
-            console.log(json.data);
             var iname=json.data.dataitems;
             var item_exist=$("#titleName .itemname").text();
             for (i=0;i<json.data.dataitems.length;i++){
