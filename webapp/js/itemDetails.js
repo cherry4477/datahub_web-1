@@ -745,7 +745,7 @@ function hurry_buy(){
                                 success:function(json){
                                     if(json.code==0){
                                         var numsigns=json.data.numsigns;//订购次数
-                                        if(limitNum>0&&numsigns>=limitNum&&price_plan=="限量试用"){
+                                        if(limitNum>0&&numsigns>=limitNum){
                                             //alert("您的有限免费额度已经用完，请选择其他计费包。");
                                             $("#limit_buy_alert").show().fadeOut(2500);
                                             limitBoo=false
