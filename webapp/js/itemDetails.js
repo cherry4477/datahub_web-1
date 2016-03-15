@@ -770,9 +770,6 @@ function hurry_buy(){
                         }
                     }
                 }
-            },
-            error:function(){
-                alert("error")
             }
         });
 
