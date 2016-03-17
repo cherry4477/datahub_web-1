@@ -11,6 +11,23 @@
 	<link rel="stylesheet" href="css/command.css">
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="css/dataofDetailsPhone.css" />
+	<script src="js/terminal.js"></script>
+	<script>
+			var strUrl = window.location.href;
+			var arrUrl = strUrl.split("/");
+			var strPage = arrUrl[arrUrl.length-1];
+			var indexof = strPage.indexOf("?");
+			if(indexof != -1){
+				strPage = strPage.substr(0,strPage.indexOf("?"));
+			}
+			var ispc = browserRedirect();
+			if(ispc == 'pc'){
+				if(strPage != 'dataOfDetails'){
+					var thisUrl =  strUrl.replace(strPage,'dataOfDetails.html');
+					window.location.href=thisUrl;
+				}
+			}
+	</script>
 </head>
 <style>
 
@@ -44,24 +61,9 @@
 	<script src="js/md5.js"></script>
 	<script src="js/ajaxSetup.js"></script>
 	<script src='js/errorDialog.js'></script>
-<script src="js/terminal.js"></script>
+
 	<script>
-		$(function(){
-			var strUrl = window.location.href;
-			var arrUrl = strUrl.split("/");
-			var strPage = arrUrl[arrUrl.length-1];
-			var indexof = strPage.indexOf("?");
-			if(indexof != -1){
-				strPage = strPage.substr(0,strPage.indexOf("?"));
-			}
-			var ispc = browserRedirect();
-			if(ispc == 'pc'){
-				if(strPage != 'dataOfDetails'){
-					var thisUrl =  strUrl.replace(strPage,'dataOfDetails.html');
-					window.location.href=thisUrl;
-				}
-			}
-		})
+
 		$("a").focus(function(){this.blur()});
 		$("header").load("common/header.html");
 		$("footer").load("common/footer.html");

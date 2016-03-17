@@ -13,6 +13,24 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/pagination.css"/>
+	<script src="js/terminal.js"></script>
+	<script>
+			var strUrl = window.location.href;
+			var arrUrl = strUrl.split("/");
+			var strPage = arrUrl[arrUrl.length-1];
+			var indexof = strPage.indexOf("?");
+			if(indexof != -1){
+				strPage = strPage.substr(0,strPage.indexOf("?"));
+			}
+			var ispc = browserRedirect();
+			if(ispc == 'phone'){
+				if(strPage != 'searchPhone' ){
+					var thisUrl =  strUrl.replace(strPage,'searchPhone.html');
+					window.location.href=thisUrl;
+				}
+
+			}
+	</script>
 </head>
 
 <style>
@@ -114,25 +132,9 @@
 <script src="js/ajaxSetup.js"></script>
 <script src='js/errorDialog.js'></script>
 <script src="js/search.js"></script>
-<script src="js/terminal.js"></script>
-<script>
-	$(function(){
-		var strUrl = window.location.href;
-		var arrUrl = strUrl.split("/");
-		var strPage = arrUrl[arrUrl.length-1];
-		var indexof = strPage.indexOf("?");
-		if(indexof != -1){
-			strPage = strPage.substr(0,strPage.indexOf("?"));
-		}
-		var ispc = browserRedirect();
-		if(ispc == 'phone'){
-			if(strPage != 'searchPhone' ){
-				var thisUrl =  strUrl.replace(strPage,'searchPhone.html');
-				window.location.href=thisUrl;
-			}
 
-		}
-	})
+<script>
+
 	$("a").focus(function(){this.blur()});
 	$("header").load("common/header.html");
 	$("footer").load("common/footer.html");
