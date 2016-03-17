@@ -148,7 +148,7 @@ $(function(){
     function getcurrpullnum(tagpage){
         $.ajax({
             type: "get",
-            url:ngUrl+"/transactions/push?groupbydate=1&size=10&page="+tagpage,
+            url:ngUrl+"/transactions/push/"+repname+"/"+itemname+"?groupbydate=1&size=10&page="+tagpage,
             cache:false,
             async:false,
             headers:{Authorization: "Token "+account},

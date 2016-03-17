@@ -125,13 +125,18 @@ $(function(){
             delstr = '<span class="delcommentbtn">删除</span>';
         }
         if(listcon.replyto){
-            replytousername = '回复'+listcon.replyto.nickname;
+            if(loginitemname == listcon.replyto.username){
+                replytousername = '回复&nbsp;我';
+            }else{
+                replytousername = '回复&nbsp;'+listcon.replyto.nickname;
+            }
+
         }
         var createtime = listcon.createtime.replace(/[A-Z]/g, " ");
         var aplystr = '<div class="comListconwrop" datacomid="'+listcon.commentid+'">'+
             '<div class="replytousername">'+replytousername+'</div>'+
             '<div class="comnews '+myitemcolor+'">'+listcon.content+'</div>'+
-            '<span class="commenname towho" datanickname="'+ listcon.nickname +'">'+replythisname+'</span>'+
+            '<span class="commenname towho" datanickname="'+ replythisname +'">'+replythisname+'</span>'+
             '<div class="commentdate">'+createtime+'</div>'+
             '<div class="reply_wrop"><span class="reply_btn">回复</span>'+ delstr +'</div>'+
             '<div class="replytobox">'+replytostr+'</div>'+
@@ -275,7 +280,7 @@ $(function(){
     }
     ///////////////////发表评论///////////////////////
     function getissub(thisobj,orreply){
-        var issubscription = false;
+        var issubscription = 0;
         if($.cookie("token") == null || $.cookie("token") == 'null'){
             //$('.commenterr').html('您还没有登录')
             //$('#commemtalert').modal('toggle');
@@ -297,7 +302,7 @@ $(function(){
                     }
                 }
             });
-            if(issubscription == true || thistname == loginitemname){
+            if(issubscription > 0 || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
                 //$(thisobj).val('');
                 //$('.surplusnum').html('210');

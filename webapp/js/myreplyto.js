@@ -236,7 +236,7 @@ $(function(){
     }
     ///////////////////发表评论///////////////////////
     function getissub(thisobj,orreply){
-        var issubscription = false;
+        var issubscription = 0;
         if($.cookie("token") == null || $.cookie("token") == 'null'){
             //$('.commenterr').html('您还没有登录')
             //$('#commemtalert').modal('toggle');
@@ -247,18 +247,18 @@ $(function(){
         }else{
             $.ajax({
                 type:'get',
-                url: ngUrl + "/subscription/" + repoName + "/"+itemName,
+                url: ngUrl + "/subscriptions/pull/" + repoName + "/"+itemName+"?legal=1&size=1",
                 cache: false,
                 dataType:'json',
                 async: false,
                 headers: {Authorization: "Token " + $.cookie("token")},
                 success: function (msg) {
                     if(msg.code == 0){
-                        issubscription = msg.data;
+                        issubscription = msg.data.total;
                     }
                 }
             });
-            if(issubscription == true || thistname == loginitemname){
+            if(issubscription > 0 || thistname == loginitemname){
                 pushreplycom(thisobj,orreply);
                 //$(thisobj).val('');
                 //$('.surplusnum').html('210');
