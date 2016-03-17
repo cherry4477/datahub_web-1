@@ -248,7 +248,8 @@ $(document).ready(function(){
 
 
 //输入框有数据
-                    if (nickName.length>0||comment.length>0||userName.length>0)
+//                    if (nickName.length>0||comment.length>0||userName.length>0)
+					if (nickName.length>0||comment.length>0||userName.length>0)
                     {
 
 						$("#exampleInputName").attr("disabled",true);
@@ -269,10 +270,12 @@ $(document).ready(function(){
 						$("#exampleInputName2").val(nickName);
                         $("#textComment").val(comment);
 						$("#button01").css("display","block");
-						$("#exampleInputName").attr("disabled",false);
+//						$("#exampleInputName").attr("disabled",false);
 						$("#exampleInputName2").attr("disabled",false);
 						$("#textComment").attr("disabled",false);
 						$("#update_icon").css("display","none");
+						$("#exampleInputName").attr("disabled",true);
+
 
                     }
 				}
@@ -280,6 +283,7 @@ $(document).ready(function(){
 		$("#update_icon").click(function(){
             $("#button01").css("display","block");
 //            $("#exampleInputName").attr("disabled",false);//名称设置后不能修改
+			$("#exampleInputName").attr("disabled",true);
             $("#textComment").attr("disabled",false);
 			$("#exampleInputName2").attr("disabled",false);
 			$("#update_icon").css("display","none");
@@ -322,7 +326,8 @@ $(document).ready(function(){
 		mydata["username"] = $("#exampleInputName").val();
 		mydata["comments"] = $("#textComment").val();
 		mydata["nickname"] = $("#exampleInputName2").val();
-		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0)&&($("#exampleInputName2").val().length==0))
+//		if(($("#textComment").val().length==0)&&($("#exampleInputName").val().length==0)&&($("#exampleInputName2").val().length==0))
+		if(($("#textComment").val().length==0)&&($("#exampleInputName2").val().length==0))
 		{
 			$("#error_allEmpty").css("display","block");
 			$("#error_emptyName").css("display","none");
@@ -336,13 +341,13 @@ $(document).ready(function(){
 			$("#error_allEmpty").css("display","none");
 			$("#error_emptyComment").fadeOut(3500);
 		}
-		else if($("#exampleInputName").val().length==0)
+		/*else if($("#exampleInputName").val().length==0)
 		{
 			$("#error_emptyName").css("display","block");
 			$("#error_emptyComment").css("display","none");
 			$("#error_allEmpty").css("display","none");
 			$("#error_emptyName").fadeOut(3500);
-		}
+		}*/
 		else if($("#exampleInputName2").val().length==0)
 		{
 			$("#error_emptyName2").css("display","block");

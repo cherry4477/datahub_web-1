@@ -3,11 +3,13 @@
     padding: 50px 20px;
 }
 .contop{
-    background: #43609f none repeat scroll 0 0;
-    color: #ffffff;
+
+    border-bottom: 1px solid #e6e6e6;
+    color: #43609f;
+    font-size: 2rem;
     height: 40px;
     line-height: 40px;
-    padding: 0 20px;
+    /*padding: 0 20px;*/
     width: 100%;
 }
 .conment{
