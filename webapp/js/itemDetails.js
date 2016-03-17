@@ -453,11 +453,11 @@ function company(){
             if(label_owner==undefined){
             }else{
             var label_owner=json.data.label.owner;
-            if(label_owner!=undefined||label_owner!=null||label_owner!="null"){
-                //for( var lab in label_owner){
-                    $(".span_label").append($("<span></span>").text(label_owner.starwars));
-                //}
-            }
+                if(label_owner!=undefined||label_owner!=null||label_owner!="null"){
+                    //for( var lab in label_owner){
+                        $(".span_label").append($("<span></span>").text(label_owner.starwars));
+                    //}
+                }
             }
 
              if(label==null||label=="null"){
@@ -470,7 +470,6 @@ function company(){
                  if(label=="api")
                      $(".span_label").append($("<span style='border: 1px solid #eb6877;'></span>").text("API"));
              }
-
 
             var Sample=json.data.Sample;//样例数据
             $("#left_exam p:nth-child(2)").html(marked(Sample));
@@ -550,7 +549,6 @@ function company(){
             });
         }
     });
-
 }
 var nav_index = 0;
 function switchover(){
@@ -751,7 +749,7 @@ function hurry_buy(){
                                         var numsigns=json.data.numsigns;//订购次数
                                         if(limitNum>0&&numsigns>=limitNum){
                                             //alert("您的有限免费额度已经用完，请选择其他计费包。");
-                                            $("#limit_buy_alert").show().fadeOut(2500);
+                                            $("#limit_buy_alert").show().fadeOut(5000);
                                             limitBoo=false
                                         }
                                         else{
@@ -779,8 +777,6 @@ if(limitBoo){
         var supplyStyle;
         var prices;
         var subType=true;
-
-
         var headerToken={};
         $("#myModalLabel").text("数据订购合约");
             //登陆后
