@@ -18,6 +18,23 @@
     <link rel="stylesheet" href="css/editormd.css">
     <link rel="stylesheet" href="css/pagination.css">
     <link rel="stylesheet" href="css/replyto.css">
+    <script src="js/terminal.js"></script>
+    <script>
+            var strUrl = window.location.href;
+            var arrUrl = strUrl.split("/");
+            var strPage = arrUrl[arrUrl.length-1];
+            var indexof = strPage.indexOf("?");
+            if(indexof != -1){
+                strPage = strPage.substr(0,strPage.indexOf("?"));
+            }
+            var ispc = browserRedirect();
+            if(ispc == 'phone'){
+                if(strPage != 'itemDetailsPhone'){
+                    var thisUrl =  strUrl.replace(strPage,'itemDetailsPhone.html');
+                    window.location.href=thisUrl;
+                }
+            }
+    </script>
 
 </head>
 
@@ -110,7 +127,7 @@
                         </div>
                         <p id="cance_alert">您已取消成功！</p>
                         <p id="myself_alert">您不能订购自己的数据。</p>
-                        <p id="limit_buy_alert">您的有限免费额度已用完，<br>请选择其他计费包。</p>
+                        <p id="limit_buy_alert">您的有限额度已用完，<br>请选择其他计费包。</p>
 
                     </div>
                 </div>
@@ -328,8 +345,6 @@
         </div>
     </div>
 
-
-</div>
 <!--内容结束-->
 <footer></footer>
 <div id="loginTem"></div>
@@ -350,26 +365,11 @@
 <script src='js/marked.js'></script>
 <script src='js/replyto.js'></script>
 <script src='js/qrcode.js'></script>
-<script src="js/terminal.js"></script>
+
 
 
 <script>
-    $(function(){
-        var strUrl = window.location.href;
-        var arrUrl = strUrl.split("/");
-        var strPage = arrUrl[arrUrl.length-1];
-        var indexof = strPage.indexOf("?");
-        if(indexof != -1){
-            strPage = strPage.substr(0,strPage.indexOf("?"));
-        }
-        var ispc = browserRedirect();
-        if(ispc == 'phone'){
-            if(strPage != 'ItemDetailsPhone'){
-                var thisUrl =  strUrl.replace(strPage,'ItemDetailsPhone.html');
-                window.location.href=thisUrl;
-            }
-        }
-    })
+
     var str=[];
     var local_href=location.href;
     str=local_href.split(".html");

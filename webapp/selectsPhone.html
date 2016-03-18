@@ -9,6 +9,23 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <link rel="stylesheet" href="./css/selectsPhone.css">
+    <script src="js/terminal.js"></script>
+    <script>
+            var strUrl = window.location.href;
+            var arrUrl = strUrl.split("/");
+            var strPage = arrUrl[arrUrl.length-1];
+            var indexof = strPage.indexOf("?");
+            if(indexof != -1){
+                strPage = strPage.substr(0,strPage.indexOf("?"));
+            }
+            var ispc = browserRedirect();
+            if(ispc == 'pc'){
+                if(strPage != 'selects'){
+                    var thisUrl =  strUrl.replace(strPage,'selects.html');
+                    window.location.href=thisUrl;
+                }
+            }
+    </script>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -86,24 +103,9 @@
 
 </body>
 </html>
-<script src="js/terminal.js"></script>
+
 <script>
-    $(function(){
-        var strUrl = window.location.href;
-        var arrUrl = strUrl.split("/");
-        var strPage = arrUrl[arrUrl.length-1];
-        var indexof = strPage.indexOf("?");
-        if(indexof != -1){
-            strPage = strPage.substr(0,strPage.indexOf("?"));
-        }
-        var ispc = browserRedirect();
-        if(ispc == 'pc'){
-            if(strPage != 'selects'){
-                var thisUrl =  strUrl.replace(strPage,'selects.html');
-                window.location.href=thisUrl;
-            }
-        }
-    })
+
     $(document).on('touchstart','.replist',function(){
         $(this).css('background-color','#e8e8e8');
     });

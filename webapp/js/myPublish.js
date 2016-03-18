@@ -228,7 +228,7 @@ $(function() {
             '<img data-original-title="更新时间" class="iconiamg1 iconiamg2" src="images/newpic004.png" data-toggle="tooltip" datapalecement="top">'+
             '<span 	data-original-title="'+repotiems.jdTime+'" data-toggle="tooltip" datapalecement="top">'+repotiems.showTime+'</span>'+
             '<img data-original-title="item量" class="iconiamg1" src="images/newpic005.png" data-toggle="tooltip" datapalecement="top"/>'+
-            '<span>'+repocon.items+'</span>'+
+            '<span>'+repocon.dataitems.length+'</span>'+
             '<img  class="iconiamg1" data-original-title="属性" src="images/sx.png" data-toggle="tooltip" datapalecement="top">'+
             '<span>'+ispublic+'</span>'+
                 //'<img data-original-title="tag量" class="iconiamg1" src="images/tg.png" data-toggle="tooltip" datapalecement="top"/>'+

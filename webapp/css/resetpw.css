@@ -1,10 +1,7 @@
 .infoBox{
 	float: left;
 	margin-top: 40px;
-	border-top:5px solid #c8c8c8;
-	border-bottom: 1px solid #c8c8c8;
-	border-left: 1px solid #c8c8c8;
-	border-right: 1px solid #c8c8c8;
+	border:1px solid #c8c8c8;
 	width:740px;
 	height:500px;
 }
@@ -22,8 +19,9 @@
 	height: 20px;
 }
 .labelBox p{
-	
-	font:14px #ea0c1d;
+	font-size:14px;
+	color:#ea0c1d;
+	margin-left: 70px;
 }
 .input-group{
 	float: left;
@@ -45,18 +43,82 @@
 	font-size: 14px;
 	color: #c8c8c8;
 }
-#registration{	
-	margin-top: 30px;
-	margin-left: 245px;
-	margin-bottom: 30px;
+
+#registration{
 	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
 	font:18px bold;
 	color:#ffffff;
 	height:40px;
 	width:255px;
+	float: left;
+	margin-left: 258px;
+	margin-top: 50px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+#successed{
+	float: left;
+	border:1px solid #c8c8c8;
+	width: 100%;
 }
 #registration:hover{
 	background-image: linear-gradient(to bottom, #265a88 0%, #337ab7 100%) !important;
 	background-color:#337ab7;
 	color:#ffffff;
+}
+#success_con p{
+	text-align: center;
+	color: #50cd83;
+	line-height: 24px;
+}
+#success_con>div{
+	height: 18px;
+	width: 100%;
+	text-align: center;
+	margin-top:70px ;
+	margin-bottom: 80px;
+}
+#success_con>h3{
+	margin-top: 30px;
+	margin-left: 30px;
+}
+#reLog{
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	float: left;
+	margin-left: 230px;
+	margin-bottom: 50px;
+}
+#failed{
+	float: left;
+	border:1px solid #c8c8c8;
+	width: 100%;
+}
+#failed_con p:nth-child(1){
+	text-align: center;
+	color: #FF0000;
+	line-height: 24px;
+	margin-top: 80px;
+}
+#failed_con>h3{
+	margin-top: 30px;
+	margin-left: 30px;
+}
+#reforget{
+	background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+	font:18px bold;
+	color:#ffffff;
+	height:40px;
+	width:255px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	float: left;
+	margin-left: 230px;
+	margin-bottom: 50px;
+	margin-top: 85px;
 }

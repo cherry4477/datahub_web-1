@@ -9,6 +9,23 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
     <link rel="stylesheet" href="./css/itemDetailsPhone.css">
+    <script src="js/terminal.js"></script>
+    <script>
+            var strUrl = window.location.href;
+            var arrUrl = strUrl.split("/");
+            var strPage = arrUrl[arrUrl.length-1];
+            var indexof = strPage.indexOf("?");
+            if(indexof != -1){
+                strPage = strPage.substr(0,strPage.indexOf("?"));
+            }
+            var ispc = browserRedirect();
+            if(ispc == 'pc'){
+                if(strPage != 'itemDetails'){
+                    var thisUrl =  strUrl.replace(strPage,'itemDetails.html');
+                    window.location.href=thisUrl;
+                }
+            }
+    </script>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -90,24 +107,9 @@
 <footer></footer>
 <div id="loginTem"></div>
 </body>
-<script src="js/terminal.js"></script>
+
 <script>
-    $(function(){
-        var strUrl = window.location.href;
-        var arrUrl = strUrl.split("/");
-        var strPage = arrUrl[arrUrl.length-1];
-        var indexof = strPage.indexOf("?");
-        if(indexof != -1){
-            strPage = strPage.substr(0,strPage.indexOf("?"));
-        }
-        var ispc = browserRedirect();
-        if(ispc == 'pc'){
-            if(strPage != 'ItemDetails'){
-                var thisUrl =  strUrl.replace(strPage,'ItemDetails.html');
-                window.location.href=thisUrl;
-            }
-        }
-    })
+
     $("a").focus(function(){this.blur()});
     $("header").load("common/header.html");
     $("footer").load("common/footer.html");

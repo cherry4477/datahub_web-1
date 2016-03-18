@@ -279,7 +279,7 @@ word-break: break-all;*/
     font-size: 12px;
     font-weight: bold;
     top: 216px;
-    left: 797px;
+    left: 816px;
     color:#333333;
     height: 18px;
     display: none ;
@@ -691,6 +691,7 @@ word-break: break-all;*/
     color: #333333;
     padding-bottom: 20px;
     border-bottom:1px solid #8c97cb;
+    width: 260px;
 }
 .subtitle2{
     padding-top: 20px;

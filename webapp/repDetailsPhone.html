@@ -7,6 +7,21 @@
     <title>Repo详情手机页_DataHub阳光下的数据流通平台 全国首个去中心化、P2P大数据流通平台_数据共享经济_ 开源协议_数据互联网_免费数据</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/command.css">
+    <script src="js/terminal.js"></script>
+    <script>
+        var strUrl = window.location.href;
+        var arrUrl = strUrl.split("/");
+        var strPage = arrUrl[arrUrl.length-1];
+        var indexof = strPage.indexOf("?");
+        if(indexof != -1){
+            strPage = strPage.substr(0,strPage.indexOf("?"));
+        }
+        var ispc = browserRedirect();
+        if(ispc == 'pc'){
+                var thisUrl =  strUrl.replace(strPage,'repDetails.html');
+                window.location.href=thisUrl;
+        }
+    </script>
     <script language="JavaScript" src="./js/jquery.min.js"></script>
     <script language="JavaScript" src="./js/ngUrl.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -122,7 +137,7 @@
         }
         .pricestate{
             position: absolute;
-            right: 26%;
+            right: 16%;
             top: 15px;
             border: 1px solid #ff1c1c;
             border-radius: 2rem;
@@ -269,23 +284,10 @@
 <div id="loginTem"></div>
 </body>
 </html>
-<script src="js/terminal.js"></script>
+
 <script>
     $(function(){
-        var strUrl = window.location.href;
-        var arrUrl = strUrl.split("/");
-        var strPage = arrUrl[arrUrl.length-1];
-        var indexof = strPage.indexOf("?");
-        if(indexof != -1){
-            strPage = strPage.substr(0,strPage.indexOf("?"));
-        }
-        var ispc = browserRedirect();
-        if(ispc == 'pc'){
-            if(strPage != 'repDetails'){
-                var thisUrl =  strUrl.replace(strPage,'repDetails.html');
-                window.location.href=thisUrl;
-            }
-        }
+
     })
     $(document).on('touchstart','.liListwrop',function(){
         $(this).css('background-color','#e8e8e8');

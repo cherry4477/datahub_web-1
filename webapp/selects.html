@@ -12,6 +12,23 @@
 	<link rel="stylesheet" href="css/loader.css">
 	<link rel="stylesheet" href="css/selects.css">
 	<link rel="stylesheet" href="css/pagination.css"/>
+	<script src="js/terminal.js"></script>
+	<script>
+			var strUrl = window.location.href;
+			var arrUrl = strUrl.split("/");
+			var strPage = arrUrl[arrUrl.length-1];
+			var indexof = strPage.indexOf("?");
+			if(indexof != -1){
+				strPage = strPage.substr(0,strPage.indexOf("?"));
+			}
+			var ispc = browserRedirect();
+			if(ispc == 'phone'){
+				if(strPage != 'selectsPhone'){
+					var thisUrl =  strUrl.replace(strPage,'selectsPhone.html');
+					window.location.href=thisUrl;
+				}
+			}
+	</script>
 </head>
 <style>
 .pagination a, .pagination span{
@@ -62,7 +79,7 @@
 	<header></header>
 	<!--内容-->
 	<!--左侧导航-->
-	<div class="container" style="padding:0px; margin-top:50px;margin-bottom:100px;">
+	<div class="container" style="padding:0px; margin-top:50px;">
 		<div id="navigator" class="col-md-2 col-sm-2 navigator-background" style="width:220px;">
 			<ul id="navigator_ul" style="margin-top:45px;border-top:1px solid #748ab8;">
 <!--				<li ID="li1">
@@ -108,7 +125,7 @@
 			 </ul>
 		</div>
 		
-		<div class="container" ID="main" style="margin-left:265px;width:920px;">
+		<div class="container" ID="main" style="margin-left:265px;width:920px;margin-bottom:100px;">
 			<div class="title">
 				<p> 互联网专题</p>
 			</div>
@@ -180,24 +197,8 @@
 	<script src="js/ajaxSetup.js"></script>
 	<script src='js/errorDialog.js'></script>
 	<script src="js/jquery.pagination.js"></script>
-	<script src="js/terminal.js"></script>
+
 	<script>
-		$(function(){
-			var strUrl = window.location.href;
-			var arrUrl = strUrl.split("/");
-			var strPage = arrUrl[arrUrl.length-1];
-			var indexof = strPage.indexOf("?");
-			if(indexof != -1){
-				strPage = strPage.substr(0,strPage.indexOf("?"));
-			}
-			var ispc = browserRedirect();
-			if(ispc == 'phone'){
-				if(strPage != 'selectsPhone'){
-					var thisUrl =  strUrl.replace(strPage,'selectsPhone.html');
-					window.location.href=thisUrl;
-				}
-			}
-		})
 		$("a").focus(function(){this.blur()});
 		$("header").load("common/header.html");
 		$("footer").load("common/footer.html");

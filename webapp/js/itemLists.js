@@ -110,17 +110,22 @@ function ajaxFunHtml(type,size,page){
 		                    headers:headerToken,
 		                    success:function(json){
 		                    	comment=json.data.comment;
-		                    }
+		                    },
+		                    error:function(){}
 		        		});
 		        		//订单状态
 		        		var orderStatus=json.data.results[i].phase;
 		        		var btnStyle="padding: 10px 32px; border-top-width: 0px; ";
+		        		var disabled="";
+		        		var hreftxt="itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"";	        		
+		        		var hreftxtA="<a target='_blank' href="+hreftxt+">"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>";
 		        		if(orderStatus=="5"){
-		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+		        			//btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+		        			btnStyle="padding: 10px 32px; border-top-width: 0px;background-image: linear-gradient(to bottom, #666 0%, #666 100%);background-repeat: repeat-x;border-color: #666;"    	        		
 		        		}
-		        		if(orderStatus=="10"){
-		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
-		        		}
+//		        		if(orderStatus=="10"){
+//		        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
+//		        		}
 		        		
 		        		switch(orderStatus)
 		        		{
@@ -135,6 +140,8 @@ function ajaxFunHtml(type,size,page){
 		        			break;
 		        			case 5:
 		        				orderStatus="Item下线，订单失效";
+		        				disabled=" disabled";
+		        				hreftxtA="<span>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</span>";
 		        			break;
 		        			case 6:
 		        				orderStatus="管理员删除";
@@ -215,7 +222,7 @@ function ajaxFunHtml(type,size,page){
 		    	        			"<div style='width:1130px;' class='repo'>"+
 		    							"<div class='left'>"+
 		    								"<div class='repoName'>"+ 
-		    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+		    									hreftxtA+
 		    								"</div>"+
 		    								"<div class='description'>"+	
 		    									"<p>"+comment+"</p>"+
@@ -234,7 +241,7 @@ function ajaxFunHtml(type,size,page){
 		    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 		    						"</div>"+
 		    						"<div class='button'>"+
-		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
+		    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning"+disabled+"' type='button'>评论</a>"+
 		    						"</div>"+
 		    					"</div>"+
 		    				"</div>"
@@ -565,17 +572,23 @@ function ajaxTotal(type,size){
 	                    headers:headerToken,
 	                    success:function(json){
 	                    	comment=json.data.comment;
+	                    },
+	                    error:function(json){
 	                    }
 	        		});
 	        		//订单状态
 	        		var orderStatus=json.data.results[i].phase;
 	        		var btnStyle="padding: 10px 32px; border-top-width: 0px;";
+	        		var disabled="";
+	        		var hreftxt="itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"";	        		
+	        		var hreftxtA="<a target='_blank' href="+hreftxt+">"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>";
 	        		if(orderStatus=="5"){
-	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+	        			//btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 65px;";
+	        			btnStyle="padding: 10px 32px; border-top-width: 0px;background-image: linear-gradient(to bottom, #666 0%, #666 100%);background-repeat: repeat-x;border-color: #666;"
 	        		}
-	        		if(orderStatus=="10"){
-	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
-	        		}
+//	        		if(orderStatus=="10"){
+//	        			btnStyle="padding: 10px 32px; border-top-width: 0px; margin-top: 65px; margin-left: 100px;";
+//	        		}
 	        		
 	        		switch(orderStatus)
 	        		{
@@ -590,6 +603,8 @@ function ajaxTotal(type,size){
 	        			break;
 	        			case 5:
 	        				orderStatus="Item下线，订单失效";
+	        				disabled=" disabled";
+	        				hreftxtA="<span>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</span>";	        			
 	        			break;
 	        			case 6:
 	        				orderStatus="管理员删除";
@@ -670,7 +685,7 @@ function ajaxTotal(type,size){
 	    	        			"<div style='width:1130px;' class='repo'>"+
 	    							"<div class='left'>"+
 	    								"<div class='repoName'>"+ 
-	    									"<a target='_blank' href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"'>"+json.data.results[i].repname+"/"+json.data.results[i].itemname+"</a>"+ 
+	    									hreftxtA+
 	    								"</div>"+
 	    								"<div class='description'>"+	
 	    									"<p>"+comment+"</p>"+
@@ -682,15 +697,15 @@ function ajaxTotal(type,size){
 	    						"<div class='orderStatus'>"+	
 	    							"<p>"+orderStatus+"</p>"+
 	    						"</div>"+
-	    		
-	    						"<div class='price'>"+
+	    						"<div class='button' style='float:right;'>"+
+    								"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning"+disabled+"' type='button'>评论</a>"+
+    							"</div>"+
+	    						"<div class='price'  style='float:right;'>"+
 	    							"<p>价格:"+json.data.results[i].plan.money+"元/"+json.data.results[i].plan.units+supply_style+" 有效期"+json.data.results[i].plan.expire+"天</p>" +
 	    							"<p>失效日期："+expiretimeOrder+"</p>" +
 	    							"<div style='float:left;'>"+pullText+"<p style='float: left;margin-left:10px;margin-top: -5px;width: 100px;'>Pull："+pullnum+"</p></div>"+
 	    						"</div>"+
-	    						"<div class='button'>"+
-	    							"<a href='itemDetails.html?repname="+json.data.results[i].repname+"&itemname="+json.data.results[i].itemname+"&discuss=discuss' style='"+btnStyle+"' class='btn btn-warning' type='button'>评论</a>"+
-	    						"</div>"+
+
 	    					"</div>"+
 	    				"</div>"
 	                 ); 

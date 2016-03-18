@@ -406,7 +406,6 @@ function about_item(){
         dataType:'json',
         headers:headerToken,
         success:function(json){
-            console.log(json);
             if(json.code == 0){
                 $("#about>h3").text("关于"+itemName);
                 $("#about>article").text(json.data.comment);
@@ -454,11 +453,11 @@ function company(){
             if(label_owner==undefined){
             }else{
             var label_owner=json.data.label.owner;
-            if(label_owner!=undefined||label_owner!=null||label_owner!="null"){
-                //for( var lab in label_owner){
-                    $(".span_label").append($("<span></span>").text(label_owner.starwars));
-                //}
-            }
+                if(label_owner!=undefined||label_owner!=null||label_owner!="null"){
+                    //for( var lab in label_owner){
+                        $(".span_label").append($("<span></span>").text(label_owner.starwars));
+                    //}
+                }
             }
 
              if(label==null||label=="null"){
@@ -471,7 +470,6 @@ function company(){
                  if(label=="api")
                      $(".span_label").append($("<span style='border: 1px solid #eb6877;'></span>").text("API"));
              }
-
 
             var Sample=json.data.Sample;//样例数据
             $("#left_exam p:nth-child(2)").html(marked(Sample));
@@ -551,7 +549,6 @@ function company(){
             });
         }
     });
-
 }
 var nav_index = 0;
 function switchover(){
@@ -712,6 +709,10 @@ function hurry_buy(){
     }
     var limitBoo=false;
     $("#hurry_buy").click(function(e){
+    var headerToken={};
+    if($.cookie("token")!=null&&$.cookie("token")!="null"){
+        headerToken={Authorization:"Token "+$.cookie("token")};
+    }
         var repoName=getParam("repname");
         var itemName=getParam("itemname");
         $(".repnamePm").text(repoName);
@@ -725,6 +726,7 @@ function hurry_buy(){
             headers:headerToken,
             dataType:'json',
             success:function(json){
+
                 if(json.code == 0){
                    var  prices= json.data.price;
                     if(prices!=null||prices!=""){
@@ -745,9 +747,9 @@ function hurry_buy(){
                                 success:function(json){
                                     if(json.code==0){
                                         var numsigns=json.data.numsigns;//订购次数
-                                        if(limitNum>0&&numsigns>=limitNum&&price_plan=="限量试用"){
+                                        if(limitNum>0&&numsigns>=limitNum){
                                             //alert("您的有限免费额度已经用完，请选择其他计费包。");
-                                            $("#limit_buy_alert").show().fadeOut(2500);
+                                            $("#limit_buy_alert").show().fadeOut(5000);
                                             limitBoo=false
                                         }
                                         else{
@@ -775,8 +777,6 @@ if(limitBoo){
         var supplyStyle;
         var prices;
         var subType=true;
-
-
         var headerToken={};
         $("#myModalLabel").text("数据订购合约");
             //登陆后
@@ -1616,7 +1616,6 @@ function hot(){
         dataType:'json',
         headers:headerToken,
         success:function(json) {
-            console.log(json.data);
             var iname=json.data.dataitems;
             var item_exist=$("#titleName .itemname").text();
             for (i=0;i<json.data.dataitems.length;i++){
