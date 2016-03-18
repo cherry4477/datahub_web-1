@@ -162,7 +162,7 @@ $(function(){
                         str += '<div class="pullListcon">'+
                             '<div class="pullalltaglist">'+
                             '<div class="pullusername">'+msg.data.results[i].pulls[j].buyername+'</div>'+
-                            '<div class="pullthistime">'+msg.data.results[i].pulls[j].pulltime+'</div>'+
+                            '<div class="pullthistime">'+msg.data.results[i].pulls[j].pulltime.substr(11,8)+'</div>'+
                             '<div class="pulltagName">'+msg.data.results[i].pulls[j].tag+'</div>'+
                             '</div>'+
                             '</div>';
