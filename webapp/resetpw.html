@@ -130,13 +130,33 @@
 			return value;
 		}
 	$(document).ready(function(){
-
-
+		var loginname=getParam("regname");
+		$.ajax({
+			//Judgment link Enabled
+			url: ngUrl + "/users/" + loginname + "/validateLink",
+			type: "get",
+			contentType: "application/json",
+			cache: false,
+			async: false,
+			dataType: 'json',
+			success: function (json) {
+				if(json.code==0){
+					var result=json.data.result;
+					if(result==2){
+						$('#failed').show();
+						$('.infoBox').hide();
+					}
+					else{
+						$('#failed').hide();
+						$('.infoBox').show();
+					}
+				}
+			}
+		})
 		$("#reforget").click(function(){
 			$('#myModal').modal('hide');
 			$('#fine').modal('show');
 		});
-
 		$("#ps").blur(function(){
 			if (($("#ps").val())==""){
 				$("#label_four").siblings().finish().hide();
@@ -223,7 +243,6 @@
 			}
 			var myps = $.md5($("#ps").val());
 			var sid = getParam("sid");
-			var loginname=getParam("regname");
 			if(a*b*c*d*e==1){
 				$.ajax({
 					//sending email

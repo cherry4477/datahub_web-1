@@ -185,7 +185,6 @@ function gonextpage(nextpages){
 
                     }
                     //$("<div></div>").addClass("left_content_page").appendTo($left_content);
-
                 }
             },
             error:function(json){
