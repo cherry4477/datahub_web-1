@@ -147,15 +147,23 @@ function gonextpage(nextpages){
                         var $content1_copy = $("<div></div>").addClass("content1_copy").appendTo($content);
                         var $content1_copy_div = $content1_copy.append("<div></div>");
                         $content1_copy_div.append($("<input type='text'>").attr("value", repoName+"/"+ itemName+":"+ tag_tag).attr("id", "input_copy" + i).attr("readonly","readonly"));
-                        var clipbtn = $("<button>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i);
+                       // var clipbtn = $("<button>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i);
+                        var clipbtn = $("<button title='复制tag地址，用于Client端下载' class='copyclip'>复制</button>").attr("data-clipboard-action", "copy").attr("data-clipboard-target", "#input_copy" + i).attr("data-clipboard-target-zero", "input_copy" + i);   
                         //复制功能
-                        var clipboard = new Clipboard(clipbtn.get(0));
-                        clipboard.on('success', function (e) {
-                            alert("复制成功!");
-                        });
-                        clipboard.on('error', function (e) {
-                            alert("暂不支持此浏览器,请手动复制或更换浏览器!");
-                        });
+//                        var clip = new ZeroClipboard(clipbtn.get(0));
+//                		clip.on('aftercopy', function(event) {
+//                	        alert("123");
+//                	    });
+//                        var clipboard = new Clipboard(clipbtn.get(0));
+//                        clipboard.on('success', function (e) {
+//                            alert("复制成功!");
+//                        });
+//                        clipboard.on('error', function (e) {
+//                            alert("error");
+//                        });
+                        
+                        
+                    	
                         //复制功能结束
                         $content1_copy_div.append(clipbtn);
 
@@ -1500,7 +1508,51 @@ function getComment(repoName){
 
 $(document).ready(function(){
     hot();
+    
+    //新增复制功能
+    var i_flash;
+	var v_flash;
+	if (navigator.plugins) {
+		for (var i=0; i < navigator.plugins.length; i++) {
+			if (navigator.plugins[i].name.toLowerCase().indexOf("shockwave flash") >= 0) {
+				i_flash = true;
+				v_flash = navigator.plugins[i].description.substring(navigator.plugins[i].description.toLowerCase().lastIndexOf("flash ") + 6, navigator.plugins[i].description.length);
+			}
+		}
+	}
+	if (i_flash) {
+			var clip = new ZeroClipboard($(".copyclip"));
+			clip.on('aftercopy', function(event) {
+				copytip("复制成功",$(event.target))
+		    });
+			clip.on('error', function (e) {
+				copytip("复制失败",$(event.target))
+		    });
+	}else{
+	      var clipboard = new Clipboard(".copyclip");
+	      clipboard.on('success', function (e) {
+	    	  copytip("复制成功",$(e.trigger.outerHTML))
+	      });
+	      clipboard.on('error', function (e) {
+	    	  copytip("复制失败",$(e.trigger.outerHTML))
+	      });			
+	}
+	
+	$("button").focus(function(){this.blur()});
+    
 });
+
+//复制提示
+function copytip(text,event){
+	$("#tttcopys").remove();
+	event.after("" +
+			"<div style='float: right;margin-right: 22px;margin-top: -80px;' id='tttcopys' class='fadeInUp animated'>"+
+				"<div class='tooltip-inner' style='background-color:#8c97cb;'>"+text+"</div>"+
+		    "</div>"
+	);
+	setTimeout("$('#tttcopys').addClass('fadeOut')", 1000);
+}
+
 
 //the amount of like:star
 function subscription(itemName){
