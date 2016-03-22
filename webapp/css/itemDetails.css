@@ -471,11 +471,12 @@ word-break: break-all;*/
     text-overflow:ellipsis;
 }
 .content .content1_time{
-    width:235px;
+    /* width:235px; */
     float: left;
     height: 80px;
     /*padding-left: 10px;*/
     text-align: center;
+    width:190px;
 }
 .content .content1_time>span:nth-child(1) {
     background-image: url('/images/icon_time.png');
@@ -514,11 +515,11 @@ word-break: break-all;*/
     color:#333;
 }
 .content .content1_copy{
-    width: 220px;
+    /* width: 220px; */
     height: 80px;
     float: left;
     padding-top: 20px;
-
+	width:250px;
 }
 .content .content1_copy>div{
     overflow: hidden;
