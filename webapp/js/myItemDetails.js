@@ -19,6 +19,11 @@ $(function(){
 
     var repname = getParam("repname");
     var itemname = getParam("itemname");
+    var mark = getParam("mark");
+    if(mark == 'mark'){
+        $('.itembtNav li').eq(2).addClass('borderBt').siblings().removeClass('borderBt');
+        $('.itembottomcon > li').eq(2).show().siblings().hide();
+    }
     $('.renameitem').html(repname);
     $('.renameitem').attr("href","myPublish.html?repname="+repname);
     $('.itemnameitem').html("&nbsp;/&nbsp;"+itemname);
