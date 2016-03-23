@@ -520,6 +520,7 @@ word-break: break-all;*/
     float: left;
     padding-top: 20px;
 	width:250px;
+    position: relative;
 }
 .content .content1_copy>div{
     overflow: hidden;
@@ -531,12 +532,15 @@ word-break: break-all;*/
     border-right-width: 0px;
     font-size: 12px;
     padding-top: 3px;
+    position: absolute;
 }
 .content .content1_copy button{
     height:45px;
     width: 60px;
     border: 1px solid;
     background-image: linear-gradient(to bottom ,#f7fafc 0%,#eff5f9 100%);
+    position: absolute;
+    left: 160px;
 }
 .content .content1_download{
     width: 85px;
