@@ -343,9 +343,9 @@ $(function(){
     //////////////////////元数据、样例数据/////////////////////
     function metadatabox(){
         $('.metaList').empty();
-        var str =  '<div class="metatitle">样例 <div class="editmeta"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample" >修改</a></div></div>'+
+        var str =  '<div class="metatitle">样例 <a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample"><div class="editmeta">修改</div></a></div>'+
             '<div class="metabox" id="metadata">'+marked(sample)+'</div>'+
-            '<div class="metatitle" style="margin-top:20px;">元数据<div class="editsample"><a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" >修改</a></div></div>'+
+            '<div class="metatitle" style="margin-top:20px;">元数据<a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" ><div class="editsample">修改</div></a></div>'+
             '<div class="metabox metadata-con markdown-body" id="sampledata">'+marked(meta)+'</div>';
         $('.metaList').append(str);
     }
