@@ -541,6 +541,7 @@ word-break: break-all;*/
     background-image: linear-gradient(to bottom ,#f7fafc 0%,#eff5f9 100%);
     position: absolute;
     left: 160px;
+    z-index: 100;
 }
 .content .content1_download{
     width: 85px;
