@@ -131,9 +131,10 @@
 		}
 	$(document).ready(function(){
 		var loginname=getParam("regname");
+		var sid = getParam("sid");
 		$.ajax({
 			//Judgment link Enabled
-			url: ngUrl + "/users/" + loginname + "/validateLink",
+			url: ngUrl + "/users/" + loginname + "/validateLink?sid="+sid,
 			type: "get",
 			contentType: "application/json",
 			cache: false,
