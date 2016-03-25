@@ -261,10 +261,10 @@
 }
 
 .tooltip-inner {
-    background-color:#43609f;
+    /*background-color:#43609f;*/
 }
 .tooltip.top .tooltip-arrow{
-	border-top-color:#43609f;
+	/*border-top-color:#43609f;*/
 }
 
 /*最热rep*/
