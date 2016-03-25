@@ -216,6 +216,7 @@ $(function(){
     var supply_style;
     var allpricecon;
     var thisitemispublic = '';
+    var isexiteditmeta = true;
     function tagbox(pages){
         $(".filletspan .personaltag").remove();
         var ispagetags = 0;
@@ -239,8 +240,7 @@ $(function(){
                         thisiscooperatestatname = getrealnames(msg.data.create_user);
                         $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;协作');
                         $('.itemListName-icon').hide();
-                        $('.editmeta').hide();
-                        $('.editsample').hide();
+                        isexiteditmeta = false;
                         $('.itembtNav li').eq(1).hide();
                         $('.itembottomcon > li').eq(1).hide();
                     }else if(msg.data.cooperatestate == '协作中'){
@@ -354,9 +354,18 @@ $(function(){
     //////////////////////元数据、样例数据/////////////////////
     function metadatabox(){
         $('.metaList').empty();
-        var str =  '<div class="metatitle">样例 <a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample"><div class="editmeta">修改</div></a></div>'+
+        var str1 = '';
+        var str2 = '';
+        if(isexiteditmeta == false){
+            str1 = '';
+            str2 = '';
+        }else{
+            str1 = '<a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=sample"><div class="editmeta">修改</div></a>';
+            str2 = '<a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" ><div class="editsample">修改</div></a>';
+        }
+        var str =  '<div class="metatitle">样例 '+ str1 +'</div>'+
             '<div class="metabox" id="metadata">'+marked(sample)+'</div>'+
-            '<div class="metatitle" style="margin-top:20px;">元数据<a href="myMark.html?repname='+repname+'&itemname='+itemname+'&type=meta" ><div class="editsample">修改</div></a></div>'+
+            '<div class="metatitle" style="margin-top:20px;">元数据'+ str2 +'</div>'+
             '<div class="metabox metadata-con markdown-body" id="sampledata">'+marked(meta)+'</div>';
         $('.metaList').append(str);
     }
