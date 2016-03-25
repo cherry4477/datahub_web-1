@@ -176,7 +176,13 @@ $(function(){
                     str += '</div>';
                     $('.pullListcomment').append(str);
                 }
-
+            }, error:function (XMLHttpRequest, textStatus, errorThrown)
+            {
+                if(XMLHttpRequest.status == 401){
+                    if($.parseJSON(XMLHttpRequest.responseText).code == 5005){
+                        $('.pullListcomment').html('');
+                    }
+                }
 
             }
         });
@@ -209,7 +215,7 @@ $(function(){
     var itemaccesstype;
     var supply_style;
     var allpricecon;
-    var thisitemispublic
+    var thisitemispublic = '';
     function tagbox(pages){
         $(".filletspan .personaltag").remove();
         var ispagetags = 0;
@@ -232,6 +238,11 @@ $(function(){
                     if(msg.data.cooperatestate == '协作'){
                         thisiscooperatestatname = getrealnames(msg.data.create_user);
                         $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;协作');
+                        $('.itemListName-icon').hide();
+                        $('.editmeta').hide();
+                        $('.editsample').hide();
+                        $('.itembtNav li').eq(1).hide();
+                        $('.itembottomcon > li').eq(1).hide();
                     }else if(msg.data.cooperatestate == '协作中'){
                         thisiscooperatestatname = getrepocurname();
                         $('.thisiscooperatestatname').html('由&nbsp;'+thisiscooperatestatname+'&nbsp;邀请协作');
@@ -645,6 +656,8 @@ $(function(){
             {
                 if(XMLHttpRequest.status == 400){
                      $('.baimingdan').html('白名单管理(0)');
+                }else if(XMLHttpRequest.status == 401){
+
                 }
 
             }
@@ -690,8 +703,9 @@ $(function(){
             {
                 if(XMLHttpRequest.status == 400){
                     $('.baimingdan').html('白名单管理(0)');
-                }
+                }else if(XMLHttpRequest.status == 401){
 
+                }
             }
         });
 

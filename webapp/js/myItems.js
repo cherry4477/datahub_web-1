@@ -57,7 +57,7 @@ function getitemlist(){
                 thiscoopername = '<br/><span style="margin-top:15px;font-size: 12px;color:#666">由&nbsp;'+getrealnames(json.data.create_user)+'&nbsp;邀请协作</span>';
             }
             $("#list_title").append(thiscoopername);
-            len=json.data.items;
+            len=json.data.itemsize;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
             if(item_Arr==undefined){
@@ -171,7 +171,7 @@ function getnextpage(nextpages){
         headers:{Authorization: "Token "+account},
         dataType: 'json',
         success: function (json) {
-            len=json.data.items;
+            len=json.data.itemsize;
             var item_Arr=json.data.dataitems;
             var $table_content=$(".table_content");
             if(item_Arr==undefined){

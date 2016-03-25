@@ -94,7 +94,7 @@ $(function() {
     ////////////////获取repo详细信息
     function getrepocon(thisrepoame){
         $.ajax({
-            url: ngUrl+"/repositories/"+thisrepoame.repname+"?items=1&myRelease=1",
+            url: ngUrl+"/repositories/"+thisrepoame.repname+"?items=update_time_down&myRelease=1",
             type: "get",
             cache:false,
             async:false,
