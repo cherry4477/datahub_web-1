@@ -1546,7 +1546,7 @@ $(document).ready(function(){
 function copytip(text,event){
 	$("#tttcopys").remove();
 	event.after("" +
-			"<div style='float: right;margin-right: 22px;margin-top: -80px;' id='tttcopys' class='fadeInUp animated'>"+
+			"<div style='float: right;margin-right: 22px;margin-top: -40px;' id='tttcopys' class='fadeInUp animated'>"+
 				"<div class='tooltip-inner' style='background-color:#8c97cb;'>"+text+"</div>"+
 		    "</div>"
 	);

@@ -520,6 +520,7 @@ word-break: break-all;*/
     float: left;
     padding-top: 20px;
 	width:250px;
+    position: relative;
 }
 .content .content1_copy>div{
     overflow: hidden;
@@ -531,12 +532,16 @@ word-break: break-all;*/
     border-right-width: 0px;
     font-size: 12px;
     padding-top: 3px;
+    position: absolute;
 }
 .content .content1_copy button{
     height:45px;
     width: 60px;
     border: 1px solid;
     background-image: linear-gradient(to bottom ,#f7fafc 0%,#eff5f9 100%);
+    position: absolute;
+    left: 160px;
+    z-index: 100;
 }
 .content .content1_download{
     width: 85px;
@@ -966,3 +971,21 @@ word-break: break-all;*/
 #big-qrcode>span{
     position: relative;
 }
+
+/*select 样式*/
+#LT-right .price-style {
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: solid 1px #ccc;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    background: url("../images/arrow.png") no-repeat scroll right center transparent  !important;
+
+    background-position: 1px 1px;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 14px;
+}
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; !important; }

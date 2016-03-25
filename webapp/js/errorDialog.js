@@ -7,6 +7,7 @@ var errorDialog=function(num,code,msg){
 		break;
 		case 401:
 			str="登录失败，请重新登录";
+			location.href="/";
 		break;
 		case 502:
 			str="错误网关";
